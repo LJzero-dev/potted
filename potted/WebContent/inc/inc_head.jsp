@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../css/style.css">
 <title>Insert title here</title>
 <style>
+html, body {margin:0; padding:0;}
 body, th, td, div, p { font-size:12px; }
 ul,ol,li {list-style:none;}
 a:link { text-decoration:none; color:black; }
@@ -25,7 +26,13 @@ a:hover { text-decoration:underline; color:red; }
 <body>
 <header id="header">
     <div class="header-inner">
-        <h1><a href="/" class="logo"></a></h1>
+        <h1><a href="" class="logo"><img src="../images/logo.jpg" /></a></h1>
+        <div class="top_search clear">
+	        <div class="inner_search">
+	          <input class="in_keyword" type="text" name="search" id="preSWord" title="검색어 입력" value="" placeholder="search">
+	        </div>
+	        <button class="search" id="searchSubmit"><span class="blind">검색</span></button>
+        </div>
         <div class="gnb">
             <ul class="menu">
                 <li><a href="" class="dep01">STORE</a></li>

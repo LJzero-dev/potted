@@ -1,9 +1,15 @@
 @charset "EUC-KR";
 
 /* header */
-#header {position:relative; height:130px; left:0; right:0; z-index:100;}
-#header .header-inner {position:absolute; width:100%; min-width:1300px; padding:0; left:0; top:0; z-index:101;}
-#header .header-inner .menu {display:flex; width:100%; justify-content:center; margin:60px auto; padding: 0; line-height:1.5;}
+#header {position:relative; height:160px; left:0; right:0; z-index:100;}
+#header .header-inner {position:absolute; width:100%; min-width:1440px; padding:0; left:0; top:0; z-index:101;}
+#header .header-inner .menu {position:absolute; display:flex; width:100%; top:46%; justify-content:center; margin:20px auto; padding: 0; line-height:1.5;}
 #header .header-inner .menu > li {max-width:145px; min-width:130px; margin:0 20px;}
-#header .header-inner .gnb .dep01 {position:relative; display:block; padding:31px 0 29px; margin-bottom:-2px; font-size:18px; font-weight:500; line-height:1.5; color:#222; text-align:center;  z-index:3;}
+#header .header-inner .gnb .dep01 {position:relative; display:block; padding:16px 0; margin-bottom:-2px; font-size:20px; font-weight:500; line-height:1.5; color:#222; text-align:center;  z-index:3;}
+#header .header-inner .logo {display:block; width:200px; margin-left:65px;}
+#header .header-inner .logo img {width:100%;}
 
+.top_search {position:absolute; width:610px; height:46px; top:13%; left:50%; transform:translate(-50%); border:1px solid #1cad0a;}
+.inner_search {width:561px; float:left; background:#fff; margin:4px 0 0 4px;}
+.in_keyword {width:540px; background:transparent; height:38px; padding:0 9px; border:none; outline:none; color:#333; font-size:14px; font-weight:bold;}
+.search {float:left; width:45px; height:44px; background-position: 0 0; background: url(../images/icn_search.svg) no-repeat transparent 50%; border:0; font-size:0; cursor:pointer;}
