@@ -25,9 +25,7 @@ a:hover { text-decoration:underline; color:red; }
 <body>
 <header id="header">
     <div class="header-inner">
-        <h1>
-            <a href="/" class="logo"></a>
-        </h1>
+        <h1><a href="/" class="logo"></a></h1>
         <div class="gnb">
             <ul class="menu">
                 <li><a href="" class="dep01">STORE</a></li>
@@ -35,7 +33,7 @@ a:hover { text-decoration:underline; color:red; }
                 <li><a href="" class="dep01">MY PLANT</a></li>
                 <li><a href="" class="dep01">AUCTION</a></li>
                 <li><a href="" class="dep01">SERVICE</a></li>
-            </div>
+            </ul>
         </div>
-    </div>
+	</div>
 </header>
