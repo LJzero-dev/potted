@@ -1,0 +1,9 @@
+@charset "EUC-KR";
+
+/* header */
+#header {position:relative; height:130px; left:0; right:0; z-index:100;}
+#header .header-inner {position:absolute; width:100%; min-width:1300px; padding:0; left:0; top:0; z-index:101;}
+#header .header-inner .menu {display:flex; width:100%; justify-content:center; margin:60px auto; padding: 0; line-height:1.5;}
+#header .header-inner .menu > li {max-width:145px; min-width:130px; margin:0 20px;}
+#header .header-inner .gnb .dep01 {position:relative; display:block; padding:31px 0 29px; margin-bottom:-2px; font-size:18px; font-weight:500; line-height:1.5; color:#222; text-align:center;  z-index:3;}
+
