@@ -64,5 +64,4 @@ public class MemberAddr {
 		this.ma_idx = ma_idx;
 	}
 	
-	
 }
