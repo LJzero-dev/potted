@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="/potted/resources/css/style.css">
 <title>Insert title here</title>
 <style>
 body, th, td, div, p { font-size:12px; }
@@ -24,9 +24,13 @@ a:hover { text-decoration:underline; color:red; }
 <body>
 <header id="header">
     <div class="header_inner">
-        <h1>
-            <a href="/" class="logo"></a>
-        </h1>
+        <h1><a href="" class="logo"><img src="/potted/resources/images/logo.jpg" /></a></h1>
+        <div class="top_search clear">
+            <div class="inner_search">
+              <input class="in_keyword" type="text" name="search" id="preSWord" title="검색어 입력" value="" placeholder="search">
+            </div>
+            <button class="search" id="searchSubmit"><span class="blind">검색</span></button>
+        </div>
         <div class="gnb">
             <ul class="menu">
                 <li><a href="" class="dep01">STORE</a></li>
@@ -37,7 +41,7 @@ a:hover { text-decoration:underline; color:red; }
             </ul>
         </div>
         <div class="gnb_util">
-            <a href="javascript:void(0);" class="cartBtn"><img src="/potted/images/cart_icon.png"></a>
+            <a href="javascript:void(0);" class="cartBtn"><img src="/potted/resources/images/cart_icon.png"></a>
             <span>10</span>
             <div class="infor">
                 <!-- <a href="javascript:void(0);" class="login">로그인</a> -->

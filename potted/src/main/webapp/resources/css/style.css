@@ -19,7 +19,7 @@
 .top_search {position:absolute; width:610px; height:46px; top:13%; left:50%; transform:translate(-50%); border:1px solid #1cad0a;}
 .inner_search {width:561px; float:left; background:#fff; margin:4px 0 0 4px;}
 .in_keyword {width:540px; background:transparent; height:38px; padding:0 9px; border:none; outline:none; color:#333; font-size:14px; font-weight:bold;}
-.search {float:left; width:45px; height:44px; background-position: 0 0; background: url(../images/icn_search.svg) no-repeat transparent 50%; border:0; font-size:0; cursor:pointer;}
+.search {float:left; width:45px; height:44px; background-position: 0 0; background: url(/potted/resources/images/icn_search.svg) no-repeat transparent 50%; border:0; font-size:0; cursor:pointer;}
 
 .gnb_util {position:absolute; display:flex; top:65%; right:10%;}
 .gnb_util .cartBtn {display:block; width:50px;}
