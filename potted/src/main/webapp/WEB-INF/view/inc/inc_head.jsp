@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="/potted/resources/css/style.css">
-<title>Insert title here</title>
+<title>potted</title>
 <style>
 body, th, td, div, p { font-size:12px; }
 ul,ol,li {list-style:none;}
@@ -51,5 +51,3 @@ a:hover { text-decoration:underline; color:red; }
         </div>
     </div>
 </header>
-</body>
-</html>
