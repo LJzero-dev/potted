@@ -31,7 +31,7 @@ a:hover { text-decoration:underline; color:red; }
 </head>
 <body>
 <header id="header">
-    <div class="header-inner">
+    <div class="header_inner">
         <h1><a href="" class="logo"><img src="/potted/images/logo.jpg" /></a></h1>
         <div class="top_search clear">
 	        <div class="inner_search">
@@ -47,6 +47,15 @@ a:hover { text-decoration:underline; color:red; }
                 <li><a href="" class="dep01">AUCTION</a></li>
                 <li><a href="" class="dep01">SERVICE</a></li>
             </ul>
+        </div>
+        <div class="gnb_util">
+        	<a href="javascript:void(0);" class="cartBtn"><img src="/potted/images/cart_icon.png"></a>
+        	<span>10</span>
+        	<div class="infor">
+        		<!-- <a href="javascript:void(0);" class="login">로그인</a> -->
+        		<a href="javascript:void(0);" class="minfor">회원정보</a>
+        		<a href="javascript:void(0);" class="logout">로그아웃</a>
+        	</div>
         </div>
 	</div>
 </header>
