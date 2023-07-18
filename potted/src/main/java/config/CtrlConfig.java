@@ -31,4 +31,9 @@ public class CtrlConfig {
 	public OrderFormCtrl orderFormCtrl() {
 		return new OrderFormCtrl();
 	}
+	
+	@Bean
+	public LoginFormCtrl loginFormCtrl() {
+		return new LoginFormCtrl();
+	}
 }
