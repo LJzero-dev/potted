@@ -33,7 +33,7 @@ a:hover { text-decoration:underline; color:red; }
         </div>
         <div class="gnb">
             <ul class="menu">
-                <li><a href="" class="dep01">STORE</a></li>
+                <li><a href="productList" class="dep01">STORE</a></li>
                 <li><a href="" class="dep01">COMMUNITY</a></li>
                 <li><a href="" class="dep01">MY PLANT</a></li>
                 <li><a href="" class="dep01">AUCTION</a></li>

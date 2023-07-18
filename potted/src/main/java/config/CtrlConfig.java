@@ -12,4 +12,9 @@ public class CtrlConfig {
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
 	}
+	
+	@Bean
+	public ProductListCtrl productListCtrl() {
+		return new ProductListCtrl();
+	}
 }
