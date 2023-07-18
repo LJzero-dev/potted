@@ -26,4 +26,9 @@ public class CtrlConfig {
 	public ProductListCtrl productListCtrl() {
 		return new ProductListCtrl();
 	}
+	
+	@Bean
+	public OrderFormCtrl orderFormCtrl() {
+		return new OrderFormCtrl();
+	}
 }
