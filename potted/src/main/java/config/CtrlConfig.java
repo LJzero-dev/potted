@@ -2,7 +2,8 @@ package config;
 
 import org.springframework.context.annotation.*;
 
-import index.*;
+import ctrl.IndexCtrl;
+import ctrl.*;
 
 
 @Configuration
