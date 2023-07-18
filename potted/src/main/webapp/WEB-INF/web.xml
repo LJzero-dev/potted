@@ -30,14 +30,6 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>LoginForm</servlet-name>
-		<url-pattern>/LoginForm</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>LoginProcCtrl</servlet-name>
-		<url-pattern>/LoginProcCtrl</url-pattern>
-	</servlet-mapping>
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
