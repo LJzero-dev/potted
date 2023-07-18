@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MyPlantCtrl {
 	@GetMapping("/myPlant")
 	public String myPlant() {
-		return "/myPlant/my_plant";
+		return "/myPlant/plant_grow_up";
 	}
 }
