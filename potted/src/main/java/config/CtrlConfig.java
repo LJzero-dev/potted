@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import ctrl.AuctionCtrl;
 import ctrl.IndexCtrl;
 import ctrl.MyPlantCtrl;
+import ctrl.ProductListCtrl;
 import test.TestCtrl;
 
 
@@ -15,7 +16,6 @@ public class CtrlConfig {
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
 	}
-<<<<<<< HEAD
 	@Bean
 	public MyPlantCtrl myPlantCtrl() {
 		return new MyPlantCtrl();
@@ -27,11 +27,9 @@ public class CtrlConfig {
 	@Bean
 	public TestCtrl test() {
 		return test();
-=======
-	
+	}
 	@Bean
 	public ProductListCtrl productListCtrl() {
 		return new ProductListCtrl();
->>>>>>> origin/main
 	}
 }
