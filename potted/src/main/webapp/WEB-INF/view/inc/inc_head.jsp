@@ -35,8 +35,8 @@ a:hover { text-decoration:underline; color:red; }
             <ul class="menu">
                 <li><a href="productList" class="dep01">STORE</a></li>
                 <li><a href="" class="dep01">COMMUNITY</a></li>
-                <li><a href="" class="dep01">MY PLANT</a></li>
-                <li><a href="" class="dep01">AUCTION</a></li>
+                <li><a href="myPlant" class="dep01">MY PLANT</a></li>
+                <li><a href="auction" class="dep01">AUCTION</a></li>
                 <li><a href="" class="dep01">SERVICE</a></li>
             </ul>
         </div>
