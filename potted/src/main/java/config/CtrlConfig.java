@@ -15,6 +15,7 @@ public class CtrlConfig {
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
 	}
+<<<<<<< HEAD
 	@Bean
 	public MyPlantCtrl myPlantCtrl() {
 		return new MyPlantCtrl();
@@ -26,5 +27,11 @@ public class CtrlConfig {
 	@Bean
 	public TestCtrl test() {
 		return test();
+=======
+	
+	@Bean
+	public ProductListCtrl productListCtrl() {
+		return new ProductListCtrl();
+>>>>>>> origin/main
 	}
 }
