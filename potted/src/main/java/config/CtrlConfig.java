@@ -3,12 +3,7 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import ctrl.AuctionCtrl;
-import ctrl.IndexCtrl;
-import ctrl.MyPlantCtrl;
-import ctrl.ProductListCtrl;
-import test.TestCtrl;
-
+import ctrl.*;
 
 @Configuration
 public class CtrlConfig {	
@@ -16,10 +11,12 @@ public class CtrlConfig {
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
 	}
+	
 	@Bean
 	public MyPlantCtrl myPlantCtrl() {
 		return new MyPlantCtrl();
 	}
+	
 	@Bean
 	public AuctionCtrl auctionCtrl() {
 		return new AuctionCtrl();
@@ -27,5 +24,15 @@ public class CtrlConfig {
 	@Bean
 	public ProductListCtrl productListCtrl() {
 		return new ProductListCtrl();
+	}
+	
+	@Bean
+	public OrderFormCtrl orderFormCtrl() {
+		return new OrderFormCtrl();
+	}
+	
+	@Bean
+	public LoginFormCtrl loginFormCtrl() {
+		return new LoginFormCtrl();
 	}
 }

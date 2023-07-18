@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../inc/inc_head.jsp" %>
 MY PLANT
-<div style="width:1200px; margin: 0 auto; position:relative; background: aqua;" >
-<div style="position:absolute; right:0px;; background:808080;" >
+<div style="width:1200px; margin: 0 auto; position:relative;" >
+<div style="position:absolute; right:0px;" >
 <table style="background-color: 808080;">
 <tr>
 <td>초급자용</td><td>3회</td>
@@ -18,7 +18,7 @@ MY PLANT
 </tr>
 </table>
 </div>
-<table style="width:1200px; height:*; border: 1px solid black;" >
+<table style="width:1200px; height:*; " >
 <tr><td colspan="5" align="center"><h1>식물을 선택해 주세요</h1></td></tr>
 <tr>
 <td colspan="2" align="center"><h3>초급자용</h3><td colspan="2" align="center"><h3>중급자용</h3><td colspan="2" align="center"><h3>상급자용</h3>
