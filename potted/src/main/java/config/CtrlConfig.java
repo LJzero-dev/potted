@@ -25,10 +25,6 @@ public class CtrlConfig {
 		return new AuctionCtrl();
 	}
 	@Bean
-	public TestCtrl test() {
-		return test();
-	}
-	@Bean
 	public ProductListCtrl productListCtrl() {
 		return new ProductListCtrl();
 	}
