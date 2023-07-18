@@ -26,19 +26,6 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet>
-		<servlet-name>LoginForm</servlet-name>
-		<display-name>LoginForm</display-name>
-		<description></description>
-		<servlet-class>ctrl.LoginForm</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>LoginProcCtrl</servlet-name>
-		<display-name>LoginProcCtrl</display-name>
-		<description></description>
-		<servlet-class>ctrl.LoginProcCtrl</servlet-class>
-	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
