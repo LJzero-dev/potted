@@ -2,7 +2,6 @@ package config;
 
 import org.apache.tomcat.jdbc.pool.*;
 import org.springframework.context.annotation.*;
-import org.springframework.context.annotation.*;
 import dao.*;
 import svc.*;
 
@@ -30,7 +29,7 @@ public class ServiceConfig {
 	
 	@Bean
 	public NoticeListSvc noticeListSvc() {
-		ProductListSvc noticeListSvc = new ProductListSvc();
+		NoticeListSvc noticeListSvc = new NoticeListSvc();
 		noticeListSvc.setNoticeListDao(noticeListDao());
 		return noticeListSvc;
 	}

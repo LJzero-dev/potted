@@ -2,18 +2,18 @@ package ctrl;
 
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+import svc.*;
 
-import svc.LoginSvcSpr;
 
 @Controller
 public class ServiceCtrl {
-	private NoticeSvc noticeSvc;
+	private NoticeListSvc noticeListSvc;
 
-	public void setNoticeSvc(NoticeSvc noticeSvc) {
-		this.noticeSvc = noticeSvc;
+	public void setNoticeSvc(NoticeListSvc noticeListSvc) {
+		this.noticeListSvc = noticeListSvc;
 	}
-		@GetMapping("/service")
-		public String serviceCtrl() {
-			return "service/noticeList";
+	@GetMapping("/service")
+	public String noticeList() {
+		return "service/noticeList";
 	}
 }
