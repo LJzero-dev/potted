@@ -38,11 +38,11 @@ public class CtrlConfig {
 	
 	@Bean
 	public ServiceCtrl serviceCtrl() {
-		return new serviceCtrl();
+		return new ServiceCtrl();
 	}
 	
 	@Bean
 	public FreeListCtrl freeListCtrl() {
-		return new freeListCtrl();
+		return new FreeListCtrl();
 	}
 }
