@@ -55,16 +55,23 @@ function initSch2() { 브랜드 이름들이 다 다를경우 : ex input type ch
 	}
 } */ 
 
-function smallCtgr() {
+function smallCtgr(big) {
 // 대분류 선택에 따라 소분류를 다르게 보여주는 메소드
+	if (big.equals("AA")) {	// 대분류가 다육.선인장이면
+		
+	} else if (big.equals("BB")) {
+		
+	} else {
+		
+	}
 
 }
  
 </script>
 <h2>상품 목록</h2>
-<div class="bigCtgr" id="pcb"><a href="productList?pcb=AA" onclick="smallCtgr(this.value);">다육.선인장</a></div>
-<div class="bigCtgr" id="pcb"><a href="productList?pcb=BB" onclick="smallCtgr(this.value);">관엽식물</a></div>
-<div class="bigCtgr" id="pcb"><a href="productList?pcb=CC" onclick="smallCtgr(this.value);">허브.식물</a></div>
+<div class="bigCtgr" id="pcb"><a href="productList?pcb=AA" onclick="smallCtgr(AA);">다육.선인장</a></div>
+<div class="bigCtgr" id="pcb"><a href="productList?pcb=BB" onclick="smallCtgr(BB);">관엽식물</a></div>
+<div class="bigCtgr" id="pcb"><a href="productList?pcb=CC" onclick="smallCtgr(CC);">허브.식물</a></div>
 <%
 // 대분류에 따른 소분류 보여줄 부분
 %>
