@@ -1,12 +1,24 @@
 package config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import ctrl.*;
+import ctrl.AuctionCtrl;
+import ctrl.FreeListCtrl;
+import ctrl.IndexCtrl;
+import ctrl.LoginFormCtrl;
+import ctrl.MyPlantCtrl;
+import ctrl.OrderFormCtrl;
+import ctrl.ProductListCtrl;
+import ctrl.ServiceCtrl;
+import svc.ProductListSvc;
 
 @Configuration
 public class CtrlConfig {	
+	@Autowired
+	private ProductListSvc productListSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
@@ -23,8 +35,12 @@ public class CtrlConfig {
 	}
 	@Bean
 	public ProductListCtrl productListCtrl() {
-		return new ProductListCtrl();
+		ProductListCtrl productListCtrl = new ProductListCtrl();
+		productListCtrl.setProductListSvc(productListSvc);
+		
+		return productListCtrl;
 	}
+	
 	
 	@Bean
 	public OrderFormCtrl orderFormCtrl() {

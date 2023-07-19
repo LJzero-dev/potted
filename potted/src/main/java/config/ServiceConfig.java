@@ -27,10 +27,5 @@ public class ServiceConfig {
 		return new NoticeListDao(dataSource());
 	}
 	
-	@Bean
-	public NoticeListSvc noticeListSvc() {
-		NoticeListSvc noticeListSvc = new NoticeListSvc();
-		noticeListSvc.setNoticeListDao(noticeListDao());
-		return noticeListSvc;
-	}
+
 }
