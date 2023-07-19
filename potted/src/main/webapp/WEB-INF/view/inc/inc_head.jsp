@@ -9,12 +9,13 @@
 <link rel="stylesheet" href="/potted/resources/css/style.css">
 <title>potted</title>
 <style>
+html, body {margin:0; padding:0; height:100%; }
 body, th, td, div, p { font-size:12px; }
 ul,ol,li {list-style:none;}
 a:link { text-decoration:none; color:black; }
 a:visited { text-decoration:none; color:black; }
 a:hover { text-decoration:underline; color:red; }
-.hand { cursor:pointer; }
+.hand { cursor:pointer; } 
 .bold { font-weight:bold; }
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>

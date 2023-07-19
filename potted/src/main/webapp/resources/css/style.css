@@ -1,7 +1,7 @@
-@charset "UTF-8";
+@charset "EUC-KR";
 
 /* header */
-#header {position:relative; height:160px; left:0; right:0; z-index:100;}
+#header {position:relative; min-width:1440px; height:160px; left:0; right:0; z-index:100;}
 #header .header-inner {position:absolute; width:100%; min-width:1440px; padding:0; left:0; top:0; z-index:101;}
 #header .header-inner .menu {position:absolute; display:flex; width:100%; top:46%; justify-content:center; margin:20px auto; padding: 0; line-height:1.5;}
 #header .header-inner .menu > li {max-width:145px; min-width:130px; margin:0 20px;}
@@ -27,3 +27,30 @@
 .gnb_util .infor {display:flex; margin-left:22px; flex-direction:column; justify-content:space-between;}
 .gnb_util .infor a {display:block; font-size:16px;}
 .gnb_util span {display:block; position:absolute;  width:26px; height:21px; left:26px; top:-12px; font-size:13px; text-align:center; border:1px solid black; border-radius:100px; z-index:-1;}
+
+/* 결제하기 */
+.shop_content {min-width:1440px; height:100%; background:#f7f7f7;}
+.shop_content .shop_tit {margin:0; padding:38px 0; text-align:center;}
+.order_wrap {width:520px; margin:0 auto;}
+.pd_box {padding:10px 30px; margin-bottom:16px; background:#fff; overflow:hidden;}
+.pd_box h3 {font-size:19px;}
+.item_box {width:100%;}
+.shop_item_thumb {padding:14px; margin:0; border:1px solid rgba(33, 33, 33, 0.15);}
+.shop_item_thumb > a {display:table; width:100%;}
+.shop_item_thumb .product_img_wrap {display:table-cell; width:80px; vertical-align:top; padding-right:20px;}
+.order_wrap .shop_item_thumb .product_img_wrap > img {width:100%;}
+.shop_item_thumb .product_info_wrap {display: table-cell; vertical-align: top; word-break: break-all; font-size: 14px;}
+.shop_item_title {font-weight:bold;}
+.shop_item_opt > p {color:#999; font-weight:12px;}
+.shop_item_pay span {color:#20252b; font-weight:600; font-size:14px;}
+.im-payment-deliv {background:rgba(33, 33, 33, 0.03); text-align:center; margin-bottom:10px; padding:10px 14px; border:1px solid rgba(33, 33, 33, 0.15); border-top:none; font-size:13px; line-height:1.4;}
+.order_detail h4 {font-size:15px; margin:0;}
+.order_detail p {margin:7px 0; font-size:14px; color:#757575;}
+.form_control {width:50%; height:36px; float:right;}
+.delivery span {display:block; width:50%; height:36px; float:left; font-size:15px;}
+.delivery .w100 {width:98%;}
+.delivery .w50 {width:47.8%;}
+.delivery .h30 {height:30px;}
+.delivery .pd {padding-top:42px;}
+.delivery .inp_box {margin-top:6px;}
+.form_control2 {width:100%; height:36px; margin-top:6px;}
