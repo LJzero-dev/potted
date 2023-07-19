@@ -35,4 +35,14 @@ public class CtrlConfig {
 	public LoginFormCtrl loginFormCtrl() {
 		return new LoginFormCtrl();
 	}
+	
+	@Bean
+	public ServiceCtrl serviceCtrl() {
+		return new ServiceCtrl();
+	}
+	
+	@Bean
+	public FreeListCtrl freeListCtrl() {
+		return new FreeListCtrl();
+	}
 }
