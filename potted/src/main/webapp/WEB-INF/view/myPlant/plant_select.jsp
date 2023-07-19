@@ -24,11 +24,11 @@ MY PLANT
 <td colspan="2" align="center"><h3>초급자용</h3><td colspan="2" align="center"><h3>중급자용</h3><td colspan="2" align="center"><h3>상급자용</h3>
 </tr>
 <tr>
-<td><img src="/potted/resources/images/tree1.png" style="width:200px; height:200px;" /></td>
+<td><img src="/potted/resources/images/myPlant/tree1.png" style="width:200px; height:200px;" /></td>
 <td style="">하루에 한번씩 물을 줘야 해요<br /><br />보상은 최대 500P 입니다.<br /><br />3일의 시간이 필요합니다.</td>
-<td><img src="/potted/resources/images/tree2.png" style="width:200px; height:200px;" /></td>
+<td><img src="/potted/resources/images/myPlant/tree2.png" style="width:200px; height:200px;" /></td>
 <td style="">하루에 한번씩 물을 줘야 해요<br /><br />보상은 최대 500P 입니다.<br /><br />3일의 시간이 필요합니다.</td>
-<td><img src="/potted/resources/images/tree3.png" style="width:200px; height:200px;" /></td>
+<td><img src="/potted/resources/images/myPlant/tree3.png" style="width:200px; height:200px;" /></td>
 <td style="">하루에 한번씩 물을 줘야 해요<br /><br />보상은 최대 500P 입니다.<br /><br />3일의 시간이 필요합니다.</td>
 </tr>
 </table>

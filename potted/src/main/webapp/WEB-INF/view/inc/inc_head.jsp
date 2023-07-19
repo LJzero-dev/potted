@@ -24,7 +24,7 @@ a:hover { text-decoration:underline; color:red; }
 <body>
 <header id="header">
     <div class="header_inner">
-        <h1><a href="" class="logo"><img src="/potted/resources/images/logo.jpg" /></a></h1>
+        <h1><a href="" class="logo"><img src="/potted/resources/images/main/logo.jpg" /></a></h1>
         <div class="top_search clear">
             <div class="inner_search">
               <input class="in_keyword" type="text" name="search" id="preSWord" title="검색어 입력" value="" placeholder="search">
@@ -41,7 +41,7 @@ a:hover { text-decoration:underline; color:red; }
             </ul>
         </div>
         <div class="gnb_util">
-            <a href="javascript:void(0);" class="cartBtn"><img src="/potted/resources/images/cart_icon.png"></a>
+            <a href="javascript:void(0);" class="cartBtn"><img src="/potted/resources/images/main/cart_icon.png"></a>
             <span>10</span>
             <div class="infor">
                 <!-- <a href="javascript:void(0);" class="login">로그인</a> -->
