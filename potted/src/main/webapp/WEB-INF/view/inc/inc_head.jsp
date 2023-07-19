@@ -17,6 +17,7 @@ a:hover { text-decoration:underline; color:red; }
 .hand { cursor:pointer; }
 .bold { font-weight:bold; }
 </style>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
 <script>
 
 </script>
