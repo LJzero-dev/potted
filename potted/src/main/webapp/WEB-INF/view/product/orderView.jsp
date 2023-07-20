@@ -67,9 +67,57 @@ request.setCharacterEncoding("utf-8");
 				<option value="부재시 전화나 문자를 남겨주세요.">부재시 전화나 문자를 남겨주세요.</option>
 			</select>
 	    </div>
-<!-- 	    <div class="pd_box">
-	    	<h3>결제수단</h3>
-	    </div>	   -->
+		<div class="pd_box">
+	    	<h3>포인트</h3>
+	    	<div class="point_wrap">
+			    <div class="input_tools holder">
+			        <input title="보유" class="form-control text-brand _input_point" />
+			    	<a href="javascript:void(0);" class="allpoint">전액사용</a>
+				</div>
+				
+				<p class="text-13 margin-top-xl no-margin-bottom">
+				    보유 포인트 <strong>1,000</strong>
+				</p>
+		        <p class="no-margin text-gray text-13">포인트는 100단위로 사용 가능합니다.</p>
+			</div>
+	    </div>
+	    <div class="pd_box">
+	    	<h3>결제 수단</h3>
+	    	<p class="pLine">
+				<input type="radio" name="pay" value="a" id="payCard" />
+				<label for="payCard" style="font-size:14px; vertical-align:top;">카드 결제</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="pay" value="b" id="payPhone" />
+				<label for="payPhone" style="font-size:14px; vertical-align:top;">휴대폰 결제</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="pay" value="c" id="payBank" />
+				<label for="payBank" style="font-size:14px; vertical-align:top;">무통장 입금</label>
+			</p>
+	    </div>
+	    <div class="pd_box2">
+	    	<div class="paydetail">
+		    	<h3>결제 상세</h3>
+				<div class="pay_txt">
+					<p class="text-gray">상품가격</p>
+					<p class="text-gray">배송비</p>
+					<p class="text-gray">상품 할인금액</p>
+				</div>
+				<div class="pay_number">
+					<p>249,300원</p>
+					<p>+3,500원</p>
+					<p>-118,656원</p>
+				</div>
+				<div class="col_ctr">
+					<p>총 주문금액</p>
+					<p>
+						<span>134,144원</span>
+					</p>
+				</div>		
+			</div>
+			<div class="tip-off bg-gray pay_area">
+				<p class="no-margin text-13">
+				<span class="text-brand">3,919</span> 포인트 적립예정</p>
+			</div>
+			<a href="javascript:void(0);" class="paymentBtn">결제하기</a>
+	    </div>
 	</div>
 </div>
 <%@ include file="../inc/inc_foot.jsp" %>

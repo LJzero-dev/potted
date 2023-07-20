@@ -13,7 +13,7 @@ MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 <link rel="stylesheet" href="/potted/resources/css/style.css">
 <title>potted</title>
 <style>
-html, body {margin:0; padding:0; height:100%; }
+html, body {margin:0; padding:0;}
 body, th, td, div, p { font-size:12px; }
 ul,ol,li {list-style:none;}
 a:link { text-decoration:none; color:black; }

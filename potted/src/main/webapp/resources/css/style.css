@@ -29,10 +29,13 @@
 .gnb_util span {display:block; position:absolute;  width:26px; height:21px; left:26px; top:-12px; font-size:13px; text-align:center; border:1px solid black; border-radius:100px; z-index:-1;}
 
 /* 결제하기 */
+.shop_content a:hover {text-decoration:none; color:#000;}
+.shop_content .text-bold {font-weight:bold;}
 .shop_content {min-width:1440px; height:100%; background:#f7f7f7;}
 .shop_content .shop_tit {margin:0; padding:38px 0; text-align:center;}
 .order_wrap {width:520px; margin:0 auto;}
-.pd_box {padding:10px 30px; margin-bottom:16px; background:#fff; overflow:hidden;}
+.pd_box {padding:10px 30px; margin-top:16px; background:#fff; overflow:hidden;}
+.pd_box2 {margin-top:16px; background:#fff; overflow:hidden;}
 .pd_box h3 {font-size:19px;}
 .item_box {width:100%;}
 .shop_item_thumb {padding:14px; margin:0; border:1px solid rgba(33, 33, 33, 0.15);}
@@ -54,3 +57,19 @@
 .delivery .pd {padding-top:42px;}
 .delivery .inp_box {margin-top:6px;}
 .form_control2 {width:100%; height:36px; margin-top:6px;}
+.point_wrap .holder {display:flex; width:100%; overflow:hidden;}
+.point_wrap .holder input {height:13px; width:91%; padding:10px;}
+.point_wrap .allpoint {height: 35px; border-radius: 3px; letter-spacing: 0; float: left; width: 23%; line-height: 34px; padding: 0 !important; margin-left: 2%; text-align:center; border:1px solid #616161; }
+.paydetail {padding:10px 30px;}
+.paydetail .row {padding:0 0 15px;}
+.paydetail .pay_txt {width:50%; float:left;}
+.paydetail .pay_txt p {color:#666; font-size:14px;}
+.paydetail .pay_number {width:50%; float:right; text-align:right; font-weight:bold;}
+.paydetail .pay_number p {font-size:14px;}
+.paydetail .col_ctr {margin-top:140px; border-top:1px solid silver;}
+.paydetail .col_ctr p {width:50%;}
+.paydetail .col_ctr p:nth-of-type(1) {float:left; font-size:14px;}
+.paydetail .col_ctr p:nth-of-type(2) {float:right; text-align:right; font-size:16px; font-weight:bold;}
+.bg-gray {margin-top:49px; padding:7px 30px; background:#e7e7e7;}
+.bg-gray p {font-size:13px; font-weight:bold;}
+.paymentBtn {display:block; width:100%; padding:20px 0; text-align:center; font-size:16px; font-weight:bold; background:#00b564; color:#fff !important;}
