@@ -4,15 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import ctrl.AuctionCtrl;
-import ctrl.FreeListCtrl;
-import ctrl.IndexCtrl;
-import ctrl.LoginFormCtrl;
-import ctrl.MyPlantCtrl;
-import ctrl.OrderFormCtrl;
-import ctrl.ProductListCtrl;
-import ctrl.ServiceCtrl;
-import svc.ProductListSvc;
+import ctrl.*;
+import svc.*;
 
 @Configuration
 public class CtrlConfig {	
@@ -48,8 +41,8 @@ public class CtrlConfig {
 	}
 	
 	@Bean
-	public LoginFormCtrl loginFormCtrl() {
-		return new LoginFormCtrl();
+	public LoginCtrl loginCtrl() {
+		return new LoginCtrl();
 	}
 	
 	@Bean
