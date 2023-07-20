@@ -28,7 +28,7 @@ public class LoginCtrl {
 		MemberInfo loginInfo = loginSvc.getLoginInfo(uid, pwd);
 
 		if (loginInfo == null) {
-			response.setContentType("test/html; charset=utf-8");
+			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('아이디와 암호를 확인하세요.')");
