@@ -20,7 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
              LoginRequired loginRequiredAnnotation = handlerMethod.getMethodAnnotation(LoginRequired.class);
              if (loginRequiredAnnotation != null) {
                  if (!isLoggedIn(request, response)) {
-                    response.sendRedirect("/sprMvcTest/loginMvc");
+                    response.sendRedirect("/potted/login");
                     return false;
                  }
              }
@@ -30,12 +30,14 @@ public class LoginInterceptor implements HandlerInterceptor {
      private boolean isLoggedIn(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	 HttpSession session = request.getSession();
     	 if (session.getAttribute("loginInfo") != null) return true; 
-
+    	 
      	 response.setContentType("text/html; charset=utf-8");
   		 PrintWriter out = response.getWriter();
+  		 // 세션에 이동할 url 저장한뒤에 loginform에서 있는지 여부 확인하고 있으면 로그인 후 그 url으로 보냄
+  //		 System.out.println(request.getRequestURL());
   		 out.println("<script>");
   		 out.println("alert('로그인 하셔야 이용하실 수 있습니다.');");
-  		 out.println("history.back();");
+  		 out.println("location.href='/potted/login';");
   		 out.println("</script>");
   		 out.close();
 
