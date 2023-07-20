@@ -14,5 +14,9 @@ public class MvcConfig implements WebMvcConfigurer {
 		registry.jsp("/WEB-INF/view/", ".jsp");	// jsp를 이곳을 기본 루트로 사용하겠다는 의미
 		// view 파일들의 기본 위치와 확장자를 지정
 	}
+	public void addViewControllers(ViewControllerRegistry registry) {
+		// 단순히 이동만 하는 경우 컨트롤러를 따로 생성하지 않고 요청 경로와 뷰 이름을 연결시켜주는 메소드
+			registry.addViewController("/").setViewName("index");	// "/"를 부르면 "index" 이름으로 주라는 의미
+		}
 
 }

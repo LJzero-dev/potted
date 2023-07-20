@@ -7,13 +7,11 @@
 %>
 
 <style>
-.bigCtgr {
-	width:100px; height:30px; font-size:1.5em; background:#efefef; text-align:center; border:1px solid #c1c1c1; 
-	margin:10px; padding:5px; display:inline-block;
-}
-#pcb { background:lightgreen; }
-del { font-size:0.8em; color:#c0c0c0;}
-.saleStock { font-size:0.8em; }
+.ctgrb { padding: 6px 20px; font-size: 20px; font-color: #B8B8B8; cursor: pointer; text-align: center; 
+	background: white; border: 2px; border-radius: 20px; border-color: #B8B8B8; }
+.ctgrb:hover { font-color: #0B9649; border-color: #0B9649; }
+.ctgrb:active { background-color: #3e8e41; }
+.btn { background:white; border-radius: 20%; cursor: pointer; }
 </style>
 <script>
 function makeSch() {
@@ -55,27 +53,25 @@ function initSch2() { 브랜드 이름들이 다 다를경우 : ex input type ch
 	}
 } */ 
 
-function smallCtgr(big) {
-// 대분류 선택에 따라 소분류를 다르게 보여주는 메소드
-	if (big.equals("AA")) {	// 대분류가 다육.선인장이면
-		
-	} else if (big.equals("BB")) {
-		
-	} else {
-		
-	}
-
+function cimage(ctgr) {
+	if (ctgr.equals("AA"))
 }
- 
+
+// 대분류에 따른 소분류
 </script>
-<h2>상품 목록</h2>
-<div class="bigCtgr" id="pcb"><a href="productList?pcb=AA" onclick="smallCtgr(AA);">다육.선인장</a></div>
-<div class="bigCtgr" id="pcb"><a href="productList?pcb=BB" onclick="smallCtgr(BB);">관엽식물</a></div>
-<div class="bigCtgr" id="pcb"><a href="productList?pcb=CC" onclick="smallCtgr(CC);">허브.식물</a></div>
+<div style="width:800px; margin:0 auto; ">
+<h2 style="font-size:20pt;">STORE</h2>
+<form>
+<div class="ctgrb" onclick="" >다육선〮인장</div>
+<img src="/potted/resources/images/product/reset.png" width="120" style="cursor:pointer;" /><br />
+<a href="javascript:cimage('AA');"><img id="imageA" src="/potted/resources/images/product/AA.png" width="150" /></a>
+<a href="javascript:cimage('BB');"><img id="imageB" src="/potted/resources/images/product/BB.png" width="150" /></a>
+<a href="javascript:cimage('CC');"><img id="imageC" src="/potted/resources/images/product/CC.png" width="150" /></a>
+</form>
 <%
 // 대분류에 따른 소분류 보여줄 부분
 %>
-<hr />
+<hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />
 <table width="800">
 <tr>
 <td width="150" valign="top">
@@ -86,43 +82,21 @@ function smallCtgr(big) {
 	</form>
 	<form name="frm2">
 	<div>
-		<input type="text" name="pdt" id="pdt" placeholder="상품명 검색" value="" /><br />
-		<fieldset>
-			<legend>가격대</legend>
-			<input type="text" name="sp" class="price" value="" placeholder="최저가" onkeyup="onlyNum(this);" /> ~
-			<input type="text" name="ep" class="price" value="" placeholder="최고가" onkeyup="onlyNum(this);" />
-		</fieldset>
-		<input type="button" value="상품검색" class="btn" onclick="makeSch();" />
-		<input type="button" value="조건 초기화" class="btn" onclick="initSch();" />
+		<strong style="font-size:13pt;">가격대</strong>&nbsp;&nbsp;
+		<input type="text" name="sp" class="price" value="" placeholder="최저가" onkeyup="onlyNum(this);" style="height:20px;" />&nbsp;&nbsp; ~ &nbsp;
+		<input type="text" name="ep" class="price" value="" placeholder="최고가" onkeyup="onlyNum(this);" style="height:20px;" />
+		<input type="button" value="검색" class="btn" onclick="makeSch();" /><br />
 	</div>
+	<br /><br />
+	<div>
+		<img src="/potted/resources/images/product/search.png" width="25"/>
+		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="" style=" width:700px; border:0;" />
+		<input type="button" value="검색" class="btn" onclick="" />
+	</div>
+	<hr />
 	</form>	 
 </td>
-<td width="*" valign="top">
-	<!--  상품 목록 및 페이징 영역 -->
-	<p align="right">
-		<select name="ob" onchange="location.href='&ob=' + this.value;">
-			<option value="a">신상품 순</option>
-			<option value="b">인기 순</option>
-		</select>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<!-- 상품 이미지 부분 -->
-	</p>
-	<hr />
-	<table width="100%" cellpadding="15" cellspacing="0">
-<%
-// 재고 , 가격, 할인율 보여줄 부분
-%>
-	
-	<tr align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
-	<td width="25%"><a href=""><img src="/mvcSite/product/pdt_img/" width="80" height="80" border="0" /></a></td>
-	<td width="*" align="left">&nbsp;&nbsp;<a href=""></a></td>
-	<td width="20%" align="left">2000원</td><td width="20%">판매 : 판매량 <br /> 재고 : 재고</td>
-	</tr>
-<%
-// 페이징 영역
-%>
-</td>
-</tr>
 </table>
+</div>
 
 <%@ include file="../inc/inc_foot.jsp" %>

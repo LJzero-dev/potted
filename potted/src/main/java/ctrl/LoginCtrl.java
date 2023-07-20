@@ -17,7 +17,6 @@ public class LoginCtrl {
 	public void setLoginSvc(LoginSvc loginSvc) {
 		this.loginSvc = loginSvc;
 	}
-	@LoginRequired
 	@GetMapping	// 요청(loginSpr)을 get방식으로 받았을 경우
 	public String loginForm() {
 		return "loginForm";
