@@ -10,6 +10,9 @@ import svc.*;
 @Configuration
 public class CtrlConfig {	
 	@Autowired
+	private LoginSvc loginSvc;
+	
+	@Autowired
 	private ProductListSvc productListSvc;
 	
 	@Bean
@@ -42,7 +45,14 @@ public class CtrlConfig {
 	
 	@Bean
 	public LoginCtrl loginCtrl() {
-		return new LoginCtrl();
+		LoginCtrl loginCtrl = new LoginCtrl();
+		loginCtrl.setLoginSvc(loginSvc);
+		return loginCtrl;
+	}
+	
+	@Bean
+	public LogoutCtrl logoutCtrl() {
+		return new LogoutCtrl();
 	}
 	
 	@Bean

@@ -2,6 +2,10 @@
 <%@ page import="java.net.*" %>
 <%@ page import="java.time.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="vo.*" %>
+<%
+MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,9 +50,12 @@ a:hover { text-decoration:underline; color:red; }
             <a href="javascript:void(0);" class="cartBtn"><img src="/potted/resources/images/main/cart_icon.png"></a>
             <span>10</span>
             <div class="infor">
-                <!-- <a href="javascript:void(0);" class="login">로그인</a> -->
+            <% if (loginInfo == null) { %>
+                <a href="login" class="login">로그인</a>
+            <% } else { %>
                 <a href="javascript:void(0);" class="minfor">회원정보</a>
-                <a href="javascript:void(0);" class="logout">로그아웃</a>
+                <a href="logout" class="logout">로그아웃</a>
+            <% } %>
             </div>
         </div>
     </div>
