@@ -7,11 +7,12 @@
 %>
 
 <style>
-.ctgrb { padding: 6px 20px; font-size: 20px; font-color: #B8B8B8; cursor: pointer; text-align: center; 
-	background: white; border: 2px; border-radius: 20px; border-color: #B8B8B8; }
+.ctgrb {margin-right:10px; padding: 6px 20px; font-size: 20px; color: #B8B8B8; cursor: pointer; text-align: center; height:30px; border:1px solid  #B8B8B8; float:left; margin-bottom:10px;
+	background: white; border-radius: 20px;  }
 .ctgrb:hover { font-color: #0B9649; border-color: #0B9649; }
 .ctgrb:active { background-color: #3e8e41; }
-.btn { background:white; border-radius: 20%; cursor: pointer; }
+.btn { background:white; border-radius: 20%; cursor: pointer; border:1px solid #000;}
+#pdt {outline:none;}
 </style>
 <script>
 function makeSch() {
@@ -62,11 +63,10 @@ function cimage(ctgr) {
 <div style="width:800px; margin:0 auto; ">
 <h2 style="font-size:20pt;">STORE</h2>
 <form>
-<div class="ctgrb" onclick="" >다육선〮인장</div>
-<img src="/potted/resources/images/product/reset.png" width="120" style="cursor:pointer;" /><br />
-<a href="javascript:cimage('AA');"><img id="imageA" src="/potted/resources/images/product/AA.png" width="150" /></a>
-<a href="javascript:cimage('BB');"><img id="imageB" src="/potted/resources/images/product/BB.png" width="150" /></a>
-<a href="javascript:cimage('CC');"><img id="imageC" src="/potted/resources/images/product/CC.png" width="150" /></a>
+<div style="overflow:hidden;">
+	<div class="ctgrb" onclick="" style="" >다육선〮인장</div>
+	<div class="ctgrb" onclick="" >다육선〮인장</div>
+</div>
 </form>
 <%
 // 대분류에 따른 소분류 보여줄 부분
