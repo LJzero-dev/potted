@@ -65,6 +65,7 @@
          <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java 에서 버전 확인 -->
       </dependency>
       <!-- db연결을 위한 추가 부분 종료 -->
+      
   </dependencies>
   <build>
     <finalName>potted</finalName>
