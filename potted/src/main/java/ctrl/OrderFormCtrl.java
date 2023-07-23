@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.*;
 public class OrderFormCtrl {
 	@GetMapping("/orderView")
 	public String productList() {
-		return "product/orderView";
+		return "order/orderForm";
 	}
 }

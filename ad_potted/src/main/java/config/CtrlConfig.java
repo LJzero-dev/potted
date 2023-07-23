@@ -10,4 +10,9 @@ public class CtrlConfig {
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
 	}*/
+	
+	@Bean
+	public ProductProcInCtrl productProcInCtrl() {
+		return new ProductProcInCtrl();
+	}
 }
