@@ -1,5 +1,7 @@
 package svc;
 
+import java.util.List;
+
 import dao.*;
 import vo.*;
 
@@ -11,15 +13,9 @@ public class ProductListSvc {
 	}
 	
 
-	public ProductInfo getProductList() {
-		ProductInfo productInfo = productListDao.getProductList(); 
-		return productInfo;
+	public List<ProductInfo> getProductList() {
+		List<ProductInfo> productList = productListDao.getProductList();
+		return productList;
 	}
-	
-	/*
-	public int memberInsert(MemberInfo mi) {
-		int result = memberDao.memberInsert(mi);
-		return result;
-	}*/
 
 }

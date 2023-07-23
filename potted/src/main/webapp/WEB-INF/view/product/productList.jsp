@@ -1,9 +1,17 @@
+<%@page import="com.mysql.cj.PingTarget"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../inc/inc_head.jsp" %>
 <%@ page import="org.springframework.context.annotation.*" %>
-<%@ page import="dao.*" %>
+<%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
 <%
+
+request.setCharacterEncoding("utf-8");
+
+List<ProductInfo> productList = (List<ProductInfo>)request.getAttribute("productList");
+// 검색 연월에 해당하는 일정들의 목록을 저장하고 있는 List
+
+
 %>
 
 <style>
@@ -114,6 +122,14 @@ function showCtgrS(ctgr) {
 	<hr />
 	</form>	 
 </td>
+</tr>
+<tr>
+<td>
+<%=productList.get(0).getPi_name() %>
+</td>
+</tr>
+
+
 </table>
 </div>
 
