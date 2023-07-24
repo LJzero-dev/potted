@@ -14,9 +14,9 @@ public class ProductListDao {
 		this.jdbc = new JdbcTemplate(dataSource);
 	}
 	
-	public List<ProductInfo> getProductList() {	// 검색조건 들어갈 곳
+	public List<ProductInfo> getProductList(int cpage, int psize, String where, String orderBy) {	// 검색조건 들어갈 곳
 		// 지정한 제품들의 목록을 List<ProductInfo>로 리턴하는 메소드
-		String sql = "select * from t_product_info where pi_isview = 'y' and pi_status = 'a'";
+		String sql = "select * from t_product_info a where a.pi_isview = 'y' and a.pi_status = 'a'" + where + " group by a.pi_id " + orderBy + " limit " + ((cpage - 1) * psize) + ", " + psize;
 		List<ProductInfo> productList = jdbc.query(sql, 
 			(ResultSet rs, int rowNum) -> {
 			ProductInfo pi = new ProductInfo(rs.getString("pi_id"), rs.getString("pcb_id"), rs.getString("pcs_id"), rs.getString("pi_name"), 
@@ -28,6 +28,12 @@ public class ProductListDao {
 		});
 		
 		return productList;
+	}
+
+	public int getProductCount(String where) {
+		String sql = "select count(*) from t_product_info a where a.pi_isview = 'y' and a.pi_status = 'a'" + where;
+		int rcnt = jdbc.queryForObject(sql, Integer.class);
+		return rcnt;
 	}
 
 }

@@ -19,9 +19,9 @@ public class ProductListCtrl {
 	}
 	
 	@GetMapping("/productList")
-	public String productList(HttpServletRequest request) throws Exception {
+	public String productList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-/*		int cpage = 1, spage = 0, psize = 12, bsize = 10, rcnt = 0, pcnt = 0;
+		int cpage = 1, spage = 0, psize = 12, bsize = 5, rcnt = 0, pcnt = 0;
 		//	페이지 번호  
 		if (request.getParameter("cpage") != null)
 			cpage = Integer.parseInt(request.getParameter("cpage"));
@@ -40,7 +40,7 @@ public class ProductListCtrl {
 			schargs += "&pcs=" + pcs;
 		}			
 		if (sch != null && !sch.equals("")) {
-		// 검색조건 : &sch=ntest,bB1:B2:B3,p100000~200000
+		// 검색조건 : &sch=ntest,p100000~200000
 			schargs += "&sch=" + sch;
 			String[] arrSch = sch.split(",");
 			for (int i = 0 ; i < arrSch.length ; i++) {
@@ -80,9 +80,23 @@ public class ProductListCtrl {
 		case "g" :	// 조회수 높은 순
 			orderBy += " a.pi_read desc ";		break;
 		}
-*/
-		List<ProductInfo> productList = productListSvc.getProductList();
+
+		rcnt = productListSvc.getProductCount(where);
+		
+		pcnt = rcnt / psize;
+		if (rcnt % psize > 0)	pcnt++;
+		spage = (cpage -1) / bsize * bsize +1;
+		PageInfo pageInfo = new PageInfo();
+		pageInfo.setBsize(bsize);		pageInfo.setCpage(cpage);
+		pageInfo.setSpage(spage);		pageInfo.setPsize(psize);
+		pageInfo.setPcnt(pcnt);			pageInfo.setRcnt(rcnt);
+		pageInfo.setPcb(pcb);  			pageInfo.setPcs(pcs);
+		pageInfo.setSch(sch); 			pageInfo.setOb(ob);
+		pageInfo.setSchargs(schargs);	pageInfo.setObargs(obargs);
+		
+		List<ProductInfo> productList = productListSvc.getProductList(cpage, psize, where, orderBy);
 		request.setAttribute("productList", productList);
+		request.setAttribute("pageInfo", pageInfo);
 		
 		return "product/productList";
 	}

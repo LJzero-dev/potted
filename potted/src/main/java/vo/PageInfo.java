@@ -3,7 +3,7 @@ package vo;
 public class PageInfo {
 // 게시판 목록, 상품 목록 등에서 페이징에 필요한 정보들을 저장할 클래스 
 	private int cpage, spage, psize, bsize, rcnt, pcnt;
-	private String schtype, keyword, args, schargs, obargs, vargs, pcb, pcs, sch, ob, v;
+	private String schtype, keyword, args, schargs, obargs, vargs, pcb, pcs, sch, ob;
 	
 	public int getCpage() {
 		return cpage;
@@ -100,12 +100,6 @@ public class PageInfo {
 	}
 	public void setOb(String ob) {
 		this.ob = ob;
-	}
-	public String getV() {
-		return v;
-	}
-	public void setV(String v) {
-		this.v = v;
 	}
 	
 	

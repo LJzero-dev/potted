@@ -58,4 +58,9 @@ public class MyPlantCtrl {
 		myPlantSvc.wattering(mi.getMi_id());
 		return "1";
 	}
+	@LoginRequired
+	@GetMapping("/myPlant")
+	public String myPlant() {
+		return "/myPlant/plant_grow_up";
+	}
 }
