@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../inc/inc_head.jsp" %>
+<%@ page import="java.util.*" %>
+<%@ page import="vo.*" %>
 <%
 request.setCharacterEncoding("utf-8");
+// List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList");
+
 %>
-<%@ include file="../inc/inc_head.jsp" %>
 
 <h2 style="display:inline;">SERVICE</h2>
 <form style="display:inline; float:right;">
@@ -27,6 +31,14 @@ request.setCharacterEncoding("utf-8");
 <th width="15%" class="nhList">작성자</th>
 <th width="20%" class="nhList">날짜</th>
 </tr>
+<% 
+/*
+for (int i = 1 ; i == noticeList.size() ; i++) {
+	NoticeList nl = noticeList.get(i);
+	out.println("<tr>" + "<td>" + nl.getNl_idx() + "</td>" + "<td>" + nl.getNl_title() + "</td>" + "<td>" + nl.getAi_idx() + "</td>" + 
+	"<td>" + nl.getNl_date() + "</td>" + "</tr>");
+} */
+%>
 </table>
 
 

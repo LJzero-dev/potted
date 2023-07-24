@@ -22,6 +22,9 @@ public class CtrlConfig {
 	@Autowired
 	private ProductListSvc productListSvc;
 	
+	@Autowired
+	private NoticeListSvc noticeListSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
@@ -64,7 +67,9 @@ public class CtrlConfig {
 	
 	@Bean
 	public ServiceCtrl serviceCtrl() {
-		return new ServiceCtrl();
+		ServiceCtrl serviceCtrl = new ServiceCtrl();
+		serviceCtrl.setNoticeListSvc(noticeListSvc);
+		return serviceCtrl;
 	}
 	
 	@Bean
