@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class FreeListCtrl {
 	@GetMapping("/freeList")
 	public String freeListCtrl() {
-		return "freeList/freeList";
+		return "free/freeList";
 	}
 }
 
