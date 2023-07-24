@@ -22,9 +22,6 @@ public class CtrlConfig {
 	@Autowired
 	private ProductListSvc productListSvc;
 	
-/*	@Autowired
-	private NoticeListSvc noticeListSvc;
-	*/
 	@Autowired
 	private MyPlantSvc myPlantSvc;
 	
@@ -68,13 +65,6 @@ public class CtrlConfig {
 	public LogoutCtrl logoutCtrl() {
 		return new LogoutCtrl();
 	}
-	
-	/*@Bean
-	public ServiceCtrl serviceCtrl() {
-		ServiceCtrl serviceCtrl = new ServiceCtrl();
-		serviceCtrl.setNoticeListSvc(noticeListSvc);
-		return serviceCtrl;
-	}*/
 	
 	@Bean
 	public FreeListCtrl freeListCtrl() {
