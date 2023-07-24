@@ -10,6 +10,7 @@ request.setCharacterEncoding("utf-8");
 
 List<ProductInfo> productList = (List<ProductInfo>)request.getAttribute("productList");
 // 검색 연월에 해당하는 일정들의 목록을 저장하고 있는 List
+PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 
 
 %>
@@ -87,14 +88,17 @@ function showCtgrS(ctgr) {
 <div id="ctgr1" >
 	<div class="ctgrb" onclick="" >다육</div>
 	<div class="ctgrb" onclick="" >선인장</div>
+	<div><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" /></div>
 </div>
 <div id="ctgr2" >
 	<div class="ctgrb" onclick="" >넝쿨⦁잎</div>
 	<div class="ctgrb" onclick="" >열매⦁꽃</div>
+	<div><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" /></div>
 </div>
 <div id="ctgr3" >
 	<div class="ctgrb" onclick="" >허브</div>
 	<div class="ctgrb" onclick="" >채소</div>
+	<div><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" /></div>
 </div>
 
 <table width="800">
@@ -118,14 +122,51 @@ function showCtgrS(ctgr) {
 		<img src="/potted/resources/images/product/search.png" width="25"/>&nbsp;
 		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="" style=" width:690px; border:0; font-size:13pt;" />
 		<input type="button" value="검색" class="btn" onclick="initSch();" />
+		<select name="ob" onchange="" >
+			<option value="a">최근 순</option>
+			<option value="b">인기 순</option>
+			<option value="c">이름 순</option>
+			<option value="d">높은 가격 순</option>
+			<option value="e">낮은 가격 순</option>
+		</select>
 	</div>
 	<hr />
 	</form>	 
 </td>
 </tr>
+<%
+// String lnk = "productList?cpage=1" + pageInfo.getSchargs();	
+int i = 0;
+for (i = 0 ; i < productList.size() ; i++) {
+	ProductInfo pi = productList.get(i);
+	/* String stock = pi.getStock() + "ea";
+	if (pi.getStock() > 0) {	// 재고가 남았으면
+	lnk = "priduct_view?piid=" + pi.getPi_id();
+	} else {	// 재고가 없으면
+		lnk = "javascript:alert('현재재고가 없습니다.')";
+		stock = "품절(SOLD OUT)";
+	} */
+	String price = pi.getPi_price() + "원";
+	if (pi.getPi_dc() > 0) {	// 할인율이 있으면
+		price = Math.round(pi.getPi_price() * (1 - pi.getPi_dc())) + "원";	// 할인이 있을때 실제 판매가
+		price = "<del>" + pi.getPi_price() + "</del>&nbsp;&nbsp;&nbsp;" + price;	// <del>태그는 글자 중간에 밑줄긋기 / 원래판매금액 밑줄긋기
+	}
+	
+	if (i % 4 == 0) out.println("<tr>");
+%>
+<td width="10%" align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
+	<a href="">
+		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img1() %>" width="150" height="150" border="0" />
+		<br /><%=pi.getPi_name() %>
+	</a>
+	<br /><%=price %><br />
+</td>		
+<%		
+	if (i % 4 == 3) out.println("</tr>");
+}
+%>
 <tr>
 <td>
-<%=productList.get(0).getPi_name() %>
 </td>
 </tr>
 

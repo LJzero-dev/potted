@@ -1,10 +1,13 @@
 package vo;
 
+import java.util.*;
+
 public class ProductInfo {
 	private String pi_id, pcb_id, pcs_id, pi_name, pi_status, pi_img1, pi_img2, pi_img3, pi_desc, pi_special, pi_isview, pi_date, pi_last;
-	private int pi_price, pi_cost, pi_read, pi_review, pi_sale, ai_idx, pi_admin;
+	private int pi_price, pi_cost, pi_read, pi_review, pi_sale, ai_idx, pi_admin, stock;
 	private double pi_dc;
-	
+
+	private ArrayList<ProductStock> stockList;
 	// 상품 상세보기 화면에서 사용할 분류와 브랜드명을 저장할 변수들
 
 	public ProductInfo(String pi_id, String pcb_id, String pcs_id, String pi_name, String pi_status, String pi_img1,
@@ -146,6 +149,22 @@ public class ProductInfo {
 	public void setPi_dc(double pi_dc) {
 		this.pi_dc = pi_dc;
 	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+
+	public ArrayList<ProductStock> getStockList() {
+		return stockList;
+	}
+
+	public void setStockList(ArrayList<ProductStock> stockList) {
+		this.stockList = stockList;
+	}
+	
 	
 	
 }
