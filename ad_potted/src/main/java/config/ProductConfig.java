@@ -23,19 +23,6 @@ public class ProductConfig {
 	}
 	
 	@Bean
-	public ProductListDao productListDao() {
-		return new ProductListDao(dataSource());
-	}
-	
-	@Bean
-	public ProductListSvc productListSvc() {
-		ProductListSvc productListSvc = new ProductListSvc();
-		productListSvc.setProductListDao(productListDao());
-		return productListSvc;
-	}
-	
-	
-	@Bean
 	public ProductInDao productInDao() {
 		return new ProductInDao(dataSource());
 	}
@@ -43,6 +30,7 @@ public class ProductConfig {
 	@Bean
 	public ProductInSvc productInSvc() {
 		ProductInSvc productInSvc = new ProductInSvc();
+		productInSvc.setProductInDao(productInDao());
 		return productInSvc;
 	}
 }
