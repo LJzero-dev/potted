@@ -3,6 +3,8 @@ package config;
 import org.apache.tomcat.jdbc.pool.*;
 import org.springframework.context.annotation.*;
 import dao.*;
+import svc.MyPlantSvc;
+import svc.ProductListSvc;
 
 @Configuration
 public class DbConfig {
@@ -19,5 +21,16 @@ public class DbConfig {
 		ds.setMinEvictableIdleTimeMillis(60000 * 3);
 		ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
 		return ds;
+	}
+	@Bean
+	public MyPlantDao myPlantDao() {
+		return new MyPlantDao(dataSource());
+	}
+	
+	@Bean
+	public MyPlantSvc myPlantSvc() {
+		MyPlantSvc myPlantSvc = new MyPlantSvc();
+		myPlantSvc.setMyPlantDao(myPlantDao());
+		return myPlantSvc;
 	}
 }

@@ -22,6 +22,9 @@ public class CtrlConfig {
 	@Autowired
 	private ProductListSvc productListSvc;
 	
+	@Autowired
+	private MyPlantSvc myPlantSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
@@ -29,7 +32,9 @@ public class CtrlConfig {
 	
 	@Bean
 	public MyPlantCtrl myPlantCtrl() {
-		return new MyPlantCtrl();
+		MyPlantCtrl myPlantCtrl = new MyPlantCtrl();
+		myPlantCtrl.setMyPlantSvc(myPlantSvc);
+		return myPlantCtrl;
 	}
 	
 	@Bean
@@ -71,6 +76,7 @@ public class CtrlConfig {
 	public FreeListCtrl freeListCtrl() {
 		return new FreeListCtrl();
 	}
+
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.METHOD)
