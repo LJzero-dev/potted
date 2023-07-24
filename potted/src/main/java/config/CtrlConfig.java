@@ -79,7 +79,6 @@ public class CtrlConfig {
 	
 	@Target(ElementType.PARAMETER)
 	@Retention(RetentionPolicy.RUNTIME)
-	public @interface LoginUser {
-
+	public @interface Login {
 	}
 }

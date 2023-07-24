@@ -11,7 +11,7 @@ create table t_admin_info (
     ai_date datetime default now()		-- 등록일
 );
 
-
+select * from t_member_info;
 
 -- 회원 테이블 테이블
 create table t_member_info (
