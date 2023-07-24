@@ -24,9 +24,9 @@ public class CtrlConfig {
 	
 /*	@Autowired
 	private NoticeListSvc noticeListSvc;
-	
+	*/
 	@Autowired
-	private MyPlantSvc myPlantSvc;*/
+	private MyPlantSvc myPlantSvc;
 	
 	@Bean
 	public IndexCtrl indexCtrl() {
@@ -50,7 +50,13 @@ public class CtrlConfig {
 	public OrderFormCtrl orderFormCtrl() {
 		return new OrderFormCtrl();
 	}
-
+	@Bean
+	public MyPlantCtrl myPlantCtrl() {
+		MyPlantCtrl myPlantCtrl = new MyPlantCtrl();
+		myPlantCtrl.setMyPlantSvc(myPlantSvc);
+		return myPlantCtrl;
+	} 
+	
 	@Bean
 	public LoginCtrl loginCtrl() {
 		LoginCtrl loginCtrl = new LoginCtrl();
