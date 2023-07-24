@@ -48,6 +48,7 @@ public class MyPlantCtrl {
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
+			
 		}
 		return "/";
 	}
