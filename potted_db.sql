@@ -1,3 +1,4 @@
+drop database potted;
 create database potted;
 use potted;
 
@@ -10,7 +11,7 @@ create table t_admin_info (
     ai_use char(1) default 'y',			-- 사용여부
     ai_date datetime default now()		-- 등록일
 );
-
+insert into t_admin_info (ai_id,ai_pw,ai_name) values ('admin','1234','admin');
 select * from t_member_info;
 
 -- 회원 테이블 테이블
@@ -24,14 +25,15 @@ create table t_member_info (
 	mi_email varchar(50) not null,		-- 이메일
 	mi_isad char(1) not null,			-- 광고수신
 	mi_point int default 0 not null,	-- 보유 포인트
-	mt_plant char(1) default 'n',		-- 식물상태값
-	mt_protein int default 0,			-- 영양제갯수
+	mi_protein int default 0,			-- 영양제갯수
 	mi_status char(1) default 'a',		-- 상태 
 	mi_date datetime default now(),		-- 가입일
 	mi_lastlogin datetime				-- 최종 로그인
 );
-insert into t_member_info values ('test1', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, 'n', '0', 'a', now(), null);
-
+insert into t_member_info values ('test1', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '0', 'a', now(), null);
+insert into t_member_info values ('test2', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '0', 'a', now(), null);
+insert into t_member_info values ('test3', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '0', 'a', now(), null);
+select * from t_member_info;
 -- 회원 주소록 테이블
 create table t_member_addr (
 	ma_idx int primary key auto_increment,	-- 일련번호
@@ -46,8 +48,8 @@ create table t_member_addr (
 	ma_date datetime default now(),			-- 등록일
     constraint fk_t_member_addr_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
-
-
+select a.mi_protein, b.mt_grade, b.mt_hp, b.mt_count, b.mt_date from t_member_info a, t_member_tree b where a.mi_id = b.mi_id and b.mt_plant = 'y' and b.mi_id = 'test1';
+select mt_grade, mt_date, mt_hp from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
 drop table t_member_tree;
 -- 회원 식물 테이블
 create table t_member_tree (
@@ -55,13 +57,14 @@ create table t_member_tree (
 	mi_id varchar(20) not null,				-- 회원아이디
 	mt_grade char(1),						-- 식물등급
 	mt_hp int default 10000,				-- 식물HP
+	mt_plant char(1) default 'n',			-- 식물상태값
 	mt_count int default 0,					-- 물준횟수
-	mt_date datetime default now(),			-- 시작날짜
+	mt_date datetime default now(),			-- 물준날짜
     constraint fk_t_member_tree_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
-insert into t_member_tree values ('', 'test1', 'y', '1', 's', '10000', '0', '');
+insert into t_member_tree (mi_id,mt_grade, mt_plant) values ('test1', '2', 'y');
 select 1 from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
-
+select count(*) from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
 -- 회원 포인트 내역 테이블
 create table t_member_point (
 	mp_idx int primary key auto_increment,	-- 일련번호
@@ -117,6 +120,34 @@ create table t_product_info (
    constraint fk_product_info_pcs_id foreign key (pcs_id) references t_product_ctgr_small(pcs_id),
    constraint fk_product_info_ai_idx foreign key (ai_idx) references t_admin_info(ai_idx)
 );
+insert into t_product_ctgr_big (pcb_id, pcb_name) values ('AA', '다육.선인장');
+insert into t_product_ctgr_big (pcb_id, pcb_name) values ('BB', '관엽식물');
+insert into t_product_ctgr_big (pcb_id, pcb_name) values ('CC', '허브.채소');
+
+insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('AAaa', 'AA', '다육');
+insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('AAbb', 'AA', '선인장');
+insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('BBaa', 'BB', '넝쿨.잎');
+insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('BBbb', 'BB', '열매.꽃');
+insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('CCaa', 'CC', '허브');
+insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('CCbb', 'CC', '채소');
+
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
+values ('AAbb101', 'AA', 'AAbb', '00선인장', 10000, 8000, 0, 'a', '', '', 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
+values ('AAaa101', 'AA', 'AAaa', '다육다육', 5000, 2000, 0.3, 'a', '', '', 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
+values ('BBaa101', 'BB', 'BBaa', '00넝쿨', 5000, 2000, 0.2, 'a', '', '', 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
+values ('BBbb101', 'BB', 'BBbb', '00잎식물', 5000, 2000, 0.7, 'a', '', '', 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
+values ('CCaa101', 'CC', 'CCaa', '00허브', 10000, 8000, 0.1, 'a', '', '', 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
+values ('CCbb101', 'CC', 'CCbb', '00채소', 10000, 8000, 0, 'a', '', '', 'y', 1);
+
+
+
+
+
 
 
 -- 상품 재고 테이블

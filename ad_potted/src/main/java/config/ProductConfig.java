@@ -3,11 +3,10 @@ package config;
 import org.apache.tomcat.jdbc.pool.*;
 import org.springframework.context.annotation.*;
 import dao.*;
-import svc.MyPlantSvc;
-import svc.ProductListSvc;
+import svc.*;
 
 @Configuration
-public class DbConfig {
+public class ProductConfig {
 	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
 		DataSource ds = new DataSource();
@@ -22,15 +21,28 @@ public class DbConfig {
 		ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
 		return ds;
 	}
+	
 	@Bean
-	public MyPlantDao myPlantDao() {
-		return new MyPlantDao(dataSource());
+	public ProductListDao productListDao() {
+		return new ProductListDao(dataSource());
 	}
 	
 	@Bean
-	public MyPlantSvc myPlantSvc() {
-		MyPlantSvc myPlantSvc = new MyPlantSvc();
-		myPlantSvc.setMyPlantDao(myPlantDao());
-		return myPlantSvc;
+	public ProductListSvc productListSvc() {
+		ProductListSvc productListSvc = new ProductListSvc();
+		productListSvc.setProductListDao(productListDao());
+		return productListSvc;
+	}
+	
+	
+	@Bean
+	public ProductInDao productInDao() {
+		return new ProductInDao(dataSource());
+	}
+	
+	@Bean
+	public ProductInSvc productInSvc() {
+		ProductInSvc productInSvc = new ProductInSvc();
+		return productInSvc;
 	}
 }

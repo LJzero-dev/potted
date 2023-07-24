@@ -27,6 +27,7 @@
 				config.LoginInterceptor
 				config.WebConfig
 				config.WebMvcConfig
+				config.DbConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

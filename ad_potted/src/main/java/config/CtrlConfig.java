@@ -12,7 +12,7 @@ public class CtrlConfig {
 	}*/
 	
 	@Bean
-	public ProductProcInCtrl productProcInCtrl() {
-		return new ProductProcInCtrl();
+	public ProductCtrl productProcInCtrl() {
+		return new ProductCtrl();
 	}
 }
