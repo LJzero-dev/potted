@@ -13,9 +13,16 @@ public class ProductListSvc {
 	}
 	
 
-	public List<ProductInfo> getProductList() {
-		List<ProductInfo> productList = productListDao.getProductList();
+	public List<ProductInfo> getProductList(int cpage, int psize, String where, String orderBy) {
+		List<ProductInfo> productList = productListDao.getProductList(cpage, psize, where, orderBy);
 		return productList;
+	}
+
+
+	public int getProductCount(String where) {
+		int rcnt = 0;
+		rcnt = productListDao.getProductCount(where);
+		return rcnt;
 	}
 
 }

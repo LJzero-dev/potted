@@ -8,12 +8,10 @@ import config.CtrlConfig.LoginRequired;
 import vo.MemberInfo;
 
 @Controller
-public class MyPlantCtrl {
+public class MyPlantCtrl {	
 	@LoginRequired
 	@GetMapping("/myPlant")
-	public String myPlant(@Login MemberInfo mi) {
-		System.out.println(mi.getClass());
-		System.out.println(mi.getMi_name());
+	public String myPlant() {
 		return "/myPlant/plant_grow_up";
 	}
 }

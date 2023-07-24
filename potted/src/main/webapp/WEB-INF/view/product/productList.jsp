@@ -12,17 +12,19 @@ List<ProductInfo> productList = (List<ProductInfo>)request.getAttribute("product
 // 검색 연월에 해당하는 일정들의 목록을 저장하고 있는 List
 PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 
-
+String pcb = request.getParameter("pcb");
+if (pcb == null || pcb.equals("")) { pcb = ""; }
 %>
 
 <style>
-.ctgrb {margin-right:10px; padding: 6px 20px; font-size: 20px; color: #6E6E6E; cursor: pointer; text-align: center; height:30px; border:1.5px solid  #6E6E6E; float:left; margin-bottom:10px;
-	background: white; border-radius: 20px;  }
+.ctgrb {margin-right:10px; padding: 6px 20px; font-size: 20px; color: #6E6E6E; cursor: pointer; text-align: center; height:30px; 
+	border:1.5px solid  #6E6E6E; float:left; margin-bottom:10px; background: white; border-radius: 20px;  }
 .ctgrb:hover { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
 .btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; border:1px solid #000; margin-right:10px; }
-#ctgr1 { display:none; margin-top:10px; }
-#ctgr2 { display:none; margin-top:10px; }
-#ctgr3 { display:none; margin-top:10px; }
+
+#ctgr1 { display: <% if(pcb.equals("AA")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
+#ctgr2 { display: <% if(pcb.equals("BB")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
+#ctgr3 { display: <% if(pcb.equals("CC")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
 <script>
@@ -67,15 +69,17 @@ function initSch2() { 브랜드 이름들이 다 다를경우 : ex input type ch
 
 var ctgrn = 1;
 function showCtgrS(ctgr) {
-	var obj = document.getElementById("ctgr"+ ctgrn); //현재 메뉴를 객체로 받아옴
-	obj.style.display = "none"; //현재 메뉴를 숨김
-	var menu = document.getElementById("ctgr"+ ctgr); 
-	menu.style.display = "block"; 
-	ctgrn = ctgr; //현재 보이는 메뉴번호를 눌린 버튼의 번호로 변경
+	if (ctgr == 1) {
+		location.href = "productList?pcb=AA";
+	} else if (ctgr == 2) {
+		location.href = "productList?pcb=BB";
+	} else {
+		location.href = "productList?pcb=CC";
+	} 
 	
 }
 </script>
-<div style="width:800px; margin:0 auto; ">
+<div style="width:850px; margin:0 auto; ">
 <h2 style="font-size:20pt;">STORE</h2>
 <form>
 <div style="overflow:hidden;">
@@ -88,17 +92,14 @@ function showCtgrS(ctgr) {
 <div id="ctgr1" >
 	<div class="ctgrb" onclick="" >다육</div>
 	<div class="ctgrb" onclick="" >선인장</div>
-	<div><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" /></div>
 </div>
 <div id="ctgr2" >
 	<div class="ctgrb" onclick="" >넝쿨⦁잎</div>
 	<div class="ctgrb" onclick="" >열매⦁꽃</div>
-	<div><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" /></div>
 </div>
 <div id="ctgr3" >
 	<div class="ctgrb" onclick="" >허브</div>
 	<div class="ctgrb" onclick="" >채소</div>
-	<div><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" /></div>
 </div>
 
 <table width="800">
@@ -115,60 +116,97 @@ function showCtgrS(ctgr) {
 		<input type="text" name="sp" class="price" value="" placeholder="최저가" onkeyup="onlyNum(this);" style="height:20px;" />&nbsp;&nbsp; ~ &nbsp;
 		<input type="text" name="ep" class="price" value="" placeholder="최고가" onkeyup="onlyNum(this);" style="height:20px;" />
 		<input type="button" value="검색" class="btn" onclick="makeSch();" />
-		<input type="button" value="검색 초기화" class="btn" onclick="" />
+		<input type="button" value="검색 초기화" class="btn" onclick="location.href='productList';" />
 	</div>
 	<br /><br />
 	<div>
 		<img src="/potted/resources/images/product/search.png" width="25"/>&nbsp;
-		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="" style=" width:690px; border:0; font-size:13pt;" />
+		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="" style=" width:570px; border:0; font-size:13pt;" />
 		<input type="button" value="검색" class="btn" onclick="initSch();" />
 		<select name="ob" onchange="" >
-			<option value="a">최근 순</option>
-			<option value="b">인기 순</option>
-			<option value="c">이름 순</option>
-			<option value="d">높은 가격 순</option>
-			<option value="e">낮은 가격 순</option>
+			<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순</option>
+			<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>인기 순</option>
+			<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>이름 순</option>
+			<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>높은 가격 순</option>
+			<option value="e" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>낮은 가격 순</option>
 		</select>
 	</div>
-	<hr />
 	</form>	 
+	<hr />
 </td>
 </tr>
+	<table width="100%" cellpadding="15" cellspacing="0">
 <%
-// String lnk = "productList?cpage=1" + pageInfo.getSchargs();	
-int i = 0;
-for (i = 0 ; i < productList.size() ; i++) {
-	ProductInfo pi = productList.get(i);
-	/* String stock = pi.getStock() + "ea";
-	if (pi.getStock() > 0) {	// 재고가 남았으면
-	lnk = "priduct_view?piid=" + pi.getPi_id();
-	} else {	// 재고가 없으면
-		lnk = "javascript:alert('현재재고가 없습니다.')";
-		stock = "품절(SOLD OUT)";
-	} */
-	String price = pi.getPi_price() + "원";
-	if (pi.getPi_dc() > 0) {	// 할인율이 있으면
-		price = Math.round(pi.getPi_price() * (1 - pi.getPi_dc())) + "원";	// 할인이 있을때 실제 판매가
-		price = "<del>" + pi.getPi_price() + "</del>&nbsp;&nbsp;&nbsp;" + price;	// <del>태그는 글자 중간에 밑줄긋기 / 원래판매금액 밑줄긋기
+if (pageInfo.getRcnt() > 0) {
+	String lnk = "productList?cpage=1" + pageInfo.getSchargs();	
+	int i = 0;
+	for (i = 0 ; i < productList.size() ; i++) {
+		ProductInfo pi = productList.get(i);
+		/* String stock = pi.getStock() + "ea";
+		if (pi.getStock() > 0) {	// 재고가 남았으면
+		lnk = "priduct_view?piid=" + pi.getPi_id();
+		} else {	// 재고가 없으면
+			lnk = "javascript:alert('현재재고가 없습니다.')";
+			stock = "품절(SOLD OUT)";
+		} */
+		String price = pi.getPi_price() + "원";
+		if (pi.getPi_dc() > 0) {	// 할인율이 있으면
+			price = Math.round(pi.getPi_price() * (1 - pi.getPi_dc())) + "원";	// 할인이 있을때 실제 판매가
+			price = "<del>" + pi.getPi_price() + "</del>&nbsp;&nbsp;&nbsp;" + price;	// <del>태그는 글자 중간에 밑줄긋기 / 원래판매금액 밑줄긋기
+		}
+		
+		if (i % 4 == 0) out.println("<tr>");
+	%>
+	<td width="10%" align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
+		<a href="<%=lnk %>">
+			<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img1() %>" width="150" height="150" border="0" />
+			<br /><%=pi.getPi_name() %>
+		</a>
+		<br /><%=price %><br />
+	</td>		
+	<%		
+		if (i % 4 == 3) out.println("</tr>");
+	}
+	if (i % 4 > 0) {	// 목록에 나오는 상품 수가 4개가 안될때도 왼쪽부터 잘 나오도록 함
+		for (int j = 0 ; j < (4 - (i % 4)) ; j++) {
+			out.println("<td width='25%'></td>");
+		}
+		out.println("</tr>");
+	}
+%>
+	</table>
+<%
+	out.println("<p align='center'>");	// 페이징 영역을 보여줄 p태그
+	
+	String qs = pageInfo.getSchargs() + pageInfo.getObargs();
+	// 페이징 영역 링크에서 사용할 쿼리 스트링의 공통 부분(검색조건들, 정렬방식, 보기방식)
+	
+	if (pageInfo.getCpage() == 1) {
+		out.println("[&lt;&lt;]&nbsp;&nbsp;[&lt;]&nbsp;");
+	} else {
+		out.println("<a href='productList?cpage=1" + qs + "'>[&lt;&lt;]</a>&nbsp;&nbsp;");
+		out.println("<a href='productList?cpage=" + (pageInfo.getCpage() - 1) + qs + "'>[&lt;]</a>&nbsp;");
+	}
+
+	for (int k = 1, j = pageInfo.getSpage() ; k <= pageInfo.getBsize() && j <= pageInfo.getPcnt() ; k++, j++) {
+		if (pageInfo.getCpage() == j) {
+			out.println("&nbsp;<strong>" + j + "</strong>&nbsp;");
+		} else {
+			out.println("&nbsp;<a href='productList?cpage=" + j + qs + "'>" + j + "</a>&nbsp;");
+		}
 	}
 	
-	if (i % 4 == 0) out.println("<tr>");
-%>
-<td width="10%" align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
-	<a href="">
-		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img1() %>" width="150" height="150" border="0" />
-		<br /><%=pi.getPi_name() %>
-	</a>
-	<br /><%=price %><br />
-</td>		
-<%		
-	if (i % 4 == 3) out.println("</tr>");
+	if (pageInfo.getCpage() == pageInfo.getPcnt()) {
+		out.println("&nbsp;&nbsp;[&gt;]&nbsp;&nbsp;&nbsp;[&gt;&gt;]");
+	} else {
+		out.println("&nbsp;&nbsp;<a href='productList?cpage=" + (pageInfo.getCpage() + 1) + qs + "'>[&gt;]</a>");
+		out.println("&nbsp;&nbsp;&nbsp;<a href='productList?cpage=" + pageInfo.getPcnt() + qs + "'>[&gt;&gt;]</a>");
+	}
+	out.println("</p>");
+} else {
+	out.println("검색된 상품이 없습니다.");
 }
 %>
-<tr>
-<td>
-</td>
-</tr>
 
 
 </table>
