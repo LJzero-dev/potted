@@ -28,7 +28,7 @@ th {width:130px; text-align:left;}
 			<th class="title">상품 목록</th>
 			<td>
 				<span style="margin-right:10px; vertical-align:middle;">대분류</span>
-				<select style="width:170px; height:30px; margin-right:20px;" >
+				<select name="bigCategory" style="width:170px; height:30px; margin-right:20px;" >
 					<option>다육⦁선인장</option>
 					<option>관엽식물</option>
 					<option>허브⦁채소</option>		

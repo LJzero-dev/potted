@@ -46,6 +46,27 @@
 		<artifactId>spring-webmvc</artifactId><!-- 스프링 MVC를 위한 변경 부분 -->
 		<version>5.0.2.RELEASE</version>
 	</dependency>
+		  
+    <dependency>
+       <groupId>com</groupId>
+       <artifactId>potted</artifactId>
+       <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    
+     <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+	  <dependency>
+		 <groupId>javax.servlet</groupId>
+		 <artifactId>jstl</artifactId>
+		 <version>1.2</version>
+	  </dependency>
+		
+      <!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
+	  <dependency>
+		 <groupId>org.apache.taglibs</groupId>
+		 <artifactId>taglibs-standard-impl</artifactId>
+		 <version>1.2.5</version>
+		 <scope>runtime</scope>
+	  </dependency>
   </dependencies>
   <build>
     <finalName>ad_potted</finalName>
