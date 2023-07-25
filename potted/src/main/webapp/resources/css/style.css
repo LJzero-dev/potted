@@ -74,4 +74,4 @@
 .bg-gray p {font-size:13px; font-weight:bold;}
 .paymentBtn {display:block; width:100%; padding:20px 0; text-align:center; font-size:16px; font-weight:bold; background:#00b564; color:#fff !important;}
 .nhList { border-bottom:2px solid black;}
-.ntList { border-bottom:1px solid; }
+.ntList { border-bottom:1px solid; text-align:center; font-size:15px;}
