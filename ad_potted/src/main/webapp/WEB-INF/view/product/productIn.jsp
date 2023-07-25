@@ -1,5 +1,52 @@
+<%@page import="vo.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
+<%
+request.setCharacterEncoding("utf-8");
+ArrayList<ProductCtgrBig> bigList = (ArrayList<ProductCtgrBig>)request.getAttribute("bigList");
+ArrayList<ProductCtgrSmall> smallList = (ArrayList<ProductCtgrSmall>)request.getAttribute("smallList");
+%>
+<script>
+<% 
+for (ProductCtgrBig pcb : bigList) { 
+	String arr = "arr" + pcb.getPcb_id();
+%>
+var <%=arr %> = new Array();
+<%=arr %>[0] = new Option("", "선택");
+<%
+	for (int i = 0, j = 1 ; i < smallList.size() ; i++, j++) {
+		ProductCtgrSmall pcs = smallList.get(i);
+		if (pcs.getPcb_id().equals(pcb.getPcb_id())) {
+%>
+<%=arr %>[<%=j %>] = new Option("<%=pcs.getPcs_id() %>", "<%=pcs.getPcs_name() %>");
+<% 
+		} else {
+			j = 0;
+		}
+	}
+%>
+<% 
+} 
+%>
+
+function setCategory(x, target) {
+		for (var i = target.options.length - 1; i > 0; i-- ) {
+			target.options[i] = null;
+		}
+
+		if (x != "") { 
+			var arr = eval("arr" + x);
+			
+			for (var i = 0; i < arr.length; i++ ) {
+				target.options[i] = new Option(arr[i].value, arr[i].text);
+				
+			}
+
+			target.options[0].selected = true;
+		}
+	}
+</script>
 <style>
 .title {color:#1cad0a;}
 h2 {font-size:24px;}
@@ -12,6 +59,7 @@ th {width:130px; text-align:left;}
 .insertBtn {width:100px; padding:5px 0;margin-bottom:30px; border:0; background:gray; color:#fff;}
 .cancelBtn {display:block; width:100px; padding:5px 0; float:right; text-align:center; border:1px solid #000; margin-left:10px; font-size:13px;}
 </style>
+
 <div style="width:1100px; margin:0 auto; overflow:hidden;">
 	<h2>상품 등록</h2>
 	<table>
@@ -26,21 +74,25 @@ th {width:130px; text-align:left;}
 		</tr>
 		<tr>
 			<th class="title">상품 목록</th>
+			<form name="frm">
 			<td>
 				<span style="margin-right:10px; vertical-align:middle;">대분류</span>
-				<select name="bigCategory" style="width:170px; height:30px; margin-right:20px;" >
-					<option>다육⦁선인장</option>
-					<option>관엽식물</option>
-					<option>허브⦁채소</option>		
+
+				<select name="pcb" onchange="setCategory(this.value, this.form.pcs);" style="width:170px; height:30px; margin-right:20px;">
+					<option value="">선택</option>
+					<c:forEach items="${bigList}" var="category">
+						<option value="${category.pcb_id}">${category.pcb_name}</option>
+					</c:forEach>
 				</select>
+				
 			</td>
 			<td>
 				<span style="margin-right:10px; vertical-align:middle;">소분류</span>
-				<select style="width:170px; height:30px;">
-					<option>다육</option>
-					<option>선인장</option>	
+				<select name="pcs" style="width:170px; height:30px;">
+					<option value="">선택</option>
 				</select>
 			</td>
+			</form>
 		</tr>
 		<tr>
 			<th class="title">상품 이미지</th>
@@ -145,4 +197,7 @@ th {width:130px; text-align:left;}
 		<a href="javascript:void(0);" class="cancelBtn">취소</a>
 	</div>
 </div>
+<script>
+setCategory(document.frm.pcb.value, document.frm.pcs);
+</script>
 <%@ include file="../inc/inc_foot.jsp" %>

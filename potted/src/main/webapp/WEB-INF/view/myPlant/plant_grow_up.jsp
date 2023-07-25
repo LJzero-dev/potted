@@ -81,8 +81,14 @@ MY PLANT
 <td><div style="width:250px; height:200px; text-align:center;"><h3>영양제 : <%=mt.getMi_protein() %>개<br />(HP 1000 회복)</h3><input type="button" value="영양제 주기" onclick="nutrients();" style="width:250px; height:70px;"><h3>(쿨타임 24시간)</h3></div></td>
 </tr>
 <tr height="200px">
-<td>설명</td>
-<td><div style="width:250px; height:200px; text-align:center;"><h3>물을 주면 <%=(mt.getMt_grade() == 1 ? "24" : (mt.getMt_grade() == 2 ? "12" : "6")) %>시간동안<br />식물의 HP가 닳지 않아요</h3><input type="button" value="물주기" onclick="watering();" style="width:250px; height:70px;"><h3>(쿨타임)</h3><h3 id="timer"><br /></h3></div></td>
+<td>
+<h3>
+현재 식물 : <%=mt.getMt_grade() == 4 ? "초급 식물" : mt.getMt_grade() == 2 ? "중급 식물" : "고급 식물" %><br />
+현재 HP : <%=mt.getMt_hp() %><br />
+물준 횟수 : (<%=mt.getMt_count() %>/<%=mt.getMt_grade() == 4 ? "3" : mt.getMt_grade() == 2 ? "7" : "14" %>)<br />
+상태 : <%=mt.getMt_hp() >= 9000 ? "S등급" : mt.getMt_hp() >= 8000 ? "A등급" : mt.getMt_hp() >= 7000 ? "B등급" : mt.getMt_hp() >= 6000 ? "C등급" : "폐사" %>
+</h3></td>
+<td><div style="width:250px; height:200px; text-align:center;"><h3>물을 주면 <%=(mt.getMt_grade() == 1 ? "6" : (mt.getMt_grade() == 2 ? "12" : "24")) %>시간동안<br />식물의 HP가 닳지 않아요</h3><input type="button" value="물주기" onclick="watering();" style="width:250px; height:70px;"><h3>(쿨타임)</h3><h3 id="timer"><br /></h3></div></td>
 </tr>
 </table>
 </div>

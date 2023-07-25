@@ -21,6 +21,7 @@ public class ProductInDao {
 	        ProductCtgrBig pg = new ProductCtgrBig();
 	        pg.setPcb_id(rs.getString("pcb_id"));
 	        pg.setPcb_name(rs.getString("pcb_name"));
+	        
 	        return pg;
 	    });
 

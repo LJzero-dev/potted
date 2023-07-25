@@ -4,7 +4,7 @@
 <%@ page import="vo.*" %>
 <%
 request.setCharacterEncoding("utf-8");
-// List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList");
+List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList");
 
 %>
 
@@ -24,7 +24,7 @@ request.setCharacterEncoding("utf-8");
 <hr color="#1cad0a" style="border-width:1px; height:1px; border:0;" />
 &nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;">공지사항</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;">문의</h3>
 <br /><br />
-<table width="80%" height="80px" border="0" align="center">
+<table width="60%" height="80px" border="0" align="center" cellpadding="0" cellspacing="0">
 <tr>
 <th width="5%" class="nhList">번호</th>
 <th width="*" class="nhList">제목</th>
@@ -32,12 +32,11 @@ request.setCharacterEncoding("utf-8");
 <th width="20%" class="nhList">날짜</th>
 </tr>
 <% 
-/*
-for (int i = 1 ; i == noticeList.size() ; i++) {
+for (int i = 0 ; i < noticeList.size() ; i++) {
 	NoticeList nl = noticeList.get(i);
-	out.println("<tr>" + "<td>" + nl.getNl_idx() + "</td>" + "<td>" + nl.getNl_title() + "</td>" + "<td>" + nl.getAi_idx() + "</td>" + 
-	"<td>" + nl.getNl_date() + "</td>" + "</tr>");
-} */
+	out.println("<tr height='50px'><td class='ntList'>" + nl.getNl_idx() + "</td><td style='font-size:15px; border-bottom:1px solid;'>" + nl.getNl_title() + "</td><td class='ntList'>" + nl.getAi_id() + "</td>" + 
+	"<td class='ntList'>" + nl.getNl_date() + "</td></tr>");
+}
 %>
 </table>
 

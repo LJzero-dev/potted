@@ -25,6 +25,9 @@ public class CtrlConfig {
 	@Autowired
 	private MyPlantSvc myPlantSvc;
 	
+	@Autowired
+	private NoticeSvc noticeSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
@@ -67,14 +70,18 @@ public class CtrlConfig {
 	}
 	
 	@Bean
+	public ServiceCtrl serviceCtrl() {
+		ServiceCtrl serviceCtrl = new ServiceCtrl();
+		serviceCtrl.setNoticeSvc(noticeSvc);
+		
+		return serviceCtrl;
+	}
+	
+	@Bean
 	public FreeListCtrl freeListCtrl() {
 		return new FreeListCtrl();
 	}
 
-	@Bean
-	public ServiceCtrl serviceCtrl() {
-		return new ServiceCtrl();
-	}
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.METHOD)
