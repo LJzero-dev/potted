@@ -75,7 +75,7 @@ select round((now() - mt_date)/60) from t_member_tree;
 select mt_date - now() from t_member_tree;
 select mt_grade from t_member_tree where mi_id = '' and mt_plant = 'y';
 update t_member_tree set mt_hp = mt_hp - timestampdiff(minute, mt_date, now()), mt_count = mt_count + 1, mt_date = date_add(now(), interval '' hour) where mi_id = ? and mt_plant = 'y';
-
+update t_member_tree set mt_hp = 4000 where mi_id = 'test1';
 -- 회원 포인트 내역 테이블
 create table t_member_point (
 	mp_idx int primary key auto_increment,	-- 일련번호

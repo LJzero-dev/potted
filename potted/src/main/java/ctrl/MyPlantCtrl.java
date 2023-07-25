@@ -28,6 +28,17 @@ public class MyPlantCtrl {
 	@GetMapping("/myPlant")
 	public String myPlant(@Login MemberInfo mi, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		
+		if (myPlantSvc.getMyPlant(mi.getMi_id()) != null && myPlantSvc.getMyPlant(mi.getMi_id()).getMt_hp() < 5000) {
+			request.setAttribute("mt", myPlantSvc.getMyPlant(mi.getMi_id()));
+			request.setAttribute("result", "false");
+			return "myPlant/plant_finish";
+		} else if(myPlantSvc.getMyPlant(mi.getMi_id()) != null && myPlantSvc.getMyPlant(mi.getMi_id()).getMt_count() > (myPlantSvc.getMyPlant(mi.getMi_id()).getMt_grade() == 4 ? 3 : myPlantSvc.getMyPlant(mi.getMi_id()).getMt_grade() == 2 ? 7 : 14)) {
+			request.setAttribute("mt", myPlantSvc.getMyPlant(mi.getMi_id()));
+			request.setAttribute("result", "true");
+			return "myPlant/plant_finish";
+		}
+		
 		if (myPlantSvc.getMtPlant(mi.getMi_id())) {			
 			request.setAttribute("mt", myPlantSvc.getMyPlant(mi.getMi_id()));			
 			return "/myPlant/plant_grow_up";
