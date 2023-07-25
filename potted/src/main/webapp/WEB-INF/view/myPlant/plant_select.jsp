@@ -3,7 +3,7 @@
 <script>
 function select(tmp) {
 	if(confirm('선택하신 식물이 ' + tmp + ' 식물이 맞습니까?')) {
-		location="plant_select?plant=" + (tmp == "초급" ? "1" : tmp == "중급" ? "2" : "3");
+		location="plantSelect?plant=" + (tmp == "초급" ? "4" : tmp == "중급" ? "2" : "1");
 	}
 }
 </script>

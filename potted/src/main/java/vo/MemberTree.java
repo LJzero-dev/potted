@@ -1,8 +1,8 @@
 package vo;
 
 public class MemberTree {
-	private int mt_idx, mt_count, mi_protein, mt_hp;
-	private String mi_id, mt_grade, mt_plant, mt_date;
+	private int mt_idx, mt_count, mi_protein, mt_hp, mt_grade;
+	private String mi_id, mt_plant, mt_date;
 	
 	public int getMi_protein() {
 		return mi_protein;
@@ -28,10 +28,10 @@ public class MemberTree {
 	public void setMi_id(String mi_id) {
 		this.mi_id = mi_id;
 	}
-	public String getMt_grade() {
+	public int getMt_grade() {
 		return mt_grade;
 	}
-	public void setMt_grade(String mt_grade) {
+	public void setMt_grade(int mt_grade) {
 		this.mt_grade = mt_grade;
 	}
 	public int getMt_hp() {

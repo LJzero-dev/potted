@@ -50,12 +50,12 @@ create table t_member_addr (
 );
 select a.mi_protein, b.mt_grade, b.mt_hp, b.mt_count, b.mt_date from t_member_info a, t_member_tree b where a.mi_id = b.mi_id and b.mt_plant = 'y' and b.mi_id = 'test1';
 select mt_grade, mt_date, mt_hp from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
-drop table t_member_tree;
+-- drop table t_member_tree;
 -- 회원 식물 테이블
 create table t_member_tree (
 	mt_idx int primary key auto_increment,	-- 일련번호
 	mi_id varchar(20) not null,				-- 회원아이디
-	mt_grade char(1),						-- 식물등급
+	mt_grade int,							-- 식물등급
 	mt_hp int default 10000,				-- 식물HP
 	mt_plant char(1) default 'n',			-- 식물상태값
 	mt_count int default 0,					-- 물준횟수
@@ -65,6 +65,17 @@ create table t_member_tree (
 insert into t_member_tree (mi_id,mt_grade, mt_plant) values ('test1', '2', 'y');
 select 1 from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
 select count(*) from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
+select * from t_member_tree;
+update t_member_tree set mt_date = now() where mt_idx = 1;
+select timestampdiff(minute, mt_date, now()) from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
+select mt_grade, mt_date from t_member_tree where mi_id = '' and mt_plant = 'y';
+select now();
+select * from t_member_tree;
+select round((now() - mt_date)/60) from t_member_tree;
+select mt_date - now() from t_member_tree;
+select mt_grade from t_member_tree where mi_id = '' and mt_plant = 'y';
+update t_member_tree set mt_hp = mt_hp - timestampdiff(minute, mt_date, now()), mt_count = mt_count + 1, mt_date = date_add(now(), interval '' hour) where mi_id = ? and mt_plant = 'y';
+
 -- 회원 포인트 내역 테이블
 create table t_member_point (
 	mp_idx int primary key auto_increment,	-- 일련번호

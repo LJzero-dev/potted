@@ -35,28 +35,29 @@ public class MyPlantCtrl {
 		return "/myPlant/plant_select";
 	}
 	@LoginRequired
-	@GetMapping("/plant_select")
+	@GetMapping("/plantSelect")
 	public String plant_select(HttpServletRequest request, HttpServletResponse response, @Login MemberInfo mi) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
 		if (myPlantSvc.setMyPlant(mi.getMi_id(),request.getParameter("plant")) == 1) {
-			return "/myPlant/plant_grow_up";
+			out.println("<script>");
+			out.println("location.href='myPlant'");
+			out.println("</script>");
+			out.close();
 		} else {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('식물 선택에 실패하셨습니다.')");
 			out.println("history.back();");
 			out.println("</script>");
-			out.close();
-			
+			out.close();			
 		}
 		return "/";
 	}
 	@LoginRequired
-	@PostMapping("/plant_watering")
+	@PostMapping("/plantWatering")
 	@ResponseBody
-	public String plant_watering(@Login MemberInfo mi) {
+	public void plant_watering(@Login MemberInfo mi) {
 		myPlantSvc.wattering(mi.getMi_id());
-		return "1";
 	}
 }

@@ -16,13 +16,9 @@ function watering() {
 		setTimeout(function() {
 			$.ajax({
 				type : "POST",
-				url : "./plant_watering",
-				success : function(chkRs) {
-					if (chkRs == 1) {
-						location.reload();
-					} else {
-						alert('시간을 확인 해주세요');
-					}
+				url : "./plantWatering",
+				success : function() {
+					location.href="myPlant";
 				}
 			});
 		}, 2000);
@@ -86,7 +82,7 @@ MY PLANT
 </tr>
 <tr height="200px">
 <td>설명</td>
-<td><div style="width:250px; height:200px; text-align:center;"><h3>물을 주면 <%=(mt.getMt_grade().equals("1") ? "24" : (mt.getMt_grade().equals("2") ? "12" : "6")) %>시간동안<br />식물의 HP가 닳지 않아요</h3><input type="button" value="물주기" onclick="watering();" style="width:250px; height:70px;"><h3>(쿨타임)</h3><h3 id="timer"><br /></h3></div></td>
+<td><div style="width:250px; height:200px; text-align:center;"><h3>물을 주면 <%=(mt.getMt_grade() == 1 ? "24" : (mt.getMt_grade() == 2 ? "12" : "6")) %>시간동안<br />식물의 HP가 닳지 않아요</h3><input type="button" value="물주기" onclick="watering();" style="width:250px; height:70px;"><h3>(쿨타임)</h3><h3 id="timer"><br /></h3></div></td>
 </tr>
 </table>
 </div>
