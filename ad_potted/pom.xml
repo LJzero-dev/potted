@@ -46,14 +46,27 @@
 		<artifactId>spring-webmvc</artifactId><!-- 스프링 MVC를 위한 변경 부분 -->
 		<version>5.0.2.RELEASE</version>
 	</dependency>
-		  
-    <dependency>
-       <groupId>com</groupId>
-       <artifactId>potted</artifactId>
-       <version>0.0.1-SNAPSHOT</version>
-    </dependency>
+	
+	<!-- db연결을 위한 추가 부분 시작 -->
+	<dependency>
+ 		<groupId>org.springframework</groupId>
+         <artifactId>spring-jdbc</artifactId>
+         <version>5.0.2.RELEASE</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.tomcat</groupId>
+         <artifactId>tomcat-jdbc</artifactId>
+         <version>8.5.27</version>
+      </dependency>
+      <dependency>
+         <groupId>mysql</groupId>
+         <artifactId>mysql-connector-java</artifactId>
+         <version>8.0.29</version>
+         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java 에서 버전 확인 -->
+      </dependency>
+      <!-- db연결을 위한 추가 부분 종료 -->
     
-     <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+      <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
 	  <dependency>
 		 <groupId>javax.servlet</groupId>
 		 <artifactId>jstl</artifactId>

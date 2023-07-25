@@ -1,9 +1,13 @@
 package svc;
 
 import java.util.*;
+
+import org.springframework.stereotype.Service;
+
 import dao.*;
 import vo.*;
 
+@Service
 public class ProductInSvc {
 	private ProductInDao productInDao;
 	

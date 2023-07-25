@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
 <style>
 .title {color:#1cad0a;}
@@ -12,6 +13,39 @@ th {width:130px; text-align:left;}
 .insertBtn {width:100px; padding:5px 0;margin-bottom:30px; border:0; background:gray; color:#fff;}
 .cancelBtn {display:block; width:100px; padding:5px 0; float:right; text-align:center; border:1px solid #000; margin-left:10px; font-size:13px;}
 </style>
+<script>
+$(document).ready(function() {
+    // 대분류가 변경될 때 소분류 값을 가져오는 함수 호출
+    $("#bigCategory").change(function() {
+        var bigCategoryId = $(this).val();
+        fetchSmallCategories(bigCategoryId); // AJAX 호출 함수
+    });
+});
+
+function fetchSmallCategories(bigCategoryId) {
+    // AJAX를 이용해 서버로 소분류 값을 요청하는 부분
+    $.ajax({
+        type: "POST",
+        url: "/SmallCategories",
+        data: { "bigCategoryId" : bigCategoryId },
+        success: function(data) {
+            // AJAX 요청이 성공하면 가져온 데이터로 소분류 select 태그를 갱신
+            var smallCategorySelect = $("#smallCategory");
+            smallCategorySelect.empty(); // 기존 소분류 목록 제거
+            smallCategorySelect.append("<option value=''>선택</option>"); // 기본 선택 옵션 추가
+
+            // 가져온 데이터로 소분류 목록 추가
+            for (var i = 0; i < data.length; i++) {
+                smallCategorySelect.append("<option value='" + data[i].pcs_id + "'>" + data[i].pcs_name + "</option>");
+            }
+        },
+        error: function() {
+            // 실패 시 처리할 내용
+            alert("소분류를 가져오는데 실패했습니다.");
+        }
+    });
+}
+</script>
 <div style="width:1100px; margin:0 auto; overflow:hidden;">
 	<h2>상품 등록</h2>
 	<table>
@@ -28,17 +62,17 @@ th {width:130px; text-align:left;}
 			<th class="title">상품 목록</th>
 			<td>
 				<span style="margin-right:10px; vertical-align:middle;">대분류</span>
-				<select name="bigCategory" style="width:170px; height:30px; margin-right:20px;" >
-					<option>다육⦁선인장</option>
-					<option>관엽식물</option>
-					<option>허브⦁채소</option>		
+				<select id="bigCategory" name="bigCategory" style="width:170px; height:30px; margin-right:20px;">
+					<option value="">선택</option>
+					<c:forEach items="${bigList}" var="category">
+						<option value="${category.pcb_id}">${category.pcb_name}</option>
+					</c:forEach>
 				</select>
 			</td>
 			<td>
 				<span style="margin-right:10px; vertical-align:middle;">소분류</span>
-				<select style="width:170px; height:30px;">
-					<option>다육</option>
-					<option>선인장</option>	
+				<select id="smallCategory" style="width:170px; height:30px;">
+				
 				</select>
 			</td>
 		</tr>

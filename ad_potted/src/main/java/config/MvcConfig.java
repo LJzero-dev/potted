@@ -16,7 +16,6 @@ public class MvcConfig implements WebMvcConfigurer {
 	}
 	public void addViewControllers(ViewControllerRegistry registry) {
 		// 단순히 이동만 하는 경우 컨트롤러를 따로 생성하지 않고 요청 경로와 뷰 이름을 연결시켜주는 메소드
-			registry.addViewController("/").setViewName("index");	// "/"를 부르면 "index" 이름으로 주라는 의미
-		}
-
+		registry.addViewController("/").setViewName("index");	// "/"를 부르면 "index" 이름으로 주라는 의미
+	}
 }
