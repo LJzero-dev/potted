@@ -101,7 +101,17 @@ public class ProductListCtrl {
 		return "product/productList";
 	}
 	
-	
+	@GetMapping("/productView")
+	public String productView(HttpServletRequest request, HttpServletResponse response) throws Exception  {
+		request.setCharacterEncoding("utf-8");
+		
+		String piid = request.getParameter("piid");
+		ProductInfo productInfo = productListSvc.getProductInfo(piid);
+		request.setAttribute("productInfo", productInfo);
+		
+		
+		return "product/productView";
+	}
 
 
 }

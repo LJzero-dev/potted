@@ -71,6 +71,10 @@ public class CtrlConfig {
 		return new FreeListCtrl();
 	}
 
+	@Bean
+	public ServiceCtrl serviceCtrl() {
+		return new ServiceCtrl();
+	}
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.METHOD)

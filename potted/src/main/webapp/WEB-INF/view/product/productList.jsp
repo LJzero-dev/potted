@@ -80,7 +80,7 @@ function showCtgrS(ctgr) {
 }
 </script>
 <div style="width:850px; margin:0 auto; ">
-<h2 style="font-size:20pt;">STORE</h2>
+<h2 style="font-size:20pt;"><a href="productList"; style="text-decoration:none; color:black;">STORE</a></h2>
 <form>
 <div style="overflow:hidden;">
 	<div class="ctgrb" id="AA" onclick="showCtgrS(1);" >다육⦁선인장</div>
@@ -142,13 +142,15 @@ if (pageInfo.getRcnt() > 0) {
 	int i = 0;
 	for (i = 0 ; i < productList.size() ; i++) {
 		ProductInfo pi = productList.get(i);
-		/* String stock = pi.getStock() + "ea";
+		String stock = pi.getStock() + "ea";
+		String soldout = "";
 		if (pi.getStock() > 0) {	// 재고가 남았으면
-		lnk = "priduct_view?piid=" + pi.getPi_id();
+		lnk = "productView?piid=" + pi.getPi_id();
 		} else {	// 재고가 없으면
-			lnk = "javascript:alert('현재재고가 없습니다.')";
+			lnk = "productView?piid=" + pi.getPi_id();
+			soldout = "<br />SOLD OUT";
 			stock = "품절(SOLD OUT)";
-		} */
+		}
 		String price = pi.getPi_price() + "원";
 		if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 			price = Math.round(pi.getPi_price() * (1 - pi.getPi_dc())) + "원";	// 할인이 있을때 실제 판매가
@@ -159,9 +161,10 @@ if (pageInfo.getRcnt() > 0) {
 	%>
 	<td width="10%" align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
 		<a href="<%=lnk %>">
-			<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img1() %>" width="150" height="150" border="0" />
+			<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" />
 			<br /><%=pi.getPi_name() %>
 		</a>
+		<%=soldout %>
 		<br /><%=price %><br />
 	</td>		
 	<%		
