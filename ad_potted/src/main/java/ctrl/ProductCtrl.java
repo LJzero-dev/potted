@@ -1,15 +1,12 @@
 package ctrl;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.*;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import svc.*;
 import vo.*;
 
@@ -22,12 +19,12 @@ public class ProductCtrl {
 	}
 
 	@GetMapping("/productIn")
-	public String productIn(Model model) throws Exception {
+	public String productIn(HttpServletRequest request) throws Exception {
 		ArrayList<ProductCtgrBig> bigList = productInSvc.getBigList();
 		ArrayList<ProductCtgrSmall> smallList = productInSvc.getSmallList();
 
-		model.addAttribute("bigList", bigList);
-		model.addAttribute("smallList", smallList);
+		request.setAttribute("bigList", bigList);
+		request.setAttribute("smallList", smallList);
 		
 		return "product/productIn";
 	}

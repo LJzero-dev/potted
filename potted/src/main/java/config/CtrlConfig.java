@@ -65,6 +65,11 @@ public class CtrlConfig {
 	}
 	
 	@Bean
+	public LogoutCtrl logoutCtrl() {
+		return new LogoutCtrl();
+	}
+	
+	@Bean
 	public ServiceCtrl serviceCtrl() {
 		ServiceCtrl serviceCtrl = new ServiceCtrl();
 		serviceCtrl.setNoticeSvc(noticeSvc);
