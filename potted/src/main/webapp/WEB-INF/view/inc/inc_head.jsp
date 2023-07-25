@@ -21,8 +21,7 @@ a:visited { text-decoration:none; color:black; }
 a:hover { text-decoration:underline; color:red; }
 .hand { cursor:pointer; } 
 .bold { font-weight:bold; }
-.nhList { border-bottom:2px solid black; color: #1cad0a; }
-.ntList { border-bottom:1px solid; }
+
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
 <script>
