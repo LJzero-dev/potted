@@ -4,7 +4,7 @@
 <%@ page import="vo.*" %>
 <%
 request.setCharacterEncoding("utf-8");
-// List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList");
+List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList");
 
 %>
 
@@ -32,12 +32,11 @@ request.setCharacterEncoding("utf-8");
 <th width="20%" class="nhList">날짜</th>
 </tr>
 <% 
-/*
-for (int i = 1 ; i == noticeList.size() ; i++) {
+for (int i = 0 ; i < noticeList.size() ; i++) {
 	NoticeList nl = noticeList.get(i);
-	out.println("<tr>" + "<td>" + nl.getNl_idx() + "</td>" + "<td>" + nl.getNl_title() + "</td>" + "<td>" + nl.getAi_idx() + "</td>" + 
+	out.println("<tr>" + "<td>" + nl.getNl_idx() + "</td>" + "<td>" + nl.getNl_title() + "</td>" + "<td>" + nl.getAi_id() + "</td>" + 
 	"<td>" + nl.getNl_date() + "</td>" + "</tr>");
-} */
+}
 %>
 </table>
 
