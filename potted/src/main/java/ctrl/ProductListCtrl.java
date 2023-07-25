@@ -69,16 +69,12 @@ public class ProductListCtrl {
 			orderBy += " a.pi_date desc ";		break;
 		case "b" :	// 판매량(인기)순
 			orderBy += " a.pi_sale desc ";		break;
-		case "c" :	// 낮은 가격 순
+		case "c" :	// 이름순
+			orderBy += " a.pi_name desc ";		break;
+		case "d" :	// 낮은 가격 순
 			orderBy += " a.pi_price asc ";		break;
-		case "d" :	// 높은 가격 순
+		case "e" :	// 높은 가격 순
 			orderBy += " a.pi_price desc ";		break;
-		case "e" :	// 평점 높은 순
-			orderBy += " a.pi_score desc ";		break;
-		case "f" :	// 리뷰 많은 순
-			orderBy += " a.pi_review desc ";	break;
-		case "g" :	// 조회수 높은 순
-			orderBy += " a.pi_read desc ";		break;
 		}
 
 		rcnt = productListSvc.getProductCount(where);

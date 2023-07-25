@@ -14,6 +14,28 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 
 String pcb = request.getParameter("pcb");
 if (pcb == null || pcb.equals("")) { pcb = ""; }
+
+String pcs = request.getParameter("pcs");
+if (pcs == null || pcs.equals("")) { pcs = ""; }
+
+String name = "", sp = "", ep = "", sch = pageInfo.getSch();
+if (sch != null && !sch.equals("")) {
+// 검색조건 : &sch=ntest,p100000~200000
+/*
+arrSch[0] = ntest (상품명검색어)
+arrSch[1] = p100000~200000 (가격대)
+*/
+	String[] arrSch = sch.split(",");
+	for (int i = 0 ; i < arrSch.length ; i++) {
+		char c = arrSch[i].charAt(0);
+		if (c == 'n') {			// 상품명 검색일 경우(n검색어)
+			name = arrSch[i].substring(1);
+		} else if (c == 'p') {	// 가격대 검색일 경우(p시작가~종료가)
+			sp = arrSch[i].substring(1, arrSch[i].indexOf('~'));
+			ep = arrSch[i].substring(arrSch[i].indexOf('~') + 1);
+		}
+	}
+}
 %>
 
 <style>
@@ -22,14 +44,18 @@ if (pcb == null || pcb.equals("")) { pcb = ""; }
 .ctgrb:hover { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
 .btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; border:1px solid #000; margin-right:10px; }
 
-#ctgr1 { display: <% if(pcb.equals("AA")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
-#ctgr2 { display: <% if(pcb.equals("BB")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
-#ctgr3 { display: <% if(pcb.equals("CC")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
+#ctgr1 { display: <% if(pcb.equals("AA") || pcs.equals("AAaa") || pcs.equals("AAbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
+#ctgr2 { display: <% if(pcb.equals("BB") || pcs.equals("BBaa") || pcs.equals("BBbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
+#ctgr3 { display: <% if(pcb.equals("CC") || pcs.equals("CCaa") || pcs.equals("CCbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
+
+#<%=pcb%> { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
+#<%=pcs%> { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
+
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
 <script>
 function makeSch() {
-// 검색 폼의 조건들을 쿼리스트링 sch의 값으로 만듦 : ntest,bB1:B2:B3,p100000~200000
+// 검색 폼의 조건들을 쿼리스트링 sch의 값으로 만듦 : ntest,p100000~200000
 	var frm = document.frm2;
 	var sch = ""; // 만들게될 쿼리스트링을 저장할 변수
 	
@@ -41,7 +67,7 @@ function makeSch() {
 	var sp = frm.sp.value, ep = frm.ep.value;
 	if (sp != "" || ep != "") {	// 가격대중 하나라도 값이 있으면
 		if (sch != "")	sch += ",";
-		sch += "p" + sp + "~" + ep;		// sch=n검색어,b브랜드(들),p최저가~최고가
+		sch += "p" + sp + "~" + ep;		// sch=n검색어,p최저가~최고가
 	}	
 	
 	document.frm1.sch.value = sch;
@@ -49,26 +75,13 @@ function makeSch() {
 }
 
 function initSch() {
-// 검색조건(상품명, 브랜드, 가격대)들을 모두 없애주는 함수 / 브랜드 checkbox 에 name값이 하나일때 
+// 검색조건(상품명, 가격대)들을 모두 없애주는 함수 / 브랜드 checkbox 에 name값이 하나일때 
 	var frm = document.frm2;
 	frm.pdt.value = "";	frm.sp.value = "";	frm.ep.value = "";
-	var arr = frm.brand;	// brand라는 이름의 컨트롤들을 배열로 받아옴
-	for (var i = 0 ; i < arr.length ; i++) {
-		arr[i].checked = false;
-	}
 }
-/*
-function initSch2() { 브랜드 이름들이 다 다를경우 : ex input type checkbox name="brand.getPb_id()" 가들어갈 때 
-	var frm = document.frm2;
-	var ids = frm.ids.value.split(",");
-	for (var i = 0 ; i < ids.length ; i++) {
-		var tmp = eval("frm.brand" + ids[i]);
-		tmp.checked = false;
-	}
-} */ 
 
-var ctgrn = 1;
-function showCtgrS(ctgr) {
+
+function showCtgrB(ctgr) {
 	if (ctgr == 1) {
 		location.href = "productList?pcb=AA";
 	} else if (ctgr == 2) {
@@ -78,28 +91,33 @@ function showCtgrS(ctgr) {
 	} 
 	
 }
+
+function showCtgrS(code) {
+	location.href = "productList?pcb=" + code.substring(0, 2) + "&pcs=" + code;
+}
+
 </script>
 <div style="width:850px; margin:0 auto; ">
 <h2 style="font-size:20pt;"><a href="productList"; style="text-decoration:none; color:black;">STORE</a></h2>
 <form>
 <div style="overflow:hidden;">
-	<div class="ctgrb" id="AA" onclick="showCtgrS(1);" >다육⦁선인장</div>
-	<div class="ctgrb" id="BB" onclick="showCtgrS(2);" >관엽식물</div>
-	<div class="ctgrb" id="CC" onclick="showCtgrS(3);" >허브⦁채소</div>
+	<div class="ctgrb" id="AA" onclick="showCtgrB(1);" >다육⦁선인장</div>
+	<div class="ctgrb" id="BB" onclick="showCtgrB(2);" >관엽식물</div>
+	<div class="ctgrb" id="CC" onclick="showCtgrB(3);" >허브⦁채소</div>
 </div>
 </form>
 <hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />
 <div id="ctgr1" >
-	<div class="ctgrb" onclick="" >다육</div>
-	<div class="ctgrb" onclick="" >선인장</div>
+	<div class="ctgrb" id="AAaa" onclick="showCtgrS('AAaa')" >다육</div>
+	<div class="ctgrb" id="AAbb" onclick="showCtgrS('AAbb')" >선인장</div>
 </div>
 <div id="ctgr2" >
-	<div class="ctgrb" onclick="" >넝쿨⦁잎</div>
-	<div class="ctgrb" onclick="" >열매⦁꽃</div>
+	<div class="ctgrb" id="BBaa" onclick="showCtgrS('BBaa')" >넝쿨⦁잎</div>
+	<div class="ctgrb" id="BBbb" onclick="showCtgrS('BBbb')" >열매⦁꽃</div>
 </div>
 <div id="ctgr3" >
-	<div class="ctgrb" onclick="" >허브</div>
-	<div class="ctgrb" onclick="" >채소</div>
+	<div class="ctgrb" id="CCaa" onclick="showCtgrS('CCaa')" >허브</div>
+	<div class="ctgrb" id="CCbb" onclick="showCtgrS('CCbb')" >채소</div>
 </div>
 
 <table width="800">
@@ -108,37 +126,45 @@ function showCtgrS(ctgr) {
 	<!-- 검색 조건 입력 폼 -->
 	<form name="frm1">
 	<!--  검색조건으로 링크를 걸기위한 쿼리스트링용 컨트롤들의 집합 -->
+	<input type="hidden" name="pcb" value="<%=pageInfo.getPcb() %>" />
+<% if (pageInfo.getPcs() != null && !pageInfo.getPcs().equals("")) { %>
+	<input type="hidden" name="pcs" value="<%=pageInfo.getPcs() %>" />
+<% } %>
+	<input type="hidden" name="ob" value="<%=pageInfo.getOb() %>" />
 	<input type="hidden" name="sch" value="" />
 	</form>
 	<form name="frm2">
 	<div>
 		<strong style="font-size:13pt;">가격대</strong>&nbsp;&nbsp;
-		<input type="text" name="sp" class="price" value="" placeholder="최저가" onkeyup="onlyNum(this);" style="height:20px;" />&nbsp;&nbsp; ~ &nbsp;
-		<input type="text" name="ep" class="price" value="" placeholder="최고가" onkeyup="onlyNum(this);" style="height:20px;" />
+		<input type="text" name="sp" class="price" value="<%=sp %>" placeholder="최저가" onkeyup="onlyNum(this);" style="height:20px;" />&nbsp;&nbsp; ~ &nbsp;
+		<input type="text" name="ep" class="price" value="<%=ep %>" placeholder="최고가" onkeyup="onlyNum(this);" style="height:20px;" />
 		<input type="button" value="검색" class="btn" onclick="makeSch();" />
 		<input type="button" value="검색 초기화" class="btn" onclick="location.href='productList';" />
 	</div>
 	<br /><br />
 	<div>
 		<img src="/potted/resources/images/product/search.png" width="25"/>&nbsp;
-		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="" style=" width:570px; border:0; font-size:13pt;" />
+		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="<%=name %>" style=" width:600px; border:0; font-size:13pt;" />
 		<input type="button" value="검색" class="btn" onclick="initSch();" />
-		<select name="ob" onchange="" >
+	<hr />
+	</div>
+	</form>	 
+<%
+if (pageInfo.getRcnt() > 0) {
+	String lnk = "productList?cpage=1" + pageInfo.getSchargs();
+%>
+		<select name="ob" style="align:right;" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
 			<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순</option>
 			<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>인기 순</option>
 			<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>이름 순</option>
 			<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>높은 가격 순</option>
 			<option value="e" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>낮은 가격 순</option>
 		</select>
-	</div>
-	</form>	 
-	<hr />
 </td>
 </tr>
 	<table width="100%" cellpadding="15" cellspacing="0">
-<%
-if (pageInfo.getRcnt() > 0) {
-	String lnk = "productList?cpage=1" + pageInfo.getSchargs();	
+
+<%	
 	int i = 0;
 	for (i = 0 ; i < productList.size() ; i++) {
 		ProductInfo pi = productList.get(i);

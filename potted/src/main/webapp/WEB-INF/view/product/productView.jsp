@@ -7,29 +7,37 @@
 <%
 request.setCharacterEncoding("utf-8");
 
-List<ProductInfo> productList = (List<ProductInfo>)request.getAttribute("productList");
+ProductInfo pi = (ProductInfo)request.getAttribute("productInfo");
+
+long realPrice = pi.getPi_price();			// 수량 변경에 따른 가격 연산을 위한 변수
+String price = pi.getPi_price() + "원";		// 가격 출력을 위한 변수
+if (pi.getPi_dc() > 0) {	// 할인율이 있으면
+	realPrice = Math.round(realPrice * (1 - pi.getPi_dc()));
+	price = "<del>" + pi.getPi_price() + "</del>&nbsp;&nbsp;&nbsp;" + realPrice + "원";
+}
 
 %>
+<div style="width:850px; margin:0 auto; ">
 <table width="800" cellpadding="5">
 <tr align="center">
 <td width="35%">
 <!-- 이미지 관련 영역 -->
 	<table width="100%" cellpadding="5">
 	<tr><td colspan="3" align="center">
-		<img src="/mvcSite/product/pdt_img/<%=productInfo.getPi_img1() %>" width="260" height="230" id="bigImg" />
+		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img1() %>" width="260" height="230" id="bigImg" />
 	</td></tr>
 	<tr align="center">
 	<td width="33.3%">
-		<img src="/mvcSite/product/pdt_img/<%=productInfo.getPi_img1() %>" width="80" height="80" onclick="showBig('<%=productInfo.getPi_img1() %>');" />
+		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img1() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img1() %>');" />
 	</td>
 	<td width="33.3%">
-<% if (productInfo.getPi_img2() != null && !productInfo.getPi_img2().equals("")) { %>
-		<img src="/mvcSite/product/pdt_img/<%=productInfo.getPi_img2() %>" width="80" height="80" onclick="showBig('<%=productInfo.getPi_img2() %>');" />
+<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
+		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img2() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img2() %>');" />
 <% } %>
 	</td>
 	<td width="33.3%">
-<% if (productInfo.getPi_img3() != null && !productInfo.getPi_img3().equals("")) { %>
-		<img src="/mvcSite/product/pdt_img/<%=productInfo.getPi_img3() %>" width="80" height="80" onclick="showBig('<%=productInfo.getPi_img3() %>');" />
+<% if (pi.getPi_img3() != null && !pi.getPi_img3().equals("")) { %>
+		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img3() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img3() %>');" />
 <% } %>
 	</td>
 	</tr>
@@ -39,37 +47,19 @@ List<ProductInfo> productList = (List<ProductInfo>)request.getAttribute("product
 <!-- 상품 정보 관련 영역 -->
 	<form name="frm" method="post">
 	<input type="hidden" name="kind" value="d" />
-	<input type="hidden" name="piid" value="<%=productInfo.getPi_id() %>" />
+	<input type="hidden" name="piid" value="<%=pi.getPi_id() %>" />
 	<table width="100%" cellpadding="5" id="info" >
 	<tr><td colspan="2">&nbsp;&nbsp;&nbsp;
-		<a href="productList?pcb=<%=productInfo.getPcs_id().substring(0, 2) %>"><%=productInfo.getPcb_name() %></a>  ->  
-		<a href="productList?pcb=<%=productInfo.getPcs_id().substring(0, 2) %>&pcs=<%=productInfo.getPcs_id() %>"><%=productInfo.getPcs_name() %></a>
+		<a href="productList?pcb=<%=pi.getPcs_id().substring(0, 2) %>&pcs=<%=pi.getPcs_id() %>"><%=pi.getPcs_name() %></a>
 	</td></tr>
 	<tr>
 	<td width="20%" align="right">상품명</td>
-	<td width="*"><%=productInfo.getPi_name() %></td>
+	<td width="*"><%=pi.getPi_name() %></td>
 	</tr>
-	<tr><td align="right">브랜드</td><td><%=productInfo.getPb_name() %></td></tr>
-	<tr><td align="right">제조사</td><td><%=productInfo.getPi_com() %></td></tr>
 	<tr><td align="right">가격</td><td><%=price %></td></tr>
 	<tr>
 	<td align="right">옵션</td>
 	<td>
-		<select name="size">
-			<option value="">사이즈 선택</option>
-<% 
-for (ProductStock ps : stockList) {
-	String opt = ps.getPs_size() + "mm (재고 : " + ps.getPs_stock() + "개)";
-	String disabled = "";
-	if (ps.getPs_stock() <= 0) {	// 재고 관리에서 오류가 생길 우려가 있기 때문에 0보다 작다는 조건을 줌
-		disabled = " disabled=\"disabled\"";
-		opt = ps.getPs_size() + "mm (재고없음 : 품절)";
-	}
-	out.println("<option value='" + ps.getPs_idx() + ":" + ps.getPs_stock() + "'" + disabled + ">" + opt + "</option>");
-}
-%>	
-		
-		</select>
 	</td>
 	</tr>
 	<tr>
@@ -92,4 +82,7 @@ for (ProductStock ps : stockList) {
 </td>
 </tr>
 </table>
+</div>
+
+
 <%@ include file="../inc/inc_foot.jsp" %>

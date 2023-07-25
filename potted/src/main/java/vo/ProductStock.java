@@ -5,6 +5,14 @@ public class ProductStock {
 	private String pi_id, ps_isview;
 	private int ps_idx, ps_stock, ps_sale;
 	
+	public ProductStock(String pi_id, String ps_isview, int ps_idx, int ps_stock, int ps_sale) {
+		this.pi_id = pi_id;
+		this.ps_isview = ps_isview;
+		this.ps_idx = ps_idx;
+		this.ps_stock = ps_stock;
+		this.ps_sale = ps_sale;
+	}
+	
 	public String getPi_id() {
 		return pi_id;
 	}

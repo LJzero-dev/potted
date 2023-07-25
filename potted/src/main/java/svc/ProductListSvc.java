@@ -25,4 +25,10 @@ public class ProductListSvc {
 		return rcnt;
 	}
 
+
+	public ProductInfo getProductInfo(String piid) {
+		ProductInfo pi = productListDao.getProductInfo(piid);
+		return pi;
+	}
+
 }
