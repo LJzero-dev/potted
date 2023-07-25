@@ -8,8 +8,15 @@ request.setCharacterEncoding("utf-8");
 MemberTree mt = (MemberTree)request.getAttribute("mt");
 String result = (String)request.getAttribute("result");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<div style="width:1200px; margin: 0 auto; position:relative;" >
-	<img src="/potted/resources/images/myPlant/tree<%=mt.getMt_grade() %>.png" style="width:500px; height:700px;" />
+<div style="width:1200px; height:300px; margin: 0 auto; text-align: center; background-color:" >
+<br /><br /><br /><br />
+<h3>asdfasdfajskdfnasfdl</h3>
+<h3>asdfasdfajskdfnasfdl</h3>
+<h3>asdfasdfajskdfnasfdl</h3>
+<input type="button" value="aa" />
 </div>
+<div style="width:1200px; height:1000px; margin: 0 auto; text-align:center; position:absolute; top:0px; left:50%; transform:translate(-50%); z-index: -1;">
+	<img src="/potted/resources/images/myPlant/tree<%=mt.getMt_grade() %>.png" style="width:500px; height:700px; left:100px; text-align:center;" />	
+</div>
+
 <%@ include file="../inc/inc_foot.jsp" %>
