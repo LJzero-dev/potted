@@ -2,8 +2,14 @@ package vo;
 
 public class MemberTree {
 	private int mt_idx, mt_count, mi_protein, mt_hp, mt_grade;
-	private String mi_id, mt_plant, mt_date;
+	private String mi_id, mt_plant, mt_date, mt_protein_date;
 	
+	public String getMt_protein_date() {
+		return mt_protein_date;
+	}
+	public void setMt_protein_date(String mt_protein_date) {
+		this.mt_protein_date = mt_protein_date;
+	}
 	public int getMi_protein() {
 		return mi_protein;
 	}

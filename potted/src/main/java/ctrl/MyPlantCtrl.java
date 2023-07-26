@@ -70,16 +70,22 @@ public class MyPlantCtrl {
 	@LoginRequired
 	@PostMapping("/plantWatering")
 	@ResponseBody
-	public void plant_watering(@Login MemberInfo mi) {
+	public void plantWatering(@Login MemberInfo mi) {
 		myPlantSvc.wattering(mi.getMi_id());
 	}
+	@LoginRequired
+	@PostMapping("/plantNutrients")
+	@ResponseBody
+	public void plantNutrients(@Login MemberInfo mi) {
+		myPlantSvc.plantNutrients(mi.getMi_id());
+	}	
 	@LoginRequired
 	@PostMapping("/plnatFinish")
 	public String plnatFinish(HttpServletRequest request,HttpServletResponse response, @Login MemberInfo mi) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		if (myPlantSvc.plantFinish((request.getParameter("grade") == null || request.getParameter("grade").equals("")) ? 0 : Integer.valueOf(request.getParameter("grade")), Integer.valueOf(request.getParameter("addPoint")) , mi.getMi_id()) == 2) {
+		if (myPlantSvc.plantFinish((request.getParameter("grade") == null || request.getParameter("grade").equals("")) ? 0 : Integer.valueOf(request.getParameter("grade")), Integer.valueOf(request.getParameter("addPoint")) , mi.getMi_id()) == 3) {
 		out.println("<script>");
 		out.println("location.href='myPlant'");
 		out.println("</script>");

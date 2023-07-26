@@ -30,8 +30,8 @@ create table t_member_info (
 	mi_date datetime default now(),		-- 가입일
 	mi_lastlogin datetime				-- 최종 로그인
 );
-insert into t_member_info values ('test1', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '0', 'a', now(), null);
-insert into t_member_info values ('test2', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '0', 'a', now(), null);
+insert into t_member_info values ('test1', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '3', 'a', now(), null);
+insert into t_member_info values ('test2', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '2', 'a', now(), null);
 insert into t_member_info values ('test3', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '0', 'a', now(), null);
 select * from t_member_info;
 -- 회원 주소록 테이블
@@ -60,22 +60,9 @@ create table t_member_tree (
 	mt_plant char(1) default 'n',			-- 식물상태값
 	mt_count int default 0,					-- 물준횟수
 	mt_date datetime default now(),			-- 물준날짜
+	mt_protein_date datetime default now(),	-- 영양제날짜    
     constraint fk_t_member_tree_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
-insert into t_member_tree (mi_id,mt_grade, mt_plant) values ('test1', '2', 'y');
-select 1 from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
-select count(*) from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
-select * from t_member_tree;
-update t_member_tree set mt_date = now() where mt_idx = 1;
-select timestampdiff(minute, mt_date, now()) from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
-select mt_grade, mt_date from t_member_tree where mi_id = '' and mt_plant = 'y';
-select now();
-select * from t_member_tree;
-select round((now() - mt_date)/60) from t_member_tree;
-select mt_date - now() from t_member_tree;
-select mt_grade from t_member_tree where mi_id = '' and mt_plant = 'y';
-update t_member_tree set mt_hp = mt_hp - timestampdiff(minute, mt_date, now()), mt_count = mt_count + 1, mt_date = date_add(now(), interval '' hour) where mi_id = ? and mt_plant = 'y';
-update t_member_tree set mt_hp = 4000 where mi_id = 'test1';
 -- 회원 포인트 내역 테이블
 create table t_member_point (
 	mp_idx int primary key auto_increment,	-- 일련번호
