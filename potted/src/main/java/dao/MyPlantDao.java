@@ -36,4 +36,7 @@ public class MyPlantDao {
 	public int wattering(String mi_id) {		
 		return jdbc.update("update t_member_tree set mt_hp = mt_hp - timestampdiff(minute, mt_date, now()), mt_count = mt_count + 1, mt_date = date_add(now(), interval " + jdbc.queryForObject("select mt_grade from t_member_tree where mi_id = '" + mi_id + "' and mt_plant = 'y'", Integer.class) * 6 + " hour) where mi_id = ? and mt_plant = 'y'",mi_id);			
 	}
+	public int plantFinish(int grade,int addpoint, String mi_id) {
+		return jdbc.update("update t_member_tree set mt_plant = 'n' where mt_plant = 'y' and mi_id = '" + mi_id + "'") + jdbc.update("update t_member_info set mi_point = mi_point + " + addpoint + " where mi_id = '" + mi_id + "'");		
+	}
 }

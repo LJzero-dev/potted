@@ -29,12 +29,14 @@ public class MyPlantCtrl {
 	public String myPlant(@Login MemberInfo mi, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		
-		if (myPlantSvc.getMyPlant(mi.getMi_id()) != null && myPlantSvc.getMyPlant(mi.getMi_id()).getMt_hp() < 5000) {
+		if (myPlantSvc.getMyPlant(mi.getMi_id()) != null && myPlantSvc.getMyPlant(mi.getMi_id()).getMt_hp() <= 5000) {
 			request.setAttribute("mt", myPlantSvc.getMyPlant(mi.getMi_id()));
+			request.setAttribute("mp", mi.getMi_point());
 			request.setAttribute("result", "false");
 			return "myPlant/plant_finish";
-		} else if(myPlantSvc.getMyPlant(mi.getMi_id()) != null && myPlantSvc.getMyPlant(mi.getMi_id()).getMt_count() > (myPlantSvc.getMyPlant(mi.getMi_id()).getMt_grade() == 4 ? 3 : myPlantSvc.getMyPlant(mi.getMi_id()).getMt_grade() == 2 ? 7 : 14)) {
+		} else if(myPlantSvc.getMyPlant(mi.getMi_id()) != null && myPlantSvc.getMyPlant(mi.getMi_id()).getMt_count() >= (myPlantSvc.getMyPlant(mi.getMi_id()).getMt_grade() == 4 ? 3 : myPlantSvc.getMyPlant(mi.getMi_id()).getMt_grade() == 2 ? 7 : 14)) {
 			request.setAttribute("mt", myPlantSvc.getMyPlant(mi.getMi_id()));
+			request.setAttribute("mp", mi.getMi_point());
 			request.setAttribute("result", "true");
 			return "myPlant/plant_finish";
 		}
@@ -61,9 +63,9 @@ public class MyPlantCtrl {
 			out.println("alert('식물 선택에 실패하셨습니다.')");
 			out.println("history.back();");
 			out.println("</script>");
-			out.close();			
+			out.close();
 		}
-		return "/";
+		return "/index";
 	}
 	@LoginRequired
 	@PostMapping("/plantWatering")
@@ -71,4 +73,25 @@ public class MyPlantCtrl {
 	public void plant_watering(@Login MemberInfo mi) {
 		myPlantSvc.wattering(mi.getMi_id());
 	}
+	@LoginRequired
+	@PostMapping("/plnatFinish")
+	public String plnatFinish(HttpServletRequest request,HttpServletResponse response, @Login MemberInfo mi) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		if (myPlantSvc.plantFinish((request.getParameter("grade") == null || request.getParameter("grade").equals("")) ? 0 : Integer.valueOf(request.getParameter("grade")), Integer.valueOf(request.getParameter("addPoint")) , mi.getMi_id()) == 2) {
+		out.println("<script>");
+		out.println("location.href='myPlant'");
+		out.println("</script>");
+		out.close();
+		} else {
+			out.println("<script>");
+			out.println("alert('수확에 실패하셨습니다.')");
+			out.println("history.back();");
+			out.println("</script>");
+			out.close();
+		}
+		return "/index";
+	}
+	
 }

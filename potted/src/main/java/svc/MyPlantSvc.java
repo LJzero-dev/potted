@@ -25,5 +25,12 @@ public class MyPlantSvc {
 
 	public int wattering(String mi_id) {
 		return myPlantDao.wattering(mi_id);
-	}	
+	}
+
+	public int plantFinish(int grade, int addpoint, String mi_id) {
+		int result = myPlantDao.plantFinish(grade, addpoint, mi_id);
+		System.out.println(grade);
+		if (grade > 0) myPlantDao.setMyPlant(mi_id, String.valueOf(grade));
+		return result;
+	}
 }
