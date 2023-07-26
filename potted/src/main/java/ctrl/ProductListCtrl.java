@@ -18,8 +18,7 @@ public class ProductListCtrl {
 		this.productListSvc = productListSvc;
 	}
 	
-	@GetMapping("/productList")
-	public String productList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public PageInfo pageNsearch(HttpServletRequest request, HttpServletResponse response) throws Exception  {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, spage = 0, psize = 12, bsize = 5, rcnt = 0, pcnt = 0;
 		//	페이지 번호  
@@ -89,10 +88,19 @@ public class ProductListCtrl {
 		pageInfo.setPcb(pcb);  			pageInfo.setPcs(pcs);
 		pageInfo.setSch(sch); 			pageInfo.setOb(ob);
 		pageInfo.setSchargs(schargs);	pageInfo.setObargs(obargs);
-		
-		List<ProductInfo> productList = productListSvc.getProductList(cpage, psize, where, orderBy);
-		request.setAttribute("productList", productList);
+		pageInfo.setWhere(where);		pageInfo.setOrderby(orderBy);
+
 		request.setAttribute("pageInfo", pageInfo);
+		return pageInfo;
+	}
+	
+	@GetMapping("/productList")
+	public String productList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		PageInfo pageInfo = pageNsearch(request, response);
+		
+		List<ProductInfo> productList = productListSvc.getProductList(pageInfo);
+		request.setAttribute("productList", productList);
 		
 		return "product/productList";
 	}

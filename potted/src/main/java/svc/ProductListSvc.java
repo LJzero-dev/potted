@@ -13,8 +13,8 @@ public class ProductListSvc {
 	}
 	
 
-	public List<ProductInfo> getProductList(int cpage, int psize, String where, String orderBy) {
-		List<ProductInfo> productList = productListDao.getProductList(cpage, psize, where, orderBy);
+	public List<ProductInfo> getProductList(PageInfo pageInfo) {
+		List<ProductInfo> productList = productListDao.getProductList(pageInfo);
 		return productList;
 	}
 
