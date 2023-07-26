@@ -36,6 +36,7 @@ arrSch[1] = p100000~200000 (가격대)
 		}
 	}
 }
+
 %>
 
 <style>
@@ -43,13 +44,14 @@ arrSch[1] = p100000~200000 (가격대)
 	border:1.5px solid  #6E6E6E; float:left; margin-bottom:10px; background: white; border-radius: 20px;  }
 .ctgrb:hover { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
 .btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; border:1px solid #000; margin-right:10px; }
+.sct { height:25px; margin-left:690px; }
 
 #ctgr1 { display: <% if(pcb.equals("AA") || pcs.equals("AAaa") || pcs.equals("AAbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
 #ctgr2 { display: <% if(pcb.equals("BB") || pcs.equals("BBaa") || pcs.equals("BBbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
 #ctgr3 { display: <% if(pcb.equals("CC") || pcs.equals("CCaa") || pcs.equals("CCbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
 
-#<%=pcb%> { font-color: #0B9649; border-color: #0B9649; color: #0B9649; border:2px; }
-#<%=pcs%> { font-color: #0B9649; border-color: #0B9649; color: #0B9649; border:2px; }
+#<%=pcb%> { font-color: #0B9649; color: #0B9649; border:2px solid #0B9649; }
+#<%=pcs%> { font-color: #0B9649; color: #0B9649; border:2px solid #0B9649; }
 
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
@@ -144,8 +146,8 @@ function showCtgrS(code) {
 	<br /><br />
 	<div>
 		<img src="/potted/resources/images/product/search.png" width="25"/>&nbsp;
-		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="<%=name %>" style=" width:600px; border:0; font-size:13pt;" />
-		<input type="button" value="검색" class="btn" onclick="initSch();" />
+		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="<%=name %>" style="width:700px; border:0; font-size:13pt;" />
+		<input type="button" value="검색" class="btn" onclick="makeSch();" />
 	<hr />
 	</div>
 	</form>	 
@@ -153,16 +155,16 @@ function showCtgrS(code) {
 if (pageInfo.getRcnt() > 0) {
 	String lnk = "productList?cpage=1" + pageInfo.getSchargs();
 %>
-		<select name="ob" style="align:right;" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
-			<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순</option>
-			<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>인기 순</option>
-			<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>이름 순</option>
-			<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>높은 가격 순</option>
-			<option value="e" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>낮은 가격 순</option>
+		<select name="ob" class="sct" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
+			<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순  🌱</option>
+			<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>인기 순  🌱</option>
+			<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>이름 순  🌱</option>
+			<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>높은 가격 순  🌱</option>
+			<option value="e" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>낮은 가격 순  🌱</option>
 		</select>
 </td>
 </tr>
-	<table width="100%" cellpadding="15" cellspacing="0">
+<table width="100%" cellpadding="15" cellspacing="0" >
 
 <%	
 	int i = 0;
@@ -171,22 +173,28 @@ if (pageInfo.getRcnt() > 0) {
 		String soldout = "";
 		if (pi.getPi_stock() > 0) {	// 재고가 남았으면
 		lnk = "productView?piid=" + pi.getPi_id();
+		soldout = "<br /><span style='color:#0B9649;'>판매중</span>";
 		} else {	// 재고가 없으면
 			lnk = "productView?piid=" + pi.getPi_id();
-			soldout = "<br />SOLD OUT";
+			soldout = "<br /><span style='color:red;'>SOLD OUT</span>";
 		}
 		String price = pi.getPi_price() + "원";
 		if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 			price = Math.round(pi.getPi_price() * (1 - pi.getPi_dc())) + "원";	// 할인이 있을때 실제 판매가
-			price = "<del>" + pi.getPi_price() + "</del>&nbsp;&nbsp;&nbsp;" + price;	// <del>태그는 글자 중간에 밑줄긋기 / 원래판매금액 밑줄긋기
+			String rprice = "<br /><span style='color:grey;'><del>" + pi.getPi_price() + "</del></span>&nbsp;&nbsp;&nbsp;";
+			String dc = "&nbsp;&nbsp;<span style='color:#029900; font-weight:bold;'>" + (int)(pi.getPi_dc() * 100 ) + "%</span>";
+			
+			price += dc + rprice;
+		} else {
+			price += "<br />";
 		}
 		
 		if (i % 4 == 0) out.println("<tr>");
 	%>
-	<td width="10%" align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
+	<td width="10%" align="left">
 		<a href="<%=lnk %>">
 			<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" />
-			<br /><%=pi.getPi_name() %>
+			<br /><span style="font-size:15px; font-weight:bold;"><%=pi.getPi_name() %></span>
 		</a>
 		<%=soldout %>
 		<br /><%=price %><br />
@@ -203,16 +211,16 @@ if (pageInfo.getRcnt() > 0) {
 %>
 	</table>
 <%
-	out.println("<p align='center'>");	// 페이징 영역을 보여줄 p태그
+	out.println("<p align='center' style='font-size:18px;'>");	// 페이징 영역을 보여줄 p태그
 	
 	String qs = pageInfo.getSchargs() + pageInfo.getObargs();
 	// 페이징 영역 링크에서 사용할 쿼리 스트링의 공통 부분(검색조건들, 정렬방식, 보기방식)
 	
 	if (pageInfo.getCpage() == 1) {
-		out.println("[&lt;&lt;]&nbsp;&nbsp;[&lt;]&nbsp;");
+		out.println("&lt;&lt;&nbsp;&nbsp;&lt;&nbsp;");
 	} else {
-		out.println("<a href='productList?cpage=1" + qs + "'>[&lt;&lt;]</a>&nbsp;&nbsp;");
-		out.println("<a href='productList?cpage=" + (pageInfo.getCpage() - 1) + qs + "'>[&lt;]</a>&nbsp;");
+		out.println("<a href='productList?cpage=1" + qs + "'>&lt;&lt;</a>&nbsp;&nbsp;");
+		out.println("<a href='productList?cpage=" + (pageInfo.getCpage() - 1) + qs + "'>&lt;</a>&nbsp;");
 	}
 
 	for (int k = 1, j = pageInfo.getSpage() ; k <= pageInfo.getBsize() && j <= pageInfo.getPcnt() ; k++, j++) {
@@ -224,10 +232,10 @@ if (pageInfo.getRcnt() > 0) {
 	}
 	
 	if (pageInfo.getCpage() == pageInfo.getPcnt()) {
-		out.println("&nbsp;&nbsp;[&gt;]&nbsp;&nbsp;&nbsp;[&gt;&gt;]");
+		out.println("&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;&gt;&gt;");
 	} else {
-		out.println("&nbsp;&nbsp;<a href='productList?cpage=" + (pageInfo.getCpage() + 1) + qs + "'>[&gt;]</a>");
-		out.println("&nbsp;&nbsp;&nbsp;<a href='productList?cpage=" + pageInfo.getPcnt() + qs + "'>[&gt;&gt;]</a>");
+		out.println("&nbsp;&nbsp;<a href='productList?cpage=" + (pageInfo.getCpage() + 1) + qs + "'>&gt;</a>");
+		out.println("&nbsp;&nbsp;&nbsp;<a href='productList?cpage=" + pageInfo.getPcnt() + qs + "'>&gt;&gt;</a>");
 	}
 	out.println("</p>");
 } else {

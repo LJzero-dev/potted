@@ -18,7 +18,7 @@ body, th, td, div, p { font-size:12px; }
 ul,ol,li {list-style:none;}
 a:link { text-decoration:none; color:black; }
 a:visited { text-decoration:none; color:black; }
-a:hover { text-decoration:underline; color:red; }
+a:hover { text-decoration:underline; }
 .hand { cursor:pointer; } 
 .bold { font-weight:bold; }
 
