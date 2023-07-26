@@ -44,8 +44,12 @@ public class ProductInDao {
 
 
 	public int productInsert(ProductInfo pi, ProductOptionInfo po) {
-		String sql = "INSERT INTO t_member_info VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1000, 'a', now(), null)";
-		int result = jdbc.update(sql/*, pi.getPcb_id(), mi.getMi_pw(), mi.getMi_name(), mi.getMi_gender(), mi.getMi_birth(), mi.getMi_phone(), mi.getMi_email(), mi.getMi_isad()*/);
+		Random random = new Random();
+	    int randomValue = random.nextInt(1000); // 0 이상 999 이하의 랜덤한 정수 생성
+
+		String sql = "insert into t_product_info values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), ?)";
+		int result = jdbc.update(sql, pi.getPcs_id() + String.format("%03d", randomValue), pi.getPcb_id(), pi.getPcs_id(), pi.getPi_name(), pi.getPi_price(), pi.getPi_cost(), pi.getPi_dc(), pi.getPi_status(), pi.getPi_img1(), pi.getPi_img2(), pi.getPi_img3(), pi.getPi_desc(), pi.getPi_stock(), pi.getPi_date(), pi.getAi_idx());
+		
 		return result;
 	}
 
