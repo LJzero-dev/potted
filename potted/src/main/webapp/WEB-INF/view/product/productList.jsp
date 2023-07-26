@@ -1,3 +1,4 @@
+<%@page import="ctrl.ProductListCtrl"%>
 <%@page import="com.mysql.cj.PingTarget"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../inc/inc_head.jsp" %>
@@ -75,13 +76,6 @@ function makeSch() {
 	document.frm1.sch.value = sch;
 	document.frm1.submit();
 }
-
-function initSch() {
-// 검색조건(상품명, 가격대)들을 모두 없애주는 함수 / 브랜드 checkbox 에 name값이 하나일때 
-	var frm = document.frm2;
-	frm.pdt.value = "";	frm.sp.value = "";	frm.ep.value = "";
-}
-
 
 function showCtgrB(ctgr) {
 	if (ctgr == 1) {
@@ -193,7 +187,9 @@ if (pageInfo.getRcnt() > 0) {
 	%>
 	<td width="10%" align="left">
 		<a href="<%=lnk %>">
-			<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" />
+			<img id="timg" src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" 
+			<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
+			onmouseover="this.src='/potted/resources/images/product/<%=pi.getPi_img2() %>';" onmouseout="this.src='/potted/resources/images/product/<%=pi.getPi_img1() %>';"<% } %> />
 			<br /><span style="font-size:15px; font-weight:bold;"><%=pi.getPi_name() %></span>
 		</a>
 		<%=soldout %>

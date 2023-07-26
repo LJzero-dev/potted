@@ -24,20 +24,20 @@ if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 <!-- 이미지 관련 영역 -->
 	<table width="100%" cellpadding="5">
 	<tr><td colspan="3" align="center">
-		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img1() %>" width="260" height="230" id="bigImg" />
+		<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="260" height="230" id="bigImg" />
 	</td></tr>
 	<tr align="center">
 	<td width="33.3%">
-		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img1() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img1() %>');" />
+		<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img1() %>');" />
 	</td>
 	<td width="33.3%">
 <% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
-		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img2() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img2() %>');" />
+		<img src="/potted/resources/images/product/<%=pi.getPi_img2() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img2() %>');" />
 <% } %>
 	</td>
 	<td width="33.3%">
 <% if (pi.getPi_img3() != null && !pi.getPi_img3().equals("")) { %>
-		<img src="/mvcSite/product/pdt_img/<%=pi.getPi_img3() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img3() %>');" />
+		<img src="/potted/resources/images/product/<%=pi.getPi_img3() %>" width="80" height="80" onclick="showBig('<%=pi.getPi_img3() %>');" />
 <% } %>
 	</td>
 	</tr>
