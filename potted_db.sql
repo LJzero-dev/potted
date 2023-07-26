@@ -190,14 +190,20 @@ create table t_product_option_info (
 
 -- 상품 옵션 재고 테이블
 create table t_product_option_stock (
-	pos_id char(3) primary key,		-- 옵션 소분류 코드
-	pos_name varchar(50) not null,	-- 옵션 소분류 이름
-	poi_id char(1) not null,		-- 옵션 대분류 코드
-	pos_stock int default 0,		-- 재고량
-	pos_sale int default 0,			-- 판매량
-	pos_isview char(1) default 'n',
-	constraint fk_t_product_option_stock_poi_id foreign key(poi_id) references t_product_option_info(poi_id)
+	pos_id char(3) primary key,			-- 옵션 소분류 코드
+	pos_name varchar(50) not null,		-- 옵션 소분류 이름
+	poi_id char(1) not null,			-- 옵션 대분류 코드
+    pi_id char(7) not null,				-- 상품 ID
+	pos_stock int default 0,			-- 재고량
+	pos_sale int default 0,				-- 판매량
+	pos_isview char(1) default 'n',		-- 사용여부
+	constraint fk_t_product_option_stock_poi_id foreign key(poi_id) references t_product_option_info(poi_id),
+	constraint fk_t_product_info_pi_id foreign key(pi_id) references t_product_info(pi_id)
 );
+-- insert into ('AAaa101', '1-1', '1', '직접분갈이~~~')
+-- insert into ('AAaa101', '화분', '00화분')
+-- insert into ('AAaa101', '화분', '11화분')
+
 
 
 -- t_order_cart, t_order_detail, t_review_list, t_product_stock, t_product_info 순서대로 drop하고 다시 제가 위에 변경한 내용으로 t_product_info, t_product_option_info, t_product_option_stock 테이블 만드시면 됩니다
