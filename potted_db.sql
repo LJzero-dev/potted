@@ -103,7 +103,6 @@ create table t_product_ctgr_small (
    pcs_name varchar(20) not null,   -- 소분류 이름
    constraint fk_product_ctgr_small_pcb_id foreign key (pcb_id) references t_product_ctgr_big(pcb_id)
 );
-
 -- 상품 테이블
 create table t_product_info (
    pi_id char(7) primary key,			-- 상품ID
@@ -122,6 +121,7 @@ create table t_product_info (
    pi_read int default 0,				-- 조회수
    pi_review int default 0,				-- 후기 개수
    pi_sale int default 0,				-- 판매량
+   pi_stock int default 0,				-- 상품 재고량
    pi_isview char(1) default 'n',		-- 게시여부
    pi_date datetime default now(),      -- 등록일
    ai_idx int not null,            		-- 등록관리자
@@ -143,77 +143,68 @@ insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('CCaa', 'CC'
 insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('CCbb', 'CC', '채소');
 
 
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('AAbb101', 'AA', 'AAbb', '00선인장', 10000, 8000, 0, 'a', 'AAbb10101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('AAbb201', 'AA', 'AAbb', '11선인장', 8000, 8000, 0, 'a', 'AAbb20101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('AAbb301', 'AA', 'AAbb', '22선인장', 10000, 8000, 0, 'a', 'AAbb30101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('AAaa101', 'AA', 'AAaa', '다육다육', 5000, 2000, 10, 'a', 'AAaa10101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('AAaa201', 'AA', 'AAaa', '11다육다육', 5000, 2000, 10, 'a', 'AAaa20101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('AAaa301', 'AA', 'AAaa', '22다육다육', 5000, 2000, 10, 'a', 'AAaa30101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('BBaa101', 'BB', 'BBaa', '00넝쿨', 5000, 2000, 0.2, 'a', 'BBaa10101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('BBaa201', 'BB', 'BBaa', '11넝쿨', 5000, 2000, 0.2, 'a', 'BBaa20101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('BBaa301', 'BB', 'BBaa', '22넝쿨', 5000, 2000, 0.2, 'a', 'BBaa30101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('BBbb101', 'BB', 'BBbb', '00잎식물', 5000, 2000, 10, 'a', 'BBbb10101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('BBbb201', 'BB', 'BBbb', '11잎식물', 5000, 2000, 10, 'a', 'BBbb20101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('BBbb301', 'BB', 'BBbb', '22잎식물', 5000, 2000, 10, 'a', 'BBbb30101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('CCaa101', 'CC', 'CCaa', '00허브', 10000, 8000, 0.1, 'a', 'CCaa10101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('CCaa201', 'CC', 'CCaa', '11허브', 10000, 8000, 0.1, 'a', 'CCaa20101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('CCaa301', 'CC', 'CCaa', '22허브', 10000, 8000, 0.1, 'a', 'CCaa30101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('CCbb101', 'CC', 'CCbb', '00채소', 10000, 8000, 0, 'a', 'CCbb10101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('CCbb201', 'CC', 'CCbb', '11채소', 10000, 8000, 0, 'a', 'CCbb20101.jpg', '', 'y', 1);
-insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_isview, ai_idx) 
-values ('CCbb301', 'CC', 'CCbb', '22채소', 10000, 8000, 0, 'a', 'CCbb30101.jpg', '', 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('AAbb101', 'AA', 'AAbb', '00선인장', 10000, 8000, 0, 'a', '', '', 100, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('AAbb201', 'AA', 'AAbb', '11선인장', 8000, 8000, 0, 'a', '', '', 0, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('AAbb301', 'AA', 'AAbb', '22선인장', 10000, 8000, 0, 'a', '', '', 200, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('AAaa101', 'AA', 'AAaa', '다육다육', 5000, 2000, 0.3, 'a', '', '', 100, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('AAaa201', 'AA', 'AAaa', '11다육다육', 5000, 2000, 0.6, 'a', '', '', 400, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('AAaa301', 'AA', 'AAaa', '22다육다육', 5000, 2000, 0.05, 'a', '', '', 0, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('BBaa101', 'BB', 'BBaa', '00넝쿨', 5000, 2000, 0.2, 'a', '', '', 500, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('BBaa201', 'BB', 'BBaa', '11넝쿨', 5000, 2000, 0.2, 'a', '', '', 20, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('BBaa301', 'BB', 'BBaa', '22넝쿨', 5000, 2000, 0.2, 'a', '', '', 10, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('BBbb101', 'BB', 'BBbb', '00잎식물', 5000, 2000, 0.1, 'a', '', '', 0, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('BBbb201', 'BB', 'BBbb', '11잎식물', 5000, 2000, 0, 'a', '', '', 100, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('BBbb301', 'BB', 'BBbb', '22잎식물', 5000, 2000, 0.3, 'a', '', '', 100, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('CCaa101', 'CC', 'CCaa', '00허브', 10000, 8000, 0.1, 'a', '', '', 0, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('CCaa201', 'CC', 'CCaa', '11허브', 10000, 8000, 0.1, 'a', '', '', 100, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('CCaa301', 'CC', 'CCaa', '22허브', 10000, 8000, 0.1, 'a', '', '', 1, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('CCbb101', 'CC', 'CCbb', '00채소', 10000, 8000, 0, 'a', '', '', 231, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('CCbb201', 'CC', 'CCbb', '11채소', 10000, 8000, 0, 'a', '', '', 23, 'y', 1);
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
+values ('CCbb301', 'CC', 'CCbb', '22채소', 10000, 8000, 0.2, 'a', '', '', 100, 'y', 1);
 
+select * from t_product_info;
 
-
-
-
-
-
--- 상품 재고 테이블
-create table t_product_stock (
-   ps_idx int auto_increment primary key,   -- 일련번호
-   pi_id char(7) not null,					-- 상품ID
-   ps_stock int unsigned default 0,			-- 재고량
-   ps_sale int default 0,					-- 판매량
-   ps_isview char(1) default 'n',			-- 게시여부
-   constraint fk_product_stock_pi_id foreign key (pi_id) references t_product_info(pi_id)
+-- 상품 옵션 정보 테이블
+create table t_product_option_info (
+	poi_id char(1) primary key,		-- 옵션 대분류 코드
+	poi_name varchar(20) not null	-- 옵션 대분류 이름
 );
 
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('AAaa101', 100, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('AAaa201', 200, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('AAaa301', 300, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('AAbb101', 100, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('AAbb201', 200, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('AAbb301', 300, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('BBaa101', 100, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('BBaa201', 200, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('BBaa301', 300, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('BBbb101', 100, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('BBbb201', 200, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('BBbb301', 300, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('CCaa101', 100, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('CCaa201', 200, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('CCaa301', 300, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('CCbb101', 100, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('CCbb201', 200, 'y');
-insert into t_product_stock (pi_id, ps_stock, ps_isview) values ('CCbb301', 300, 'y');
+-- 상품 옵션 재고 테이블
+create table t_product_option_stock (
+	pos_id char(3) primary key,		-- 옵션 소분류 코드
+	pos_name varchar(50) not null,	-- 옵션 소분류 이름
+	poi_id char(1) not null,		-- 옵션 대분류 코드
+	pos_stock int default 0,		-- 재고량
+	pos_sale int default 0,			-- 판매량
+	pos_isview char(1) default 'n',
+	constraint fk_t_product_option_stock_poi_id foreign key(poi_id) references t_product_option_info(poi_id)
+);
+
+
+-- t_order_cart, t_order_detail, t_review_list, t_product_stock, t_product_info 순서대로 drop하고 다시 제가 위에 변경한 내용으로 t_product_info, t_product_option_info, t_product_option_stock 테이블 만드시면 됩니다
+
+-- 바뀐부분 확인하시고 t_order_cart, t_order_detail 테이블 변경해주세요
+
+
 
 
 -- 주문정보 테이블
@@ -237,12 +228,13 @@ create table t_order_info (
 );
 
 
+
 -- 장바구니 테이블
 create table t_order_cart (
 	oc_idx int primary key auto_increment,	-- 일련번호
 	mi_id varchar(20) not null,				-- 회원아이디
 	pi_id char(7) not null,					-- 상품ID
-	ps_idx int not null,					-- 옵션별ID
+	ps_idx int not null,					-- 옵션 소분류 코드
 	oc_cnt int default 1,					-- 개수
 	oc_date datetime default now(),			-- 등록일
     constraint fk_t_order_cart_mi_id foreign key (mi_id) references t_member_info(mi_id),
@@ -334,10 +326,10 @@ create table  t_qna_list (
 -- 구매후기 테이블
 create table t_review_list (
 	rl_idx int unique,							-- 후기번호
-	mi_id varchar(20) primary key not null,		-- 회원아이디
-	oi_id char(14) primary key not null,		-- 주문번호ID
-	pi_id char(7) primary key not null,			-- 상품ID
-	ps_idx int primary key not null,			-- 옵션별재고ID
+	mi_id varchar(20) not null,					-- 회원아이디
+	oi_id char(14) not null,					-- 주문번호ID
+	pi_id char(7) not null,						-- 상품ID
+	ps_idx int not null,						-- 옵션별재고ID
 	rl_name varchar(100) not null,				-- 상품명/옵션명
 	rl_content text not null,					-- 내용
 	rl_img varchar(50) default '',				-- 이미지
@@ -345,12 +337,12 @@ create table t_review_list (
 	rl_ip varchar(15)not null,					-- IP주소
 	rl_isview char(1) default 'y',				-- 게시여부
 	rl_date datetime default now(),				-- 작성일
-	constraint fk_t_review_list_mi_id foreign key (mi_id) references t_member_info(mi_id),
-    constraint fk_t_review_list_oi_id foreign key (oi_id) references t_order_info(oi_id),
-    constraint fk_t_review_list_pi_id foreign key (pi_id) references t_product_info(pi_id),
-    constraint fk_t_review_list_ps_idx foreign key (ps_idx) references t_product_stock(ps_idx)
+    constraint pk_review_list primary key (mi_id, oi_id, pi_id, ps_idx),
+    constraint fk_review_list_mi_id foreign key (mi_id) references t_member_info(mi_id),
+    constraint fk_review_list_oi_id foreign key (oi_id) references t_order_info(oi_id),
+    constraint fk_review_list_pi_id foreign key (pi_id) references t_product_info(pi_id),
+    constraint fk_review_list_ps_idx foreign key (ps_idx) references t_product_stock(ps_idx)
 );
-
 
 -- 배너 이미지 테이블
 create table t_banner_list (
