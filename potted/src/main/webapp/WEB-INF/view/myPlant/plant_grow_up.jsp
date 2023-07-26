@@ -7,9 +7,6 @@
 MemberTree mt = (MemberTree)request.getAttribute("mt");
 %>
 <script>
-// 시간 확인 해서 사용가능일 경우에만 사용
-// 사용 가능한 경우 물준 후 물주기 모션 이후 디비 다녀와서 새로고침?
-
 function watering() {
 	if (document.getElementById("watter").value == "y") {
 		$("#wotter").show();
@@ -27,40 +24,71 @@ function watering() {
 	}
 }
 function nutrients() {
-	$("#nutrients").show();
-	setTimeout(function() {
-		$("#nutrients").hide();
-	}, 2000);
+	if (document.getElementById("nutrients").value == "y") {
+		$("#nutrients").show();
+		setTimeout(function() {
+			$.ajax({
+				type : "POST",
+				url : "./plantnutrients",
+				success : function() {
+					location.href="myPlant";
+				}
+			});
+		}, 2000);
+	} else {
+		alert("사용 가능한 시간이 아닙니다.");
+	}
 }
+
 function updateTimer() {
-    const future = Date.parse("<%=mt.getMt_date() %>");
- const now = new Date();
- const diff = future - now;
- const days = Math.floor(diff / (1000 * 60 * 60 * 24));
- const hours = Math.floor(diff / (1000 * 60 * 60));
- const mins = Math.floor(diff / (1000 * 60));
- const secs = Math.floor(diff / 1000);
+	const future = Date.parse("<%=mt.getMt_date() %>");
+	const future2 = Date.parse("<%=mt.getMt_protein_date() %>");
+	const now = new Date();
+	const diff = future - now;
+	const diff2 = future2 - now;
+	const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+	const hours = Math.floor(diff / (1000 * 60 * 60));
+	const mins = Math.floor(diff / (1000 * 60));
+	const secs = Math.floor(diff / 1000);
+	
+	const days2 = Math.floor(diff / (1000 * 60 * 60 * 24));
+	const hours2 = Math.floor(diff / (1000 * 60 * 60));
+	const mins2 = Math.floor(diff / (1000 * 60));
+	const secs2 = Math.floor(diff / 1000);
 
- const d = days;
- const h = hours - days * 24;
- const m = mins - hours * 60;
- const s = secs - mins * 60;
- if (diff < 0) {
-	 document.getElementById("timer").innerHTML ='<div>사용가능</div>';
-	document.getElementById("watter").value = 'y';
- } else {
- document.getElementById("timer").innerHTML =
-  '<div>' + h + '<span>시 </span>' +
-   m + '<span>분 </span>' +
-   s + '<span>초</span></div>';
-   }
+	const d = days;
+	const h = hours - days * 24;
+	const m = mins - hours * 60;
+	const s = secs - mins * 60;
+	
+	const d2 = days;
+	const h2 = hours - days * 24;
+	const m2 = mins - hours * 60;
+	const s2 = secs - mins * 60;
+	if (diff < 0) {
+		document.getElementById("timer").innerHTML ='<div>사용가능</div>';
+		document.getElementById("watter").value = 'y';
+	} else {
+	document.getElementById("timer").innerHTML ='<div>' + h + '<span>시 </span>' + m + '<span>분 </span>' + s + '<span>초</span></div>';
+	}
+	
+	if (diff2 < 0) {
+		<% if(mt.getMi_protein() > 0) { %>
+		document.getElementById("timer2").innerHTML ='<div>사용가능</div>';
+		document.getElementById("protein").value = 'y';
+		<% } else {%>
+		document.getElementById("timer2").innerHTML ='<div>사용가능한 영양제가 없습니다</div>';
+		<% }%>
+	} else {
+	document.getElementById("timer2").innerHTML ='<div>' + h2 + '<span>시 </span>' + m2 + '<span>분 </span>' + s2 + '<span>초</span></div>';
+	}
 }
-
 setInterval(updateTimer, 1000);
 </script>
 MY PLANT
 <div style="width:1200px; margin: 0 auto; position:relative;" >
 <input type="hidden" id="watter" value="">
+<input type="hidden" id="protein" value="">
 <img src="/potted/resources/images/myPlant/water_icon.png" id="wotter" style="position:fixed; width:250px; height:250px; left: 700px; top:200px; transform:rotate(-35deg); display:none;" />
 <img src="/potted/resources/images/myPlant/nutrients.png" id="nutrients" style="position:fixed; width:80px; height:250px; left: 700px; top:500px; transform:rotate(250deg); display:none;" />
 <div style="position:absolute; right:0px;" >
@@ -78,7 +106,7 @@ MY PLANT
 </tr>
 <tr height="200px">
 <td rowspan="2"><img src="/potted/resources/images/myPlant/tree<%=mt.getMt_grade() %>.png" style="width:500px; height:500px;" /></td>
-<td><div style="width:250px; height:200px; text-align:center;"><h3>영양제 : <%=mt.getMi_protein() %>개<br />(HP 1000 회복)</h3><input type="button" value="영양제 주기" onclick="nutrients();" style="width:250px; height:70px;"><h3>(쿨타임 24시간)</h3></div></td>
+<td><div style="width:250px; height:200px; text-align:center;"><h3>영양제 : <%=mt.getMi_protein() %>개<br />(HP 1000 회복)</h3><input type="button" value="영양제 주기" onclick="nutrients();" style="width:250px; height:70px;"><h3>(쿨타임)</h3><h3 id="timer2"><br /></h3></div></td>
 </tr>
 <tr height="200px">
 <td>
@@ -92,4 +120,5 @@ MY PLANT
 </tr>
 </table>
 </div>
+<script>updateTimer();</script>
 <%@ include file="../inc/inc_foot.jsp" %>
