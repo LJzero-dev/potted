@@ -25,6 +25,11 @@ public class ProductInSvc {
 		return smallList;
 	}
 
+	public int productInsert(ProductInfo pi, ProductOptionInfo po) {
+		int result = productInDao.productInsert(pi, po);
+		return result;
+	}
+
 
 
 }

@@ -62,6 +62,7 @@ th {width:130px; text-align:left;}
 
 <div style="width:1100px; margin:0 auto; overflow:hidden;">
 	<h2>상품 등록</h2>
+	<form name="frm" action="productProcIn" method="post">
 	<table>
 		<tr>
 			<th class="title">상품 상태</th>
@@ -196,7 +197,9 @@ th {width:130px; text-align:left;}
 		<input type="submit" value="상품 등록" class="insertBtn"/>
 		<a href="javascript:void(0);" class="cancelBtn">취소</a>
 	</div>
+	</form>
 </div>
+
 <script>
 setCategory(document.frm.pcb.value, document.frm.pcs);
 </script>

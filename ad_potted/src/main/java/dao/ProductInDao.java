@@ -42,4 +42,11 @@ public class ProductInDao {
 	    return smallList;
 	}
 
+
+	public int productInsert(ProductInfo pi, ProductOptionInfo po) {
+		String sql = "INSERT INTO t_member_info VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1000, 'a', now(), null)";
+		int result = jdbc.update(sql/*, pi.getPcb_id(), mi.getMi_pw(), mi.getMi_name(), mi.getMi_gender(), mi.getMi_birth(), mi.getMi_phone(), mi.getMi_email(), mi.getMi_isad()*/);
+		return result;
+	}
+
 }
