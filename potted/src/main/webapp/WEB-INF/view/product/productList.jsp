@@ -48,8 +48,8 @@ arrSch[1] = p100000~200000 (가격대)
 #ctgr2 { display: <% if(pcb.equals("BB") || pcs.equals("BBaa") || pcs.equals("BBbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
 #ctgr3 { display: <% if(pcb.equals("CC") || pcs.equals("CCaa") || pcs.equals("CCbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
 
-#<%=pcb%> { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
-#<%=pcs%> { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
+#<%=pcb%> { font-color: #0B9649; border-color: #0B9649; color: #0B9649; border:2px; }
+#<%=pcs%> { font-color: #0B9649; border-color: #0B9649; color: #0B9649; border:2px; }
 
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
@@ -126,7 +126,7 @@ function showCtgrS(code) {
 	<!-- 검색 조건 입력 폼 -->
 	<form name="frm1">
 	<!--  검색조건으로 링크를 걸기위한 쿼리스트링용 컨트롤들의 집합 -->
-	<input type="hidden" name="pcb" value="<%=pageInfo.getPcb() %>" />
+	<input type="hidden" name="pcb" value="<%=pcb %>" />
 <% if (pageInfo.getPcs() != null && !pageInfo.getPcs().equals("")) { %>
 	<input type="hidden" name="pcs" value="<%=pageInfo.getPcs() %>" />
 <% } %>
@@ -168,14 +168,12 @@ if (pageInfo.getRcnt() > 0) {
 	int i = 0;
 	for (i = 0 ; i < productList.size() ; i++) {
 		ProductInfo pi = productList.get(i);
-		String stock = pi.getStock() + "ea";
 		String soldout = "";
-		if (pi.getStock() > 0) {	// 재고가 남았으면
+		if (pi.getPi_stock() > 0) {	// 재고가 남았으면
 		lnk = "productView?piid=" + pi.getPi_id();
 		} else {	// 재고가 없으면
 			lnk = "productView?piid=" + pi.getPi_id();
 			soldout = "<br />SOLD OUT";
-			stock = "품절(SOLD OUT)";
 		}
 		String price = pi.getPi_price() + "원";
 		if (pi.getPi_dc() > 0) {	// 할인율이 있으면

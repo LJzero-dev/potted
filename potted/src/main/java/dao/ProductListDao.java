@@ -25,8 +25,10 @@ public class ProductListDao {
 			rs.getString("pi_status"), rs.getString("pi_img1"), rs.getString("pi_img2"), rs.getString("pi_img3"), rs.getString("pi_desc"), 
 			rs.getString("pi_special"), rs.getString("pi_isview"), rs.getString("pi_date"), rs.getString("pi_last"), rs.getInt("pi_price"), 
 			rs.getInt("pi_cost"), rs.getInt("pi_read"), rs.getInt("pi_review"), rs.getInt("pi_sale"), rs.getInt("ai_idx"), rs.getInt("pi_admin"), 
-			rs.getDouble("pi_dc"), rs.getString("pcb_name"), rs.getString("pcs_name"));
+			rs.getDouble("pi_dc"), rs.getString("pcb_name"), rs.getString("pcs_name"), rs.getInt("pi_stock"));
+			
 			return pi;
+			
 		});
 		
 		return productList;
@@ -48,7 +50,7 @@ public class ProductListDao {
 							rs.getString("pi_status"), rs.getString("pi_img1"), rs.getString("pi_img2"), rs.getString("pi_img3"), rs.getString("pi_desc"), 
 							rs.getString("pi_special"), rs.getString("pi_isview"), rs.getString("pi_date"), rs.getString("pi_last"), rs.getInt("pi_price"), 
 							rs.getInt("pi_cost"), rs.getInt("pi_read"), rs.getInt("pi_review"), rs.getInt("pi_sale"), rs.getInt("ai_idx"), rs.getInt("pi_admin"), 
-							rs.getDouble("pi_dc"), rs.getString("pcb_name"), rs.getString("pcs_name"));
+							rs.getDouble("pi_dc"), rs.getString("pcb_name"), rs.getString("pcs_name"), rs.getInt("pi_stock"));
 					return pi;
 				}
 			}

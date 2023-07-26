@@ -144,41 +144,41 @@ insert into t_product_ctgr_small (pcs_id, pcb_id, pcs_name) values ('CCbb', 'CC'
 
 
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('AAbb101', 'AA', 'AAbb', '00선인장', 10000, 8000, 0, 'a', '', '', 100, 'y', 1);
+values ('AAbb101', 'AA', 'AAbb', '00선인장', 10000, 8000, 0, 'a', 'AAbb10101.jpg', '', 100, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('AAbb201', 'AA', 'AAbb', '11선인장', 8000, 8000, 0, 'a', '', '', 0, 'y', 1);
+values ('AAbb201', 'AA', 'AAbb', '11선인장', 8000, 8000, 0, 'a', 'AAbb20101.jpg', '', 0, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('AAbb301', 'AA', 'AAbb', '22선인장', 10000, 8000, 0, 'a', '', '', 200, 'y', 1);
+values ('AAbb301', 'AA', 'AAbb', '22선인장', 10000, 8000, 0, 'a', 'AAbb30101.jpg', '', 200, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('AAaa101', 'AA', 'AAaa', '다육다육', 5000, 2000, 0.3, 'a', '', '', 100, 'y', 1);
+values ('AAaa101', 'AA', 'AAaa', '다육다육', 5000, 2000, 0.3, 'a', 'AAaa10101.jpg', '', 100, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('AAaa201', 'AA', 'AAaa', '11다육다육', 5000, 2000, 0.6, 'a', '', '', 400, 'y', 1);
+values ('AAaa201', 'AA', 'AAaa', '11다육다육', 5000, 2000, 0.6, 'a', 'AAaa20101.jpg', '', 400, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('AAaa301', 'AA', 'AAaa', '22다육다육', 5000, 2000, 0.05, 'a', '', '', 0, 'y', 1);
+values ('AAaa301', 'AA', 'AAaa', '22다육다육', 5000, 2000, 0.05, 'a', 'AAaa30101.jpg', '', 0, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('BBaa101', 'BB', 'BBaa', '00넝쿨', 5000, 2000, 0.2, 'a', '', '', 500, 'y', 1);
+values ('BBaa101', 'BB', 'BBaa', '00넝쿨', 5000, 2000, 0.2, 'a', 'BBaa10101.jpg', '', 500, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('BBaa201', 'BB', 'BBaa', '11넝쿨', 5000, 2000, 0.2, 'a', '', '', 20, 'y', 1);
+values ('BBaa201', 'BB', 'BBaa', '11넝쿨', 5000, 2000, 0.2, 'a', 'BBaa20101.jpg', '', 20, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('BBaa301', 'BB', 'BBaa', '22넝쿨', 5000, 2000, 0.2, 'a', '', '', 10, 'y', 1);
+values ('BBaa301', 'BB', 'BBaa', '22넝쿨', 5000, 2000, 0.2, 'a', 'BBaa30101.jpg', '', 10, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('BBbb101', 'BB', 'BBbb', '00잎식물', 5000, 2000, 0.1, 'a', '', '', 0, 'y', 1);
+values ('BBbb101', 'BB', 'BBbb', '00잎식물', 5000, 2000, 0.1, 'a', 'BBbb10101.jpg', '', 0, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('BBbb201', 'BB', 'BBbb', '11잎식물', 5000, 2000, 0, 'a', '', '', 100, 'y', 1);
+values ('BBbb201', 'BB', 'BBbb', '11잎식물', 5000, 2000, 0, 'a', 'BBbb20101.jpg', '', 100, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('BBbb301', 'BB', 'BBbb', '22잎식물', 5000, 2000, 0.3, 'a', '', '', 100, 'y', 1);
+values ('BBbb301', 'BB', 'BBbb', '22잎식물', 5000, 2000, 0.3, 'a', 'BBbb30101.jpg', '', 100, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('CCaa101', 'CC', 'CCaa', '00허브', 10000, 8000, 0.1, 'a', '', '', 0, 'y', 1);
+values ('CCaa101', 'CC', 'CCaa', '00허브', 10000, 8000, 0.1, 'a', 'CCaa10101.jpg', '', 0, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('CCaa201', 'CC', 'CCaa', '11허브', 10000, 8000, 0.1, 'a', '', '', 100, 'y', 1);
+values ('CCaa201', 'CC', 'CCaa', '11허브', 10000, 8000, 0.1, 'a', 'CCaa20101.jpg', '', 100, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('CCaa301', 'CC', 'CCaa', '22허브', 10000, 8000, 0.1, 'a', '', '', 1, 'y', 1);
+values ('CCaa301', 'CC', 'CCaa', '22허브', 10000, 8000, 0.1, 'a', 'CCaa30101.jpg', '', 1, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('CCbb101', 'CC', 'CCbb', '00채소', 10000, 8000, 0, 'a', '', '', 231, 'y', 1);
+values ('CCbb101', 'CC', 'CCbb', '00채소', 10000, 8000, 0, 'a', 'CCbb10101.jpg', '', 231, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('CCbb201', 'CC', 'CCbb', '11채소', 10000, 8000, 0, 'a', '', '', 23, 'y', 1);
+values ('CCbb201', 'CC', 'CCbb', '11채소', 10000, 8000, 0, 'a', 'CCbb20101.jpg', '', 23, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
-values ('CCbb301', 'CC', 'CCbb', '22채소', 10000, 8000, 0.2, 'a', '', '', 100, 'y', 1);
+values ('CCbb301', 'CC', 'CCbb', '22채소', 10000, 8000, 0.2, 'a', 'CCbb30101.jpg', '', 100, 'y', 1);
 
 select * from t_product_info;
 
