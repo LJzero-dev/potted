@@ -63,6 +63,8 @@ create table t_member_tree (
 	mt_protein_date datetime default now(),	-- 영양제날짜    
     constraint fk_t_member_tree_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
+
+
 -- 회원 포인트 내역 테이블
 create table t_member_point (
 	mp_idx int primary key auto_increment,	-- 일련번호
@@ -174,11 +176,9 @@ create table t_product_option_info (
 	poi_id char(1) primary key,		-- 옵션 대분류 코드
 	poi_name varchar(20) not null	-- 옵션 대분류 이름
 );
-
 -- 상품 옵션 재고 테이블
 create table t_product_option_stock (
-	pos_id char(3) primary key,			-- 옵션 소분류 코드
-	pos_name varchar(50) not null,		-- 옵션 소분류 이름
+	pos_id varchar(50) primary key,		-- 옵션 소분류 코드
 	poi_id char(1) not null,			-- 옵션 대분류 코드
     pi_id char(7) not null,				-- 상품 ID
 	pos_stock int default 0,			-- 재고량
@@ -194,15 +194,15 @@ insert into t_product_option_info values ('1', '분갈이');
 insert into t_product_option_info values ('2', '화분');
 insert into t_product_option_info values ('3', '마감돌');
 
-insert into t_product_option_stock values ('1-1', '직접 분갈이 (분갈이+난석+깔망)', '1', 'CCaa201', 50, 0, 'y');
-insert into t_product_option_stock values ('1-2', '분갈이 요청(분갈이+난석+분갈이)', '1', 'CCaa201', 100, 0, 'y');
-insert into t_product_option_stock values ('2-1', '아트스톤 화분', '2', 'CCaa201', 20, 0, 'y');
-insert into t_product_option_stock values ('2-2', '도자기 화분', '2', 'CCaa201', 10, 0, 'y');
-insert into t_product_option_stock values ('2-3', '유약분', '2', 'CCaa201', 230, 0, 'y');
-insert into t_product_option_stock values ('2-4', '토분', '2', 'CCaa201', 70, 0, 'y');
-insert into t_product_option_stock values ('3-1', '마사토', '3', 'CCaa201', 500, 0, 'y');
-insert into t_product_option_stock values ('3-2', '화산석', '3', 'CCaa201', 150, 0, 'y');
-insert into t_product_option_stock values ('3-3', '자갈', '3', 'CCaa201', 200, 0, 'y');
+insert into t_product_option_stock values ('1-1', '1-1:직접 분갈이 (분갈이+난석+깔망)', '1', 'CCaa201', 50, 0, 'y');
+insert into t_product_option_stock values ('1-2', '1-2:분갈이 요청(분갈이+난석+분갈이)', '1', 'CCaa201', 100, 0, 'y');
+insert into t_product_option_stock values ('2-1', '2-1:아트스톤 화분', '2', 'CCaa201', 20, 0, 'y');
+insert into t_product_option_stock values ('2-2', '2-2:도자기 화분', '2', 'CCaa201', 10, 0, 'y');
+insert into t_product_option_stock values ('2-3', '2-3:유약분', '2', 'CCaa201', 230, 0, 'y');
+insert into t_product_option_stock values ('2-4', '2-4:토분', '2', 'CCaa201', 70, 0, 'y');
+insert into t_product_option_stock values ('3-1', '3-1:마사토', '3', 'CCaa201', 500, 0, 'y');
+insert into t_product_option_stock values ('3-2', '3-2:화산석', '3', 'CCaa201', 150, 0, 'y');
+insert into t_product_option_stock values ('3-3', '3-3:자갈', '3', 'CCaa201', 200, 0, 'y');
 
 
 
