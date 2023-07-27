@@ -9,17 +9,17 @@ ArrayList<ProductCtgrSmall> smallList = (ArrayList<ProductCtgrSmall>)request.get
 %>
 <script>
 <% 
-for (ProductCtgrBig pcb : bigList) { 
-	String arr = "arr" + pcb.getPcb_id();
+for (ProductCtgrBig pcb_id : bigList) { 
+	String arr = "arr" + pcb_id.getPcb_id();
 %>
 var <%=arr %> = new Array();
 <%=arr %>[0] = new Option("", "선택");
 <%
 	for (int i = 0, j = 1 ; i < smallList.size() ; i++, j++) {
-		ProductCtgrSmall pcs = smallList.get(i);
-		if (pcs.getPcb_id().equals(pcb.getPcb_id())) {
+		ProductCtgrSmall pcs_id = smallList.get(i);
+		if (pcs_id.getPcb_id().equals(pcb_id.getPcb_id())) {
 %>
-<%=arr %>[<%=j %>] = new Option("<%=pcs.getPcs_id() %>", "<%=pcs.getPcs_name() %>");
+<%=arr %>[<%=j %>] = new Option("<%=pcs_id.getPcs_id() %>", "<%=pcs_id.getPcs_name() %>");
 <% 
 		} else {
 			j = 0;
@@ -67,9 +67,9 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">상품 상태</th>
 			<td>
-				<input type="radio" name="sale" value="a" id="ping" checked="checked"/>
+				<input type="radio" name="pi_status" value="a" id="ping" checked="checked"/>
 				<label for="ping">판매중</label>
-				<input type="radio" name="sale" value="b" id="pstop" />
+				<input type="radio" name="pi_status" value="b" id="pstop" />
 				<label for="pstop">판매중지</label>
 			</td>
 		</tr>
@@ -79,7 +79,7 @@ th {width:130px; text-align:left;}
 			<td>
 				<span style="margin-right:10px; vertical-align:middle;">대분류</span>
 
-				<select name="pcb" onchange="setCategory(this.value, this.form.pcs);" style="width:170px; height:30px; margin-right:20px;">
+				<select name="pcb_id" onchange="setCategory(this.value, this.form.pcs_id);" style="width:170px; height:30px; margin-right:20px;">
 					<option value="">선택</option>
 					<c:forEach items="${bigList}" var="category">
 						<option value="${category.pcb_id}">${category.pcb_name}</option>
@@ -89,7 +89,7 @@ th {width:130px; text-align:left;}
 			</td>
 			<td>
 				<span style="margin-right:10px; vertical-align:middle;">소분류</span>
-				<select name="pcs" style="width:170px; height:30px;">
+				<select name="pcs_id" style="width:170px; height:30px;">
 					<option value="">선택</option>
 				</select>
 			</td>
@@ -116,50 +116,50 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">추가상품</th>
 			<td>
-				<input type="checkbox" name="1" id="division" /> <label for="division">분갈이</label>
-				<input type="checkbox" name="2" id="pot" /> <label for="pot">화분</label>
-				<input type="checkbox" name="3" id="stone" /> <label for="stone">마감돌</label>
+				<input type="checkbox" name="poi_id" value="1.분갈이" id="division" /> <label for="division">분갈이</label>
+				<input type="checkbox" name="poi_id" value="2.화분" id="pot" /> <label for="pot">화분</label>
+				<input type="checkbox" name="poi_id" value="3.마감돌" id="stone" /> <label for="stone">마감돌</label>
 			</td>
 		</tr>
 		<tr>
 			<th class="title" rowspan="3" style="padding-top:15px; vertical-align:text-top;">서브상품</th>
 			<td align="right">
 				<span style="vertical-align:super;">분갈이</span>
-				<input type="checkbox" name="1-1" id="pds01" style="vertical-align:super;" /> <label for="pds01" class="psub">1-1 직접 분갈이 (분갈이+난석+깔망)</label>
+				<input type="checkbox" name="pos_id" value="1-1:직접 분갈이 (분갈이+난석+깔망)" id="pds01" style="vertical-align:super;" /> <label for="pds01" class="psub">1-1 직접 분갈이 (분갈이+난석+깔망)</label>
 			</td>
 			<td align="right">
 				<span>화분</span>
-				<input type="checkbox" name="2-1" id="pt01" /> <label for="pt01" class="psub">2-1 아트스톤 화분</label> 
+				<input type="checkbox" name="pos_id" value="2-2:아트스톤 화분" id="pt01" /> <label for="pt01" class="psub">2-1 아트스톤 화분</label> 
 			</td>
 			<td align="right">
 				<span>마감돌</span>
-				<input type="checkbox" name="3-1" id="st01" /> <label for="st01" class="psub">3-1 마사토</label>
+				<input type="checkbox" name="pos_id" value="3-1:마사토" id="st01" /> <label for="st01" class="psub">3-1 마사토</label>
 			</td>
 
 		</tr>
 		<tr>
 			<td align="right" rowspan="3" style="vertical-align:top;">
-				<input type="checkbox" name="1-2" id="pds02" /> <label for="pds02" class="psub">1-2 분갈이 요청(분갈이+난석+분갈이)</label>
+				<input type="checkbox" name="pos_id" value="1-2:분갈이 요청(분갈이+난석+분갈이)" id="pds02" /> <label for="pds02" class="psub">1-2 분갈이 요청(분갈이+난석+분갈이)</label>
 			</td>
 			<td align="right">
-				<input type="checkbox" name="2-2" id="pt02" /> <label for="pt02" class="psub">2-2 도자기 화분</label>
+				<input type="checkbox" name="pos_id" value="2-2:도자기 화분" id="pt02" /> <label for="pt02" class="psub">2-2 도자기 화분</label>
 			</td>
 			<td align="right">
-				<input type="checkbox" name="3-2" id="st02" /> <label for="st02" class="psub">3-2 화산석</label>
+				<input type="checkbox" name="pos_id" value="3-2:화산석" id="st02" /> <label for="st02" class="psub">3-2 화산석</label>
 			</td>
 		</tr>
 		<tr>
 			<td align="right">
-				<input type="checkbox" name="2-3" id="pt03" /> <label for="pt03" class="psub">2-3 유약분</label>
+				<input type="checkbox" name="pos_id" value="2-3:유약분" id="pt03" /> <label for="pt03" class="psub">2-3 유약분</label>
 			</td>
 			<td align="right">
-				<input type="checkbox" name="3-3" id="st03" /> <label for="st03" class="psub">3-3 자갈</label>
+				<input type="checkbox" name="pos_id" value="3-3:자갈" id="st03" /> <label for="st03" class="psub">3-3 자갈</label>
 			</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td align="right">
-				<input type="checkbox" name="2-4" id="st04" /> <label for="st04" class="psub">2-4 토분</label>
+				<input type="checkbox" name="pos_id" value="2-4:토분" id="st04" /> <label for="st04" class="psub">2-4 토분</label>
 			</td>
 		</tr>
 		<tr>
@@ -201,6 +201,6 @@ th {width:130px; text-align:left;}
 </div>
 
 <script>
-setCategory(document.frm.pcb.value, document.frm.pcs);
+setCategory(document.frm.pcb_id.value, document.frm.pcs_id);
 </script>
 <%@ include file="../inc/inc_foot.jsp" %>

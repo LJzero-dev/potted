@@ -47,8 +47,17 @@ public class ProductInDao {
 		Random random = new Random();
 	    int randomValue = random.nextInt(1000); // 0 이상 999 이하의 랜덤한 정수 생성
 
-		String sql = "insert into t_product_info values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), ?)";
-		int result = jdbc.update(sql, pi.getPcs_id() + String.format("%03d", randomValue), pi.getPcb_id(), pi.getPcs_id(), pi.getPi_name(), pi.getPi_price(), pi.getPi_cost(), pi.getPi_dc(), pi.getPi_status(), pi.getPi_img1(), pi.getPi_img2(), pi.getPi_img3(), pi.getPi_desc(), pi.getPi_stock(), pi.getPi_date(), pi.getAi_idx());
+	    System.out.println("1");
+	    String sql = "insert into t_product_info (pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_img2, pi_img3, pi_desc, pi_stock, pi_isview, ai_idx) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'y', 1)";
+	    int result = jdbc.update(sql, pi.getPcs_id() + String.format("%03d", randomValue), pi.getPcb_id(), pi.getPcs_id(), pi.getPi_name(), pi.getPi_price(), pi.getPi_cost(), pi.getPi_dc(), pi.getPi_status(), pi.getPi_img1(), pi.getPi_img2(), pi.getPi_img3(), pi.getPi_desc(), pi.getPi_stock());
+	    
+	    if (result == 1) {
+	    	String piIdQuery = "select pi_id from t_product_info WHERE pi_id = ?";
+	        String piId = jdbc.queryForObject(piIdQuery, String.class, pi.getPcs_id() + String.format("%03d", randomValue));
+	        
+			sql = "insert into t_product_option_stock (pos_id, poi_id, pi_id, pos_isview) values (?, ?, ?, 'y')";
+			result += jdbc.update(sql, po.getPos_id(), po.getPoi_id(), piId);
+	    }
 		
 		return result;
 	}

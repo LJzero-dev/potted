@@ -2,16 +2,25 @@ package ctrl;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import svc.*;
-import vo.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import svc.ProductInSvc;
+import vo.ProductCtgrBig;
+import vo.ProductCtgrSmall;
+import vo.ProductInfo;
+import vo.ProductOptionInfo;
 
 @Controller
 public class ProductCtrl {
+	@Autowired
 	ProductInSvc productInSvc;
 
 	public void setProductInSvc(ProductInSvc productInSvc) {
@@ -30,7 +39,6 @@ public class ProductCtrl {
 	}
 	
 	@PostMapping("/productProcIn")
-	@ResponseBody
 	public String productProcIn(HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		
@@ -51,19 +59,15 @@ public class ProductCtrl {
 		pi.setPi_stock(Integer.parseInt(request.getParameter("pi_stock")));
 		pi.setPi_desc(request.getParameter("pi_desc"));
 		pi.setPi_date(request.getParameter("pi_date"));
-		pi.setAi_idx(Integer.parseInt(request.getParameter("ai_idx")));
-		
+		pi.setAi_idx(1);
+	
 		po.setPos_id(request.getParameter("pos_id"));
-		po.setPos_name(request.getParameter("pos_name"));
 		po.setPoi_id(request.getParameter("poi_id"));
-		po.setPos_sale(Integer.parseInt(request.getParameter("pos_sale")));
-		po.setPos_isview(request.getParameter("pos_isview"));
 		
-		
-		ProductInSvc productInSvc = new ProductInSvc();
 		int result = productInSvc.productInsert(pi, po);
+		System.out.println(result);
 			
-		return "redirect:/product/productIn";
+		return "redirect:/productIn";
 	}
 	
 }
