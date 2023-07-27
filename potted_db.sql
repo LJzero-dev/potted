@@ -79,13 +79,7 @@ create table t_member_point (
 );
 
 
--- 상품 대분류 테이블
-create table t_product_ctgr_big (
-   pcb_id char(2) primary key,      -- 대분류 코드
-   pcb_name varchar(20) not null   	-- 대분류 이름
-);
-
--- 상품 소분류 테이블
+-- 상품 분류 테이블
 create table t_product_ctgr_small (
    pcs_id char(4) primary key,      -- 소분류 코드
    pcb_id char(2) not null,      	-- 대분류 코드
