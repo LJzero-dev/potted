@@ -30,6 +30,17 @@ public class ProductInSvc {
 		return result;
 	}
 
+	public int getProductCount(String where) {
+		int rcnt = 0;
+		rcnt = productInDao.getProductCount(where);
+		return rcnt;
+	}
+
+	public List<ProductInfo> getProductList(PageInfo pageInfo) {
+		List<ProductInfo> productList = productInDao.getProductList(pageInfo);
+		return productList;
+	}
+
 
 
 }

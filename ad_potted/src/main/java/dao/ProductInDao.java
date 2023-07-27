@@ -62,4 +62,39 @@ public class ProductInDao {
 		return result;
 	}
 
+
+	public int getProductCount(String where) {
+		String sql = "select count(*) from t_product_info where pi_isview = 'y'" + where;
+		int rcnt = jdbc.queryForObject(sql, Integer.class);
+		return rcnt;
+	}
+
+
+	public List<ProductInfo> getProductList(PageInfo pageInfo) {
+		String sql = "select * from t_product_info where pi_isview = 'y' and pi_auction = 'n' " + pageInfo.getWhere() + " group by pi_id " + pageInfo.getOrderby() + " limit " + ((pageInfo.getCpage() - 1) * pageInfo.getPsize()) + ", " + pageInfo.getPsize();
+		System.out.println(sql);
+		List<ProductInfo> productList = (List<ProductInfo>) jdbc.query(sql, (ResultSet rs, int rowNum) -> {
+			ProductInfo pi = new ProductInfo();
+			pi.setPi_id(rs.getString("pi_id"));
+			pi.setPcb_id(rs.getString("pcb_id"));
+			pi.setPcs_id(rs.getString("pcs_id"));
+			pi.setPi_name(rs.getString("pi_name"));
+			pi.setPi_price(rs.getInt("pi_price"));
+			pi.setPi_cost(rs.getInt("pi_cost"));
+			pi.setPi_dc (rs.getInt("pi_dc"));
+			pi.setPi_status(rs.getString("pi_status"));
+			pi.setPi_img1(rs.getString("pi_img1"));
+			pi.setPi_img2(rs.getString("pi_img2"));
+			pi.setPi_img3(rs.getString("pi_img3"));
+			pi.setPi_stock(rs.getInt("pi_stock"));
+			pi.setPi_desc(rs.getString("pi_desc"));
+			pi.setPi_date(rs.getString("pi_date"));
+			pi.setAi_idx(1);
+	        
+	        return pi;
+	    });
+		
+		return productList;
+	}
+
 }

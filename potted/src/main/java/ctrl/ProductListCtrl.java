@@ -85,7 +85,6 @@ public class ProductListCtrl {
 		pageInfo.setBsize(bsize);		pageInfo.setCpage(cpage);
 		pageInfo.setSpage(spage);		pageInfo.setPsize(psize);
 		pageInfo.setPcnt(pcnt);			pageInfo.setRcnt(rcnt);
-		pageInfo.setPcb(pcb);  			pageInfo.setPcs(pcs);
 		pageInfo.setSch(sch); 			pageInfo.setOb(ob);
 		pageInfo.setSchargs(schargs);	pageInfo.setObargs(obargs);
 		pageInfo.setWhere(where);		pageInfo.setOrderby(orderBy);
