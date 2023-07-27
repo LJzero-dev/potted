@@ -7,6 +7,7 @@
 request.setCharacterEncoding("utf-8");
 List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList");
 
+
 %>
 
 <h2 style="display:inline;">SERVICE</h2>
@@ -26,7 +27,7 @@ List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList
 <br /><br />
 <table width="60%" height="80px" border="0" align="center" cellpadding="0" cellspacing="0">
 <tr>
-<th width="5%" class="nhList">번호</th>
+<th width="10%" class="nhList">번호</th>
 <th width="*" class="nhList">제목</th>
 <th width="15%" class="nhList">작성자</th>
 <th width="20%" class="nhList">날짜</th>
@@ -36,7 +37,10 @@ if (noticeList.size() > 0 ){
 //	int num = rcnt - (psize * (cpage - 1));
 	for (int i = 0 ; i < noticeList.size() ; i++) {
 		NoticeList nl = noticeList.get(i);
-		out.println("<tr height='50px'><td class='ntList'>" + /*num*/nl.getNl_idx() + "</td><td style='font-size:15px; border-bottom:1px solid;'>" + nl.getNl_title() + "</td><td class='ntList'>" + nl.getAi_id() + "</td>" + 
+		String title = nl.getNl_title();
+		if(title.length() > 30)		title = title.substring(0, 22) + "...";
+		title = "<a href='noticeView?nl_idx=" + nl.getNl_idx() + "'>" + title + "</a>";
+		out.println("<tr height='50px'><td class='ntList'>" + /*num*/nl.getNl_idx() + "</td><td style='font-size:15px; border-bottom:1px solid;'>" + title + "</td><td class='ntList'>" + nl.getAi_id() + "</td>" + 
 		"<td class='ntList'>" + nl.getNl_date() + "</td></tr>");
 //		num--;
 	}

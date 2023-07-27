@@ -22,13 +22,19 @@ public class ServiceCtrl {
 		request.setCharacterEncoding("utf-8");
 		String schtype = request.getParameter("schtype");
 		String keyword = request.getParameter("keyword");
+		String args = request.getParameter("args");
 
-		SpageInfo si = new SpageInfo(schtype, keyword);
+		SpageInfo si = new SpageInfo(schtype, keyword, args);
 		List<NoticeList> noticeList = noticeSvc.getNoticeList(si);
 		request.setAttribute("noticeList", noticeList);
 		model.addAttribute("si", si);
 
 		return "service/noticeList";
+	}
+	
+	@GetMapping("/noticeView")
+	public String noticeView() {
+		return "service/noticeView";
 	}
 
 }
