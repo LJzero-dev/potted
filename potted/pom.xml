@@ -65,7 +65,21 @@
          <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java 에서 버전 확인 -->
       </dependency>
       <!-- db연결을 위한 추가 부분 종료 -->
-      
+           <!-- jstl 사용을 위한 추가부분 시작 -->
+      	<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
+	<dependency>
+		<groupId>org.apache.taglibs</groupId>
+		<artifactId>taglibs-standard-impl</artifactId>
+		<version>1.2.5</version>
+		<scope>runtime</scope>
+	</dependency>
+	 <!-- jstl 사용을 위한 추가부분 종료 -->
     <dependency>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok</artifactId>

@@ -17,7 +17,7 @@ public class NoticeDao {
 	}
 	
 	public List<NoticeList> getNoticeList() {
-		String sql = "select a.*, b.ai_id, if(curdate() = date(nl_date), mid(nl_date, 12, 5), mid(nl_date, 3, 8)) wdate from t_notice_list a, t_admin_info b where a.ai_idx = b.ai_idx and  a.nl_isview = 'y'";
+		String sql = "select a.*, b.ai_id, if(curdate() = date(nl_date), mid(nl_date, 12, 5), mid(nl_date, 3, 8)) wdate from t_notice_list a, t_admin_info b where a.ai_idx = b.ai_idx and  a.nl_isview = 'y' order by nl_date desc";
 		List<NoticeList> noticeList = jdbc.query(sql, 
 			(ResultSet rs, int rowNum) -> {
 			NoticeList nl = new NoticeList(rs.getInt("nl_idx"), rs.getInt("ai_idx"), rs.getString("nl_title"), 
