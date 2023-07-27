@@ -50,11 +50,11 @@ public class ProductListCtrl {
 				} else if (c == 'p') {	// 가격대 검색일 경우(p시작가~종료가)
 					String sp = arrSch[i].substring(1, arrSch[i].indexOf('~'));			// 시작가 / 물결표시 전까지 자름
 					if (sp != null && !sp.equals(""))
-						where += " and a.pi_price >= " + sp;
+						where += " and if(a.pi_dc <> 0, a.pi_price * (1 - a.pi_dc), a.pi_price) >= " + sp;
 
 					String ep = arrSch[i].substring(arrSch[i].indexOf('~') + 1);		// 종료가
 					if (ep != null && !ep.equals(""))
-						where += " and a.pi_price <= " + ep;
+						where += " and if(a.pi_dc <> 0, a.pi_price * (1 - a.pi_dc), a.pi_price) <= " + ep;
 				}
 			}
 		}
@@ -71,9 +71,9 @@ public class ProductListCtrl {
 		case "c" :	// 이름순
 			orderBy += " a.pi_name desc ";		break;
 		case "d" :	// 낮은 가격 순
-			orderBy += " a.pi_price asc ";		break;
-		case "e" :	// 높은 가격 순
 			orderBy += " a.pi_price desc ";		break;
+		case "e" :	// 높은 가격 순
+			orderBy += " a.pi_price asc ";		break;
 		}
 
 		rcnt = productListSvc.getProductCount(where);
