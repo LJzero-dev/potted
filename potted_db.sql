@@ -171,15 +171,12 @@ values ('CCbb301', 'CC', 'CCbb', '22채소', 10000, 8000, 0.2, 'a', 'CCbb30101.j
 
 select * from t_product_info;
 
--- 상품 옵션 정보 테이블
-create table t_product_option_info (
-	poi_id char(1) primary key,		-- 옵션 대분류 코드
-	poi_name varchar(20) not null	-- 옵션 대분류 이름
-);
+
+
 -- 상품 옵션 재고 테이블
 create table t_product_option_stock (
 	pos_id varchar(50) primary key,		-- 옵션 소분류 코드
-	poi_id char(1) not null,			-- 옵션 대분류 코드
+	poi_id varchar(10) not null,			-- 옵션 대분류 코드
     pi_id char(7) not null,				-- 상품 ID
 	pos_stock int default 0,			-- 재고량
 	pos_sale int default 0,				-- 판매량
@@ -189,20 +186,16 @@ create table t_product_option_stock (
 );
 
 select * from t_product_option_stock;
--- 옵션상품 DB insert
-insert into t_product_option_info values ('1', '분갈이');
-insert into t_product_option_info values ('2', '화분');
-insert into t_product_option_info values ('3', '마감돌');
 
-insert into t_product_option_stock values ('1-1', '1-1:직접 분갈이 (분갈이+난석+깔망)', '1', 'CCaa201', 50, 0, 'y');
-insert into t_product_option_stock values ('1-2', '1-2:분갈이 요청(분갈이+난석+분갈이)', '1', 'CCaa201', 100, 0, 'y');
-insert into t_product_option_stock values ('2-1', '2-1:아트스톤 화분', '2', 'CCaa201', 20, 0, 'y');
-insert into t_product_option_stock values ('2-2', '2-2:도자기 화분', '2', 'CCaa201', 10, 0, 'y');
-insert into t_product_option_stock values ('2-3', '2-3:유약분', '2', 'CCaa201', 230, 0, 'y');
-insert into t_product_option_stock values ('2-4', '2-4:토분', '2', 'CCaa201', 70, 0, 'y');
-insert into t_product_option_stock values ('3-1', '3-1:마사토', '3', 'CCaa201', 500, 0, 'y');
-insert into t_product_option_stock values ('3-2', '3-2:화산석', '3', 'CCaa201', 150, 0, 'y');
-insert into t_product_option_stock values ('3-3', '3-3:자갈', '3', 'CCaa201', 200, 0, 'y');
+insert into t_product_option_stock values ('1-1', '1-1.직접 분갈이 (분갈이+난석+깔망)', '1.분갈이', 'CCaa201', 50, 0, 'y');
+insert into t_product_option_stock values ('1-2', '1-2.분갈이 요청(분갈이+난석+분갈이)', '1.분갈이', 'CCaa201', 100, 0, 'y');
+insert into t_product_option_stock values ('2-1', '2-1.아트스톤 화분', '2.화분', 'CCaa201', 20, 0, 'y');
+insert into t_product_option_stock values ('2-2', '2-2.도자기 화분', '2.화분', 'CCaa201', 10, 0, 'y');
+insert into t_product_option_stock values ('2-3', '2-3.유약분', '2.화분', 'CCaa201', 230, 0, 'y');
+insert into t_product_option_stock values ('2-4', '2-4.토분', '2.화분', 'CCaa201', 70, 0, 'y');
+insert into t_product_option_stock values ('3-1', '3-1.마사토', '3.마감돌', 'CCaa201', 500, 0, 'y');
+insert into t_product_option_stock values ('3-2', '3-2.화산석', '3.마감돌', 'CCaa201', 150, 0, 'y');
+insert into t_product_option_stock values ('3-3', '3-3:자갈', '3.마감돌', 'CCaa201', 200, 0, 'y');
 
 
 
