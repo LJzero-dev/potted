@@ -187,16 +187,22 @@ create table t_product_option_stock (
 	constraint fk_t_product_option_stock_poi_id foreign key(poi_id) references t_product_option_info(poi_id),
 	constraint fk_t_product_info_pi_id foreign key(pi_id) references t_product_info(pi_id)
 );
--- insert into ('AAaa101', '1-1', '1', '직접분갈이~~~')
--- insert into ('AAaa101', '화분', '00화분')
--- insert into ('AAaa101', '화분', '11화분')
 
+select * from t_product_option_stock;
+-- 옵션상품 DB insert
+insert into t_product_option_info values ('1', '분갈이');
+insert into t_product_option_info values ('2', '화분');
+insert into t_product_option_info values ('3', '마감돌');
 
-
--- t_order_cart, t_order_detail, t_review_list, t_product_stock, t_product_info 순서대로 drop하고 다시 제가 위에 변경한 내용으로 t_product_info, t_product_option_info, t_product_option_stock 테이블 만드시면 됩니다
-
--- 바뀐부분 확인하시고 t_order_cart, t_order_detail 테이블 변경해주세요
-
+insert into t_product_option_stock values ('1-1', '직접 분갈이 (분갈이+난석+깔망)', '1', 'CCaa201', 50, 0, 'y');
+insert into t_product_option_stock values ('1-2', '분갈이 요청(분갈이+난석+분갈이)', '1', 'CCaa201', 100, 0, 'y');
+insert into t_product_option_stock values ('2-1', '아트스톤 화분', '2', 'CCaa201', 20, 0, 'y');
+insert into t_product_option_stock values ('2-2', '도자기 화분', '2', 'CCaa201', 10, 0, 'y');
+insert into t_product_option_stock values ('2-3', '유약분', '2', 'CCaa201', 230, 0, 'y');
+insert into t_product_option_stock values ('2-4', '토분', '2', 'CCaa201', 70, 0, 'y');
+insert into t_product_option_stock values ('3-1', '마사토', '3', 'CCaa201', 500, 0, 'y');
+insert into t_product_option_stock values ('3-2', '화산석', '3', 'CCaa201', 150, 0, 'y');
+insert into t_product_option_stock values ('3-3', '자갈', '3', 'CCaa201', 200, 0, 'y');
 
 
 
