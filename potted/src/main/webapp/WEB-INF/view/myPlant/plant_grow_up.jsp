@@ -20,23 +20,23 @@ function watering() {
 			});
 		}, 2000);
 	} else {
-		alert("사용 가능한 시간이 아닙니다.");
+		alert("사용 불가능합니다.");
 	}
 }
 function nutrients() {
-	if (document.getElementById("nutrients").value == "y") {
+	if (document.getElementById("protein").value == "y") {
 		$("#nutrients").show();
 		setTimeout(function() {
 			$.ajax({
 				type : "POST",
-				url : "./plantnutrients",
+				url : "./plantNutrients",
 				success : function() {
 					location.href="myPlant";
 				}
 			});
 		}, 2000);
 	} else {
-		alert("사용 가능한 시간이 아닙니다.");
+		alert("사용 불가능합니다.");
 	}
 }
 
@@ -51,20 +51,20 @@ function updateTimer() {
 	const mins = Math.floor(diff / (1000 * 60));
 	const secs = Math.floor(diff / 1000);
 	
-	const days2 = Math.floor(diff / (1000 * 60 * 60 * 24));
-	const hours2 = Math.floor(diff / (1000 * 60 * 60));
-	const mins2 = Math.floor(diff / (1000 * 60));
-	const secs2 = Math.floor(diff / 1000);
+	const days2 = Math.floor(diff2 / (1000 * 60 * 60 * 24));
+	const hours2 = Math.floor(diff2 / (1000 * 60 * 60));
+	const mins2 = Math.floor(diff2 / (1000 * 60));
+	const secs2 = Math.floor(diff2 / 1000);
 
 	const d = days;
 	const h = hours - days * 24;
 	const m = mins - hours * 60;
 	const s = secs - mins * 60;
 	
-	const d2 = days;
-	const h2 = hours - days * 24;
-	const m2 = mins - hours * 60;
-	const s2 = secs - mins * 60;
+	const d2 = days2;
+	const h2 = hours2 - days2 * 24;
+	const m2 = mins2 - hours2 * 60;
+	const s2 = secs2 - mins2 * 60;
 	if (diff < 0) {
 		document.getElementById("timer").innerHTML ='<div>사용가능</div>';
 		document.getElementById("watter").value = 'y';

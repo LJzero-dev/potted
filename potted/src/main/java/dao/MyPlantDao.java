@@ -37,10 +37,9 @@ public class MyPlantDao {
 		return jdbc.update("update t_member_tree set mt_hp = mt_hp - timestampdiff(minute, mt_date, now()), mt_count = mt_count + 1, mt_date = date_add(now(), interval " + jdbc.queryForObject("select mt_grade from t_member_tree where mi_id = '" + mi_id + "' and mt_plant = 'y'", Integer.class) * 6 + " hour) where mi_id = ? and mt_plant = 'y'",mi_id);			
 	}
 	public int plantNutrients(String mi_id) {
-		return jdbc.update("") + jdbc.update("");
+		return jdbc.update("update t_member_info set mi_protein = mi_protein - 1 where mi_id = '" + mi_id + "'") + jdbc.update("update t_member_tree set mt_hp = mt_hp + 1000, mt_protein_date = date_add(now(), interval 24 hour) where mi_id = '" + mi_id + "'");
 	}
 	public int plantFinish(int grade,int addpoint, String mi_id) {		
 		return jdbc.update("update t_member_tree set mt_plant = 'n' where mt_plant = 'y' and mi_id = '" + mi_id + "'") + jdbc.update("update t_member_info set mi_point = mi_point + " + addpoint + " where mi_id = '" + mi_id + "'") + jdbc.update("insert into t_member_point (mi_id, mp_point, mp_desc) values (?, ?, ?)", mi_id, addpoint, "식물키우기 포인트");		
 	}
-
 }

@@ -11,7 +11,7 @@ int addPoint = 0;;
 String result = (String)request.getAttribute("result");
 switch(mt.getMt_grade()) {
 case 1:
-	addPoint = 500 * (mt.getMt_hp()/1000+1);
+	addPoint = 500 * ((mt.getMt_hp()/1000+1) == 11 ? 10 : (mt.getMt_hp()/1000+1));
 	break;
 case 2:
 	addPoint = 150 * (mt.getMt_hp()/1000+1);
