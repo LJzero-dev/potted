@@ -24,13 +24,11 @@ public class AdminConfig {
 		ds.setMinEvictableIdleTimeMillis(60000 * 3);
 		ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
 		return ds;
-	}
-	
+	}	
 	@Bean
 	public LoginDao loginDao() {
 		return new LoginDao(dataSource());
-	}
-	
+	}	
 	@Bean
 	public LoginSvc loginSvc() {
 		LoginSvc loginSvc = new LoginSvc();

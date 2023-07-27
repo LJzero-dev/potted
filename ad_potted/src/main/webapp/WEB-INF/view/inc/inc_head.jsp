@@ -1,10 +1,10 @@
+<%@page import="vo.AdminInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.net.*" %>
 <%@ page import="java.time.*" %>
 <%@ page import="java.util.*" %>
-<%-- <%@ page import="vo.*" %> --%>
 <%
-/* MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo"); */
+AdminInfo loginInfo = (AdminInfo)session.getAttribute("loginInfo");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -42,12 +42,12 @@ a:hover { text-decoration:underline; color:red; }
         </div>
         <div class="gnb_util">
             <div class="infor">
-            <%-- <% if (loginInfo == null) { %> --%>
+            <% if (loginInfo == null) { %>
                 <a href="login" class="loginForm">로그인</a>
-            <%-- <% } else { %> --%>
-                <a href="javascript:void(0);" class="minfor">회원정보</a>
+            <% } else { %>
+                <a href="memberList" class="minfor">회원정보</a>
                 <a href="logout" class="logout">로그아웃</a>
-            <%-- <% } %> --%>
+            <% } %>
             </div>
         </div>
     </div>
