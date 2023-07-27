@@ -113,9 +113,12 @@ public class ProductListCtrl {
 		ProductInfo productInfo = productListSvc.getProductInfo(piid);
 		request.setAttribute("productInfo", productInfo);
 		
+		List<ProductOptionStock> productOptionStock = productListSvc.getProductOptionStock(piid);
+		request.setAttribute("productOptionStock", productOptionStock);
 		
 		return "product/productView";
 	}
+	
 
 
 }

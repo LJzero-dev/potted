@@ -31,4 +31,10 @@ public class ProductListSvc {
 		return pi;
 	}
 
+
+	public List<ProductOptionStock> getProductOptionStock(String piid) {
+		List<ProductOptionStock> productOptionStock = productListDao.getProductOptionStock(piid);
+		return productOptionStock;
+	}
+
 }
