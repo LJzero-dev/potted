@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 import svc.*;
 import vo.*;
@@ -17,11 +18,16 @@ public class ServiceCtrl {
 		this.noticeSvc = noticeSvc;
 	}
 	@GetMapping("/service")
-	public String noticeList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String noticeList(Model model,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		List<NoticeList> noticeList = noticeSvc.getNoticeList();
+		String schtype = request.getParameter("schtype");
+		String keyword = request.getParameter("keyword");
+
+		SpageInfo si = new SpageInfo(schtype, keyword);
+		List<NoticeList> noticeList = noticeSvc.getNoticeList(si);
 		request.setAttribute("noticeList", noticeList);
-		
+		model.addAttribute("si", si);
+
 		return "service/noticeList";
 	}
 

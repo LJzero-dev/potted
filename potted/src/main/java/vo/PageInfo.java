@@ -5,6 +5,8 @@ public class PageInfo {
 	private int cpage, spage, psize, bsize, rcnt, pcnt;
 	private String schtype, keyword, args, schargs, obargs, vargs, pcb, pcs, sch, ob, where, orderby;
 	
+	
+	
 	public int getCpage() {
 		return cpage;
 	}

@@ -303,6 +303,18 @@ create table t_notice_list (
     constraint fk_t_notice_list_ai_idx foreign key (ai_idx) references t_admin_info(ai_idx)
 );
 
+insert into t_notice_list values (null, 1, 'potted 개설', 'potted 오픈!', '2023-06-25', 'y');
+insert into t_notice_list values (null, 1, '옥션관련 공지사항', '욕션 공지', '2023-07-20', 'y');
+insert into t_notice_list values (null, 1, '자유게시판 관련 공지사항', '자유게시판', '2023-07-11', 'y');
+insert into t_notice_list values (null, 1, 'My plants관련 공지사항', '식물 키우기', '2023-07-12', 'y');
+insert into t_notice_list values (null, 1, 'Store 이용안내', '많이 사줘', '2023-07-15', 'y');
+insert into t_notice_list values (null, 1, '신규 옥션 물품 업데이트 안내', '신규 옥션 물품', '2023-07-18', 'y');
+insert into t_notice_list values (null, 1, '홈페이지 긴급점검 안내', '홈페이지 긴급 점검', '2023-07-20', 'y');
+insert into t_notice_list values (null, 1, '배송 문의관련 안내', '로켓배송', '2023-07-21', 'y');
+insert into t_notice_list values (null, 1, '신고 정지 회원 안내', '너넨 다 정지', '2023-07-22', 'y');
+insert into t_notice_list values (null, 1, 'point 관련 안내', '님 포 몇?', '2023-07-24', 'y');
+insert into t_notice_list values (null, 1, '식물 검색 주의사항', '필터를 잘 활용해보아요', '2023-07-27', 'y');
+
 
 -- 문의(답변이 하나) 테이블
 create table  t_qna_list (

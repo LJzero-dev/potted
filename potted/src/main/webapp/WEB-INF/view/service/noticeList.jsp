@@ -12,13 +12,12 @@ List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList
 <h2 style="display:inline;">SERVICE</h2>
 <form style="display:inline; float:right;">
 <div style="width:450px;">
-		<select name="ns" onchange="" >
-		<option value="a">전체</option>
-		<option value="b">제목</option>
-		<option value="c">내용</option>
-		<option value="d">제목 + 내용</option>
+		<select name="schtype">
+		<option value="a" <c:if test="${si.getSchtype() eq 'a'}">selected="selected"</c:if>>전체🌱</option>
+		<option value="title" <c:if test="${si.getSchtype() eq 'title'}">selected="selected"</c:if>>제목🌱</option>
+		<option value="content" <c:if test="${si.getSchtype() eq 'content'}">selected="selected"</c:if>>내용🌱</option>
 	</select>
-	<input type="text" name="pdt" id="pdt" placeholder="검색어를 입력해주세요." value="" style=" width:180px; border:0; font-size:10pt;" />
+	<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." value="${si.getKeyword()}" style=" width:180px; border:0; font-size:10pt;" />
 	<input type="image" name="submit" src="/potted/resources/images/product/search.png" width="20" class="btn" onclick="" />
 </div>
 </form>
@@ -32,11 +31,17 @@ List<NoticeList> noticeList = (List<NoticeList>)request.getAttribute("noticeList
 <th width="15%" class="nhList">작성자</th>
 <th width="20%" class="nhList">날짜</th>
 </tr>
-<% 
-for (int i = 0 ; i < noticeList.size() ; i++) {
-	NoticeList nl = noticeList.get(i);
-	out.println("<tr height='50px'><td class='ntList'>" + nl.getNl_idx() + "</td><td style='font-size:15px; border-bottom:1px solid;'>" + nl.getNl_title() + "</td><td class='ntList'>" + nl.getAi_id() + "</td>" + 
-	"<td class='ntList'>" + nl.getNl_date() + "</td></tr>");
+<%
+if (noticeList.size() > 0 ){
+//	int num = rcnt - (psize * (cpage - 1));
+	for (int i = 0 ; i < noticeList.size() ; i++) {
+		NoticeList nl = noticeList.get(i);
+		out.println("<tr height='50px'><td class='ntList'>" + /*num*/nl.getNl_idx() + "</td><td style='font-size:15px; border-bottom:1px solid;'>" + nl.getNl_title() + "</td><td class='ntList'>" + nl.getAi_id() + "</td>" + 
+		"<td class='ntList'>" + nl.getNl_date() + "</td></tr>");
+//		num--;
+	}
+} else {
+	out.println("<tr><td colspan='5' align='center'>검색결과가 없습니다.</td></tr>");
 }
 %>
 </table>

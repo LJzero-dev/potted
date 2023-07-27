@@ -73,5 +73,5 @@
 .bg-gray {margin-top:49px; padding:7px 30px; background:#e7e7e7;}
 .bg-gray p {font-size:13px; font-weight:bold;}
 .paymentBtn {display:block; width:100%; padding:20px 0; text-align:center; font-size:16px; font-weight:bold; background:#00b564; color:#fff !important;}
-.nhList { border-bottom:2px solid black;}
+.nhList { border-bottom:2px solid black; font-size:18px;}
 .ntList { border-bottom:1px solid; text-align:center; font-size:15px;}

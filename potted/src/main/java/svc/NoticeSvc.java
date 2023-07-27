@@ -11,8 +11,10 @@ public class NoticeSvc {
 		this.noticeDao = noticeDao;
 	}
 	
-	public List<NoticeList> getNoticeList() {
-		List<NoticeList> noticeList = noticeDao.getNoticeList();
+	public List<NoticeList> getNoticeList(SpageInfo si) {
+		List<NoticeList> noticeList = noticeDao.getNoticeList(si);
 				return noticeList;
 	}
+	
+
 }
