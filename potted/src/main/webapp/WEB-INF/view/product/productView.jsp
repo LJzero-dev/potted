@@ -9,6 +9,8 @@ request.setCharacterEncoding("utf-8");
 
 ProductInfo pi = (ProductInfo)request.getAttribute("productInfo");
 
+List<ProductOptionStock> productOptionStock = (List<ProductOptionStock>)request.getAttribute("productOptionStock");
+
 long realPrice = pi.getPi_price();			// 수량 변경에 따른 가격 연산을 위한 변수
 String price = pi.getPi_price() + "원";		// 가격 출력을 위한 변수
 if (pi.getPi_dc() > 0) {	// 할인율이 있으면
@@ -17,6 +19,37 @@ if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 }
 
 %>
+<script>
+<%-- function buy(kind) {
+	<% if (isLogin) { %>
+		var frm = document.frm;
+		var size = frm.size.value;
+		var cnt = frm.cnt.value;
+		if (size == "") { alert("옵션을 선택하세요.");	return; }
+
+		if (kind == "c") {	// 장바구니 담기일 경우
+			$.ajax({
+				type : "POST", url : "/potted/cartProc", data : {"piid" : "<%=pi.getPi_id()%>", "psidx" : size, "cnt" : cnt},
+				success : function(chkRs) {	// insert된 레코트 개수 가져옴
+					if (chkRs == 0) {	// 장바구니 담기에 실패했을 경우
+						alert("장바구니 담기에 실패했습니다.\n다시 시도해 보세요.");
+					} else {	// 장바구니 담기에 성공했을 경우
+						if (confirm("장바구니에 담았습니다.\n장바구니로 이동하시겠습니까?")){
+							location.href = "cartView";
+						}
+					}
+				}
+			});
+		} else {	// 바로 구매하기일 경우
+			frm.action = "orderForm";
+			frm.submit();
+		}
+		
+	<% } else { %>
+		location.href = "loginForm?url=/mvcSite/productView?piid=<%=pi.getPi_id()%>";
+	<% } %>
+} --%>
+</script>
 <div style="width:850px; margin:0 auto; ">
 <table width="800" cellpadding="5">
 <tr align="center">
@@ -50,6 +83,7 @@ if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 	<input type="hidden" name="piid" value="<%=pi.getPi_id() %>" />
 	<table width="100%" cellpadding="5" id="info" >
 	<tr><td colspan="2">&nbsp;&nbsp;&nbsp;
+		<a href="productList?pcb=<%=pi.getPcb_id() %>"><%=pi.getPcb_name() %></a> ‣ ‣
 		<a href="productList?pcb=<%=pi.getPcs_id().substring(0, 2) %>&pcs=<%=pi.getPcs_id() %>"><%=pi.getPcs_name() %></a>
 	</td></tr>
 	<tr>
@@ -58,9 +92,7 @@ if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 	</tr>
 	<tr><td align="right">가격</td><td><%=price %></td></tr>
 	<tr>
-	<td align="right">옵션</td>
-	<td>
-	</td>
+<%=productOptionStock.get(0).getPos_id() %>
 	</tr>
 	<tr>
 	<td align="right">수량</td>

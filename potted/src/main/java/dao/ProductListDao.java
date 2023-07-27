@@ -59,4 +59,18 @@ public class ProductListDao {
 		return pi;
 	}
 
+	public List<ProductOptionStock> getProductOptionStock(String piid) {
+		String sql = "select * from t_product_option_stock where pi_id = '" + piid + "' ";
+		List<ProductOptionStock> productOptionStock = jdbc.query(sql, 
+				(ResultSet rs, int rowNum) -> {
+				ProductOptionStock pos = new ProductOptionStock(rs.getString("pos_id"), rs.getString("pob_id"), rs.getString("pi_id"), 
+						rs.getString("pos_isview"), rs.getInt("pos_stock"), rs.getInt("pos_sale"));
+				
+				return pos;
+				
+			});
+			
+		return productOptionStock;
+	}
+
 }
