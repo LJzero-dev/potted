@@ -43,7 +43,7 @@ a:hover { text-decoration:underline; color:red; }
         <div class="gnb_util">
             <div class="infor">
             <%-- <% if (loginInfo == null) { %> --%>
-                <a href="login" class="login">로그인</a>
+                <a href="login" class="loginForm">로그인</a>
             <%-- <% } else { %> --%>
                 <a href="javascript:void(0);" class="minfor">회원정보</a>
                 <a href="logout" class="logout">로그아웃</a>
