@@ -24,6 +24,7 @@
 				config.CtrlConfig
 				config.ProductConfig
 				config.AdminConfig
+				config.DbConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

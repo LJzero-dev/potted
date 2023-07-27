@@ -12,6 +12,8 @@ public class CtrlConfig {
 	private ProductInSvc productInSvc;
 	@Autowired
 	private LoginSvc loginSvc;
+	@Autowired
+	private MemberSvc memberSvc;
 	@Bean
 	public ProductCtrl productCtrl() {
 		ProductCtrl productCtrl = new ProductCtrl();
@@ -23,5 +25,11 @@ public class CtrlConfig {
 		LoginCtrl loginCtrl = new LoginCtrl();
 		loginCtrl.setLoginSvc(loginSvc);
 		return loginCtrl; 
+	}
+	@Bean
+	public MemberInfoCtrl MemberInfoCtrl() {
+		MemberInfoCtrl memberInfoCtrl = new MemberInfoCtrl();
+		memberInfoCtrl.setMemberSvc(memberSvc);
+		return memberInfoCtrl;
 	}
 }

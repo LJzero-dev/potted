@@ -4,6 +4,10 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import dao.MemberDao;
+import svc.LoginSvc;
+import svc.MemberSvc;
+
 @Configuration
 public class DbConfig {
 	@Bean(destroyMethod = "close")
@@ -20,4 +24,15 @@ public class DbConfig {
 		ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
 		return ds;
 	}
+	@Bean
+	public MemberDao memberDao() {
+		return new MemberDao(dataSource());
+	}	
+	@Bean
+	public MemberSvc memberSvc() {
+		MemberSvc memberSvc = new MemberSvc();
+		memberSvc.setMemberDao(memberDao());
+		return memberSvc;
+	}
+	
 }
