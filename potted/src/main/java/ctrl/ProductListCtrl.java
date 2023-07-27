@@ -116,6 +116,9 @@ public class ProductListCtrl {
 		List<ProductOptionStock> productOptionStock = productListSvc.getProductOptionStock(piid);
 		request.setAttribute("productOptionStock", productOptionStock);
 		
+		List<ProductOptionBig> productOptionBig = productListSvc.getProductOptionBig();
+		request.setAttribute("productOptionBig", productOptionBig);
+		
 		return "product/productView";
 	}
 	

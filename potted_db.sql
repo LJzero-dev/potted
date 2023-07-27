@@ -165,19 +165,30 @@ values ('CCbb301', 'CC', 'CCbb', '22채소', 10000, 8000, 0.2, 'a', 'CCbb30101.j
 
 select * from t_product_info;
 
+-- 상품 옵션 대분류 테이블
+create table t_product_option_big (
+	pob_id varchar(10) primary key		-- 옵션 대분류 코드
+);
+
+-- drop table t_product_option_big;
 
 -- 상품 옵션 재고 테이블
 create table t_product_option_stock (
 	pos_id varchar(50) primary key,		-- 옵션 소분류 코드
-	pob_id varchar(10) not null,			-- 옵션 대분류 코드
+	pob_id varchar(10) not null,		-- 옵션 대분류 코드
     pi_id char(7) not null,				-- 상품 ID
 	pos_stock int default 0,			-- 재고량
 	pos_sale int default 0,				-- 판매량
 	pos_isview char(1) default 'n',		-- 사용여부
-	constraint fk_t_product_info_pi_id foreign key(pi_id) references t_product_info(pi_id)
+	constraint fk_t_product_info_pi_id foreign key(pi_id) references t_product_info(pi_id),
+	constraint fk_t_product_option_big_pob_id foreign key(pob_id) references t_product_option_big(pob_id)
 );
 
 select * from t_product_option_stock;
+
+insert into t_product_option_big values ('1.분갈이');
+insert into t_product_option_big values ('2.화분');
+insert into t_product_option_big values ('3.마감돌');
 
 insert into t_product_option_stock values ('1-1.직접 분갈이 (분갈이+난석+깔망)', '1.분갈이', 'CCaa201', 50, 0, 'y');
 insert into t_product_option_stock values ('1-2.분갈이 요청(분갈이+난석+분갈이)', '1.분갈이', 'CCaa201', 100, 0, 'y');

@@ -73,4 +73,16 @@ public class ProductListDao {
 		return productOptionStock;
 	}
 
+	public List<ProductOptionBig> getProductOptionBig() {
+		String sql = "select * from t_product_option_big";
+		List<ProductOptionBig> productOptionBig = jdbc.query(sql,
+			(ResultSet rs, int rowNum) -> {
+				ProductOptionBig pob = new ProductOptionBig(rs.getString("pob_id"));
+					return pob;
+			}
+		);
+		
+		return productOptionBig;
+	}
+
 }

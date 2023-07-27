@@ -37,4 +37,10 @@ public class ProductListSvc {
 		return productOptionStock;
 	}
 
+
+	public List<ProductOptionBig> getProductOptionBig() {
+		List<ProductOptionBig> productOptionBig = productListDao.getProductOptionBig();
+		return productOptionBig;
+	}
+
 }

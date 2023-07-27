@@ -10,6 +10,8 @@ request.setCharacterEncoding("utf-8");
 ProductInfo pi = (ProductInfo)request.getAttribute("productInfo");
 
 List<ProductOptionStock> productOptionStock = (List<ProductOptionStock>)request.getAttribute("productOptionStock");
+List<ProductOptionBig> productOptionBig = (List<ProductOptionBig>)request.getAttribute("productOptionBig");
+
 
 long realPrice = pi.getPi_price();			// 수량 변경에 따른 가격 연산을 위한 변수
 String price = pi.getPi_price() + "원";		// 가격 출력을 위한 변수
@@ -91,9 +93,30 @@ if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 	<td width="*"><%=pi.getPi_name() %></td>
 	</tr>
 	<tr><td align="right">가격</td><td><%=price %></td></tr>
-	<tr>
-<%=productOptionStock.get(0).getPos_id() %>
+	
+<% 
+int i = 0, j = 0;
+for (i = 0 ; i < productOptionBig.size() ; i++) {
+	ProductOptionBig pob = productOptionBig.get(i);
+%>
+	<tr><td><%=pob.getPob_id() %></td>
+	<td><select>
+<%
+	for (j = 0 ; j < productOptionStock.size() ; j++) {
+		ProductOptionStock pos = productOptionStock.get(j);
+		if (pob.getPob_id().equals(pos.getPob_id())){
+%>
+		<option><%=pos.getPos_id() %></option>
+	
+<%
+		}
+	}
+%>
+	</select></td>
 	</tr>
+<%
+}
+%>
 	<tr>
 	<td align="right">수량</td>
 	<td>
