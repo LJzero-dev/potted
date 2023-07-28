@@ -1,6 +1,7 @@
 drop database potted;
 create database potted;
 use potted;
+show tables;
 
 -- 관리자 테이블 테이블
 create table t_admin_info (
@@ -79,6 +80,11 @@ create table t_member_point (
 );
 
 
+-- 상품 대분류 테이블
+create table t_product_ctgr_big (
+   pcb_id char(2) primary key,      -- 대분류 코드
+   pcb_name varchar(20) not null    -- 대분류 이름
+);
 -- 상품 분류 테이블
 create table t_product_ctgr_small (
    pcs_id char(4) primary key,      -- 소분류 코드
@@ -170,7 +176,6 @@ create table t_product_option_big (
 	pob_id varchar(10) primary key		-- 옵션 대분류 코드
 );
 
--- drop table t_product_option_big;
 
 -- 상품 옵션 재고 테이블
 create table t_product_option_stock (
@@ -229,12 +234,12 @@ create table t_order_cart (
 	oc_idx int primary key auto_increment,	-- 일련번호
 	mi_id varchar(20) not null,				-- 회원아이디
 	pi_id char(7) not null,					-- 상품ID
-	ps_idx int not null,					-- 옵션 소분류 코드
+	pos_id varchar(50) not null,			-- 옵션 소분류 코드
 	oc_cnt int default 1,					-- 개수
 	oc_date datetime default now(),			-- 등록일
     constraint fk_t_order_cart_mi_id foreign key (mi_id) references t_member_info(mi_id),
     constraint fk_t_order_cart_pi_id foreign key (pi_id) references t_product_info(pi_id),
-    constraint fk_t_order_cart_ps_idx foreign key (ps_idx) references t_product_stock(ps_idx)
+    constraint fk_t_order_cart_pos_id foreign key (pos_id) references t_product_option_stock(pos_id)
 );
 
 
@@ -244,7 +249,7 @@ create table t_order_detail (
 	od_idx int primary key auto_increment,	-- 일련번호
 	oi_id char(14) not null,				-- 주문번호
 	pi_id char(7) not null,					-- 상품ID
-	ps_idx int not null,					-- 옵션별재고ID
+	pos_id varchar(50) not null,			-- 옵션 소분류 코드
 	od_cnt int default 1,					-- 개수
 	od_price int default 0,					-- 단가
 	od_name varchar(50) not null,			-- 상품명
@@ -252,7 +257,7 @@ create table t_order_detail (
 	od_size int default 0,					-- 옵션명
     constraint fk_t_order_detail_oi_id foreign key (oi_id) references t_order_info(oi_id),
     constraint fk_t_order_detail_pi_id foreign key (pi_id) references t_product_info(pi_id),
-    constraint fk_t_order_detail_ps_idx foreign key (ps_idx) references t_product_stock(ps_idx)
+    constraint fk_t_order_detail_pos_id foreign key (pos_id) references t_product_option_stock(pos_id)
 );
 
 
@@ -336,7 +341,7 @@ create table t_review_list (
 	mi_id varchar(20) not null,					-- 회원아이디
 	oi_id char(14) not null,					-- 주문번호ID
 	pi_id char(7) not null,						-- 상품ID
-	ps_idx int not null,						-- 옵션별재고ID
+	pos_id varchar(50) not null,				-- 옵션 소분류 코드
 	rl_name varchar(100) not null,				-- 상품명/옵션명
 	rl_content text not null,					-- 내용
 	rl_img varchar(50) default '',				-- 이미지
@@ -344,11 +349,11 @@ create table t_review_list (
 	rl_ip varchar(15)not null,					-- IP주소
 	rl_isview char(1) default 'y',				-- 게시여부
 	rl_date datetime default now(),				-- 작성일
-    constraint pk_review_list primary key (mi_id, oi_id, pi_id, ps_idx),
+    constraint pk_review_list primary key (mi_id, oi_id, pi_id, pos_id),
     constraint fk_review_list_mi_id foreign key (mi_id) references t_member_info(mi_id),
     constraint fk_review_list_oi_id foreign key (oi_id) references t_order_info(oi_id),
     constraint fk_review_list_pi_id foreign key (pi_id) references t_product_info(pi_id),
-    constraint fk_review_list_ps_idx foreign key (ps_idx) references t_product_stock(ps_idx)
+    constraint fk_review_list_pos_id foreign key (pos_id) references t_product_option_stock(pos_id)
 );
 
 -- 배너 이미지 테이블

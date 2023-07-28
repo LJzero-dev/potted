@@ -121,7 +121,7 @@ public class ProductCtrl {
 		int result = productInSvc.productInsert(pi, po);
 		System.out.println(result);
 			
-		return "redirect:/productIn";
+		return "redirect:/productList";
 	}
 	
 }
