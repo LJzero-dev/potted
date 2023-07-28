@@ -4,15 +4,6 @@ public class NoticeList {
 	private int nl_idx, ai_idx;
 	private String nl_title, nl_content, nl_date, nl_isview, ai_id;
 	
-	public NoticeList(int nl_idx, int ai_idx, String nl_title, String nl_content, String nl_date, String nl_isview, String ai_id) {
-		this.nl_idx = nl_idx;
-		this.ai_idx = ai_idx;
-		this.nl_title = nl_title;
-		this.nl_content = nl_content;
-		this.nl_date = nl_date;
-		this.nl_isview = nl_isview;
-		this.ai_id = ai_id;
-	}
 	
 	public int getNl_idx() {
 		return nl_idx;

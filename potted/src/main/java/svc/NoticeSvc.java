@@ -11,10 +11,19 @@ public class NoticeSvc {
 		this.noticeDao = noticeDao;
 	}
 	
-	public List<NoticeList> getNoticeList(SpageInfo si) {
-		List<NoticeList> noticeList = noticeDao.getNoticeList(si);
-				return noticeList;
+	public int getNoticeListCount(String where) {
+		int rcnt = noticeDao.getNoticeListCount(where);
+		return rcnt;
 	}
 	
+	public List<NoticeList> getNoticeList(String where, int cpage, int psize) {
+		List<NoticeList> noticeList = noticeDao.getNoticeList(where, cpage, psize);
+		return noticeList;
+	}
+
+	public NoticeList getNoticeInfo(int nlidx) {
+		NoticeList nl = noticeDao.getNoticeInfo(nlidx);
+		return nl;
+	}
 
 }
