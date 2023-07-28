@@ -24,6 +24,8 @@ if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 <style>
 .imgs { width:80px; height:80px; cursor:pointer; }
 #cnt { width:50px; height:15px; text-align:center; }
+.so { background: #F5F5F5; text-align: left; width:400px; height:70px; padding: 20px 20px; }
+#del { border: 0; background: #F5F5F5; cursor:pointer; }
 </style>
 <script>
 function showBig(img){
@@ -32,11 +34,42 @@ function showBig(img){
 	big.src = "/potted/resources/images/product/" + img;
 }
 
-function selectOption(op){
-// 옵션을 선택하면 하단에 선택한 옵션이 추가되고 구매 총 금액이 바뀌는 메소드
-	
+function opDel(no) {
+	// 선택했던 옵션을 지워주는 메소드	
+		alert(no);
 }
 
+function selectOption(op){
+// 옵션을 선택하면 하단에 선택한 옵션이 추가되고 구매 총 금액이 바뀌는 메소드
+
+	var opinfo = "<div id='" + op + "'<tr><td><div class='so'><span style='font-weight: bold; font-size: 15px;'>&nbsp;" + op + 
+	"</span><input type='button' id='del' value='X' style='float:right;' onclick='opDel('" + op + "');' /><br /><hr style='border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;' />수량<input type='button' value='-' onclick='setCnt(this.value);' />" + 
+	"&nbsp;<input type='text' name='cnt' id='cnt' value='1' readonly='readonly' />&nbsp;<input type='button' value='+' onclick='setCnt(this.value);' />" + 
+	"<div style='text-align:right; font-weight:bold;'><span id=''></span>원</div></div></td></tr></div><br />";
+	
+	document.getElementById("addOp").innerHTML = document.getElementById("addOp").innerHTML+ "" + opinfo + "";
+}
+
+
+function setCnt(op){
+	var price = <%=realPrice %>;
+	var frm = document.frm;
+	var size = frm.size.value;	// 10:150 -> ps_idx:ps_stock
+	
+	if (size != "") {
+		var cnt = parseInt(frm.cnt.value);
+		var max = size.substring(size.indexOf(":") + 1);
+		if (max >= 10)	max = 10;	// 재고가 10이상일 경우 10을 최대값으로 지정
+		
+		if (op == "+" && cnt < max)			frm.cnt.value = cnt + 1;
+		else if (op == "-" && cnt > 1)		frm.cnt.value = cnt - 1;
+
+		var total = document.getElementById("total");
+		total.innerHTML = price * frm.cnt.value;	// 곱하기는 문자열이라고 해도 알아서 숫자로 바꿔 계산해줌 (더하기만 문자열 연결의 의미가 있어서 parseInt로 형 변환 후 연산 가능)
+	} else {
+		alert("옵션을 먼저 선택하세요.");
+	}
+}
 <%-- function buy(kind) {
 	<% if (isLogin) { %>
 		var frm = document.frm;
@@ -135,7 +168,7 @@ for (i = 0 ; i < productOptionBig.size() ; i++) {
 }
 %>
 	<tr><td>
-		<div style="background: #F5F5F5; text-align: left; width:400px; height:70px; padding: 20px 20px;">
+		<div class="so">
 			<span style="font-weight: bold; font-size: 15px;"><%=pi.getPi_name() %>&nbsp;🌱</span>
 			<br /><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />수량
 			<input type="button" value="-" onclick="setCnt(this.value);" />
@@ -144,16 +177,7 @@ for (i = 0 ; i < productOptionBig.size() ; i++) {
 			<div style="text-align:right; font-weight:bold;"><span id=""><%=realPrice %></span>원</div>
 		</div>
 	</td></tr>
-	<tr><td>
-		<div style="background: #F5F5F5; text-align: left; width:400px; height:70px; padding: 20px 20px;">
-			<span style="font-weight: bold; font-size: 15px;">&nbsp;</span>
-			<br /><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />수량
-			<input type="button" value="-" onclick="setCnt(this.value);" />
-			<input type="text" name="cnt" id="cnt" value="1" readonly="readonly" />
-			<input type="button" value="+" onclick="setCnt(this.value);" />
-			<div style="text-align:right; font-weight:bold;"><span id=""><%=realPrice %></span>원</div>
-		</div>
-	</td></tr>
+	<span id="addOp"></span>
 <%
 if (pi.getPi_stock() <= 0) {
 %> 
