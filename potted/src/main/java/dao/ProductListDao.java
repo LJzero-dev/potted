@@ -17,7 +17,7 @@ public class ProductListDao {
 	
 	public List<ProductInfo> getProductList(PageInfo pageInfo) {	// 검색조건 들어갈 곳
 		// 지정한 제품들의 목록을 List<ProductInfo>로 리턴하는 메소드
-		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c where a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id and a.pi_isview = 'y' and a.pi_status = 'a' and a.pi_auction = 'n' " + pageInfo.getWhere() + " group by a.pi_id " + pageInfo.getOrderby() + " limit " + ((pageInfo.getCpage() - 1) * pageInfo.getPsize()) + ", " + pageInfo.getPsize();
+		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c " + pageInfo.getWhere() + " and a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id group by a.pi_id " + pageInfo.getOrderby() + " limit " + ((pageInfo.getCpage() - 1) * pageInfo.getPsize()) + ", " + pageInfo.getPsize();
 		System.out.println(sql);
 		List<ProductInfo> productList = jdbc.query(sql, 
 			(ResultSet rs, int rowNum) -> {
@@ -35,7 +35,7 @@ public class ProductListDao {
 	}
 
 	public int getProductCount(String where) {
-		String sql = "select count(*) from t_product_info a where a.pi_isview = 'y' and a.pi_status = 'a'" + where;
+		String sql = "select count(*) from t_product_info a " + where;
 		int rcnt = jdbc.queryForObject(sql, Integer.class);
 		return rcnt;
 	}

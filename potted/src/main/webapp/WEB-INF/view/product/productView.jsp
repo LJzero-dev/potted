@@ -23,6 +23,7 @@ if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 %>
 <style>
 .imgs { width:80px; height:80px; cursor:pointer; }
+#cnt { width:50px; height:15px; text-align:center; }
 </style>
 <script>
 function showBig(img){
@@ -30,6 +31,12 @@ function showBig(img){
 	//큰 이미지를 보여주는 img태그를 big이라는 이름의 객체로 받아옴.
 	big.src = "/potted/resources/images/product/" + img;
 }
+
+function selectOption(op){
+// 옵션을 선택하면 하단에 선택한 옵션이 추가되고 구매 총 금액이 바뀌는 메소드
+	
+}
+
 <%-- function buy(kind) {
 	<% if (isLogin) { %>
 		var frm = document.frm;
@@ -108,8 +115,9 @@ int i = 0, j = 0;
 for (i = 0 ; i < productOptionBig.size() ; i++) {
 	ProductOptionBig pob = productOptionBig.get(i);
 %>
-	<tr><td><%=pob.getPob_id() %></td></tr>
+	<tr><td><%=pob.getPob_id().substring(2) %></td></tr>
 	<tr><td><select onchange="selectOption(this.value);">
+		<option value="no"><%=pob.getPob_id() %>&nbsp;(선택)</option>
 <%
 	for (j = 0 ; j < productOptionStock.size() ; j++) {
 		ProductOptionStock pos = productOptionStock.get(j);
@@ -126,22 +134,38 @@ for (i = 0 ; i < productOptionBig.size() ; i++) {
 <%
 }
 %>
-	<tr>
-	<td align="right">수량</td>
-	<td>
-		<input type="button" value="-" onclick="setCnt(this.value);" />
-		<input type="text" name="cnt" id="cnt" value="1" readonly="readonly" />
-		<input type="button" value="+" onclick="setCnt(this.value);" />
-	</td>
-	</tr>
-	<tr><td colspan="2" align="right">
-		구매 가격 : <span id="total"><%=realPrice %></span>원
+	<tr><td>
+		<div style="background: #F5F5F5; text-align: left; width:400px; height:70px; padding: 20px 20px;">
+			<span style="font-weight: bold; font-size: 15px;"><%=pi.getPi_name() %>&nbsp;🌱</span>
+			<br /><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />수량
+			<input type="button" value="-" onclick="setCnt(this.value);" />
+			<input type="text" name="cnt" id="cnt" value="1" readonly="readonly" />
+			<input type="button" value="+" onclick="setCnt(this.value);" />
+			<div style="text-align:right; font-weight:bold;"><span id=""><%=realPrice %></span>원</div>
+		</div>
 	</td></tr>
+	<tr><td>
+		<div style="background: #F5F5F5; text-align: left; width:400px; height:70px; padding: 20px 20px;">
+			<span style="font-weight: bold; font-size: 15px;">&nbsp;</span>
+			<br /><hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />수량
+			<input type="button" value="-" onclick="setCnt(this.value);" />
+			<input type="text" name="cnt" id="cnt" value="1" readonly="readonly" />
+			<input type="button" value="+" onclick="setCnt(this.value);" />
+			<div style="text-align:right; font-weight:bold;"><span id=""><%=realPrice %></span>원</div>
+		</div>
+	</td></tr>
+<%
+if (pi.getPi_stock() <= 0) {
+%> 
+	<tr><td><div style="padding: 6px 20px; font-size: 20px; color: white; text-align: center; width:450px; height:30px; 
+	border:0px; margin-bottom:10px; background: #EC3E3E; border-radius: 20px;">SOLD OUT!</div>!현재 조회하신 상품이 재입고 대기 중입니다!</td></tr>
+<% } else { %>
 	<tr><td colspan="2" align="center">
 		<input type="button" value="장바구니 담기" class="smt" onclick="buy('c');" />
 		<input type="button" value="바로 구매하기" class="smt" onclick="buy('d');" />
 	</td></tr>
 	</table>
+<% } %>
 	</form>
 </td>
 </tr>

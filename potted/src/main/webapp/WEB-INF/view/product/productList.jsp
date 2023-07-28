@@ -95,13 +95,12 @@ function showCtgrS(code) {
 </script>
 <div style="width:850px; margin:0 auto; ">
 <h2 style="font-size:20pt;"><a href="productList"; style="text-decoration:none; color:black;">STORE</a></h2>
-<form>
+<form name="frm0">
 <div style="overflow:hidden;">
 	<div class="ctgrb" id="AA" onclick="showCtgrB(1);" >다육⦁선인장</div>
 	<div class="ctgrb" id="BB" onclick="showCtgrB(2);" >관엽식물</div>
 	<div class="ctgrb" id="CC" onclick="showCtgrB(3);" >허브⦁채소</div>
 </div>
-</form>
 <hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />
 <div id="ctgr1" >
 	<div class="ctgrb" id="AAaa" onclick="showCtgrS('AAaa')" >다육</div>
@@ -115,6 +114,7 @@ function showCtgrS(code) {
 	<div class="ctgrb" id="CCaa" onclick="showCtgrS('CCaa')" >허브</div>
 	<div class="ctgrb" id="CCbb" onclick="showCtgrS('CCbb')" >채소</div>
 </div>
+</form>
 
 <table width="800">
 <tr>
@@ -124,7 +124,7 @@ function showCtgrS(code) {
 	<!--  검색조건으로 링크를 걸기위한 쿼리스트링용 컨트롤들의 집합 -->
 	<input type="hidden" name="pcb" value="<%=pcb %>" />
 <% if (pageInfo.getPcs() != null && !pageInfo.getPcs().equals("")) { %>
-	<input type="hidden" name="pcs" value="<%=pageInfo.getPcs() %>" />
+	<input type="hidden" name="pcs" value="<%=pcs %>" />
 <% } %>
 	<input type="hidden" name="ob" value="<%=pageInfo.getOb() %>" />
 	<input type="hidden" name="sch" value="" />

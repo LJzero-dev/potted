@@ -18,15 +18,20 @@ public class ProductListCtrl {
 		this.productListSvc = productListSvc;
 	}
 	
-	public PageInfo pageNsearch(HttpServletRequest request, HttpServletResponse response) throws Exception  {
+	public PageInfo pageNsearch(HttpServletRequest request, HttpServletResponse response, String kind) throws Exception  {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, spage = 0, psize = 12, bsize = 5, rcnt = 0, pcnt = 0;
 		//	페이지 번호  
 		if (request.getParameter("cpage") != null)
 			cpage = Integer.parseInt(request.getParameter("cpage"));
-		
-		// 검색조건 작업 : 대분류, 소분류, 가격대, 상품명, 브랜드
-		String where = "", schargs = "";
+		String status = "";
+		if (kind.equals("n")) {
+			status = " a.pi_status = 'a' ";
+		} else {
+			status = " a.pi_status <> 'c' ";
+		}
+		// 검색조건 작업 : 대분류, 소분류, 가격대, 상품명
+		String where = " where a.pi_isview = 'y' and " + status + " and a.pi_auction = '" + kind + "' ", schargs = "";
 		String pcb = request.getParameter("pcb");	// 대분류 조건
 		String pcs = request.getParameter("pcs");	// 소분류 조건
 		String sch = request.getParameter("sch");	// 검색조건(가격대p, 상품명n)
@@ -88,7 +93,9 @@ public class ProductListCtrl {
 		pageInfo.setSch(sch); 			pageInfo.setOb(ob);
 		pageInfo.setSchargs(schargs);	pageInfo.setObargs(obargs);
 		pageInfo.setWhere(where);		pageInfo.setOrderby(orderBy);
-
+		if (pcs != null && !pcs.equals("")) {
+			pageInfo.setPcs(pcs);
+		}
 		request.setAttribute("pageInfo", pageInfo);
 		return pageInfo;
 	}
@@ -96,7 +103,7 @@ public class ProductListCtrl {
 	@GetMapping("/productList")
 	public String productList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		PageInfo pageInfo = pageNsearch(request, response);
+		PageInfo pageInfo = pageNsearch(request, response, "n");
 		
 		List<ProductInfo> productList = productListSvc.getProductList(pageInfo);
 		request.setAttribute("productList", productList);
