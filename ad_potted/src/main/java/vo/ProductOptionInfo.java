@@ -1,7 +1,7 @@
 package vo;
 
 public class ProductOptionInfo {
-	private String pos_id, pos_name, poi_id, pi_id, pos_isview;
+	private String pos_id, pos_name, pob_id, pi_id, pos_isview;
 	private int pos_stock, pos_sale;
 	public String getPos_id() {
 		return pos_id;
@@ -15,11 +15,11 @@ public class ProductOptionInfo {
 	public void setPos_name(String pos_name) {
 		this.pos_name = pos_name;
 	}
-	public String getPoi_id() {
-		return poi_id;
+	public String getPob_id() {
+		return pob_id;
 	}
-	public void setPoi_id(String poi_id) {
-		this.poi_id = poi_id;
+	public void setPob_id(String pob_id) {
+		this.pob_id = pob_id;
 	}
 	public String getPi_id() {
 		return pi_id;

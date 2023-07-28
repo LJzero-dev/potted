@@ -99,6 +99,8 @@ public class ProductCtrl {
 		ProductInfo pi = new ProductInfo();
 		ProductOptionInfo po = new ProductOptionInfo();
 		
+		System.out.println(request.getParameter("pcs_id"));
+		
 		pi.setPi_id(request.getParameter("pi_id"));
 		pi.setPcb_id(request.getParameter("pcb_id"));
 		pi.setPcs_id(request.getParameter("pcs_id"));
@@ -116,10 +118,9 @@ public class ProductCtrl {
 		pi.setAi_idx(1);
 	
 		po.setPos_id(request.getParameter("pos_id"));
-		po.setPoi_id(request.getParameter("poi_id"));
+		po.setPob_id(request.getParameter("pob_id"));
 		
 		int result = productInSvc.productInsert(pi, po);
-		System.out.println(result);
 			
 		return "redirect:/productList";
 	}
