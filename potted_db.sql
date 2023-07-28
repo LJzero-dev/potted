@@ -93,6 +93,7 @@ create table t_product_ctgr_small (
    constraint fk_product_ctgr_small_pcb_id foreign key (pcb_id) references t_product_ctgr_big(pcb_id)
 );
 -- 상품 테이블
+
 create table t_product_info (
    pi_id char(7) primary key,			-- 상품ID
    pcb_id char(2) not null,				-- 대분류 코드
@@ -116,6 +117,7 @@ create table t_product_info (
    ai_idx int not null,            		-- 등록관리자
    pi_last datetime default now(),		-- 최종 수정일
    pi_admin int default 0,				-- 최종 수정자
+   pi_auction char(1) default 'n',		-- 경매 여부
    constraint fk_product_info_pcb_id foreign key (pcb_id) references t_product_ctgr_big(pcb_id),
    constraint fk_product_info_pcs_id foreign key (pcs_id) references t_product_ctgr_small(pcs_id),
    constraint fk_product_info_ai_idx foreign key (ai_idx) references t_admin_info(ai_idx)
