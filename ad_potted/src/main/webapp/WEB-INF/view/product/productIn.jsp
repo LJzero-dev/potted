@@ -116,9 +116,9 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">추가상품</th>
 			<td>
-				<input type="checkbox" name="poi_id" value="1.분갈이" id="division" /> <label for="division">분갈이</label>
-				<input type="checkbox" name="poi_id" value="2.화분" id="pot" /> <label for="pot">화분</label>
-				<input type="checkbox" name="poi_id" value="3.마감돌" id="stone" /> <label for="stone">마감돌</label>
+				<input type="checkbox" name="pob_id" value="1.분갈이" id="division" /> <label for="division">분갈이</label>
+				<input type="checkbox" name="pob_id" value="2.화분" id="pot" /> <label for="pot">화분</label>
+				<input type="checkbox" name="pob_id" value="3.마감돌" id="stone" /> <label for="stone">마감돌</label>
 			</td>
 		</tr>
 		<tr>
