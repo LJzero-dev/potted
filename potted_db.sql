@@ -213,6 +213,7 @@ insert into t_product_option_stock values ('3-3:자갈', '3.마감돌', 'CCaa201
 create table t_order_info (
 	oi_id char(14) primary key,			-- 주문정보
 	mi_id varchar(20) not null,			-- 회원아이디
+    pi_id char(7) not null,					-- 상품ID
 	oi_name varchar(20) not null,		-- 수취인명
 	oi_type char(1) default 'a',		-- 상품유형
 	oi_phone varchar(13) not null,		-- 배송지 전화번호
@@ -226,6 +227,7 @@ create table t_order_info (
 	oi_spoint varchar(50) default '',	-- 송장번호
 	oi_status char(1) default 'a',		-- 주문상태
 	oi_date datetime default now(),		-- 주무일
+    constraint fk_t_order_info_pi_id foreign key (pi_id) references t_product_info(pi_id),
 	constraint fk_t_order_info_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
 
