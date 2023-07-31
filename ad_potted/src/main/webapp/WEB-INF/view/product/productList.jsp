@@ -7,6 +7,8 @@
 request.setCharacterEncoding("utf-8");
 List<ProductInfo> productList = (List<ProductInfo>)request.getAttribute("productList");
 PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+
+
 %>
 
 
@@ -14,25 +16,21 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 .ctgrb {margin-right:10px; padding: 6px 20px; font-size: 20px; color: #6E6E6E; cursor: pointer; text-align: center; height:30px; 
 	border:1.5px solid  #6E6E6E; float:left; margin-bottom:10px; background: white; border-radius: 20px;  }
 .ctgrb:hover { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
-.btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; border:1px solid #000; margin-right:10px; }
-.sct { height:25px; margin-left:690px; }
+.btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; border:1px solid #000; margin-right:5px; }
+.sct { height:25px; margin-left:880px; }
 .goForm { margin-left: 750px; width:100px; padding:5px 0; margin-bottom:30px; border:0; background:gray; color:#fff; cursor: pointer; }
 
 
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
 <script>
-function makeSch() {
-// 검색 폼의 조건들을 쿼리스트링 sch의 값으로 만듦 : ntest,p100000~200000
-}
-
 
 </script>
-<div style="width:850px; margin:0 auto; ">
+<div style="width:1000px; margin:0 auto; ">
 <h2 style="font-size:20pt;"><a href="productList"; style="text-decoration:none; color:black;">상품관리</a></h2>
 <form>
 
-<table width="800">
+<table width="1000">
 <tr>
 <td width="150" valign="top">
 	<!-- 검색 조건 입력 폼 -->
@@ -43,8 +41,8 @@ function makeSch() {
 	</form>
 	<form name="frm2">
 		<img src="/potted/resources/images/product/search.png" width="25"/>&nbsp;
-		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="" style="width:700px; border:0; font-size:13pt;" />
-		<input type="button" value="검색" class="btn" onclick="makeSch();" />
+		<input type="text" name="keyword" id="keyword" placeholder="식물 이름을 검색해 주세요." value="${pageInfo.getKeyword() }" style="width:900px; border:0; font-size:13pt;" />
+		<input type="submit" value="검색" class="btn" />
 	<hr />
 	</div>
 	</form>	 
@@ -54,15 +52,15 @@ if (pageInfo.getRcnt() > 0) {
 %>
 		<select name="ob" class="sct" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
 			<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순  🌱</option>
-			<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>인기 순  🌱</option>
-			<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>이름 순  🌱</option>
-			<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>높은 가격 순  🌱</option>
-			<option value="e" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>낮은 가격 순  🌱</option>
+			<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>판매 중  🌱</option>
+			<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>판매 중지  🌱</option>
+			<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>많이 판매된 순  🌱</option>
+			<option value="d" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>조회수 순  🌱</option>
 		</select>
 </td>
 </tr>
-<table width="100%" cellpadding="15" cellspacing="0" border="1 solid black">
-<tr>
+<table width="100%" cellpadding="15" cellspacing="0" border="1 solid black" >
+<tr align="center">
 	<td>번호</td>
 	<td>상품명</td>
 	<td>판매가</td>
@@ -73,31 +71,26 @@ if (pageInfo.getRcnt() > 0) {
 </tr>
 <%	
 	int i = 0;
+	int num = pageInfo.getRcnt() - (pageInfo.getPsize() * (pageInfo.getCpage() - 1));
 	for (ProductInfo pi : productList) {
 		lnk = "productUp?piid=" + pi.getPi_id();
 		// 할인가격 확인
-	%>
-	
-	<tr align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
-	<td>번호</td>
-	<td><a href="<%=lnk %>">
-		<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="100" height="100" border="0" />
-		<input type="hidden" name="piid" value="<%=pi.getPi_id()%>" />
-		<div><%=pi.getPi_name() %></div>
-	</a></td>
-	<td><%=pi.getPi_price() %></td>
-	<td>판매상태</td>
-	<td><%=pi.getPi_stock() %></td>
-	<td><%=pi.getPi_sale() %></td>
-	<td><%=pi.getPi_date() %></td>
-	</tr>
-	<%
-	}
-	if (i % 4 > 0) {	// 목록에 나오는 상품 수가 4개가 안될때도 왼쪽부터 잘 나오도록 함
-		for (int j = 0 ; j < (4 - (i % 4)) ; j++) {
-			out.println("<td width='25%'></td>");
-		}
-		out.println("</tr>");
+%>
+		<tr align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
+		<td><%=num %></td>
+		<td width="24%"><a href="<%=lnk %>">
+			<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="100" height="100" border="0" align="left" />
+			<input type="hidden" name="piid" value="<%=pi.getPi_id()%>" />
+			<div style="float:right; font-size:16px;"><%=pi.getPi_name() %></div>
+		</a></td>
+		<td><%=pi.getPi_price() %></td>
+		<td><%=pi.getPi_status() %></td>
+		<td><%=pi.getPi_stock() %></td>
+		<td><%=pi.getPi_sale() %></td>
+		<td><%=pi.getPi_date() %></td>
+		</tr>
+<%
+		num--;
 	}
 %>
 	</table>

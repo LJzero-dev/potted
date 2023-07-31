@@ -82,7 +82,10 @@ public class ProductInDao {
 			pi.setPi_price(rs.getInt("pi_price"));
 			pi.setPi_cost(rs.getInt("pi_cost"));
 			pi.setPi_dc (rs.getInt("pi_dc"));
-			pi.setPi_status(rs.getString("pi_status"));
+			String pistatus = "";
+			if (rs.getString("pi_status").equals("a"))		pistatus = "판매 중";
+			else											pistatus = "판매 중지";
+			pi.setPi_status(pistatus);
 			pi.setPi_img1(rs.getString("pi_img1"));
 			pi.setPi_img2(rs.getString("pi_img2"));
 			pi.setPi_img3(rs.getString("pi_img3"));
@@ -98,7 +101,7 @@ public class ProductInDao {
 	}
 	
 	public ProductInfo getProductInfo(String piid) {
-		String sql = "select * from t_product_info where pi_id = '" + piid + "' ";
+		String sql = "select * from t_product_info where pi_isview = 'y' and pi_id = '" + piid + "' ";
 		ProductInfo pi = jdbc.queryForObject(sql,
 			new RowMapper<ProductInfo>() {
 				@Override

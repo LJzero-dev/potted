@@ -27,7 +27,7 @@ public class ProductCtrl {
 	}
 	
 	@GetMapping("/productList")
-	public String productList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String productList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, spage = 0, psize = 5, bsize = 5, rcnt = 0, pcnt = 0;
 		//	페이지 번호  
@@ -48,14 +48,14 @@ public class ProductCtrl {
 		switch (ob) {
 		case "a" :	// 등록역순(기본값)(최근 등록이 가장 위에 옴
 			orderBy += " pi_date desc ";		break;
-		case "b" :	// 판매량(인기)순
+		case "b" :	// 판매중
+			orderBy += " pi_status = 'a' ";		break;
+		case "c" :	// 판매 중지
+			orderBy += " pi_status = 'b' ";		break;
+		case "d" :	// 많이 판매된 순
 			orderBy += " pi_sale desc ";		break;
-		case "c" :	// 이름순
-			orderBy += " pi_name desc ";		break;
-		case "d" :	// 낮은 가격 순
-			orderBy += " pi_price desc ";		break;
-		case "e" :	// 높은 가격 순
-			orderBy += " pi_price asc ";		break;
+		case "e" :	// 조회수 순
+			orderBy += " pi_read asc ";		break;
 		}
 
 		rcnt = productInSvc.getProductCount(where);
@@ -70,9 +70,11 @@ public class ProductCtrl {
 		pageInfo.setOb(ob);
 		pageInfo.setSchargs(schargs);	pageInfo.setObargs(obargs);
 		pageInfo.setWhere(where);		pageInfo.setOrderby(orderBy);
+		pageInfo.setKeyword(keyword);
 
 		List<ProductInfo> productList = productInSvc.getProductList(pageInfo);
 
+		model.addAttribute("pageInfo", pageInfo);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("productList", productList);
 		return "product/productList";

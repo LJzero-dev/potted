@@ -110,7 +110,7 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">상품명</th>
 			<td>
-				<input type="text" name="pi_name" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="상품명을 입력해주세요." /><br />
+				<input type="text" name="pi_name" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="상품명을 입력해주세요." value="${pi.getPi_name() }" /><br />
 			</td>
 		</tr>	
 		<tr>
@@ -165,25 +165,25 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">상품원가</th>
 			<td>
-				<input type="text" name="pi_cost" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="상품원가를 입력해주세요." />원
+				<input type="text" name="pi_cost" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="상품원가를 입력해주세요." value="${pi.getPi_cost() }" />원
 			</td>
 		</tr>
 		<tr>
 			<th class="title">상품판매가</th>
 			<td>
-				<input type="text" name="pi_price" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="상품판매가를 입력해주세요." />원
+				<input type="text" name="pi_price" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="상품판매가를 입력해주세요." value="${pi.getPi_price() }" />원
 			</td>
 		</tr>
 		<tr>
 			<th class="title">상품할인</th>
 			<td>
-				<input type="text" name="pi_dc" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="할인가를 입력해주세요." />%
+				<input type="text" name="pi_dc" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="할인가를 입력해주세요." value="${pi.getPi_dc() }" />%
 			</td>
 		</tr>
 		<tr>
 			<th class="title">상품수량</th>
 			<td>
-				<input type="text" name="pi_stock" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="상품수량을 입력해주세요." />개
+				<input type="text" name="pi_stock" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="상품수량을 입력해주세요." value="${pi.getPi_stock() }" />개
 			</td>
 		</tr>
 		<tr>
@@ -194,8 +194,8 @@ th {width:130px; text-align:left;}
 		</tr>
 	</table>
 	<div class="btnBox">
-		<input type="submit" value="상품 등록" class="insertBtn"/>
-		<a href="javascript:void(0);" class="cancelBtn">취소</a>
+		<input type="submit" value="상품 수정" class="insertBtn"/>
+		<a href="javascript:void(0);" class="cancelBtn" onclick="history.back();">취소</a>
 	</div>
 	</form>
 </div>
