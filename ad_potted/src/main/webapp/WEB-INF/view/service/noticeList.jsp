@@ -59,8 +59,8 @@
 		[처음]&nbsp;&nbsp;&nbsp;[이전]&nbsp;&nbsp;
 	</c:if>
 	<c:if test="${si.getCpage() > 1}">
-		<a href="noticeList?cpage=1${si.getSchargs()}">[처음]</a>&nbsp;&nbsp;&nbsp;
-		<a href="noticeList?cpage=${si.getCpage() - 1}${si.getSchargs()}">[이전]</a>&nbsp;&nbsp;
+		<a href="service?cpage=1${si.getSchargs()}">[처음]</a>&nbsp;&nbsp;&nbsp;
+		<a href="service?cpage=${si.getCpage() - 1}${si.getSchargs()}">[이전]</a>&nbsp;&nbsp;
 	</c:if>
 	
 	<c:forEach var="i" begin="${si.getSpage()}" end="${si.getSpage() + si.getBsize() - 1 < si.getPcnt() ? si.getSpage() + si.getBsize() - 1 : si.getPcnt()}">
@@ -68,7 +68,7 @@
 			&nbsp;<strong>${i}</strong>&nbsp;
 		</c:if>
 		<c:if test="${i != si.getCpage()}">
-			&nbsp;<a href="noticeList?cpage=${i}${si.getSchargs()}">${i}</a>&nbsp;
+			&nbsp;<a href="service?cpage=${i}${si.getSchargs()}">${i}</a>&nbsp;
 		</c:if>
 	
 	</c:forEach>
@@ -77,8 +77,8 @@
 		&nbsp;&nbsp;[다음]&nbsp;&nbsp;&nbsp;[마지막]	
 	</c:if>
 	<c:if test="${si.getCpage() < si.getPcnt()}">
-		&nbsp;&nbsp;<a href="noticeList?cpage=${si.getCpage() + 1}${si.getSchargs()}">[다음]</a>
-		&nbsp;&nbsp;&nbsp;<a href="noticeList?cpage=${si.getPcnt()}${si.getSchargs()}">[마지막]</a>
+		&nbsp;&nbsp;<a href="service?cpage=${si.getCpage() + 1}${si.getSchargs()}">[다음]</a>
+		&nbsp;&nbsp;&nbsp;<a href="service?cpage=${si.getPcnt()}${si.getSchargs()}">[마지막]</a>
 	</c:if>
 </c:if>	
 </td>
