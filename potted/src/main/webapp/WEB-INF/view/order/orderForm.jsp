@@ -23,7 +23,7 @@ request.setCharacterEncoding("utf-8");
                                    <p>${option }</p>
                                </div>
                                <div class="shop_item_pay">
-                               	<span>${total }</span>
+                               	<span>${total }원</span>
                                   	<span style="text-decoration: line-through"></span>
                                </div>
                            </div>
@@ -38,7 +38,7 @@ request.setCharacterEncoding("utf-8");
 	    <div class="pd_box">
 	    	<h3>주문자 정보</h3>
 	    	<div class="order_detail">
-	    		<h4>홍길동</h4>
+	    		<h4>${mi_name }</h4>
 	    		<p>01012345678</p>
 	    		<p>test@naver.com</p>
 	    	</div>
@@ -86,7 +86,7 @@ request.setCharacterEncoding("utf-8");
 	    <div class="pd_box">
 	    	<h3>결제 수단</h3>
 	    	<p class="pLine">
-				<input type="radio" name="pay" value="a" id="payCard" />
+				<input type="radio" name="pay" value="a" id="payCard" checked="checked" />
 				<label for="payCard" style="font-size:14px; vertical-align:top;">카드 결제</label>&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="radio" name="pay" value="b" id="payPhone" />
 				<label for="payPhone" style="font-size:14px; vertical-align:top;">휴대폰 결제</label>&nbsp;&nbsp;&nbsp;&nbsp;

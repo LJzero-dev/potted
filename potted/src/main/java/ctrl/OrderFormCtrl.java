@@ -27,10 +27,18 @@ public class OrderFormCtrl {
 		String option = request.getParameter("option");
 		
 		
+		MemberInfo mi = (MemberInfo) request.getSession().getAttribute("loginInfo");
+	    String mi_name = mi.getMi_name();
+	    String mi_phone = mi.getMi_phone();
+	    String mi_email = mi.getMi_email();
+		
 		model.addAttribute("pi_id", pi_id);
 		model.addAttribute("pi_name", pi_name);
 		model.addAttribute("total", total);
 		model.addAttribute("option", option);
+		model.addAttribute("mi_name", mi_name);
+		model.addAttribute("mi_phone", mi_phone);
+		model.addAttribute("mi_email", mi_email);
 		
 		
 		return "order/orderForm";
