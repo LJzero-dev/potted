@@ -17,7 +17,7 @@ public class ServiceCtrl {
 	public void setNoticeSvc(NoticeSvc noticeSvc) {
 		this.noticeSvc = noticeSvc;
 	}
-	@GetMapping("/service")
+	@GetMapping("/noticeList")
 	public String noticeList(Model model, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, pcnt = 0, spage = 0, rcnt = 0, psize = 10, bsize = 5, num = 0;

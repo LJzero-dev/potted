@@ -29,6 +29,7 @@
 				config.WebMvcConfig
 				config.DbConfig
 				config.ServiceConfig
+				config.FreeConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

@@ -26,6 +26,7 @@
 				config.AdminConfig
 				config.DbConfig
 				config.ServiceConfig
+				config.FreeConfig
 				/WEB-INF/spring/appServlet/servlet-context.xml
 			</param-value>
 		</init-param>

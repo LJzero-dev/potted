@@ -35,7 +35,7 @@ a:hover { text-decoration:underline; color:red; }
             <ul class="menu">
                 <li><a href="productList" class="dep01">상품 관리</a></li>
                 <li><a href="freeList" class="dep01">게시판 관리</a></li>
-                <li><a href="service" class="dep01">서비스 관리</a></li>
+                <li><a href="noticeList" class="dep01">서비스 관리</a></li>
                 <li><a href="auction" class="dep01">옥션 관리</a></li>
                 <li><a href="" class="dep01">사이트 관리</a></li>
             </ul>

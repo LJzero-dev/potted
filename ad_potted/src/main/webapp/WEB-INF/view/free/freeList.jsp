@@ -44,12 +44,7 @@
 </c:if>
 </table>
 <!--  게시글 리스트 종료 -->
-<br /><br />
-<div align="right" style="margin-right:350px;">
-	<input type="button" value="글등록" onclick="location.href='freeFormIn';" class="bt" />
-</div>
-<br />
-<hr color="#1cad0a" style="border-width:1px; height:1px; border:0;" />
+
 <!--  게시판리스트 페이징 시작 -->
 <br />
 <table width="*" cellpadding="5" align="center">

@@ -3,11 +3,11 @@
 <%@ include file="../inc/inc_head.jsp" %>
 
 
-<h2 style="display:inline;">SERVICE</h2>
+<h2 style="display:inline; margin-left:20px;">SERVICE</h2>
 <form style="display:inline; float:right;">
 <div style="width:450px;"> <!--  게시판 내 검색창 시작-->
 		<select name="schtype">
-		<option value="tc" <c:if test="${si.getSchtype() eq 'a'}">selected="selected"</c:if>>전체🌱</option>
+		<option value="tc" <c:if test="${si.getSchtype() eq 'tc'}">selected="selected"</c:if>>전체🌱</option>
 		<option value="title" <c:if test="${si.getSchtype() eq 'title'}">selected="selected"</c:if>>제목🌱</option>
 		<option value="content" <c:if test="${si.getSchtype() eq 'content'}">selected="selected"</c:if>>내용🌱</option>
 	</select>
@@ -52,11 +52,11 @@
 <c:if test="${noticeList.size() > 0}">
 	
 	<c:if test="${si.getCpage() == 1}">
-		[처음]&nbsp;&nbsp;&nbsp;[이전]&nbsp;&nbsp;
+		<<&nbsp;&nbsp;&nbsp;<&nbsp;&nbsp;
 	</c:if>
 	<c:if test="${si.getCpage() > 1}">
-		<a href="service?cpage=1${si.getSchargs()}">[처음]</a>&nbsp;&nbsp;&nbsp;
-		<a href="service?cpage=${si.getCpage() - 1}${si.getSchargs()}">[이전]</a>&nbsp;&nbsp;
+		<a href="noticeList?cpage=1${si.getSchargs()}"><<</a>&nbsp;&nbsp;&nbsp;
+		<a href="noticeList?cpage=${si.getCpage() - 1}${si.getSchargs()}"><</a>&nbsp;&nbsp;
 	</c:if>
 	
 	<c:forEach var="i" begin="${si.getSpage()}" end="${si.getSpage() + si.getBsize() - 1 < si.getPcnt() ? si.getSpage() + si.getBsize() - 1 : si.getPcnt()}">
@@ -64,17 +64,17 @@
 			&nbsp;<strong>${i}</strong>&nbsp;
 		</c:if>
 		<c:if test="${i != si.getCpage()}">
-			&nbsp;<a href="service?cpage=${i}${si.getSchargs()}">${i}</a>&nbsp;
+			&nbsp;<a href="noticeList?cpage=${i}${si.getSchargs()}">${i}</a>&nbsp;
 		</c:if>
 	
 	</c:forEach>
 	
 	<c:if test="${si.getCpage() == si.getPcnt()}">
-		&nbsp;&nbsp;[다음]&nbsp;&nbsp;&nbsp;[마지막]	
+		&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;>>
 	</c:if>
 	<c:if test="${si.getCpage() < si.getPcnt()}">
-		&nbsp;&nbsp;<a href="service?cpage=${si.getCpage() + 1}${si.getSchargs()}">[다음]</a>
-		&nbsp;&nbsp;&nbsp;<a href="service?cpage=${si.getPcnt()}${si.getSchargs()}">[마지막]</a>
+		&nbsp;&nbsp;<a href="noticeList?cpage=${si.getCpage() + 1}${si.getSchargs()}">></a>
+		&nbsp;&nbsp;&nbsp;<a href="noticeList?cpage=${si.getPcnt()}${si.getSchargs()}">>></a>
 	</c:if>
 </c:if>	
 </td>

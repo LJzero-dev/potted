@@ -28,6 +28,9 @@ public class CtrlConfig {
 	@Autowired
 	private NoticeSvc noticeSvc;
 	
+	@Autowired
+	private FreeSvc freeSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
@@ -78,8 +81,11 @@ public class CtrlConfig {
 	}
 	
 	@Bean
-	public FreeListCtrl freeListCtrl() {
-		return new FreeListCtrl();
+	public FreeCtrl freeCtrl() {
+		FreeCtrl freeCtrl = new FreeCtrl();
+		freeCtrl.setFreeSvc(freeSvc);
+		
+		return freeCtrl;
 	}
 
 	

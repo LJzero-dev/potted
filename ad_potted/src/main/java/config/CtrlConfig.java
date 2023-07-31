@@ -20,6 +20,9 @@ public class CtrlConfig {
 	@Autowired
 	private NoticeSvc noticeSvc;
 	
+	@Autowired
+	private FreeSvc freeSvc;
+	
 	@Bean
 	public ProductCtrl productCtrl() {
 		ProductCtrl productCtrl = new ProductCtrl();
@@ -44,5 +47,12 @@ public class CtrlConfig {
 		ServiceCtrl serviceCtrl = new ServiceCtrl();
 		serviceCtrl.setNoticeSvc(noticeSvc);
 		return serviceCtrl;
+	}
+	
+	@Bean
+	public FreeCtrl freeCtrl() {
+		FreeCtrl freeCtrl = new FreeCtrl();
+		freeCtrl.setFreeSvc(freeSvc);
+		return freeCtrl;
 	}
 }

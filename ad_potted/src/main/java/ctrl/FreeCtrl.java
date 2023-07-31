@@ -11,14 +11,15 @@ import svc.*;
 import vo.*;
 
 @Controller
-public class ServiceCtrl {
-	private NoticeSvc noticeSvc;
+public class FreeCtrl {
+	private FreeSvc freeSvc;
 
-	public void setNoticeSvc(NoticeSvc noticeSvc) {
-		this.noticeSvc = noticeSvc;
+	public void setFreeSvc(FreeSvc freeSvc) {
+		this.freeSvc = freeSvc;
 	}
-	@GetMapping("/noticeList")
-	public String noticeList(Model model, HttpServletRequest request) throws Exception {
+	
+	@GetMapping("/freeList")
+	public String freeList(Model model, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, pcnt = 0, spage = 0, rcnt = 0, psize = 10, bsize = 5, num = 0;
 		// 현재페이지, 현/마지막페이지수, 시작페이지, 게시글 수, 한페이지 크기, 블록의 크기, 번호등을 저장할 변수
@@ -28,24 +29,24 @@ public class ServiceCtrl {
 		
 		String schtype = request.getParameter("schtype");
 		String keyword = request.getParameter("keyword");
-		String where = " where nl_isview = 'y' ";
+		String where = " where fl_isview = 'y' ";
 		String args = "", schargs = "";
 		if (schtype == null || keyword == null) {
 			schtype = "";	keyword = "";
 		} else if (!schtype.equals("") && !keyword.trim().equals("")) {
 			URLEncoder.encode(keyword, "UTF-8");
 			if (schtype.equals("tc")) {	// 검색 조건이 제목 + 내용일 경우
-				where += " and (nl_title like '%" + keyword + "%' or nl_content like '%" + keyword + "%') ";
+				where += " and (fl_title like '%" + keyword + "%' or fl_content like '%" + keyword + "%') ";
 			} else {
-				where += " and nl_" + schtype + " like '%" + keyword + "%' ";
+				where += " and fl_" + schtype + " like '%" + keyword + "%' ";
 			}
 			schargs = "&schtype=" + schtype + "&keyword=" + keyword;
 		}
 		args = "&cpage=" + cpage + schargs;
 		
-		rcnt = noticeSvc.getNoticeListCount(where);
+		rcnt = freeSvc.getFreeListCount(where);
 		// 검색된 게시글의 총 개수로 게시글 일련번호 출력과 전체 페이지 수 계산을 위한 값
-		List<NoticeList> noticeList = noticeSvc.getNoticeList(where, cpage, psize);
+		List<FreeList> freeList = freeSvc.getFreeList(where, cpage, psize);
 		
 		
 		pcnt = rcnt / psize;	if (rcnt % psize > 0)	pcnt++;
@@ -59,30 +60,11 @@ public class ServiceCtrl {
 		si.setKeyword(keyword);	si.setArgs(args);
 		si.setSchtype(schtype);
 		
-		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("freeList", freeList);
 		model.addAttribute("si", si);
 
-		return "service/noticeList";
+		return "free/freeList";
 	}
 	
-	@GetMapping("/noticeView")
-	public String noticeView(Model model, HttpServletRequest request) throws Exception {
-		request.setCharacterEncoding("utf-8");
-		int nlidx = Integer.parseInt(request.getParameter("nlidx"));
-		int cpage = Integer.parseInt(request.getParameter("cpage"));
-		String schtype = request.getParameter("schtype");
-		String keyword = request.getParameter("keyword");
-		String args = "?cpage=" + cpage;
-		
-		if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals("")) {
-			URLEncoder.encode(keyword, "UTF-8");
-			args += "&schtype=" + schtype + "&keyword=" + keyword;
-		}
-		
-		NoticeList nl = noticeSvc.getNoticeInfo(nlidx);
-		model.addAttribute("nl", nl);
-		model.addAttribute("args", args);		
-		
-		return "service/noticeView";
-	}
 }
+

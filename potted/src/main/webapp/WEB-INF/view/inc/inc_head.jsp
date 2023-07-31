@@ -44,7 +44,7 @@ a:hover { text-decoration:underline; }
                 <li><a href="freeList" class="dep01">COMMUNITY</a></li>
                 <li><a href="myPlant" class="dep01">MY PLANT</a></li>
                 <li><a href="auction" class="dep01">AUCTION</a></li>
-                <li><a href="service" class="dep01">SERVICE</a></li>
+                <li><a href="noticeList" class="dep01">SERVICE</a></li>
             </ul>
         </div>
         <div class="gnb_util">
