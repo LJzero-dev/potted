@@ -43,10 +43,11 @@
 </c:if>
 </table>
 <!--  게시글 리스트 종료 -->
-<div align="right" width="20">
-<input type="button" value="글등록" onclick="location.href='freeFormIn';" />
+<br />
+<div align="right">
+	<input type="button" value="글등록" onclick="location.href='noticeFormIn';" />
 </div>
-<hr />
+<hr color="#1cad0a" style="border-width:1px; height:1px; border:0;" />
 <!--  게시판리스트 페이징 시작 -->
 <br />
 <table width="*" cellpadding="5" align="center">

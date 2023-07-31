@@ -43,7 +43,6 @@ public class CtrlConfig {
 	public ServiceCtrl serviceCtrl() {
 		ServiceCtrl serviceCtrl = new ServiceCtrl();
 		serviceCtrl.setNoticeSvc(noticeSvc);
-		
 		return serviceCtrl;
 	}
 }

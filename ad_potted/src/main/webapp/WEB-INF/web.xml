@@ -25,6 +25,7 @@
 				config.ProductConfig
 				config.AdminConfig
 				config.DbConfig
+				config.ServiceConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
