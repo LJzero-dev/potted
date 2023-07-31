@@ -96,5 +96,33 @@ public class ProductInDao {
 		
 		return productList;
 	}
+	
+	public ProductInfo getProductInfo(String piid) {
+		String sql = "select * from t_product_info where pi_id = '" + piid + "' ";
+		ProductInfo pi = jdbc.queryForObject(sql,
+			new RowMapper<ProductInfo>() {
+				@Override
+				public ProductInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+					ProductInfo pi = new ProductInfo();
+					pi.setPi_id(rs.getString("pi_id"));
+					pi.setPcb_id(rs.getString("pcb_id"));
+					pi.setPcs_id(rs.getString("pcs_id"));
+					pi.setPi_name(rs.getString("pi_name"));
+					pi.setPi_price(rs.getInt("pi_price"));
+					pi.setPi_cost(rs.getInt("pi_cost"));
+					pi.setPi_dc (rs.getInt("pi_dc"));
+					pi.setPi_status(rs.getString("pi_status"));
+					pi.setPi_img1(rs.getString("pi_img1"));
+					pi.setPi_img2(rs.getString("pi_img2"));
+					pi.setPi_img3(rs.getString("pi_img3"));
+					pi.setPi_stock(rs.getInt("pi_stock"));
+					pi.setPi_desc(rs.getString("pi_desc"));
+					pi.setPi_date(rs.getString("pi_date"));
+					return pi;
+				}
+			}
+		);
+		return pi;
+	}
 
 }

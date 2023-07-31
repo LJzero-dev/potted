@@ -10,6 +10,7 @@ import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -148,5 +149,23 @@ public class ProductCtrl {
 		uploadName = arrContent[2].substring(fIdx + 1, sIdx);
 		return uploadName;
 	}
+	
+	@GetMapping("/productUp")
+	public String productUp(Model model, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+
+		String piid = request.getParameter("piid");
+		ProductInfo pi = productInSvc.getProductInfo(piid);
+		ArrayList<ProductCtgrBig> bigList = productInSvc.getBigList();
+		ArrayList<ProductCtgrSmall> smallList = productInSvc.getSmallList();
+
+		request.setAttribute("bigList", bigList);
+		request.setAttribute("smallList", smallList);
+		
+		model.addAttribute("pi", pi);
+		
+		return "product/productUp";
+	}
+
 	
 }

@@ -41,6 +41,11 @@ public class ProductInSvc {
 		return productList;
 	}
 
+	public ProductInfo getProductInfo(String piid) {
+		ProductInfo productInfo = productInDao.getProductInfo(piid);
+		return productInfo;
+	}
+
 
 
 }

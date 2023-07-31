@@ -74,7 +74,7 @@ if (pageInfo.getRcnt() > 0) {
 <%	
 	int i = 0;
 	for (ProductInfo pi : productList) {
-		lnk = "productIn?piid=" + pi.getPi_id();
+		lnk = "productUp?piid=" + pi.getPi_id();
 		// 할인가격 확인
 	%>
 	
@@ -82,6 +82,7 @@ if (pageInfo.getRcnt() > 0) {
 	<td>번호</td>
 	<td><a href="<%=lnk %>">
 		<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="100" height="100" border="0" />
+		<input type="hidden" name="piid" value="<%=pi.getPi_id()%>" />
 		<div><%=pi.getPi_name() %></div>
 	</a></td>
 	<td><%=pi.getPi_price() %></td>
@@ -135,6 +136,6 @@ if (pageInfo.getRcnt() > 0) {
 
 
 </table>
-		<input type="button" value="상품 등록" class="goForm" onclick="location.href='productIn';" />
+		<input type="button" value="상품 등록" class="goForm" onclick="location.href='productIn?';" />
 </div>
 <%@ include file="../inc/inc_foot.jsp" %>
