@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
+
 %>
 <div class="shop_content payment">
 	<div class="order_wrap">
@@ -16,13 +18,13 @@ request.setCharacterEncoding("utf-8");
                                <img src="https://cdn.imweb.me/thumbnail/20220728/12a188e7ef268.png" alt="주문상품 이미지">
                            </div>
                            <div class="product_info_wrap">
-                               <span class="shop_item_title">(주황색 도토리 토분 속) 필레아 페페로미오이데스</span>
+                               <span class="shop_item_title">${pi_name }</span>
                                <div class="shop_item_opt">
-                                   <p>0. 마감돌은 괜찮아요 - 1개</p>
+                                   <p>${option }</p>
                                </div>
                                <div class="shop_item_pay">
-                               	<span>52,934원</span>
-                                  	<span style="text-decoration: line-through">139,300원</span>
+                               	<span>${total }</span>
+                                  	<span style="text-decoration: line-through"></span>
                                </div>
                            </div>
 	                    </div>
