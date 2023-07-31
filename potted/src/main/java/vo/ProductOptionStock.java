@@ -2,11 +2,12 @@ package vo;
 
 public class ProductOptionStock {
 	private String pos_id, pob_id, pi_id, pos_isview;
-	private int pos_stock, pos_sale;
+	private int pos_stock, pos_sale, pos_idx, pos_price;
 	
-	public ProductOptionStock(String pos_id, String pob_id, String pi_id, String pos_isview, int pos_stock, int pos_sale) {
+	public ProductOptionStock(String pos_id, String pob_id, String pi_id, String pos_isview, int pos_stock, int pos_sale, int pos_idx, int pos_price) {
 		this.pos_id = pos_id;		this.pob_id = pob_id;		this.pi_id = pi_id;			
 		this.pos_isview = pos_isview;	this.pos_stock = pos_stock;		this.pos_sale = pos_sale;
+		this.pos_idx = pos_idx;			this.pos_price = pos_price;
 	}
 	
 	public String getPos_id() {
@@ -44,6 +45,22 @@ public class ProductOptionStock {
 	}
 	public void setPos_sale(int pos_sale) {
 		this.pos_sale = pos_sale;
+	}
+
+	public int getPos_idx() {
+		return pos_idx;
+	}
+
+	public void setPos_idx(int pos_idx) {
+		this.pos_idx = pos_idx;
+	}
+
+	public int getPos_price() {
+		return pos_price;
+	}
+
+	public void setPos_price(int pos_price) {
+		this.pos_price = pos_price;
 	}
 	
 	

@@ -64,7 +64,7 @@ public class ProductListDao {
 		List<ProductOptionStock> productOptionStock = jdbc.query(sql, 
 				(ResultSet rs, int rowNum) -> {
 				ProductOptionStock pos = new ProductOptionStock(rs.getString("pos_id"), rs.getString("pob_id"), rs.getString("pi_id"), 
-						rs.getString("pos_isview"), rs.getInt("pos_stock"), rs.getInt("pos_sale"));
+						rs.getString("pos_isview"), rs.getInt("pos_stock"), rs.getInt("pos_sale"), rs.getInt("pos_idx"), rs.getInt("pos_price"));
 				
 				return pos;
 				
