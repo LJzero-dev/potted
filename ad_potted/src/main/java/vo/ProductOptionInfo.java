@@ -2,7 +2,7 @@ package vo;
 
 public class ProductOptionInfo {
 	private String pos_id, pos_name, pob_id, pi_id, pos_isview;
-	private int pos_stock, pos_sale;
+	private int pos_stock, pos_sale, pos_price;
 	public String getPos_id() {
 		return pos_id;
 	}
@@ -45,6 +45,11 @@ public class ProductOptionInfo {
 	public void setPos_sale(int pos_sale) {
 		this.pos_sale = pos_sale;
 	}
-
+	public int getPos_price() {
+		return pos_price;
+	}
+	public void setPos_price(int pos_price) {
+		this.pos_price = pos_price;
+	}
 	
 }

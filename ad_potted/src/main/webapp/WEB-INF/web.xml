@@ -26,9 +26,16 @@
 				config.AdminConfig
 				config.DbConfig
 				config.ServiceConfig
+				/WEB-INF/spring/appServlet/servlet-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<location>E:/lhn/web/potted/ad_potted/src/main/webapp/resources/img/product</location>
+			<max-file-size>20971520</max-file-size> <!-- 최대크기 20M -->
+			<max-request-size>41943040</max-request-size> <!-- 한번에 올릴 최대 크기 40M -->
+			<file-size-threshold>20971520</file-size-threshold> <!-- 메모리 -->
+		</multipart-config>
 	</servlet>
 
 	<servlet-mapping>

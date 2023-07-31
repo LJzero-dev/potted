@@ -1,24 +1,20 @@
 package ctrl;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import svc.ProductInSvc;
-import vo.PageInfo;
-import vo.ProductCtgrBig;
-import vo.ProductCtgrSmall;
-import vo.ProductInfo;
-import vo.ProductOptionInfo;
+
+import svc.*;
+import vo.*;
 
 @Controller
 public class ProductCtrl {
@@ -93,13 +89,15 @@ public class ProductCtrl {
 	}
 	
 	@PostMapping("/productProcIn")
-	public String productProcIn(HttpServletRequest request) throws Exception {
+	public String productProcIn(HttpServletRequest request, @RequestPart("pi_img1") Part piImg1,
+	        @RequestPart("pi_img2") Part piImg2, @RequestPart("pi_img3") Part piImg3, @RequestPart("pi_desc") Part piDesc) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		String uploadFiles = "";	// 업로드한 파일들의 이름을 누적하여 저장할 변수
 		
 		ProductInfo pi = new ProductInfo();
 		ProductOptionInfo po = new ProductOptionInfo();
 		
-		System.out.println(request.getParameter("pcs_id"));
+		String[] posIds = request.getParameter("pos_id").split(",");
 		
 		pi.setPi_id(request.getParameter("pi_id"));
 		pi.setPcb_id(request.getParameter("pcb_id"));
@@ -109,20 +107,46 @@ public class ProductCtrl {
 		pi.setPi_cost(Integer.parseInt(request.getParameter("pi_cost")));
 		pi.setPi_dc (Integer.parseInt(request.getParameter("pi_dc")));
 		pi.setPi_status(request.getParameter("pi_status"));
-		pi.setPi_img1(request.getParameter("pi_img1"));
-		pi.setPi_img2(request.getParameter("pi_img2"));
-		pi.setPi_img3(request.getParameter("pi_img3"));
+		pi.setPi_img1(getUploadFileName(piImg1.getHeader("content-disposition")));
+		pi.setPi_img2(getUploadFileName(piImg2.getHeader("content-disposition")));
+		pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));
 		pi.setPi_stock(Integer.parseInt(request.getParameter("pi_stock")));
-		pi.setPi_desc(request.getParameter("pi_desc"));
+		pi.setPi_desc(getUploadFileName(piDesc.getHeader("content-disposition")));
 		pi.setPi_date(request.getParameter("pi_date"));
 		pi.setAi_idx(1);
 	
-		po.setPos_id(request.getParameter("pos_id"));
+		po.setPos_id(posIds[1]);
+		po.setPos_price(Integer.parseInt(posIds[0]));
 		po.setPob_id(request.getParameter("pob_id"));
 		
 		int result = productInSvc.productInsert(pi, po);
+		
+		for (Part part : request.getParts()) {
+			if (part.getName().startsWith("pi_img") || part.getName().equals("pi_desc")) {
+				String cd =  part.getHeader("content-disposition");
+				String uploadName = getUploadFileName(cd);
+				if (!uploadName.equals("")) {
+				// 업로드할 파일이 있으면
+					uploadFiles += ", " + uploadName;
+					part.write(uploadName);
+				}
+				
+			}
+		}
+		if (!uploadFiles.equals(""))	uploadFiles = uploadFiles.substring(2);
 			
 		return "redirect:/productList";
+	}
+
+	private String getUploadFileName(String cd) {
+		String uploadName = null;
+		String[] arrContent = cd.split(";");
+		
+		int fIdx = arrContent[2].indexOf("\"");
+		int sIdx = arrContent[2].lastIndexOf("\"");
+		
+		uploadName = arrContent[2].substring(fIdx + 1, sIdx);
+		return uploadName;
 	}
 	
 }

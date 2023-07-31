@@ -55,8 +55,8 @@ public class ProductInDao {
 	    	String piIdQuery = "select pi_id from t_product_info where pi_id = ?";
 	        String piId = jdbc.queryForObject(piIdQuery, String.class, pi.getPcs_id() + String.format("%03d", randomValue));
 	        
-			sql = "insert into t_product_option_stock (pos_id, pob_id, pi_id, pos_isview) values (?, ?, ?, 'y')";
-			result += jdbc.update(sql, po.getPos_id(), po.getPob_id(), piId);
+			sql = "insert into t_product_option_stock (pos_id, pob_id, pi_id, pos_price, pos_isview) values (?, ?, ?, ?, 'y')";
+			result += jdbc.update(sql, po.getPos_id(), po.getPob_id(), piId, po.getPos_price());
 	    }
 		
 		return result;
