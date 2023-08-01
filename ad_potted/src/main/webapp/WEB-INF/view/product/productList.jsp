@@ -17,8 +17,8 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	border:1.5px solid  #6E6E6E; float:left; margin-bottom:10px; background: white; border-radius: 20px;  }
 .ctgrb:hover { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
 .btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; border:1px solid #000; margin-right:5px; }
-.sct { height:25px; margin-left:880px; }
-.goForm { margin-left: 750px; width:100px; padding:5px 0; margin-bottom:30px; border:0; background:gray; color:#fff; cursor: pointer; }
+.sct { height:25px; margin-left:860px; }
+.goForm { margin-left: 900px; width:100px; padding:5px 0; margin-bottom:30px; border:0; background:gray; color:#fff; cursor: pointer; }
 
 
 </style>
@@ -27,8 +27,8 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 
 </script>
 <div style="width:1000px; margin:0 auto; ">
-<h2 style="font-size:20pt;"><a href="productList"; style="text-decoration:none; color:black;">상품관리</a></h2>
-<form>
+<h2 style="font-size:20pt;"><a href="productList" style="text-decoration:none; color:black;">상품관리</a></h2>
+
 
 <table width="1000">
 <tr>
@@ -39,24 +39,23 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	<input type="hidden" name="ob" value="<%=pageInfo.getOb() %>" />
 	<input type="hidden" name="sch" value="" />
 	</form>
-	<form name="frm2">
+	<form name="frm2" align="center">
 		<img src="/potted/resources/images/product/search.png" width="25"/>&nbsp;
-		<input type="text" name="keyword" id="keyword" placeholder="식물 이름을 검색해 주세요." value="${pageInfo.getKeyword() }" style="width:900px; border:0; font-size:13pt;" />
+		<input type="text" name="keyword" id="keyword" placeholder="식물 이름을 검색해 주세요." value="${pageInfo.getKeyword() }" style="width:500px; border:0; font-size:13pt;" />
 		<input type="submit" value="검색" class="btn" />
-	<hr />
-	</div>
+	<hr style="width:600px;"/>
 	</form>	 
 <%
 if (pageInfo.getRcnt() > 0) {
 	String lnk = "productList?cpage=1" + pageInfo.getSchargs();
 %>
-		<select name="ob" class="sct" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
-			<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순  🌱</option>
-			<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>판매 중  🌱</option>
-			<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>판매 중지  🌱</option>
-			<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>많이 판매된 순  🌱</option>
-			<option value="d" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>조회수 순  🌱</option>
-		</select>
+	<select name="ob" class="sct" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
+		<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순  🌱</option>
+		<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>판매 중  🌱</option>
+		<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>판매 중지  🌱</option>
+		<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>많이 판매된 순  🌱</option>
+		<option value="e" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>조회수 순  🌱</option>
+	</select>
 </td>
 </tr>
 <table width="100%" cellpadding="15" cellspacing="0" border="1 solid black" >
@@ -68,6 +67,7 @@ if (pageInfo.getRcnt() > 0) {
 	<td>재고</td>
 	<td>판매량</td>
 	<td>등록일</td>
+	<td>조회수</td>
 </tr>
 <%	
 	int i = 0;
@@ -88,6 +88,7 @@ if (pageInfo.getRcnt() > 0) {
 		<td><%=pi.getPi_stock() %></td>
 		<td><%=pi.getPi_sale() %></td>
 		<td><%=pi.getPi_date() %></td>
+		<td><%=pi.getPi_read() %></td>
 		</tr>
 <%
 		num--;

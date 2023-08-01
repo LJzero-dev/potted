@@ -90,8 +90,10 @@ public class ProductInDao {
 			pi.setPi_img2(rs.getString("pi_img2"));
 			pi.setPi_img3(rs.getString("pi_img3"));
 			pi.setPi_stock(rs.getInt("pi_stock"));
+			pi.setPi_sale(rs.getInt("pi_sale"));
 			pi.setPi_desc(rs.getString("pi_desc"));
 			pi.setPi_date(rs.getString("pi_date"));
+			pi.setPi_read(rs.getInt("pi_read"));
 			pi.setAi_idx(1);
 	        
 	        return pi;
