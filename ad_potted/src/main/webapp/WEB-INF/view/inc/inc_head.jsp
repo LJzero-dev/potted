@@ -45,7 +45,7 @@ a:hover { text-decoration:underline; color:red; }
             <% if (loginInfo == null) { 
     			out.println("<script>");
     			out.println("alert('잘못된 경로로 들어오셨습니다.')");
-    			out.println("location.href='loginForm';");
+    			out.println("location.href='/';");
     			out.println("</script>");
             %>
             <% } else { %>

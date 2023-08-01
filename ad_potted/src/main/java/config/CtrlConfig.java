@@ -60,4 +60,9 @@ public class CtrlConfig {
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
 	}
+	
+	@Bean
+	public LogoutCtrl logoutCtrl() {
+		return new LogoutCtrl();
+	}
 }
