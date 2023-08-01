@@ -30,6 +30,7 @@
 				config.DbConfig
 				config.ServiceConfig
 				config.FreeConfig
+				config.CartConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

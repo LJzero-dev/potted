@@ -261,12 +261,12 @@ create table t_order_cart (
 	oc_idx int primary key auto_increment,	-- 일련번호
 	mi_id varchar(20) not null,				-- 회원아이디
 	pi_id char(7) not null,					-- 상품ID
-	pos_id varchar(50) not null,			-- 옵션 소분류 코드
+    oc_option varchar(100) not null,		-- 옵션 
 	oc_cnt int default 1,					-- 개수
 	oc_date datetime default now(),			-- 등록일
+    oc_price int default 0,					-- 상품+옵션 가격
     constraint fk_t_order_cart_mi_id foreign key (mi_id) references t_member_info(mi_id),
-    constraint fk_t_order_cart_pi_id foreign key (pi_id) references t_product_info(pi_id),
-    constraint fk_t_order_cart_pos_id foreign key (pos_id) references t_product_option_stock(pos_id)
+    constraint fk_t_order_cart_pi_id foreign key (pi_id) references t_product_info(pi_id)
 );
 
 

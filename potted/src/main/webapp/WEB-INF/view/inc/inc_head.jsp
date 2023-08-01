@@ -48,7 +48,7 @@ a:hover { text-decoration:underline; }
             </ul>
         </div>
         <div class="gnb_util">
-            <a href="javascript:void(0);" class="cartBtn"><img src="/potted/resources/images/main/cart_icon.png"></a>
+            <a href="cartView" class="cartBtn"><img src="/potted/resources/images/main/cart_icon.png"></a>
             <span>10</span>
             <div class="infor">
             <% if (loginInfo == null) { %>

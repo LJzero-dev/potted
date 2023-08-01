@@ -106,13 +106,14 @@ function setCnt(num){
 
 function buy(kind) {
 	var frm = document.frm;
-//	var size = frm.size.value;
 // 옵션 정보 들어갈 부분
+	var option = frm.option.value;
 	var cnt = frm.cnt.value;
-
+	var price = frm.totalPrice.value;
+	
 	if (kind == "c") {	// 장바구니 담기일 경우
 		$.ajax({
-			type : "POST", url : "/potted/cartProc", data : {"piid" : "<%=pi.getPi_id()%>", "cnt" : cnt},
+			type : "POST", url : "/potted/cartProc", data : {"piid" : "<%=pi.getPi_id()%>", "option" : option, "cnt" : cnt, "price" : price},
 			success : function(chkRs) {
 				if (chkRs == 0) {	// 장바구니 담기에 실패했을 경우
 					alert("장바구니 담기에 실패했습니다.\n다시 시도해 보세요.");
@@ -130,7 +131,6 @@ function buy(kind) {
 		frm.action = "orderForm";
 		frm.submit();
 	}
-		
 }
 
 var cmenu = 1;
@@ -174,15 +174,23 @@ function showMenu(num) {
 <td width="*">
 <!-- 상품 정보 관련 영역 -->
 <%
-String dc = (pi.getPi_dc() * 100) + "";
-dc = dc.substring(0, dc.indexOf(".")) + "%";
+String dc = "", delprice = "";
+if (pi.getPi_dc() != 0) {
+	dc = (pi.getPi_dc() * 100) + "";
+	dc = dc.substring(0, dc.indexOf(".")) + "%";
+	delprice = price;
+} else {
+	dc = "";
+	price = "";
+}
+
 %>
 	<form name="frm" method="post">
 	<input type="hidden" name="kind" value="d" />
 	<input type="hidden" name="pi_id" value="<%=pi.getPi_id() %>" />
 	<input type="hidden" name="pi_name" value="<%=pi.getPi_name()%>" />
-	<input type="hidden" id="option" name="option" value="" /><!-- 옵션들어갈 부분 -->
-	<input type="hidden" id="totalPrice" name="totalPrice" value="" />
+	<input type="hidden" id="option" name="option" value="없음" /><!-- 옵션들어갈 부분 -->
+	<input type="hidden" id="totalPrice" name="totalPrice" value="<%=realPrice %>" />
 	<table width="100%" cellpadding="5" id="info" >
 	<tr><td colspan="2">
 		<a href="productList?pcb=<%=pi.getPcb_id() %>"><%=pi.getPcb_name() %></a>&nbsp; ‣ ‣ &nbsp;
@@ -199,25 +207,27 @@ dc = dc.substring(0, dc.indexOf(".")) + "%";
 	
 <% 
 int i = 0, j = 0;
-for (i = 0 ; i < productOptionBig.size() ; i++) {
-	ProductOptionBig pob = productOptionBig.get(i);
+if (productOptionStock.size() > 0) {
+	for (i = 0 ; i < productOptionBig.size() ; i++) {
+		ProductOptionBig pob = productOptionBig.get(i);
 %>
-	<tr><td><%=pob.getPob_id().substring(2) %></td></tr>
-	<tr><td><select name="opb" onchange="selectOption(this.value);">
-		<option value="no"><%=pob.getPob_id() %>&nbsp;(선택)</option>
+		<tr><td><%=pob.getPob_id().substring(2) %></td></tr>
+		<tr><td><select name="opb" onchange="selectOption(this.value);">
+			<option value="no"><%=pob.getPob_id() %>&nbsp;(선택)</option>
 <%
-	for (j = 0 ; j < productOptionStock.size() ; j++) {
-		ProductOptionStock pos = productOptionStock.get(j);
-		if (pob.getPob_id().equals(pos.getPob_id())){
+		for (j = 0 ; j < productOptionStock.size() ; j++) {
+			ProductOptionStock pos = productOptionStock.get(j);
+			if (pob.getPob_id().equals(pos.getPob_id())){
 %>
-		<option value="<%=pos.getPos_idx() + ":" + pos.getPos_id() + "," + pos.getPos_price() %>"><%=pos.getPos_id() %>&nbsp;<%=pos.getPos_price() %></option>
+			<option value="<%=pos.getPos_idx() + ":" + pos.getPos_id() + "," + pos.getPos_price() %>"><%=pos.getPos_id() %>&nbsp;<%=pos.getPos_price() %></option>
 <%
+			}
 		}
-	}
 %>
-	</select></td>
-	</tr>
+		</select></td>
+		</tr>
 <%
+	}
 }
 %>
 	<tr><td>
@@ -234,7 +244,7 @@ for (i = 0 ; i < productOptionBig.size() ; i++) {
 <%
 if (pi.getPi_stock() <= 0) {
 %> 
-	<tr><td><div style="padding: 6px 20px; font-size: 20px; color: white; text-align: center; width:450px; height:30px; 
+	<tr><td><div style="padding: 6px 20px; font-size: 20px; color: white; text-align: center; width:400px; height:30px; 
 	border:0px; margin-bottom:10px; background: #EC3E3E; border-radius: 20px;">SOLD OUT!</div>!현재 조회하신 상품이 재입고 대기 중입니다!</td></tr>
 <% } else { %>
 	<tr><td colspan="2" align="right" >
@@ -244,8 +254,8 @@ if (pi.getPi_stock() <= 0) {
 		<input type="button" value="장바구니 담기" class="smt" onclick="buy('c');" />
 		<input type="button" value="바로 구매하기" class="smt" onclick="buy('d');" />
 	</td></tr>
-	</table>
 <% } %>
+	</table>
 	</form>
 </td>
 </tr>

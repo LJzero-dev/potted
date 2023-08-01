@@ -31,6 +31,9 @@ public class CtrlConfig {
 	@Autowired
 	private FreeSvc freeSvc;
 	
+	@Autowired
+	private CartSvc cartSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
 		return new IndexCtrl();
@@ -83,7 +86,13 @@ public class CtrlConfig {
 		
 		return freeCtrl;
 	}
-
+	
+	@Bean
+	public CartCtrl cartCtrl() {
+		CartCtrl cartCtrl = new CartCtrl();
+		cartCtrl.setCartSvc(cartSvc);
+		return cartCtrl;
+	}
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.METHOD)
