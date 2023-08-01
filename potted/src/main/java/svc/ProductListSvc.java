@@ -44,5 +44,10 @@ public class ProductListSvc {
 	}
 
 
+	public String getProductAuctionListUp(String pi_ids) {
+		return productListDao.getProductAuctionListUp(pi_ids);
+	}
+
+
 
 }

@@ -1,13 +1,11 @@
 package vo;
 
-import java.util.*;
-
 public class ProductInfo {
 	private String pi_id, pcb_id, pcs_id, pi_name, pi_status, pi_img1, pi_img2, pi_img3, pi_desc, pi_special, pi_isview, pi_date, pi_last;
 	private int pi_price, pi_cost, pi_read, pi_review, pi_sale, ai_idx, pi_admin, pi_stock;
 	private double pi_dc;
 	private String pcb_name, pcs_name;
-
+	private ProductAuctionInfo productAuctionInfo;
 	// 상품 상세보기 화면에서 사용할 분류와 브랜드명을 저장할 변수들
 
 	public ProductInfo(String pi_id, String pcb_id, String pcs_id, String pi_name, String pi_status, String pi_img1,
@@ -21,8 +19,12 @@ public class ProductInfo {
 		this.pi_review = pi_review;	this.pi_sale = pi_sale;			this.ai_idx = ai_idx;		this.pi_admin = pi_admin;
 		this.pi_dc = pi_dc;			this.pcb_name = pcb_name;		this.pcs_name = pcs_name;	this.pi_stock = pi_stock;
 	}
-	
-	
+	public ProductAuctionInfo getProductAuctionInfo() {
+		return productAuctionInfo;
+	}
+	public void setProductAuctionInfo(ProductAuctionInfo productAuctionInfo) {
+		this.productAuctionInfo = productAuctionInfo;
+	}
 	public String getPi_id() {
 		return pi_id;
 	}

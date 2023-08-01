@@ -7,6 +7,9 @@ import java.util.List;
 import javax.servlet.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+
+import config.CtrlConfig.Login;
+import config.CtrlConfig.LoginRequired;
 import svc.*;
 import vo.*;
 
@@ -143,6 +146,4 @@ public class ProductListCtrl {
 		request.setAttribute("productList", productList);		
 		return "auction/auctionList";
 	}
-
-
 }

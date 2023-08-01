@@ -78,24 +78,21 @@ function makeSch() {
 
 function showCtgrB(ctgr) {
 	if (ctgr == 1) {
-		location.href = "productList?pcb=AA";
+		location.href = "auctionList?pcb=AA";
 	} else if (ctgr == 2) {
-		location.href = "productList?pcb=BB";
+		location.href = "auctionList?pcb=BB";
 	} else {
-		location.href = "productList?pcb=CC";
+		location.href = "auctionList?pcb=CC";
 	} 
 	
 }
 
 function showCtgrS(code) {
-	location.href = "productList?pcb=" + code.substring(0, 2) + "&pcs=" + code;
-}
-function count() {
-	
+	location.href = "auctionList?pcb=" + code.substring(0, 2) + "&pcs=" + code;
 }
 </script>
 <div style="width:850px; margin:0 auto; ">
-<h2 style="font-size:20pt;"><a href="productList"; style="text-decoration:none; color:black;">STORE</a></h2>
+<h2 style="font-size:20pt;"><a href="auctionList"; style="text-decoration:none; color:black;">STORE</a></h2>
 <form name="frm0">
 <div style="overflow:hidden;">
 	<div class="ctgrb" id="AA" onclick="showCtgrB(1);" >다육⦁선인장</div>
@@ -148,7 +145,7 @@ function count() {
 	</form>	 
 <%
 if (pageInfo.getRcnt() > 0) {
-	String lnk = "productList?cpage=1" + pageInfo.getSchargs();
+	String lnk = "auctionList?cpage=1" + pageInfo.getSchargs();
 %>
 		<select name="ob" class="sct" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
 			<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순  🌱</option>
@@ -163,16 +160,45 @@ if (pageInfo.getRcnt() > 0) {
 
 <%	
 	int i = 0;
-	for (i = 0 ; i < productList.size() ; i++) {
+	String pi_ids = "";
+	String soldout = "";
+	for (i = 0 ; i < productList.size() ; i++) {		
 		ProductInfo pi = productList.get(i);
-		String soldout = "";
-		if (pi.getPi_stock() > 0) {	// 재고가 남았으면
-		lnk = "productView?piid=" + pi.getPi_id();
-		soldout = "<br /><span style='color:#0B9649;'>경매중</span>";
-		} else {	// 재고가 없으면
-			lnk = "productView?piid=" + pi.getPi_id();
-			soldout = "<br /><span style='color:red;'>경매 종료</span>";
+		pi_ids += "," + pi.getPi_id();		
+		%>
+		<script>
+		function updateTimer() {
+			const future = Date.parse("<%=pi.getProductAuctionInfo().getPai_end()%>");
+			const now = new Date();
+			const diff = future - now;
+			const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+			const hours = Math.floor(diff / (1000 * 60 * 60));
+			const mins = Math.floor(diff / (1000 * 60));
+			const secs = Math.floor(diff / 1000);
+
+			const d = days;
+			const h = hours - days * 24;
+			const m = mins - hours * 60;
+			const s = secs - mins * 60;
+			if (diff < 0) {
+			document.getElementById("timer<%=i%>").innerHTML ='<div>종료된 경매 입니다.</div>';
+			} else {
+				<%
+				/* System.out.println();
+				if ( < LocalDateTime.now().format("yyyy")){			
+					lnk = "productView?piid=" + pi.getPi_id();
+					soldout	 = "<br /><span style='color:red;'>경매 종료</span>";
+					} else {
+				lnk = "productView?piid=" + pi.getPi_id();
+				soldout = "<br /><span style='color:#0B9649;'>경매중</span>";
+				} */
+				%>
+			document.getElementById("timer<%=i%>").innerHTML ='<div>' + d + '<span>일 </span>' + h + '<span>시 </span>' + m + '<span>분 </span>' + s + '<span>초</span></div>';
+			}
 		}
+		setInterval(updateTimer, 1000);	
+		</script>
+		<%
 		String price = "시작가 " +  pi.getPi_price() + "원 <br />";
 		if (i % 4 == 0) out.println("<tr>");
 	%>
@@ -181,7 +207,10 @@ if (pageInfo.getRcnt() > 0) {
 			<img id="timg" src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" 
 			<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
 			onmouseover="this.src='/potted/resources/images/product/<%=pi.getPi_img2() %>';" onmouseout="this.src='/potted/resources/images/product/<%=pi.getPi_img1() %>';"<% } %> />
-			<br /><span style="font-size:15px; font-weight:bold;"><%=pi.getPi_name() %></span>
+			<h3>잔여 시간</h3><h3 id="timer<%=i %>"></h3>
+			<h3>현재가 :</h3>
+			<h3>마감시간 :</h3>	
+			<span style="font-size:15px; font-weight:bold;"><%=pi.getPi_name() %></span>
 		</a>
 		<%=soldout %>
 		<br /><%=price %><br />
@@ -197,7 +226,7 @@ if (pageInfo.getRcnt() > 0) {
 	}
 %>
 	</table>
-<%
+<%	
 	out.println("<p align='center' style='font-size:18px;'>");	// 페이징 영역을 보여줄 p태그
 	
 	String qs = pageInfo.getSchargs() + pageInfo.getObargs();
@@ -206,23 +235,23 @@ if (pageInfo.getRcnt() > 0) {
 	if (pageInfo.getCpage() == 1) {
 		out.println("&lt;&lt;&nbsp;&nbsp;&lt;&nbsp;");
 	} else {
-		out.println("<a href='productList?cpage=1" + qs + "'>&lt;&lt;</a>&nbsp;&nbsp;");
-		out.println("<a href='productList?cpage=" + (pageInfo.getCpage() - 1) + qs + "'>&lt;</a>&nbsp;");
+		out.println("<a href='auctionList?cpage=1" + qs + "'>&lt;&lt;</a>&nbsp;&nbsp;");
+		out.println("<a href='auctionList?cpage=" + (pageInfo.getCpage() - 1) + qs + "'>&lt;</a>&nbsp;");
 	}
 
 	for (int k = 1, j = pageInfo.getSpage() ; k <= pageInfo.getBsize() && j <= pageInfo.getPcnt() ; k++, j++) {
 		if (pageInfo.getCpage() == j) {
 			out.println("&nbsp;<strong>" + j + "</strong>&nbsp;");
 		} else {
-			out.println("&nbsp;<a href='productList?cpage=" + j + qs + "'>" + j + "</a>&nbsp;");
+			out.println("&nbsp;<a href='auctionList?cpage=" + j + qs + "'>" + j + "</a>&nbsp;");
 		}
 	}
 	
 	if (pageInfo.getCpage() == pageInfo.getPcnt()) {
 		out.println("&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;&gt;&gt;");
 	} else {
-		out.println("&nbsp;&nbsp;<a href='productList?cpage=" + (pageInfo.getCpage() + 1) + qs + "'>&gt;</a>");
-		out.println("&nbsp;&nbsp;&nbsp;<a href='productList?cpage=" + pageInfo.getPcnt() + qs + "'>&gt;&gt;</a>");
+		out.println("&nbsp;&nbsp;<a href='auctionList?cpage=" + (pageInfo.getCpage() + 1) + qs + "'>&gt;</a>");
+		out.println("&nbsp;&nbsp;&nbsp;<a href='auctionList?cpage=" + pageInfo.getPcnt() + qs + "'>&gt;&gt;</a>");
 	}
 	out.println("</p>");
 } else {
@@ -231,5 +260,5 @@ if (pageInfo.getRcnt() > 0) {
 %>
 </table>
 </div>
-
+<script>updateTimer();</script>
 <%@ include file="../inc/inc_foot.jsp" %>

@@ -422,7 +422,7 @@ create table t_sales_slip (
    ss_date datetime default now()		-- 날짜
 );
 
--- drop table t_product_auction_info;
+drop table t_product_auction_info;
 create table t_product_auction_info(
 pai_idx	int auto_increment primary key,			-- 일련번호
 pi_id char(7),						-- 상품ID
@@ -435,12 +435,14 @@ constraint fk_product_auction_info foreign key (pi_id) references t_product_info
 );
 
 
-insert into t_product_auction_info values (null, 'AAbb111', 1, 51000, '03:02:30', now(), 'test1');
-insert into t_product_auction_info values (null, 'AAbb211', 2, 41000, '03:02:30', now(), 'test1');
-insert into t_product_auction_info values (null, 'AAbb311', 3, 17000, '03:02:00', now(), 'test1');
-insert into t_product_auction_info values (null, 'AAaa111', 4, 10200, '03:02:30', now(), 'test1');
-insert into t_product_auction_info values (null, 'AAaa211', 4, 10030, '03:02:00', now(), 'test1');
-insert into t_product_auction_info values (null, 'AAaa311', 5, 10700, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAaa111', 1, 51000, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAaa211', 1, 51000, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAaa311', 1, 51000, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb102', 2, 41000, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb111', 3, 17000, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb112', 4, 10200, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb211', 4, 10030, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb311', 5, 10700, '03:02:30', now(), 'test1');
 insert into t_product_auction_info values (null, 'BBaa111', 6, 10500, '01:02:00', now(), 'test1');
 insert into t_product_auction_info values (null, 'BBaa211', 7, 107000, '00:02:00', now(), 'test1');
 insert into t_product_auction_info values (null, 'BBaa311', 5, 10200, '03:02:00', now(), 'test1');
@@ -451,11 +453,10 @@ insert into t_product_auction_info values (null, 'CCaa111', 2, 101200, '03:02:00
 insert into t_product_auction_info values (null, 'CCaa211', 0, 8120100, '03:02:00', now(), 'test1');
 insert into t_product_auction_info values (null, 'CCaa311', 0, 1720200, '03:02:00', now(), 'test1');
 insert into t_product_auction_info values (null, 'CCbb111', 0, 1220300, '03:02:00', now(), 'test1');
-insert into t_product_auction_info values (null, 'CCbb211', 2, 1000, '03:02:100', now(), 'test1');
+insert into t_product_auction_info values (null, 'CCbb211', 2, 1000, '03:02:10', now(), 'test1');
 insert into t_product_auction_info values (null, 'CCbb311', 1, 1000, '03:02:00', now(), 'test1');
 
-select * from t_product_info;
-
-
+update t_product_auction_info set pai_runtime = '00:00:00' where pai_idx = 1;
+select * from t_product_auction_info;
 
 

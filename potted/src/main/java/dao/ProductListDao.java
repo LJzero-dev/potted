@@ -1,12 +1,19 @@
 package dao;
 
-import java.util.*;
-import java.sql.*;
-import javax.sql.*;
-import org.springframework.jdbc.core.*;
-import org.springframework.jdbc.support.*;
-import svc.*;
-import vo.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import vo.PageInfo;
+import vo.ProductAuctionInfo;
+import vo.ProductInfo;
+import vo.ProductOptionBig;
+import vo.ProductOptionStock;
 
 public class ProductListDao {
 	private JdbcTemplate jdbc;
@@ -27,10 +34,17 @@ public class ProductListDao {
 			rs.getInt("pi_cost"), rs.getInt("pi_read"), rs.getInt("pi_review"), rs.getInt("pi_sale"), rs.getInt("ai_idx"), rs.getInt("pi_admin"), 
 			rs.getDouble("pi_dc"), rs.getString("pcb_name"), rs.getString("pcs_name"), rs.getInt("pi_stock"));
 			
-			return pi;
+			if (rs.getString("pi_auction").equals("y")) {
+				List<ProductAuctionInfo> productAuctionInfo = jdbc.query("select pai_idx, pai_bidder, pai_price, pi_id, pai_runtime, pai_start,  date_add(date_add(date_add(pai_start, interval left(pai_runtime,2) day), interval mid(pai_runtime,4,2) hour), interval right(pai_runtime,2) minute) end, pai_id from t_product_auction_info where pi_id = '" + rs.getString("pi_id") + "'", 
+						(ResultSet rs2, int rowNum2) -> {
+							ProductAuctionInfo pai = new ProductAuctionInfo(rs2.getInt("pai_idx"), rs2.getInt("pai_bidder"), rs2.getInt("pai_price"), rs2.getString("pi_id"), rs2.getString("pai_runtime"), rs2.getString("pai_start"), rs2.getString("end"), rs2.getString("pai_id"));
+							return pai;
+						});
+				pi.setProductAuctionInfo(productAuctionInfo.size() != 0 ? productAuctionInfo.get(0) : null);
+			}
 			
-		});
-		
+			return pi;
+		});		
 		return productList;
 	}
 
@@ -88,10 +102,7 @@ public class ProductListDao {
 				ProductOptionBig pob = new ProductOptionBig(rs.getString("pob_id"));
 					return pob;
 			}
-		);
-		
+		);		
 		return productOptionBig;
 	}
-
-
 }
