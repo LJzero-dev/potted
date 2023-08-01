@@ -37,10 +37,6 @@ public class CtrlConfig {
 	}
 	
 	@Bean
-	public AuctionCtrl auctionCtrl() {
-		return new AuctionCtrl();
-	}
-	@Bean
 	public ProductListCtrl productListCtrl() {
 		ProductListCtrl productListCtrl = new ProductListCtrl();
 		productListCtrl.setProductListSvc(productListSvc);

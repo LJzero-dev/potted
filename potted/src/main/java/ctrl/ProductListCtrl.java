@@ -128,6 +128,13 @@ public class ProductListCtrl {
 		return "product/productView";
 	}
 	
+	@GetMapping("/auctionList")
+	public String auctionList(HttpServletRequest request, HttpServletResponse response) throws Exception {		
+		PageInfo pageInfo = pageNsearch(request, response, "y");
+		List<ProductInfo> productList = productListSvc.getProductList(pageInfo);
+		request.setAttribute("productList", productList);		
+		return "auction/auctionList";
+	}
 
 
 }

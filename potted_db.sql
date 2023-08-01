@@ -171,6 +171,27 @@ values ('CCbb201', 'CC', 'CCbb', '11채소', 10000, 8000, 0, 'a', 'CCbb20101.jpg
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
 values ('CCbb301', 'CC', 'CCbb', '22채소', 10000, 8000, 0.2, 'a', 'CCbb30101.jpg', '', 100, 'y', 1);
 
+
+
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('AAbb111', 'AA', 'AAbb', '00선인장', 10000, 8000, 0, 'a', 'AAbb10101.jpg', '', 100, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('AAbb211', 'AA', 'AAbb', '11선인장', 8000, 8000, 0, 'a', 'AAbb20101.jpg', '', 0, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('AAbb311', 'AA', 'AAbb', '22선인장', 10000, 8000, 0, 'a', 'AAbb30101.jpg', '', 200, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('AAaa111', 'AA', 'AAaa', '다육다육', 5000, 2000, 0.3, 'a', 'AAaa10101.jpg', '', 100, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('AAaa211', 'AA', 'AAaa', '11다육다육', 5000, 2000, 0.6, 'a', 'AAaa20101.jpg', '', 400, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('AAaa311', 'AA', 'AAaa', '22다육다육', 5000, 2000, 0.05, 'a', 'AAaa30101.jpg', '', 0, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('BBaa111', 'BB', 'BBaa', '00넝쿨', 5000, 2000, 0.2, 'a', 'BBaa10101.jpg', '', 500, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('BBaa211', 'BB', 'BBaa', '11넝쿨', 5000, 2000, 0.2, 'a', 'BBaa20101.jpg', '', 20, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('BBaa311', 'BB', 'BBaa', '22넝쿨', 5000, 2000, 0.2, 'a', 'BBaa30101.jpg', '', 10, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('BBbb111', 'BB', 'BBbb', '00잎식물', 5000, 2000, 0.1, 'a', 'BBbb10101.jpg', '', 0, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('BBbb211', 'BB', 'BBbb', '11잎식물', 5000, 2000, 0, 'a', 'BBbb20101.jpg', '', 100, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('BBbb311', 'BB', 'BBbb', '22잎식물', 5000, 2000, 0.3, 'a', 'BBbb30101.jpg', '', 100, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('CCaa111', 'CC', 'CCaa', '00허브', 10000, 8000, 0.1, 'a', 'CCaa10101.jpg', '', 0, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('CCaa211', 'CC', 'CCaa', '11허브', 10000, 8000, 0.1, 'a', 'CCaa20101.jpg', '', 100, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('CCaa311', 'CC', 'CCaa', '22허브', 10000, 8000, 0.1, 'a', 'CCaa30101.jpg', '', 1, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('CCbb111', 'CC', 'CCbb', '00채소', 10000, 8000, 0, 'a', 'CCbb10101.jpg', '', 231, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('CCbb211', 'CC', 'CCbb', '11채소', 10000, 8000, 0, 'a', 'CCbb20101.jpg', '', 23, 'y', 1, 'y');
+insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('CCbb311', 'CC', 'CCbb', '22채소', 10000, 8000, 0.2, 'a', 'CCbb30101.jpg', '', 100, 'y', 1, 'y');
+
 select * from t_product_info;
 
 -- 상품 옵션 대분류 테이블
@@ -400,6 +421,41 @@ create table t_sales_slip (
    ss_earn int default 0,             	-- 순이익
    ss_date datetime default now()		-- 날짜
 );
+
+-- drop table t_product_auction_info;
+create table t_product_auction_info(
+pai_idx	int auto_increment primary key,			-- 일련번호
+pi_id char(7),						-- 상품ID
+pai_bidder int default 0,			-- 입찰 수
+pai_price int default 0,			-- 현재가
+pai_runtime char(8) not null,		-- 경매 진행시간
+pai_start datetime,					-- 경매 시작시간
+pai_id varchar(20),					-- 입찰자 or 낙찰자
+constraint fk_product_auction_info foreign key (pi_id) references t_product_info(pi_id)
+);
+
+
+insert into t_product_auction_info values (null, 'AAbb111', 1, 51000, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb211', 2, 41000, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb311', 3, 17000, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAaa111', 4, 10200, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAaa211', 4, 10030, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAaa311', 5, 10700, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'BBaa111', 6, 10500, '01:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'BBaa211', 7, 107000, '00:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'BBaa311', 5, 10200, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'BBbb111', 7, 10000, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'BBbb211', 3, 10050, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'BBbb311', 3, 10100, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'CCaa111', 2, 101200, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'CCaa211', 0, 8120100, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'CCaa311', 0, 1720200, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'CCbb111', 0, 1220300, '03:02:00', now(), 'test1');
+insert into t_product_auction_info values (null, 'CCbb211', 2, 1000, '03:02:100', now(), 'test1');
+insert into t_product_auction_info values (null, 'CCbb311', 1, 1000, '03:02:00', now(), 'test1');
+
+select * from t_product_info;
+
 
 
 
