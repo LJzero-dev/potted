@@ -42,8 +42,12 @@ a:hover { text-decoration:underline; color:red; }
         </div>
         <div class="gnb_util">
             <div class="infor">
-            <% if (loginInfo == null) { %>
-                <a href="login" class="loginForm">로그인</a>
+            <% if (loginInfo == null) { 
+    			out.println("<script>");
+    			out.println("alert('잘못된 경로로 들어오셨습니다.')");
+    			out.println("location.href='loginForm';");
+    			out.println("</script>");
+            %>
             <% } else { %>
                 <a href="memberList" class="minfor">회원정보</a>
                 <a href="logout" class="logout">로그아웃</a>

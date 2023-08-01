@@ -15,19 +15,18 @@ import svc.LoginSvc;
 import vo.AdminInfo;
 
 @Controller
-@RequestMapping("/login")
 public class LoginCtrl {
 	private LoginSvc loginSvc;
 
 	public void setLoginSvc(LoginSvc loginSvc) {
 		this.loginSvc = loginSvc;
 	}
-	@GetMapping	// 요청(loginSpr)을 get방식으로 받았을 경우
+	@GetMapping	("/")// 요청(loginSpr)을 get방식으로 받았을 경우
 	public String loginForm() {
 		return "loginForm";
 	}
 	
-	@PostMapping
+	@PostMapping ("/login")
 	public String loginProc(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		String uid = request.getParameter("uid").trim().toLowerCase();
@@ -48,7 +47,7 @@ public class LoginCtrl {
 		}
 		
 		
-		return "redirect:/";
+		return "redirect:/index";
 	}
 
 }

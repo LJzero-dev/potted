@@ -55,4 +55,9 @@ public class CtrlConfig {
 		freeCtrl.setFreeSvc(freeSvc);
 		return freeCtrl;
 	}
+	
+	@Bean
+	public IndexCtrl indexCtrl() {
+		return new IndexCtrl();
+	}
 }
