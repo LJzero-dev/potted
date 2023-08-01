@@ -31,6 +31,7 @@ public class OrderFormCtrl {
 	    String mi_name = mi.getMi_name();
 	    String mi_phone = mi.getMi_phone();
 	    String mi_email = mi.getMi_email();
+	    int mi_point = mi.getMi_point();
 		
 		model.addAttribute("pi_id", pi_id);
 		model.addAttribute("pi_name", pi_name);
@@ -39,6 +40,7 @@ public class OrderFormCtrl {
 		model.addAttribute("mi_name", mi_name);
 		model.addAttribute("mi_phone", mi_phone);
 		model.addAttribute("mi_email", mi_email);
+		model.addAttribute("mi_point", mi_point);
 		
 		
 		return "order/orderForm";

@@ -129,5 +129,25 @@ public class ProductInDao {
 		);
 		return pi;
 	}
+	
+	public List<ProductOptionInfo> getProductOptionInfo(String piid) {
+        String sql = "select * from t_product_option_stock where pos_isview = 'y' and pi_id = '" + piid + "' ";
+         List<ProductOptionInfo> poList = jdbc.query(sql,
+            new RowMapper<ProductOptionInfo>() {
+                @Override
+                public ProductOptionInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    ProductOptionInfo po = new ProductOptionInfo();
+                    po.setPi_id(rs.getString("pi_id"));
+                    po.setPob_id(rs.getString("pob_id"));
+                    po.setPos_id(rs.getString("pos_id"));
+                    po.setPos_price(rs.getInt("pos_price"));
+                    po.setPos_stock(rs.getInt("pos_stock"));
+    
+                    return po;
+                }
+            }
+        );
+        return poList;
+    }
 
 }

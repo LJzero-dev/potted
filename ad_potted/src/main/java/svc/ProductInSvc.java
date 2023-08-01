@@ -46,6 +46,10 @@ public class ProductInSvc {
 		return productInfo;
 	}
 
+	public List<ProductOptionInfo> getProductOptionInfo(String piid) {
+		List<ProductOptionInfo> poList = productInDao.getProductOptionInfo(piid);
+		return poList;
+	}
 
 
 }

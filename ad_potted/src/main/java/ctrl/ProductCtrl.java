@@ -158,15 +158,43 @@ public class ProductCtrl {
 	public String productUp(Model model, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 
-		String piid = request.getParameter("piid");
-		ProductInfo pi = productInSvc.getProductInfo(piid);
-		ArrayList<ProductCtgrBig> bigList = productInSvc.getBigList();
-		ArrayList<ProductCtgrSmall> smallList = productInSvc.getSmallList();
+		 String piid = request.getParameter("piid");
+	        ProductInfo pi = productInSvc.getProductInfo(piid);
+	        List<ProductOptionInfo> poList = productInSvc.getProductOptionInfo(piid);
+	        ArrayList<ProductCtgrBig> bigList = productInSvc.getBigList();
+	        ArrayList<ProductCtgrSmall> smallList = productInSvc.getSmallList();
+	        
+	        
+	        String pi_img1 = pi.getPi_img1();
+	        String pi_img2 = pi.getPi_img2();
+	        String pi_img3 = pi.getPi_img3();
+	        String pcb_id = pi.getPcb_id();
+	        String pcs_id = pi.getPcs_id();
 
-		request.setAttribute("bigList", bigList);
-		request.setAttribute("smallList", smallList);
-		
-		model.addAttribute("pi", pi);
+
+	        Set<String> PobIds = new HashSet<>();
+	        for (ProductOptionInfo po : poList) {
+	            PobIds.add(po.getPob_id());
+	        }
+	        
+	        Set<String> PosIds = new HashSet<>();
+	        for (ProductOptionInfo po : poList) {
+	            PosIds.add(po.getPos_id());
+	        }
+	        
+
+	        request.setAttribute("bigList", bigList);
+	        request.setAttribute("smallList", smallList);
+	        
+	        
+	        model.addAttribute("pi", pi);
+	        model.addAttribute("pi_img1", pi_img1);
+	        model.addAttribute("pi_img2", pi_img2);
+	        model.addAttribute("pi_img3", pi_img3);
+	        model.addAttribute("pcb_id", pcb_id);
+	        model.addAttribute("pcs_id", pcs_id);
+	        model.addAttribute("PobIds", PobIds);
+	        model.addAttribute("PosIds", PosIds);
 		
 		return "product/productUp";
 	}

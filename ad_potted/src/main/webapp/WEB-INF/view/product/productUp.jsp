@@ -15,6 +15,7 @@ for (ProductCtgrBig pcb_id : bigList) {
 	String arr = "arr" + pcb_id.getPcb_id();
 %>
 var <%=arr %> = new Array();
+
 <%=arr %>[0] = new Option("", "선택");
 <%
 	for (int i = 0, j = 1 ; i < smallList.size() ; i++, j++) {
@@ -64,7 +65,7 @@ th {width:130px; text-align:left;}
 
 <div style="width:1100px; margin:0 auto; overflow:hidden;">
 	<h2>상품 수정</h2>
-	<form name="frm" action="productProcIn" method="post">
+	<form name="frm" action="productProcIn" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<th class="title">상품 상태</th>
@@ -83,7 +84,7 @@ th {width:130px; text-align:left;}
 				<select name="pcb_id" onchange="setCategory(this.value, this.form.pcs_id);" style="width:170px; height:30px; margin-right:20px;">
 					<option value="">선택</option>
 					<c:forEach items="${bigList}" var="category">
-						<option value="${category.pcb_id}" >${category.pcb_name}</option>
+						<option value="${category.pcb_id}" <c:if test="${category.pcb_id eq pcb_id}">selected="selected"</c:if>>${category.pcb_name}</option>
 					</c:forEach>
 				</select>
 				
@@ -91,7 +92,7 @@ th {width:130px; text-align:left;}
 			<td>
 				<span style="margin-right:10px; vertical-align:middle;">소분류</span>
 				<select name="pcs_id" style="width:170px; height:30px;">
-					<option value="">선택</option>
+					<option value="" >선택</option>
 				</select>
 			</td>
 		</tr>
@@ -116,50 +117,50 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">추가상품</th>
 			<td>
-				<input type="checkbox" name="pob_id" value="1.분갈이" id="division" /> <label for="division">분갈이</label>
-				<input type="checkbox" name="pob_id" value="2.화분" id="pot" /> <label for="pot">화분</label>
-				<input type="checkbox" name="pob_id" value="3.마감돌" id="stone" /> <label for="stone">마감돌</label>
+				<input type="checkbox" name="pob_id" value="1.분갈이" id="division" <c:if test="${PobIds.contains('1.분갈이') }">checked="checked"</c:if> /> <label for="division">분갈이</label>
+				<input type="checkbox" name="pob_id" value="2.화분" id="pot"  <c:if test="${PobIds.contains('2.화분') }">checked="checked"</c:if> /> <label for="pot">화분</label>
+				<input type="checkbox" name="pob_id" value="3.마감돌" id="stone"  <c:if test="${PobIds.contains('3.마감돌') }">checked="checked"</c:if> /> <label for="stone">마감돌</label>
 			</td>
 		</tr>
 		<tr>
 			<th class="title" rowspan="3" style="padding-top:15px; vertical-align:text-top;">서브상품</th>
 			<td align="right">
 				<span style="vertical-align:super;">분갈이</span>
-				<input type="checkbox" name="pos_id" value="1-1:직접 분갈이 (분갈이+난석+깔망)" id="pds01" style="vertical-align:super;" /> <label for="pds01" class="psub">1-1 직접 분갈이 (분갈이+난석+깔망)</label>
+				<input type="checkbox" name="pos_id" value="1-1:직접 분갈이 (분갈이+난석+깔망)" id="pds01" style="vertical-align:super;" <c:if test="${PosIds.contains('1-1:직접 분갈이 (분갈이+난석+깔망)') }">checked="checked"</c:if> /> <label for="pds01" class="psub">1-1 직접 분갈이 (분갈이+난석+깔망)</label>
 			</td>
 			<td align="right">
 				<span>화분</span>
-				<input type="checkbox" name="pos_id" value="2-2:아트스톤 화분" id="pt01" /> <label for="pt01" class="psub">2-1 아트스톤 화분</label> 
+				<input type="checkbox" name="pos_id" value="2-2:아트스톤 화분" id="pt01" <c:if test="${PosIds.contains('2-2:아트스톤 화분') }">checked="checked"</c:if> /> <label for="pt01" class="psub">2-1 아트스톤 화분</label> 
 			</td>
 			<td align="right">
 				<span>마감돌</span>
-				<input type="checkbox" name="pos_id" value="3-1:마사토" id="st01" /> <label for="st01" class="psub">3-1 마사토</label>
+				<input type="checkbox" name="pos_id" value="3-1:마사토" id="st01" <c:if test="${PosIds.contains('3-1:마사토') }">checked="checked"</c:if> /> <label for="st01" class="psub">3-1 마사토</label>
 			</td>
 
 		</tr>
 		<tr>
 			<td align="right" rowspan="3" style="vertical-align:top;">
-				<input type="checkbox" name="pos_id" value="1-2:분갈이 요청(분갈이+난석+분갈이)" id="pds02" /> <label for="pds02" class="psub">1-2 분갈이 요청(분갈이+난석+분갈이)</label>
+				<input type="checkbox" name="pos_id" value="1-2:분갈이 요청(분갈이+난석+분갈이)" id="pds02" <c:if test="${PosIds.contains('1-2:분갈이 요청(분갈이+난석+분갈이)') }">checked="checked"</c:if> /> <label for="pds02" class="psub">1-2 분갈이 요청(분갈이+난석+분갈이)</label>
 			</td>
 			<td align="right">
-				<input type="checkbox" name="pos_id" value="2-2:도자기 화분" id="pt02" /> <label for="pt02" class="psub">2-2 도자기 화분</label>
+				<input type="checkbox" name="pos_id" value="2-2:도자기 화분" id="pt02" <c:if test="${PosIds.contains('2-2:도자기 화분') }">checked="checked"</c:if> /> <label for="pt02" class="psub">2-2 도자기 화분</label>
 			</td>
 			<td align="right">
-				<input type="checkbox" name="pos_id" value="3-2:화산석" id="st02" /> <label for="st02" class="psub">3-2 화산석</label>
+				<input type="checkbox" name="pos_id" value="3-2:화산석" id="st02" <c:if test="${PosIds.contains('3-2:화산석') }">checked="checked"</c:if> /> <label for="st02" class="psub">3-2 화산석</label>
 			</td>
 		</tr>
 		<tr>
 			<td align="right">
-				<input type="checkbox" name="pos_id" value="2-3:유약분" id="pt03" /> <label for="pt03" class="psub">2-3 유약분</label>
+				<input type="checkbox" name="pos_id" value="2-3:유약분" id="pt03" <c:if test="${PosIds.contains('2-3:유약분') }">checked="checked"</c:if> /> <label for="pt03" class="psub">2-3 유약분</label>
 			</td>
 			<td align="right">
-				<input type="checkbox" name="pos_id" value="3-3:자갈" id="st03" /> <label for="st03" class="psub">3-3 자갈</label>
+				<input type="checkbox" name="pos_id" value="3-3:자갈" id="st03" <c:if test="${PosIds.contains('3-3:자갈') }">checked="checked"</c:if> /> <label for="st03" class="psub">3-3 자갈</label>
 			</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td align="right">
-				<input type="checkbox" name="pos_id" value="2-4:토분" id="st04" /> <label for="st04" class="psub">2-4 토분</label>
+				<input type="checkbox" name="pos_id" value="2-4:토분" id="st04" <c:if test="${PosIds.contains('2-4:토분') }">checked="checked"</c:if> /> <label for="st04" class="psub">2-4 토분</label>
 			</td>
 		</tr>
 		<tr>

@@ -39,8 +39,8 @@ request.setCharacterEncoding("utf-8");
 	    	<h3>주문자 정보</h3>
 	    	<div class="order_detail">
 	    		<h4>${mi_name }</h4>
-	    		<p>01012345678</p>
-	    		<p>test@naver.com</p>
+	    		<p>${mi_phone }</p>
+	    		<p>${mi_email }</p>
 	    	</div>
 	    </div>
 	    <div class="pd_box delivery">
@@ -78,7 +78,7 @@ request.setCharacterEncoding("utf-8");
 				</div>
 				
 				<p class="text-13 margin-top-xl no-margin-bottom">
-				    보유 포인트 <strong>1,000</strong>
+				    보유 포인트 <strong>${mi_point }</strong>
 				</p>
 		        <p class="no-margin text-gray text-13">포인트는 100단위로 사용 가능합니다.</p>
 			</div>
@@ -110,7 +110,7 @@ request.setCharacterEncoding("utf-8");
 				<div class="col_ctr">
 					<p>총 주문금액</p>
 					<p>
-						<span>134,144원</span>
+						<span>${total }원</span>
 					</p>
 				</div>		
 			</div>

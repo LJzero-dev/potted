@@ -31,21 +31,27 @@ var <%=arr %> = new Array();
 %>
 
 function setCategory(x, target) {
-		for (var i = target.options.length - 1; i > 0; i-- ) {
-			target.options[i] = null;
-		}
-
-		if (x != "") { 
-			var arr = eval("arr" + x);
-			
-			for (var i = 0; i < arr.length; i++ ) {
-				target.options[i] = new Option(arr[i].value, arr[i].text);
-				
-			}
-
-			target.options[0].selected = true;
-		}
+	for (var i = target.options.length - 1; i > 0; i-- ) {
+		target.options[i] = null;
 	}
+
+	if (x != "") { 
+		var arr = eval("arr" + x);
+		
+		for (var i = 0; i < arr.length; i++ ) {
+			target.options[i] = new Option(arr[i].value, arr[i].text);
+			
+		}
+
+		target.options[0].selected = true;
+	}
+}
+
+function showDiv(num) {
+	var obj = document.getElementById("sub" + num);
+	if (obj.style.display == "block")	obj.style.display = "none";
+	else								obj.style.display = "block";
+}
 </script>
 <style>
 .title {color:#1cad0a;}
@@ -58,6 +64,7 @@ th {width:130px; text-align:left;}
 .btnBox {margin-right:87px; float:right;}
 .insertBtn {width:100px; padding:5px 0;margin-bottom:30px; border:0; background:gray; color:#fff;}
 .cancelBtn {display:block; width:100px; padding:5px 0; float:right; text-align:center; border:1px solid #000; margin-left:10px; font-size:13px;}
+#sub1, #sub2, #sub3 { display:none; }
 </style>
 
 <div style="width:1100px; margin:0 auto; overflow:hidden;">
@@ -114,50 +121,49 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">추가상품</th>
 			<td>
-				<input type="checkbox" name="pob_id" value="1.분갈이" id="division" /> <label for="division">분갈이</label>
-				<input type="checkbox" name="pob_id" value="2.화분" id="pot" /> <label for="pot">화분</label>
-				<input type="checkbox" name="pob_id" value="3.마감돌" id="stone" /> <label for="stone">마감돌</label>
+				<input type="checkbox" name="pob_id" value="1.분갈이" id="division" onclick="showDiv(1);" /> <label for="division">분갈이</label>
+				<input type="checkbox" name="pob_id" value="2.화분" id="pot" onclick="showDiv(2);" /> <label for="pot">화분</label>
+				<input type="checkbox" name="pob_id" value="3.마감돌" id="stone" onclick="showDiv(3);" /> <label for="stone">마감돌</label>
 			</td>
 		</tr>
 		<tr>
 			<th class="title" rowspan="3" style="padding-top:15px; vertical-align:text-top;">서브상품</th>
 			<td align="right">
+				<div id="sub1">
 				<span style="vertical-align:super;">분갈이</span>
-				<input type="checkbox" name="pos_id" value="10000,1-1:직접 분갈이 (분갈이+난석+깔망)" id="pds01" style="vertical-align:super;" /> <label for="pds01" class="psub">1-1 직접 분갈이 (분갈이+난석+깔망)</label>
+				<input type="checkbox" name="pos_id" value="10000,1-1:직접 분갈이 (분갈이+난석+깔망)" id="pds01" style="vertical-align:super;" /> <label for="pds01" class="psub">1-1 직접 분갈이 (분갈이+난석+깔망)</label><br /><br />
+				<input type="checkbox" name="pos_id" value="7500,1-2:분갈이 요청(분갈이+난석+분갈이)" id="pds02" /> <label for="pds02" class="psub">1-2 분갈이 요청(분갈이+난석+분갈이)</label>
+				</div>
 			</td>
 			<td align="right">
+				<div id="sub2">
 				<span>화분</span>
-				<input type="checkbox" name="pos_id" value="4500,2-2:아트스톤 화분" id="pt01" /> <label for="pt01" class="psub">2-1 아트스톤 화분</label> 
+				<input type="checkbox" name="pos_id" value="4500,2-2:아트스톤 화분" id="pt01" /> <label for="pt01" class="psub">2-1 아트스톤 화분</label><br /><br />
+				<input type="checkbox" name="pos_id" value="5000,2-2:도자기 화분" id="pt02" /> <label for="pt02" class="psub">2-2 도자기 화분</label><br /><br />
+				<input type="checkbox" name="pos_id" value="9000,2-3:유약분" id="pt03" /> <label for="pt03" class="psub">2-3 유약분</label><br /><br />
+				<input type="checkbox" name="pos_id" value="2-4:토분" id="st04" /> <label for="st04" class="psub">2-4 토분</label>
+				</div>
 			</td>
 			<td align="right">
+				<div id="sub3">
 				<span>마감돌</span>
-				<input type="checkbox" name="pos_id" value="1000,3-1:마사토" id="st01" /> <label for="st01" class="psub">3-1 마사토</label>
+				<input type="checkbox" name="pos_id" value="1000,3-1:마사토" id="st01" /> <label for="st01" class="psub">3-1 마사토</label><br /><br />
+				<input type="checkbox" name="pos_id" value="1500,3-2:화산석" id="st02" /> <label for="st02" class="psub">3-2 화산석</label><br /><br />
+				<input type="checkbox" name="pos_id" value="500,3-3:자갈" id="st03" /> <label for="st03" class="psub">3-3 자갈</label>
+				</div>
 			</td>
 
 		</tr>
-		<tr>
-			<td align="right" rowspan="3" style="vertical-align:top;">
-				<input type="checkbox" name="pos_id" value="7500,1-2:분갈이 요청(분갈이+난석+분갈이)" id="pds02" /> <label for="pds02" class="psub">1-2 분갈이 요청(분갈이+난석+분갈이)</label>
-			</td>
-			<td align="right">
-				<input type="checkbox" name="pos_id" value="5000,2-2:도자기 화분" id="pt02" /> <label for="pt02" class="psub">2-2 도자기 화분</label>
-			</td>
-			<td align="right">
-				<input type="checkbox" name="pos_id" value="1500,3-2:화산석" id="st02" /> <label for="st02" class="psub">3-2 화산석</label>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="right">
-				<input type="checkbox" name="pos_id" value="9000,2-3:유약분" id="pt03" /> <label for="pt03" class="psub">2-3 유약분</label>
 			</td>
 			<td align="right">
-				<input type="checkbox" name="pos_id" value="500,3-3:자갈" id="st03" /> <label for="st03" class="psub">3-3 자갈</label>
 			</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td align="right">
-				<input type="checkbox" name="pos_id" value="2-4:토분" id="st04" /> <label for="st04" class="psub">2-4 토분</label>
 			</td>
 		</tr>
 		<tr>
