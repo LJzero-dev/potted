@@ -49,13 +49,15 @@ public class ProductCtrl {
 		case "a" :	// 등록역순(기본값)(최근 등록이 가장 위에 옴
 			orderBy += " pi_date desc ";		break;
 		case "b" :	// 판매중
-			orderBy += " pi_status = 'a' ";		break;
+			where += " and pi_status = 'a' ";
+			orderBy += " pi_date desc ";		break;
 		case "c" :	// 판매 중지
-			orderBy += " pi_status = 'b' ";		break;
+			where += " and pi_status = 'b' ";
+			orderBy += " pi_date desc ";		break;
 		case "d" :	// 많이 판매된 순
 			orderBy += " pi_sale desc ";		break;
 		case "e" :	// 조회수 순
-			orderBy += " pi_read asc ";		break;
+			orderBy += " pi_read desc ";		break;
 		}
 
 		rcnt = productInSvc.getProductCount(where);

@@ -39,8 +39,16 @@ public class ProductListDao {
 		int rcnt = jdbc.queryForObject(sql, Integer.class);
 		return rcnt;
 	}
+	
+
+	public int readUpdate(String piid) {
+		String sql = "update t_product_info set pi_read = pi_read + 1 where pi_id = '" + piid + "' ";
+		int result = jdbc.update(sql);
+		return result;
+	}
 
 	public ProductInfo getProductInfo(String piid) {
+		int result = readUpdate(piid);
 		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c where a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id and a.pi_isview = 'y' and a.pi_status = 'a' and a.pi_id = '" + piid + "' ";
 		ProductInfo pi = jdbc.queryForObject(sql,
 			new RowMapper<ProductInfo>() {
@@ -84,5 +92,6 @@ public class ProductListDao {
 		
 		return productOptionBig;
 	}
+
 
 }
