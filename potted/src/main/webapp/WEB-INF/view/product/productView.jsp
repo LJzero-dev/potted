@@ -29,6 +29,14 @@ int total = 0;
 .so { background: #F5F5F5; text-align: left; width:400px; height:70px; padding: 20px 20px; }
 .op { background: #F5F5F5; text-align: left; width:400px; height:50px; padding: 20px 20px; }
 #del { border: 0; background: #F5F5F5; cursor:pointer; }
+.smt { width:218px; height:30px; background:white; font-size: 15px; border-radius: 20px; border:1.5px solid  #6E6E6E; cursor: pointer; }
+.smt:hover { border-color: #0B9649; background:#0B9649; color: white; }
+.btn1 { border: 0; width:350px; font-size: 14px; background: #fff; padding-bottom: 8px; cursor: pointer; }
+.btn1:hover { font-weight: bold; }
+.btn2 { border: 0; width:350px; font-size: 14px; background: #fff; padding-bottom: 8px; cursor: pointer; }
+.btn2:hover { font-weight: bold; }
+#menu1 {}
+#menu2 { display:none; }
 </style>
 <script>
 // 상품 구매, 장바구니 이동시 들고갈 배열 
@@ -61,7 +69,7 @@ function selectOption(tmp){
 
 	var opinfo = "<div id='" + idx + "'><div class='op'><span style='font-weight: bold; font-size: 15px;'>&nbsp;" + op + 
 	"</span><input type='button' id='del' value='X' style='float:right;' onclick=opDel(" + idx + "); /><br /><hr style='border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;' />" + 
-	"<div style='text-align:right; font-weight:bold;'><span id='" + idx + "p'>" + opprice + "</span>원</div></div></div><br />";
+	"<div style='text-align:right; font-weight:bold;'><span id='" + idx + "p'>" + opprice + "</span>원</div></div><br /></div>";
 	
 	document.getElementById("addOp").innerHTML = document.getElementById("addOp").innerHTML+ "" + opinfo + "";
 	arr.push(op);
@@ -84,10 +92,15 @@ function setCnt(num){
 	var price = <%=realPrice %>;
 	var cnt = parseInt(frm.cnt.value);
 	var max = <%=pi.getPi_stock()%>
-	if (num == "+" && cnt < max)		document.frm.cnt.value = cnt + 1;
-	if (num == "-" && cnt > 1)			document.frm.cnt.value = cnt - 1;
-	var total = document.getElementById("total");
-	total.innerHTML = price * frm.cnt.value;
+	var total = document.getElementById("total").innerHTML;
+	if (num == "+" && cnt < max) {
+		document.frm.cnt.value = cnt + 1;
+		document.getElementById("total").innerHTML = Number(total) + price;
+	}		
+	if (num == "-" && cnt > 1) {
+		document.frm.cnt.value = cnt - 1;
+		document.getElementById("total").innerHTML = Number(total) - price;
+	}
 }
 
 
@@ -119,6 +132,17 @@ function buy(kind) {
 	}
 		
 }
+
+var cmenu = 1;
+function showMenu(num) {
+// 상품 상세정보와 구매 후기를 보여주는 메소드
+	var obj = document.getElementById("menu" + cmenu);
+	obj.style.display = "none";
+	
+	var menu = document.getElementById("menu" + num); 
+	menu.style.display = "block"; 
+	cmenu = num;
+}
 </script>
 <br /><br />
 <div style="width:850px; margin:0 auto; ">
@@ -149,6 +173,10 @@ function buy(kind) {
 </td>
 <td width="*">
 <!-- 상품 정보 관련 영역 -->
+<%
+String dc = (pi.getPi_dc() * 100) + "";
+dc = dc.substring(0, dc.indexOf(".")) + "%";
+%>
 	<form name="frm" method="post">
 	<input type="hidden" name="kind" value="d" />
 	<input type="hidden" name="pi_id" value="<%=pi.getPi_id() %>" />
@@ -164,7 +192,10 @@ function buy(kind) {
 	<td style="font-size:35px;"><strong><%=pi.getPi_name() %></strong></td>
 	</tr>
 	<tr><td><%=price %></td></tr>
-	<tr><td><%=realPrice %></td></tr>
+	<tr valign="left" ><td >
+		<span style="color:#0B9649; font-size:20px; font-weight: bold; margin-right:8px;"><%=dc %></span>
+		<span style="font-size:24px; font-weight: bold;"><%=realPrice %>원</span>
+	</td></tr>
 	
 <% 
 int i = 0, j = 0;
@@ -180,7 +211,6 @@ for (i = 0 ; i < productOptionBig.size() ; i++) {
 		if (pob.getPob_id().equals(pos.getPob_id())){
 %>
 		<option value="<%=pos.getPos_idx() + ":" + pos.getPos_id() + "," + pos.getPos_price() %>"><%=pos.getPos_id() %>&nbsp;<%=pos.getPos_price() %></option>
-	
 <%
 		}
 	}
@@ -210,7 +240,7 @@ if (pi.getPi_stock() <= 0) {
 	<tr><td colspan="2" align="right" >
 		<div style="margin-right:50px; font-size: 15px; font-weight:bold;" >구매 가격 : <span id="total"><%=realPrice %></span>원</div>
 	</td></tr>
-	<tr><td colspan="2" align="center">
+	<tr><td colspan="2" align="left">
 		<input type="button" value="장바구니 담기" class="smt" onclick="buy('c');" />
 		<input type="button" value="바로 구매하기" class="smt" onclick="buy('d');" />
 	</td></tr>
@@ -220,6 +250,19 @@ if (pi.getPi_stock() <= 0) {
 </td>
 </tr>
 </table>
+<br /><br />
+<!-- 상품 상세 정보 및 구매 후기 영역 -->
+<input type="button" class="btn1" value="상품 상세 정보" onclick="showMenu(1);" />
+<input type="button" class="btn2" value="구매후기" onclick="showMenu(2);"/>
+<hr style="margin-left:0px; width:740px;" />
+<br />
+<div class="productDetail" id="menu1">
+<img src="" style="width:740px; height:2000px; " />
+</div>
+<div class="productReview" id="menu2">
+구매후기 내용~~~
+</div>
+
 </div>
 
 
