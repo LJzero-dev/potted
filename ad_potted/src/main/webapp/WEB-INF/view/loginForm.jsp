@@ -18,11 +18,11 @@
 <form name="frmLogin" action="login" method="post"><br />
 <table>
 <tr><td><span class="fonts">아이디 : </span></td>
-<td><input type="text" class="put" name="uid" value="test1" placeholder="ID" /></td></tr>
+<td><input type="text" class="put" name="uid" value="admin" placeholder="ID" /></td></tr>
 <tr><td><span class="fonts">비밀번호 : </span></td>
 <td><input type="password" class="put" name="pwd" value="1234" placeholder="PW" /></td></tr>
 <tr><td><br /></td></tr>
-<tr><td colspan="2" align="center"><input type="submit" id="btn" value="로그인" /></td></tr>
+<tr><td colspan="2" align="center"><input type="submit" id="btn" value="관리자 로그인" /></td></tr>
 </table>
 </form>
 

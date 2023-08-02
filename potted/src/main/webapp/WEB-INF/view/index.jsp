@@ -40,7 +40,7 @@
 </c:forEach>
 </tr>
 </table>
-<table class="free">
+<table class="free" cellpadding="0" cellspacing="0">
 <tr height="40px;"></tr>
 <tr><td colspan="4"><span class="title">인기 글</span>&nbsp;<a href="freeList?cpage=1&ob=b" class="showall">모두 보기 >></a></td></tr>
 <c:forEach items="${freeList}" var="fl" >

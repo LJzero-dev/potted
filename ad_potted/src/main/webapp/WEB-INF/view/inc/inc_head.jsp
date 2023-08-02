@@ -30,14 +30,14 @@ a:hover { text-decoration:underline; color:red; }
 <body>
 <header id="header">
     <div class="header_inner">
-        <h1><a href="" class="logo"><img src="/potted/resources/images/main/logo.jpg" /></a></h1>
+        <h1><a href="index" class="logo"><img src="/potted/resources/images/main/logo.jpg" /></a></h1>
         <div class="gnb">
             <ul class="menu">
                 <li><a href="productList" class="dep01">상품 관리</a></li>
                 <li><a href="freeList" class="dep01">게시판 관리</a></li>
                 <li><a href="noticeList" class="dep01">서비스 관리</a></li>
                 <li><a href="auction" class="dep01">옥션 관리</a></li>
-                <li><a href="" class="dep01">사이트 관리</a></li>
+                <li><a href="index" class="dep01">사이트 관리</a></li>
             </ul>
         </div>
         <div class="gnb_util">
