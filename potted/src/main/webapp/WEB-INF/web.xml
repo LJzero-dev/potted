@@ -31,6 +31,7 @@
 				config.ServiceConfig
 				config.FreeConfig
 				config.CartConfig
+				config.IndexConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

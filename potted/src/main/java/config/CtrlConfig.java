@@ -34,9 +34,14 @@ public class CtrlConfig {
 	@Autowired
 	private CartSvc cartSvc;
 	
+	@Autowired
+	private IndexSvc indexSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
-		return new IndexCtrl();
+		IndexCtrl indexCtrl = new IndexCtrl();
+		indexCtrl.setIndexSvc(indexSvc);
+		return indexCtrl;
 	}
 	
 	@Bean

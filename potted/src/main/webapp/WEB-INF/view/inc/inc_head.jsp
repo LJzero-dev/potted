@@ -31,7 +31,7 @@ a:hover { text-decoration:underline; }
 <body>
 <header id="header">
     <div class="header_inner">
-        <h1><a href="" class="logo"><img src="/potted/resources/images/main/logo.jpg" /></a></h1>
+        <h1><a href="/potted/" class="logo"><img src="/potted/resources/images/main/logo.jpg" /></a></h1>
         <div class="top_search clear">
             <div class="inner_search">
               <input class="in_keyword" type="text" name="search" id="preSWord" title="검색어 입력" value="" placeholder="search">
