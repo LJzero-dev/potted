@@ -35,7 +35,7 @@ public class FreeDao {
 			
 			String title = "";	int cnt = 22;
 			if(rs.getInt("fl_reply") > 0) {
-				title = " [" + rs.getInt("fl_read") + "]";
+				title = " [" + rs.getInt("fl_reply") + "]";
 				cnt -= 3;
 			}
 			if(rs.getString("fl_title").length() > cnt)
