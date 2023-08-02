@@ -33,7 +33,7 @@
 	<hr style="border-width:1px;" />
 	<br />
 	<div align="right">
-		<input type="button" class="bt" value="글목록" onclick="location.href='noticeList${args}';" />
+		<input type="button" class="bt" value="글목록" onclick="location.href='freeList${args}';" />
 	</div>
 </div>
 

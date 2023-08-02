@@ -84,4 +84,17 @@ public class FreeDao {
 			});
 		return fl;
 	}
+
+	public List<ReplyList> getReplyList(int flidx) {
+		String sql="select a.*, b.fl_writer, if(curdate() = date(fr_date), mid(fr_date, 12, 5), mid(fr_date, 3, 8)) wdate " +
+				" from t_free_reply a, t_free_list b where fr_isview = 'y' and fr_ismem = 'y' and a.fl_idx = b.fl_idx";
+		List<ReplyList> replyList = jdbc.query(sql, (ResultSet rs, int rowNum) -> {
+			ReplyList rl = new ReplyList();
+			rl.setFr_idx(rs.getInt("fr_idx"));			rl.setFl_idx(rs.getInt("fl_idx"));
+			rl.setFr_ismem(rs.getString("fr_ismem"));	rl.setFr_content(rs.getString("fr_content"));
+			rl.setFr_date(rs.getString("wdate"));		rl.setFr_isview(rs.getString("fr_isview"));
+			return rl;
+		});
+		return replyList;
+	}
 }

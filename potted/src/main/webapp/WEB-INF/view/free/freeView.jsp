@@ -16,6 +16,7 @@
 </form>	<!--  게시판 내 검색창 종료-->
 <hr color="#1cad0a" style="border-width:1px; height:1px; border:0;" />
 <br /><br />
+<!--  게시글 내용 시작 -->
 <div style="width:80%; margin:0 auto;">
 	<div style="display:inline; font-size:22px; font-weight:bold;">
 	${fl.getFl_title()}
@@ -29,13 +30,61 @@
 	<div style="font-size:18px;">
 	${fl.getFl_content()}
 	</div>
+	<br /><br />
+	<!--  이미지1이 있을 때 -->
+	<c:if test="${fl.getFl_img1() != null && fl.getFl_img1() != ''}">
+	<img src="/potted/resources/images/free/${fl.getFl_img1()}" />
+	<br /><br />
+	</c:if>
+	<!--  이미지1이 없을 때 -->
+	<c:if test="${fl.getFl_img1() == null || fl.getFl_img1() == ''}">
 	<br />
-	<hr style="border-width:1px;" />
+	</c:if>
+	<!--  이미지2가 있을 때 -->
+	<c:if test="${fl.getFl_img2() != null && fl.getFl_img2() != ''}">
+	<img src="/potted/resources/images/free/${fl.getFl_img2()}" />
 	<br />
-	<div align="right">
-		<input type="button" class="bt" value="글목록" onclick="location.href='noticeList${args}';" />
+	</c:if>
+	<!--  이미지2가 없을 때 -->
+	<c:if test="${fl.getFl_img2() == null || fl.getFl_img2() == ''}">
+	<br />
+	</c:if>
+	<br />
+<hr style="border-width:1px;" />
+	<br />
+	<div>
+		<div style="float:left; font-size:16px;">
+		댓글 : ${fl.getFl_reply()}
+		</div>
+		<div style="float:right;">
+		<input type="button" class="bt" value="글목록" onclick="location.href='freeList${args}';" />&nbsp;&nbsp;
+		<input type="button" class="bt" value="목록" onclick="" />&nbsp;&nbsp;
+		<input type="button" class="bt" value="삭제" onclick="" />
+		</div>
 	</div>
+	<br /><br /><br />
+	<!--  게시글 내용 종료 -->
+	<hr style="border-width:1px;" />
+	<!--  댓글 내용 시작 -->
+	<table style="width:70%;" cellpadding="0" cellspacing="0">
+	<tr height="20">
+	<td align="center" width="20%" class="rtList">${fl.getFl_writer()}</td>
+	<td width="*"><input type="text" name="" id="" placeholder="댓글을 입력해주세요" /></td>
+	</tr>
+	<c:if test="${replyList.size() > 0}">
+		<c:forEach items="${replyList}" var="rl" varStatus="status">
+		<tr height="20">
+		<td width="20%" class="rtList">${fl.getFl_writer() - status.index}</td>
+		<td width="*" class="rtList">${fr.getFr_content()}</td>
+		<td width="20%" class="rtList">${fr.getFr_date()}</td>
+		</tr>
+		</c:forEach>
+	</c:if>
+	</table>
+	<!--  댓글 내용 종료 -->
 </div>
+
+
 
 
 

@@ -82,8 +82,12 @@ public class FreeCtrl {
 		}
 		
 		FreeList fl = freeSvc.getFreeInfo(flidx);
+		List<ReplyList> rl = freeSvc.getReplyList(flidx);
 		model.addAttribute("fl", fl);
+		model.addAttribute("rl", rl);
 		model.addAttribute("args", args);
+		
+		
 		
 		return "free/freeView";
 	}

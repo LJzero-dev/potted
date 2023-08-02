@@ -79,5 +79,9 @@
 .ntList { border-bottom:1px solid; text-align:center; font-size:18px;}
 .ndList { border-bottom:1px solid; font-size:20px;}
 
+/* replyList css */
+.rtList { border-bottom:1px solid; text-align:center; font-size:12px; }
+
+
 /* 버튼 디자인 */
-.bt { background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" }
+.bt { width:80px; height:30px; background-color: white; border: 1px solid black; border-radius: 1px; cursor: pointer;" }
