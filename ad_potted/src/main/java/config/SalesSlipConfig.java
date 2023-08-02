@@ -6,7 +6,7 @@ import dao.*;
 import svc.*;
 
 public class SalesSlipConfig {
-/*	@Bean
+	/*@Bean
 	public SalesSlipDao salesSlipDao() {
 		return new SalesSlipDao(DbConfig.dataSource());
 	}

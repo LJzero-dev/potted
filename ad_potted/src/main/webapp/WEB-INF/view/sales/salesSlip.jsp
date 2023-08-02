@@ -58,6 +58,15 @@ window.onload = function() {
 </head>
 <body>
 <h2> 매출 표 </h2>
+<div style="margin-right:90px; float:right;">
+<select name="kind">
+	<option value="a">계절별</option>
+	<option value="b">상품 대분류 별</option>
+	<option value="c">나이대 별</option>
+	<option value="d">성별</option>
+	<option value="e">옥션 매출</option>
+</select>
+</div>
 <div id="container" style="width: 90%;">
 	<canvas id="canvas"></canvas>
 </div>
