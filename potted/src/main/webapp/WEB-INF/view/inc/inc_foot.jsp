@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
-
-<hr style="border-color:#F5DEB3; width:100%;" />
+<hr color="#F5DEB3" style="border-width:2px; height:2px; border:0;" />
 <table align="center"><tr>
 	<td>
 		<p style="font-size:13px;"><strong>고객센터</strong> : 1552-2551</p>
@@ -19,8 +18,7 @@
 		<img src="/potted/resources/images/main/logo.jpg" />
 	</td>
 </tr></table>
-
-<hr style="border-color:#F5DEB3; width:100%;" />
+<hr color="#F5DEB3" style="border-width:2px; height:2px; border:0;" />
 <br/><br/><br />
 </body>
 </html>
