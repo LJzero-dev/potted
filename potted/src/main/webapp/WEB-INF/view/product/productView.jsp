@@ -107,6 +107,8 @@ function setCnt(num){
 function buy(kind) {
 	var frm = document.frm;
 // 옵션 정보 들어갈 부분
+	var totalPrice = document.getElementById("total").innerHTML;
+	document.getElementById("totalPrice").value = totalPrice;
 	var option = frm.option.value;
 	var cnt = frm.cnt.value;
 	var price = frm.totalPrice.value;
@@ -125,8 +127,6 @@ function buy(kind) {
 			}
 		});
 	} else {	// 바로 구매하기일 경우
-		var totalPrice = document.getElementById("total").innerHTML;
-		document.getElementById("totalPrice").value = totalPrice;
 //		alert(totalPrice);
 		frm.action = "orderForm";
 		frm.submit();

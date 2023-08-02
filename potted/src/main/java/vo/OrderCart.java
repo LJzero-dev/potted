@@ -1,7 +1,7 @@
 package vo;
 
 public class OrderCart {
-	private String mi_id, pi_id, oc_date, oc_option;
+	private String mi_id, pi_id, oc_date, oc_option, pi_img, pi_name;
 	private int oc_idx, pos_idx, oc_cnt, oc_price;
 	
 	
@@ -52,6 +52,18 @@ public class OrderCart {
 	}
 	public void setOc_price(int oc_price) {
 		this.oc_price = oc_price;
+	}
+	public String getPi_img() {
+		return pi_img;
+	}
+	public void setPi_img(String pi_img) {
+		this.pi_img = pi_img;
+	}
+	public String getPi_name() {
+		return pi_name;
+	}
+	public void setPi_name(String pi_name) {
+		this.pi_name = pi_name;
 	}
 	
 	

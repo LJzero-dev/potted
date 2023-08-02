@@ -26,7 +26,7 @@ public class CartDao {
 
 	
 	public List<OrderCart> getOrderCart(String miid) {
-		String sql = "select mi_id, pi_id, oc_date, oc_option, oc_cnt, oc_price from t_order_cart where mi_id = '" + miid + "' ";
+		String sql = "select a.mi_id, a.pi_id, a.oc_date, a.oc_option, a.oc_cnt, a.oc_price, b.pi_img1, b.pi_name from t_order_cart a, t_product_info b where a.pi_id = b.pi_id and a.mi_id = '" + miid + "' ";
 		List<OrderCart> orderCart = jdbc.query(sql, (ResultSet rs, int rowNum) -> {
 			OrderCart oc = new OrderCart();
 			oc.setMi_id(miid);
@@ -35,6 +35,8 @@ public class CartDao {
 			oc.setOc_option(rs.getString("oc_option"));
 			oc.setOc_cnt(rs.getInt("oc_cnt"));
 			oc.setOc_price(rs.getInt("oc_price"));
+			oc.setPi_img(rs.getString("pi_img1"));
+			oc.setPi_name(rs.getString("pi_name"));
 			return oc;
 			
 		});
