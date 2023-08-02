@@ -11,7 +11,7 @@ import svc.MemberSvc;
 @Configuration
 public class DbConfig {
 	@Bean(destroyMethod = "close")
-	public DataSource dataSource() {
+	public static DataSource dataSource() {
 		DataSource ds = new DataSource();
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
 		ds.setUrl("jdbc:mysql://localhost/potted?characterEncoding=utf8");

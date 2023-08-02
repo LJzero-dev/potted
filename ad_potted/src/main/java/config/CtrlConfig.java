@@ -65,4 +65,14 @@ public class CtrlConfig {
 	public LogoutCtrl logoutCtrl() {
 		return new LogoutCtrl();
 	}
+	
+	@Bean
+	public SalesSlipCtrl salesSlipCtrl() {
+		return new SalesSlipCtrl();
+	}
+	
+	@Bean
+	public ScheduleCtrl scheduleCtrl() {
+		return new ScheduleCtrl();
+	}
 }

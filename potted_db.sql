@@ -459,4 +459,14 @@ insert into t_product_auction_info values (null, 'CCbb311', 1, 1000, '03:02:00',
 update t_product_auction_info set pai_runtime = '00:00:00' where pai_idx = 1;
 select * from t_product_auction_info;
 
+-- 일정관리 테이블
+create table t_schedule_info (
+	si_idx int primary key auto_increment,		-- 일련번호
+	ai_id varchar(20) not null,					-- 관리자ID
+	si_date char(10) not null,					-- 일정 일자
+	si_time char(5)	not null, 					-- 일정 종료일
+	si_content varchar(200) not null,			-- 일정 내용
+	si_regdate datetime default now(),			-- 등록일
+	constraint fk_schedule_info_ai_id foreign key (ai_id) references t_admin_info(ai_id)
+);
 
