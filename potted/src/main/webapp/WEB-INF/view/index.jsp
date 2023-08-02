@@ -44,7 +44,7 @@
 <tr height="40px;"></tr>
 <tr><td colspan="4"><span class="title">인기 글</span>&nbsp;<a href="freeList?cpage=1&ob=b" class="showall">모두 보기 >></a></td></tr>
 <c:forEach items="${freeList}" var="fl" >
-	<tr height="35px;"><td width="*"><a href="freeView?flidx=${fl.getFl_idx()}">${fl.getFl_title()}</a></td><td width="20%" align="center">${fl.getFl_writer()}</td><td width="10%" align="right">${fl.getFl_date()}</td><td width="20%" align="left"> | 조회 : ${fl.getFl_read() }</td></tr>
+	<tr height="35px;"><td width="*"><a href="freeView?cpage=1&flidx=${fl.getFl_idx()}">${fl.getFl_title()}</a></td><td width="20%" align="center">${fl.getFl_writer()}</td><td width="10%" align="right">${fl.getFl_date()}</td><td width="20%" align="left"> | 조회 : ${fl.getFl_read() }</td></tr>
 </c:forEach>
 </table>
 </div>

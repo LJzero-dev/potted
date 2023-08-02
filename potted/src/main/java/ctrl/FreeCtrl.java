@@ -66,5 +66,26 @@ public class FreeCtrl {
 		return "free/freeList";
 	}
 	
+	@GetMapping("/freeView")
+	public String freeView(Model model, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int flidx = Integer.parseInt(request.getParameter("flidx"));
+		int cpage = Integer.parseInt(request.getParameter("cpage"));
+		
+		String schtype = request.getParameter("schtype");
+		String keyword = request.getParameter("keyword");
+		String args = "?cpage=" + cpage;
+		
+		if (schtype != null && !schtype.equals("") && keyword != null && !keyword.equals("")) {
+			URLEncoder.encode(keyword, "UTF-8");
+			args += "&schtype=" + schtype + "&keyword=" + keyword;
+		}
+		
+		FreeList fl = freeSvc.getFreeInfo(flidx);
+		model.addAttribute("fl", fl);
+		model.addAttribute("args", args);
+		
+		return "free/freeView";
+	}
 }
 

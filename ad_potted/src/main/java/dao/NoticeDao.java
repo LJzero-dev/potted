@@ -51,14 +51,14 @@ public class NoticeDao {
 
 	public NoticeList getNoticeInfo(int nlidx) {
 		//지정한 게시글내용을 NoticeList형 인스턴스로 리턴하는 메소드
-		String sql = "select a.* b.ai_id from t_notice_list a, t_admin_info b where a.ai_idx = b.ai_idx and nl_isview = 'y' and nl_idx = " + nlidx;
+		String sql = "select a.*, b.ai_id, if(curdate() = date(nl_date), mid(nl_date, 12, 5), mid(nl_date, 3, 8)) wdate from t_notice_list a, t_admin_info b where a.ai_idx = b.ai_idx and nl_isview = 'y' and nl_idx = " + nlidx;
 		NoticeList nl = jdbc.queryForObject(sql, new RowMapper<NoticeList>() {
 			@Override
 			public NoticeList mapRow(ResultSet rs, int rowNum) throws SQLException {
 				NoticeList nl = new NoticeList();
 				nl.setNl_idx(rs.getInt("nl_idx"));	nl.setNl_title(rs.getString("nl_title"));
 				nl.setNl_content(rs.getString("nl_content").replace("\r\n", "<br />"));
-				nl.setAi_id(rs.getString("ai_id"));	nl.setNl_date(rs.getString("nl_date"));
+				nl.setAi_id(rs.getString("ai_id"));	nl.setNl_date(rs.getString("wdate"));
 				
 				return nl;
 			}

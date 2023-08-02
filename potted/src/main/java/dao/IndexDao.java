@@ -50,7 +50,7 @@ public class IndexDao {
 
 	public List<FreeList> getFreeList() {
 		String sql = "select fl_idx, fl_title, fl_reply, fl_writer, fl_read, if(curdate() = date(fl_date), mid(fl_date, 12, 5), mid(fl_date, 3, 8)) wdate from t_free_list " + 
-				" where date(fl_date) >= date(subdate(now(), interval 30 day)) and date(fl_date) <= date(now()) order by fl_idx desc limit 0, 5";
+				" where date(fl_date) >= date(subdate(now(), interval 30 day)) and date(fl_date) <= date(now()) order by fl_read desc limit 0, 5";
 		List<FreeList> freeList = jdbc.query(sql, (ResultSet rs, int rowNum) -> {
 			FreeList fl = new FreeList();
 			fl.setFl_idx(rs.getInt("fl_idx"));		fl.setFl_writer(rs.getString("fl_writer"));
@@ -59,7 +59,7 @@ public class IndexDao {
 			
 			String title = "";	int cnt = 22;
 			if(rs.getInt("fl_reply") > 0) {
-				title = " [" + rs.getInt("fl_read") + "]";
+				title = " [" + rs.getInt("fl_reply") + "]";
 				cnt -= 3;
 			}
 			if(rs.getString("fl_title").length() > cnt)

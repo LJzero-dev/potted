@@ -35,7 +35,7 @@ public class FreeDao {
 			
 			String title = "";	int cnt = 22;
 			if(rs.getInt("fl_reply") > 0) {
-				title = " [" + rs.getInt("fl_read") + "]";
+				title = " [" + rs.getInt("fl_reply") + "]";
 				cnt -= 3;
 			}
 			if(rs.getString("fl_title").length() > cnt)
@@ -63,7 +63,8 @@ public class FreeDao {
 	public FreeList getFreeInfo(int flidx) {
  // 지정한 게시글의 내용을 FreeList형 인스턴스로 리턴하는 메소드 
 		int result = readUpdate(flidx);
-		String sql = "select * from t_free_list where fl_isview = 'y' and fl_idx =" + flidx;
+		String sql = "select *, if(curdate() = date(fl_date), mid(fl_date, 12, 5), mid(fl_date, 3, 8)) wdate from t_free_list where fl_isview = 'y' and fl_idx =" + flidx;
+
 		FreeList fl = jdbc.queryForObject(sql, new RowMapper<FreeList>() {
 				@Override
 				public FreeList mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -75,7 +76,7 @@ public class FreeDao {
 					fl.setFl_content(rs.getString("fl_content").replace("\r\n", "<br />"));
 					fl.setFl_reply(rs.getInt("fl_reply"));
 					fl.setFl_read(rs.getInt("fl_read"));
-					fl.setFl_date(rs.getString("fl_date"));
+					fl.setFl_date(rs.getString("wdate"));
 					fl.setFl_img1(rs.getString("fl_img1"));
 					fl.setFl_img2(rs.getString("fl_img2"));
 					return fl;
