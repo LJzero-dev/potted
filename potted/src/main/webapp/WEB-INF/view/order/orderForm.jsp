@@ -3,6 +3,8 @@
 <%@ include file="../inc/inc_head.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
+ArrayList<OrderCart> pdtList = (ArrayList<OrderCart>)request.getAttribute("pdtList");
+ArrayList<MemberAddr> addrList = (ArrayList<MemberAddr>)request.getAttribute("addrList");
 
 %>
 <div class="shop_content payment">
@@ -47,9 +49,27 @@ request.setCharacterEncoding("utf-8");
 	    	<h3>배송 정보</h3>
 	    	<span>주소 선택 :</span>
 	    	<select class="form_control">
-				<option value="">기본주소</option>
-				<option value="">집</option>
-				<option value="">회사</option>
+			<%
+			String maname = "", marname = "", maphone = "", mazip = "", maaddr1 = "", maaddr2 = "";
+			// 처음 페이지 로딩 시 보여줄 기본주소의 값들을 저장할 변수
+			
+			for (MemberAddr ma : addrList) {
+				if (ma.getMa_basic().equals("y")) {	// 기본주소이면
+					
+					maname = ma.getMa_name();
+					marname = ma.getMa_rname();
+					maphone = ma.getMa_phone();
+					mazip = ma.getMa_zip();
+					maaddr1 = ma.getMa_addr1();
+					maaddr2 = ma.getMa_addr2();
+				}
+				String val = "", txt = "";
+				val = ma.getMa_name() + "|" + ma.getMa_rname() + "|" + ma.getMa_phone() + "|" + ma.getMa_zip() + "|" + ma.getMa_addr1() + "|" + ma.getMa_addr2();
+				txt = "[" + ma.getMa_zip() + "] " + ma.getMa_addr1() + " " + ma.getMa_addr2();
+				
+				out.println("<option value='" + val + "'>" + txt + "</option>");
+			}
+			%>	
 			</select>
 			<div class="inp_box pd">
 				<input type="text" placeholder="수령인" class="w50 h30" />
@@ -121,5 +141,5 @@ request.setCharacterEncoding("utf-8");
 			<a href="javascript:void(0);" class="paymentBtn">결제하기</a>
 	    </div>
 	</div>
+	<%@ include file="../inc/inc_foot.jsp" %>
 </div>
-<%@ include file="../inc/inc_foot.jsp" %>
