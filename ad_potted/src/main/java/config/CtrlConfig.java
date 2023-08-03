@@ -80,4 +80,9 @@ public class CtrlConfig {
 		scheduleCtrl.setScheduleSvc(scheduleSvc);
 		return scheduleCtrl;
 	}
+	
+	@Bean
+	public SetbannerCtrl setbannerCtrl() {
+		return new SetbannerCtrl();
+	}
 }
