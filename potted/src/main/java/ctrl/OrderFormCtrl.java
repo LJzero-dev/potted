@@ -47,7 +47,7 @@ public class OrderFormCtrl {
 			}
 			where += ") order by a.pi_id, c.pos_idx";
 			
-		} if (kind.equals("d")){	// 바로 구매(d)일 경우
+		} else {	// 바로 구매(d)일 경우
 				int cnt = Integer.parseInt(request.getParameter("cnt"));
 				select += cnt + " cnt ";
 				where += " and a.pi_id = '" + pi_id;

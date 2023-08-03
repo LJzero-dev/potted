@@ -6,6 +6,7 @@ import java.util.*;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 
 import vo.*;
 
@@ -18,13 +19,18 @@ public class OrderDao {
 
 	public ArrayList<OrderCart> getBuyList(String kind, String sql) {
 		ArrayList<OrderCart> pdtList = (ArrayList<OrderCart>) jdbc.query(sql, (ResultSet rs, int rowNum) -> {
+			System.out.println(sql);
 			OrderCart oc = new OrderCart();
-				oc.setPi_id(rs.getString("pi_id"));
-				oc.setOc_option(rs.getString("op_option"));
-				oc.setPi_name(rs.getString("pi_name"));
-				oc.setOc_price(rs.getInt("price"));
-				oc.setOc_cnt(rs.getInt("cnt"));
-				return oc;
+			oc.setPi_id(rs.getString("pi_id"));
+			oc.setPi_img(rs.getString("pi_img"));
+			if (kind.equals("c"))	oc.setOc_idx(rs.getInt("oc_idx"));
+			// 장바구니를 통한 구매일 경우에만 장바구니 인덱스를 추가 저장함
+			else 					oc.setOc_idx(0);
+			oc.setOc_option(rs.getString("op_option"));
+			oc.setPi_name(rs.getString("pi_name"));
+			oc.setOc_price(rs.getInt("price"));
+			oc.setOc_cnt(rs.getInt("cnt"));
+			return oc;
 		});
 		return pdtList;
 	}
