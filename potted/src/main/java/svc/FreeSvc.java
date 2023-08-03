@@ -32,5 +32,10 @@ public class FreeSvc {
 		List<ReplyList> replyList= freeDao.getReplyList(flidx);
 		return replyList;
 	}
+
+	public int replyDel(int fridx, int flidx) {
+		int result = freeDao.replyDel(fridx, flidx);
+		return result;
+	}
 	
 }

@@ -98,4 +98,12 @@ public class FreeDao {
 		});
 		return replyList;
 	}
+
+	public int replyDel(int fridx, int flidx) {
+		String sql = "update t_free_reply set fr_isview = 'n' where fr_idx = " + fridx;
+		int result = jdbc.update(sql);
+		sql = "update t_free_list set fl_reply = fl_reply - 1 where fl_idx = " + flidx;
+		result += jdbc.update(sql);
+		return result;
+	}
 }

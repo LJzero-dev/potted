@@ -305,21 +305,21 @@ create table t_free_list (
 );
 
 select * from t_free_list;
-insert into t_free_list values('1', 'y', '홍길동', '자유게시판 글1', '자유게시판 내용1', null, 0, null, null, 'y', '2023-06-12');
-insert into t_free_list values(null, 'y', '전우치', '자유게시판 글2', '자유게시판 내용2', null, 0, null, null, 'y', '2023-06-15');
-insert into t_free_list values(null, 'y', '유관순', '자유게시판 글3', '자유게시판 내용3', null, 0, null, null, 'y', '2023-06-16');
-insert into t_free_list values(null, 'y', '임꺽정', '자유게시판 글4', '자유게시판 내용4', null, 0, null, null, 'y', '2023-06-18');
-insert into t_free_list values(null, 'y', '아무개', '자유게시판 글5', '자유게시판 내용5', null, 0, null, null, 'y', '2023-06-20');
-insert into t_free_list values(null, 'y', '신호진', '자유게시판 글6', '자유게시판 내용6', null, 0, null, null, 'y', '2023-06-21');
-insert into t_free_list values(null, 'y', '김철수', '자유게시판 글7', '자유게시판 내용7', null, 0, null, null, 'y', '2023-06-21');
-insert into t_free_list values(null, 'y', '이영미', '자유게시판 글8', '자유게시판 내용8', null, 0, null, null, 'y', '2023-06-23');
-insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글9', '자유게시판 내용9', null, 0, null, null, 'y', '2023-07-02');
-insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글10', '자유게시판 내용10', null, 0, null, null, 'y', '2023-07-02');
-insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글11', '자유게시판 내용11', null, 0, null, null, 'y', '2023-07-03');
-insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글12', '자유게시판 내용12', null, 0, null, null, 'y', '2023-07-12');
-insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글13', '자유게시판 내용13', null, 0, null, null, 'y', '2023-07-15');
-insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글14', '자유게시판 내용14', null, 0, null, null, 'y', now());
-insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글14', '자유게시판 내용14', null , 0, null, null, 'y', now());
+insert into t_free_list values('1', 'y', '홍길동', '자유게시판 글1', '자유게시판 내용1', 0, 0, null, null, 'y', '2023-06-12');
+insert into t_free_list values(null, 'y', '전우치', '자유게시판 글2', '자유게시판 내용2', , 0, null, null, 'y', '2023-06-15');
+insert into t_free_list values(null, 'y', '유관순', '자유게시판 글3', '자유게시판 내용3', 0, 0, null, null, 'y', '2023-06-16');
+insert into t_free_list values(null, 'y', '임꺽정', '자유게시판 글4', '자유게시판 내용4', 0, 0, null, null, 'y', '2023-06-18');
+insert into t_free_list values(null, 'y', '아무개', '자유게시판 글5', '자유게시판 내용5', 0, 0, null, null, 'y', '2023-06-20');
+insert into t_free_list values(null, 'y', '신호진', '자유게시판 글6', '자유게시판 내용6', 0, 0, null, null, 'y', '2023-06-21');
+insert into t_free_list values(null, 'y', '김철수', '자유게시판 글7', '자유게시판 내용7', 0, 0, null, null, 'y', '2023-06-21');
+insert into t_free_list values(null, 'y', '이영미', '자유게시판 글8', '자유게시판 내용8', 0, 0, null, null, 'y', '2023-06-23');
+insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글9', '자유게시판 내용9', 0, 0, null, null, 'y', '2023-07-02');
+insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글10', '자유게시판 내용10', 0, 0, null, null, 'y', '2023-07-02');
+insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글11', '자유게시판 내용11', 0, 0, null, null, 'y', '2023-07-03');
+insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글12', '자유게시판 내용12', 0, 0, null, null, 'y', '2023-07-12');
+insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글13', '자유게시판 내용13', 0, 0, null, null, 'y', '2023-07-15');
+insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글14', '자유게시판 내용14', 0, 0, null, null, 'y', now());
+insert into t_free_list values(null, 'y', '홍길동', '자유게시판 글14', '자유게시판 내용14', 0, 0, null, null, 'y', now());
 
 
 -- 자유게시판 댓글 테이블

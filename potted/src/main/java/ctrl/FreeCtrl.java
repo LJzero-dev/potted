@@ -92,5 +92,26 @@ public class FreeCtrl {
 		
 		return "free/freeView";
 	}
+	
+	@GetMapping("/replyDel")
+	public String replyDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int fridx = Integer.parseInt(request.getParameter("fridx"));
+		int flidx = Integer.parseInt(request.getParameter("flidx"));
+		
+		int result = freeSvc.replyDel(fridx, flidx);
+		if (result < 1) {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('댓글 삭제에 실패했습니다.');");
+			out.println("history.back();");
+			out.println("</script>");
+			out.close();
+		}
+		
+		return "redirect:/freeView?cpage=1&flidx=" + flidx;
+	}
+	
 }
 

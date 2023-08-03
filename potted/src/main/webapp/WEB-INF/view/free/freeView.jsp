@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
+<c:set var="loginInfo" value="<%=loginInfo %>" />
+<script>
+	function rInsert()
+
+	function rDel(fridx, flidx) {
+		if(confirm("정말 삭제하시겠습니까?")){
+			location.href = "replyDel?fridx=" + fridx + "&flidx=" + flidx;
+		}
+	}
+</script>
 <h1 style="display:inline; margin-left:20px;">COMMUNITY</h1>
 <form style="display:inline; float:right;">
 <div style="width:450px;"> <!--  게시판 내 검색창 시작-->
@@ -58,28 +68,30 @@
 		</div>
 		<div style="float:right;">
 		<input type="button" class="bt" value="글목록" onclick="location.href='freeList${args}';" />&nbsp;&nbsp;
-		<input type="button" class="bt" value="목록" onclick="" />&nbsp;&nbsp;
+		<input type="button" class="bt" value="수정" onclick="" />&nbsp;&nbsp;
 		<input type="button" class="bt" value="삭제" onclick="" />
 		</div>
 	</div>
 	<br /><br /><br />
 	<!--  게시글 내용 종료 -->
 	<hr style="border-width:1px;" />
+	
 	<!--  댓글 내용 시작 -->
-	<table style="width:70%;" cellpadding="0" cellspacing="0">
-	<tr height="20">
-	<td align="center" width="20%" class="rtList">${fl.getFl_writer()}</td>
-	<td width="*"><input type="text" name="" id="" placeholder="댓글을 입력해주세요" /></td>
+	<table style="width:100%;" cellpadding="0" cellspacing="0">
+	<tr height="60">
+	<td align="center" class="rtList" width="20%" class="rtList"><strong>${loginInfo.getMi_name()}</strong></td>
+	<td width="*" class="rtList"><textarea cols="200" rows="5" placeholder="댓글을 입력해주세요."></textarea></td>
+	<td width="20" class="rtList">&nbsp;&nbsp;<input type="button" value="등록" class="bt" onclick="rInsert(${loginInfo.getMi_id()})"></td>
 	</tr>
 	<c:if test="${replyList.size() > 0}">
 		<c:forEach items="${replyList}" var="rl" varStatus="status">
-		<tr height="20">
-		<td width="20%" class="rtList">${rl.getMi_name()}</td>
-		<td width="*" class="rtList">${rl.getFr_content()}</td>
-		<td width="20%" class="rtList">${rl.getFr_date()}<br />
-		
-			<input type="button" onclick="rdel('${rl.getFr_idx()}');" value="삭제" /></td>
-		
+		<tr height="60">
+		<td width="20%" class="rtList"><strong>${rl.getMi_name()}</strong></td>
+		<td width="*" class="rcList">${rl.getFr_content()}</td>
+		<td width="20%" class="rdList">${rl.getFr_date()}
+		<c:if test="${loginInfo.getMi_id() == rl.getMi_id()}">
+			<input type="button" class="bt" onclick="rDel('${rl.getFr_idx()}', '${fl.getFl_idx()}');" value="댓글삭제" /></td>
+		</c:if>
 		</tr>
 		</c:forEach>
 	</c:if>

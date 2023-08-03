@@ -28,4 +28,14 @@ public class FreeSvc {
 		
 	}
 	
+	public List<ReplyList> getReplyList(int flidx) {
+		List<ReplyList> replyList= freeDao.getReplyList(flidx);
+		return replyList;
+	}
+	
+	public int replyDel(int fridx, int flidx) {
+		int result = freeDao.replyDel(fridx, flidx);
+		return result;
+	}
+	
 }
