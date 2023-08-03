@@ -465,6 +465,7 @@ create table t_schedule_info (
 	ai_id varchar(20) not null,					-- 관리자ID
 	si_date char(10) not null,					-- 일정 일자
 	si_time char(5)	not null, 					-- 일정 종료일
+    si_title varchar(50) not null,				-- 일정 제목
 	si_content varchar(200) not null,			-- 일정 내용
 	si_regdate datetime default now(),			-- 등록일
 	constraint fk_schedule_info_ai_id foreign key (ai_id) references t_admin_info(ai_id)
