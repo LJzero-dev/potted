@@ -17,8 +17,16 @@ public class OrderDao {
 	}
 
 	public ArrayList<OrderCart> getBuyList(String kind, String sql) {
-		
-		return null;
+		ArrayList<OrderCart> pdtList = (ArrayList<OrderCart>) jdbc.query(sql, (ResultSet rs, int rowNum) -> {
+			OrderCart oc = new OrderCart();
+				oc.setPi_id(rs.getString("pi_id"));
+				oc.setOc_option(rs.getString("op_option"));
+				oc.setPi_name(rs.getString("pi_name"));
+				oc.setOc_price(rs.getInt("price"));
+				oc.setOc_cnt(rs.getInt("cnt"));
+				return oc;
+		});
+		return pdtList;
 	}
 
 	public ArrayList<MemberAddr> getAddrList(String miid) {
