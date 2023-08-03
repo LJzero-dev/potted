@@ -67,7 +67,7 @@ public class FreeCtrl {
 	}
 	
 	@GetMapping("/freeView")
-	public String freeView(Model model, HttpServletRequest request) throws Exception {
+	public String freeView(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int flidx = Integer.parseInt(request.getParameter("flidx"));
 		int cpage = Integer.parseInt(request.getParameter("cpage"));
@@ -82,12 +82,13 @@ public class FreeCtrl {
 		}
 		
 		FreeList fl = freeSvc.getFreeInfo(flidx);
-		List<ReplyList> rl = freeSvc.getReplyList(flidx);
+		List<ReplyList> replyList = freeSvc.getReplyList(flidx);
+		
 		model.addAttribute("fl", fl);
-		model.addAttribute("rl", rl);
+		model.addAttribute("replyList", replyList);
 		model.addAttribute("args", args);
 		
-		
+		request.setAttribute("replyList", replyList);
 		
 		return "free/freeView";
 	}

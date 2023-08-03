@@ -2,21 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
 <style>
-#img { width:100px; height: 100px; }
+#img { width:100px; height:100px; }
+#list { width:800px; }
+#list th { border-bottom:1.5px solid #C6D0C3; }
+#list td { border-bottom:1.5px solid #C6D0C3; }
+#total { width:800px; }
+#total th { border-bottom:1.5px solid #A1A1A1; text-align:left; font-size:16px; }
+#total td { border-bottom:2px solid #A1A1A1; text-align:center; font-weight:bold; font-size:18px; }
 </style>
+<div style="width:1000px; margin-left:570px; ">
 <h2>장바구니</h2>
-
-<div style="width:850px; margin:0 auto; ">
-<table width="700" border="0" cellpadding="0" cellspacing="0" id="list">
+<table id="list" cellpadding="0" cellspacing="0">
 	<tr height="30">
-	<th width="*">상품정보</th>
+	<th width="*" colspan="2">상품정보</th>
 	<th width="10%">수량</th>
 	<th width="15%">주문금액</th>
 	</tr>
 	<c:if test="${orderCart.size() > 0}">
 		<c:forEach items="${orderCart}" var="oc" varStatus="status">
 		<tr height="30">
-			<td><a href="productView?piid=${oc.getPi_id()}"><img src="/potted/resources/images/product/${oc.getPi_img()}" id="img" /> ${oc.getPi_name()}</a><br />
+			<td><a href="productView?piid=${oc.getPi_id()}"><img src="/potted/resources/images/product/${oc.getPi_img()}" id="img" /></a></td>
+			<td>${oc.getPi_name()}<br />
 				${oc.getOc_option()}
 			</td>
 			<td align="center">${oc.getOc_cnt()}</td>
@@ -29,7 +35,24 @@
 		텅~
 		</td></tr>
 	</c:if>
+</table><br /><br />
+<hr width="800" align="left" style="border-bottom:1.5px solid #A1A1A1;"/>
+<table id="total" cellpadding="0" cellspacing="0">
+<tr height="30px;"><th colspan="9">총 주문 상품 ${orderCart.size()}개</th></tr>
+<tr height="100px;">
+	<td width="10%"></td>
+	<td>20000</td>
+	<td>+</td>
+	<td>3500</td>
+	<td>-</td>
+	<td>3500</td>
+	<td>=</td>
+	<td>20000</td>
+	<td width="10%"></td>
+</tr>
 </table>
+<input type="button" value="주문하기" />
+
 </div>
 
 <%@ include file="../inc/inc_foot.jsp" %>

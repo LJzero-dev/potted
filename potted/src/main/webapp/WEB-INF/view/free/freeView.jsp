@@ -74,9 +74,12 @@
 	<c:if test="${replyList.size() > 0}">
 		<c:forEach items="${replyList}" var="rl" varStatus="status">
 		<tr height="20">
-		<td width="20%" class="rtList">${fl.getFl_writer() - status.index}</td>
-		<td width="*" class="rtList">${fr.getFr_content()}</td>
-		<td width="20%" class="rtList">${fr.getFr_date()}</td>
+		<td width="20%" class="rtList">${rl.getMi_name()}</td>
+		<td width="*" class="rtList">${rl.getFr_content()}</td>
+		<td width="20%" class="rtList">${rl.getFr_date()}<br />
+		
+			<input type="button" onclick="rdel('${rl.getFr_idx()}');" value="삭제" /></td>
+		
 		</tr>
 		</c:forEach>
 	</c:if>

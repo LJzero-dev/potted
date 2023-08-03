@@ -2,7 +2,7 @@ package vo;
 
 public class ReplyList {
 	private int fr_idx,	fl_idx;
-	private String mi_id, fl_writer, fr_ismem, fr_content,	fr_isview, fr_date;
+	private String mi_id, mi_name, fr_ismem, fr_content,	fr_isview, fr_date;
 	public int getFr_idx() {
 		return fr_idx;
 	}
@@ -21,11 +21,12 @@ public class ReplyList {
 	public void setMi_id(String mi_id) {
 		this.mi_id = mi_id;
 	}
-	public String getFl_writer() {
-		return fl_writer;
+	
+	public String getMi_name() {
+		return mi_name;
 	}
-	public void setFl_writer(String fl_writer) {
-		this.fl_writer = fl_writer;
+	public void setMi_name(String mi_name) {
+		this.mi_name = mi_name;
 	}
 	public String getFr_ismem() {
 		return fr_ismem;

@@ -41,6 +41,7 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="/potted/resources/css/style.css">
 <title>Insert title here</title>
 <style>
 a:link { color:black; text-decoration:none; }

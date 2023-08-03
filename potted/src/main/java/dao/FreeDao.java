@@ -86,13 +86,14 @@ public class FreeDao {
 	}
 
 	public List<ReplyList> getReplyList(int flidx) {
-		String sql="select a.*, b.fl_writer, if(curdate() = date(fr_date), mid(fr_date, 12, 5), mid(fr_date, 3, 8)) wdate " +
-				" from t_free_reply a, t_free_list b where fr_isview = 'y' and fr_ismem = 'y' and a.fl_idx = b.fl_idx";
+		String sql="select a.*, if(curdate() = date(fr_date), mid(fr_date, 12, 5), mid(fr_date, 3, 8)) wdate, b.mi_name from t_free_reply a, t_member_info b " + 
+				" where fr_isview = 'y' and fr_ismem = 'y' and a.mi_id = b.mi_id and a.fl_idx = " + flidx;
 		List<ReplyList> replyList = jdbc.query(sql, (ResultSet rs, int rowNum) -> {
 			ReplyList rl = new ReplyList();
-			rl.setFr_idx(rs.getInt("fr_idx"));			rl.setFl_idx(rs.getInt("fl_idx"));
-			rl.setFr_ismem(rs.getString("fr_ismem"));	rl.setFr_content(rs.getString("fr_content"));
+			rl.setFr_idx(rs.getInt("fr_idx"));			rl.setFr_content(rs.getString("fr_content").replace("\r\n", "<br />"));
 			rl.setFr_date(rs.getString("wdate"));		rl.setFr_isview(rs.getString("fr_isview"));
+			rl.setMi_name(rs.getString("mi_name"));		rl.setMi_id(rs.getString("mi_id"));
+			
 			return rl;
 		});
 		return replyList;

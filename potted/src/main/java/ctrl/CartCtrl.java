@@ -33,6 +33,7 @@ public class CartCtrl {
 		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 		String miid = loginInfo.getMi_id();
 		
+		
 		// 장바구니에 insert
 		OrderCart oc = new OrderCart();
 		oc.setMi_id(miid);
@@ -56,7 +57,7 @@ public class CartCtrl {
 		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 		String miid = loginInfo.getMi_id();
 		List<OrderCart> orderCart = cartSvc.getOrderCart(miid);
-		
+
 		
 		model.addAttribute("orderCart", orderCart);
 		
