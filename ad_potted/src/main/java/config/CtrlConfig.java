@@ -22,6 +22,9 @@ public class CtrlConfig {
 	
 	@Autowired
 	private FreeSvc freeSvc;
+
+	@Autowired	// ÇÊ¿äÇÒ¶§ ¾Ë¾Æ¼­ ¶¯°Ü¾¸
+	private ScheduleSvc scheduleSvc;
 	
 	@Bean
 	public ProductCtrl productCtrl() {
@@ -73,6 +76,8 @@ public class CtrlConfig {
 	
 	@Bean
 	public ScheduleCtrl scheduleCtrl() {
-		return new ScheduleCtrl();
+		ScheduleCtrl scheduleCtrl = new ScheduleCtrl();
+		scheduleCtrl.setScheduleSvc(scheduleSvc);
+		return scheduleCtrl;
 	}
 }
