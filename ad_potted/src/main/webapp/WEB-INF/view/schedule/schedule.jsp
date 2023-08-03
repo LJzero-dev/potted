@@ -56,7 +56,7 @@ a:visited { color:black; text-decoration:none; }
 .txtRed { color:red; font-weight:bold; background:#FBCFCF; }
 .txtBlue { color:blue; font-weight:bold; background:#CFE4FB; }
 #txtToday { background:#efefef; }
-.scheduleBox { width:700px; height:150px; background:#fbef84; padding:10px 5px; overflow:auto; position:absolute; top:200px; left:150px; display:none; font-size:0.9em; }
+.scheduleBox { width:500px; height:300px; background:#F5F8F4; border:1px solid black; border-style:inset; padding:10px 5px; overflow:auto; position:absolute; top:200px; left:150px; display:none; font-size:0.9em; }
 .today { background:#D4F6CD; }
 #select { cellpadding:0; cellspacing:0; }
 #select td { font-size:15px; border-bottom:1px solid #0B9649; font-size:15px; }
@@ -74,7 +74,8 @@ function hideSchedule(num) {
 
 function callDel(idx) {
 	if (confirm("정말 삭제하시겠습니까?")) {
-		location.href = "scheduleDel?idx=" + idx + '&sch=<%=sy+""+sm%>';
+		location.href = "scheduleDel?idx=" + idx;
+		alert(idx);
 	}
 }
 </script>
@@ -149,14 +150,15 @@ for (int i = 1, n = sWeek ; i <= eDay ; i++, n++) {
 		for (ScheduleInfo si : scheduleList) {
 			if (schDate.equals(si.getSi_date())) {
 			// 현재 출력할 날짜에 해당하는 일정이 있을 경우
-				sch = "<a href='javascript:showSchedule(" + i + ");'>📌" + si.getSi_title() + "</a>";
+				sch = "<a href='javascript:showSchedule(" + i + ");'>📌일정 확인</a>";
 				close = "<input type='button' value='닫기' onclick='hideSchedule(" + i + ");' /><br /><br />";
 %>
-	<%=schDate %><span style="margin-right:240px;"></span><%=close %>
-	일시 : <%=si.getSi_time() %>&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="button" value="삭제" onclick="callDel(<%=si.getSi_idx() %>);" />
-	<br /><%=si.getSi_content().replace("\r\n", "<br />") %>
-	<br /><br />등록일 : <%=si.getSi_regdate() %><hr />
+				날짜 : <%=schDate %><span style="margin-right:80px;"></span> 일시 : <%=si.getSi_time() %><br />
+				제목 : <%=si.getSi_title() %><br />
+				내용 : <%=si.getSi_content().replace("\r\n", "<br />") %>
+				<br /><br />등록일 : <%=si.getSi_regdate() %>
+				<input type="button" value="삭제" onclick="callDel(<%=si.getSi_idx() %>);" />&nbsp;&nbsp;&nbsp;&nbsp;<%=close %>
+				<hr />
 <%
 			}
 		}

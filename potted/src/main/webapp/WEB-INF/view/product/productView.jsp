@@ -72,7 +72,7 @@ function selectOption(tmp){
 	"<div style='text-align:right; font-weight:bold;'><span id='" + idx + "p'>" + opprice + "</span>원</div></div><br /></div>";
 	
 	document.getElementById("addOp").innerHTML = document.getElementById("addOp").innerHTML+ "" + opinfo + "";
-	arr.push(op);
+	arr.push(idx);
 	document.getElementById("option").value = arr;
 	
 	

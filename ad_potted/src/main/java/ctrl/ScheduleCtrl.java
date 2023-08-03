@@ -104,4 +104,24 @@ public class ScheduleCtrl {
 		String args = "?schYear=" + si_date.substring(0, 4) + "&schMonth=" + si_date.substring(5, 7);
 		return "redirect:/schedule" + args;
 	}
+	
+	@GetMapping("/scheduleDel")
+	public String scheduleDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		
+		int result = scheduleSvc.scheduleUpdate(idx);
+		if (result != 1) {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('일정 삭제에 실패했습니다.');");
+			out.println("history.back();");
+			out.println("</script>");
+			out.close();
+		}
+		
+		return "redirect:/schedule";
+		
+	}
 }

@@ -21,4 +21,9 @@ public class ScheduleSvc {
 		int result = scheduleDao.scheduleInsert(si);
 		return result;
 	}
+
+	public int scheduleUpdate(int idx) {
+		int result = scheduleDao.scheduleUpdate(idx);
+		return result;
+	}
 }

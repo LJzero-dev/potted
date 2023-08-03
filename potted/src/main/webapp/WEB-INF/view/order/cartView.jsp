@@ -12,13 +12,21 @@
 </style>
 <div style="width:1000px; margin-left:570px; ">
 <h2>장바구니</h2>
-<table id="list" cellpadding="0" cellspacing="0">
-	<tr height="30">
-	<th width="*" colspan="2">상품정보</th>
-	<th width="10%">수량</th>
-	<th width="15%">주문금액</th>
-	</tr>
+	<c:set var="totalPrice" value="0" />
+	<div style="display:none;">
 	<c:if test="${orderCart.size() > 0}">
+		<c:forEach items="${orderCart}" var="oc" varStatus="status">
+			${totalPrice = totalPrice + oc.getOc_price()}
+		</c:forEach>
+	</c:if>
+	</div>
+<c:if test="${orderCart.size() > 0}">
+	<table id="list" cellpadding="0" cellspacing="0">
+		<tr height="30">
+			<th width="*" colspan="2">상품정보</th>
+			<th width="10%">수량</th>
+			<th width="15%">주문금액</th>
+		</tr>
 		<c:forEach items="${orderCart}" var="oc" varStatus="status">
 		<tr height="30">
 			<td><a href="productView?piid=${oc.getPi_id()}"><img src="/potted/resources/images/product/${oc.getPi_img()}" id="img" /></a></td>
@@ -29,29 +37,32 @@
 			<td align="center">${oc.getOc_price()}</td>
 		</tr>
 		</c:forEach>
-	</c:if>
-	<c:if test="${orderCart.size() == 0}">
-		<tr height="50"><td colspan="5" align="center">
-		텅~
-		</td></tr>
-	</c:if>
-</table><br /><br />
-<hr width="800" align="left" style="border-bottom:1.5px solid #A1A1A1;"/>
-<table id="total" cellpadding="0" cellspacing="0">
-<tr height="30px;"><th colspan="9">총 주문 상품 ${orderCart.size()}개</th></tr>
-<tr height="100px;">
-	<td width="10%"></td>
-	<td>20000</td>
-	<td>+</td>
-	<td>3500</td>
-	<td>-</td>
-	<td>3500</td>
-	<td>=</td>
-	<td>20000</td>
-	<td width="10%"></td>
-</tr>
-</table>
-<input type="button" value="주문하기" />
+	</table>	
+	<br /><br />
+	<hr width="800" align="left" style="border-bottom:1.5px solid #A1A1A1;"/>
+	<table id="total" cellpadding="0" cellspacing="0">
+		<tr height="30px;"><th colspan="9">총 주문 상품 ${orderCart.size()}개</th></tr>
+		<tr height="120px;">
+			<td width="10%"></td>
+			<td>20000<p>상품 금액</p></td>
+			<td>+<p style="height:15px;"></p></td>
+			<td>0<p>배송비</p></td>
+			<td>-<p style="height:15px;"></p></td>
+			<td>3500<p>할인금액</p></td>
+			<td>=<p style="height:15px;"></p></td>
+			<td>${totalPrice}<p>총 주문금액</p></td>
+			<td width="10%"></td>
+		</tr>
+	</table>
+	<input type="button" value="주문하기" onclick="" />	
+</c:if>
+<c:if test="${orderCart.size() == 0}">
+	<tr height="50"><td colspan="5" align="center">
+	텅~
+	</td></tr>
+</c:if>
+
+<a href="productList">계속 쇼핑하기</a>
 
 </div>
 

@@ -466,6 +466,7 @@ create table t_schedule_info (
 	si_title varchar(50) not null,                -- 일정 제목
 	si_content varchar(200) not null,			-- 일정 내용
 	si_regdate datetime default now(),			-- 등록일
+    si_isview char(1) default 'y',                -- 게시여부
 	constraint fk_schedule_info_ai_id foreign key (ai_id) references t_admin_info(ai_id)
 );
 
