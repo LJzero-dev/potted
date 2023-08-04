@@ -146,4 +146,34 @@ public class ProductListCtrl {
 		request.setAttribute("productList", productList);		
 		return "auction/auctionList";
 	}
+	@GetMapping("/auctionView")
+	public String auctionView(HttpServletRequest request, HttpServletResponse response) throws Exception  {
+		request.setCharacterEncoding("utf-8");
+		// 1. 조회수 증가 / 2. 보여줄 상품 정보 받아오기 / 3. 해당 상품의 후기 목록 받아오기 / 4. 상품상세보기 화면으로 이동
+		
+		String piid = request.getParameter("piid");
+		
+		// 1. 조회수 증가 -> 상품 정보 받아오는 메소드에서 호출함
+		
+		// 2. 보여줄 상품 정보 받아오기
+		ProductInfo productInfo = productListSvc.getProductInfo(piid);
+		request.setAttribute("productInfo", productInfo);
+		
+		List<ProductOptionStock> productOptionStock = productListSvc.getProductOptionStock(piid);
+		request.setAttribute("productOptionStock", productOptionStock);
+		
+		List<ProductOptionBig> productOptionBig = productListSvc.getProductOptionBig();
+		request.setAttribute("productOptionBig", productOptionBig);
+		
+		// 3. 후기 목록 받아오기
+		
+		// 4. 상품 상세보기 화면으로 이동
+		return "auction/auctionView";
+	}
+	@LoginRequired
+	@PostMapping("/bid")
+	@ResponseBody
+	public String bid(HttpServletRequest request, @Login MemberInfo mi) throws Exception{		
+		return "" +productListSvc.setbid(Integer.parseInt(request.getParameter("bidPrice")), request.getParameter("piid"),mi.getMi_id());
+	}
 }

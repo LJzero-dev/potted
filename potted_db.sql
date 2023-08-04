@@ -455,6 +455,31 @@ insert into t_product_auction_info values (null, 'CCbb311', 1, 1000, '03:02:00',
 update t_product_auction_info set pai_runtime = '00:00:00' where pai_idx = 1;
 select * from t_product_auction_info;
 
+create table t_product_auction_info(
+pai_idx	int auto_increment primary key,			-- 일련번호
+pi_id char(7),						-- 상품ID
+pai_bidder int default 0,			-- 입찰 수
+pai_price int default 0,			-- 현재가
+pai_runtime char(8) not null,		-- 경매 진행시간
+pai_start datetime,					-- 경매 시작시간
+pai_id varchar(20),					-- 입찰자 or 낙찰자
+constraint fk_product_auction_info foreign key (pi_id) references t_product_info(pi_id)
+);
+
+
+
+create table t_auction_bidder_info(
+	abi_idx	int auto_increment primary key,		-- 일련번호
+    pi_id char(7),								-- 상품ID
+    mi_id varchar(20),							-- 입찰자
+    abi_price int default 0,					-- 입찰 금액
+    pai_date datetime default now(),			-- 입찰 시간
+    constraint fk_auction_bidder_info_mi_id foreign key (mi_id) references t_member_info(mi_id),
+    constraint fk_auction_bidder_info_pi_id foreign key (pi_id) references t_product_info(pi_id)
+);
+
+insert into t_auction_bidder_info (pi_id,mi_id,abi_price) values ('CCbb211','test1','100000');
+
 -- 일정관리 테이블
 create table t_schedule_info (
 	si_idx int primary key auto_increment,		-- 일련번호

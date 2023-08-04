@@ -48,8 +48,10 @@ a:hover { text-decoration:underline; }
             </ul>
         </div>
         <div class="gnb_util">
+        <% if (loginInfo != null) { %>
             <a href="cartView" class="cartBtn"><img src="/potted/resources/images/main/cart_icon.png"></a>
-            <span>10</span>
+            <span><%=loginInfo.getOrder_count() %></span>
+            <% } %>
             <div class="infor">
             <% if (loginInfo == null) { %>
                 <a href="login" class="login">로그인</a>

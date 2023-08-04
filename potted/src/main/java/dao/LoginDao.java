@@ -32,6 +32,7 @@ public class LoginDao {
 	            mi.setMi_status(rs.getString("mi_status"));
 	            mi.setMi_date(rs.getString("mi_date"));
 	            mi.setMi_lastlogin(rs.getString("mi_lastlogin"));
+	            mi.setOrder_count(jdbc.queryForObject("select count(*) from t_order_cart where mi_id = '" + uid + "'", Integer.class));
 	            return mi;
 			}
 		}, uid, pwd);

@@ -42,4 +42,9 @@ public class ProductListSvc {
 		List<ProductOptionBig> productOptionBig = productListDao.getProductOptionBig();
 		return productOptionBig;
 	}
+
+
+	public int setbid(int bidprice,String piid, String miid) {
+		return productListDao.setbid(bidprice,piid, miid);
+	}
 }

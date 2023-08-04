@@ -166,6 +166,7 @@ if (pageInfo.getRcnt() > 0) {
 	String soldout = "";
 	for (i = 0 ; i < productList.size() ; i++) {		
 		ProductInfo pi = productList.get(i);
+		lnk = "auctionView?piid=" + pi.getPi_id();
 		pi_ids += "," + pi.getPi_id();		
 		%>
 		<script>

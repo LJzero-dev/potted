@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import vo.AuctionBidderInfo;
 import vo.PageInfo;
 import vo.ProductAuctionInfo;
 import vo.ProductInfo;
@@ -73,11 +74,26 @@ public class ProductListDao {
 							rs.getString("pi_special"), rs.getString("pi_isview"), rs.getString("pi_date"), rs.getString("pi_last"), rs.getInt("pi_price"), 
 							rs.getInt("pi_cost"), rs.getInt("pi_read"), rs.getInt("pi_review"), rs.getInt("pi_sale"), rs.getInt("ai_idx"), rs.getInt("pi_admin"), 
 							rs.getDouble("pi_dc"), rs.getString("pcb_name"), rs.getString("pcs_name"), rs.getInt("pi_stock"));
+					if (rs.getString("pi_auction").equals("y")) {
+						List<ProductAuctionInfo> productAuctionInfo = jdbc.query("select pai_idx, pai_bidder, pai_price, pi_id, pai_runtime, pai_start,  date_add(date_add(date_add(pai_start, interval left(pai_runtime,2) day), interval mid(pai_runtime,4,2) hour), interval right(pai_runtime,2) minute) end, pai_id from t_product_auction_info where pi_id = '" + rs.getString("pi_id") + "'", 
+								(ResultSet rs2, int rowNum2) -> {
+									ProductAuctionInfo pai = new ProductAuctionInfo(rs2.getInt("pai_idx"), rs2.getInt("pai_bidder"), rs2.getInt("pai_price"), rs2.getString("pi_id"), rs2.getString("pai_runtime"), rs2.getString("pai_start"), rs2.getString("end"), rs2.getString("pai_id"));
+									if (rs2.getInt("pai_bidder") > 0) {
+										List<AuctionBidderInfo> AuctionBidderInfo = jdbc.query("select * from t_auction_bidder_info where pi_id = '" + piid + "'",
+												(ResultSet rs3, int rowNum3) -> {
+													AuctionBidderInfo abi = new AuctionBidderInfo(rs3.getInt(1),rs3.getInt(4),rs3.getString(2),rs3.getString(3),rs3.getString(5));													
+													return abi;
+												});
+										pai.setAuctionBidderInfo(AuctionBidderInfo.size() != 0 ? AuctionBidderInfo : null);
+									}									
+									return pai;
+								});
+						pi.setProductAuctionInfo(productAuctionInfo.size() != 0 ? productAuctionInfo.get(0) : null);
+					}
 					return pi;
 				}
 			}
-		);
-		
+		);		
 		return pi;
 	}
 
@@ -104,5 +120,9 @@ public class ProductListDao {
 			}
 		);		
 		return productOptionBig;
+	}
+	
+	public int setbid(int bidprice,String piid, String miid) {		
+		return jdbc.update("insert into t_auction_bidder_info (pi_id,mi_id,abi_price) values ('" + piid + "','" + miid + "','" + bidprice + "')") + jdbc.update("update t_product_auction_info set pai_bidder = pai_bidder + 1, pai_price = '" + bidprice + "', pai_id = '" + miid + "' where pi_id = '" + piid + "'");
 	}
 }

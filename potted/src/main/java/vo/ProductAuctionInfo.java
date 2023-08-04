@@ -1,11 +1,23 @@
 package vo;
 
+import java.util.List;
+
 public class ProductAuctionInfo {
 	private int pai_idx, pai_bidder, pai_price;
 	private String pi_id, pai_runtime, pai_start, pai_end, pai_id;
+	private List<AuctionBidderInfo> AuctionBidderInfo;
 		public ProductAuctionInfo(int pai_idx, int pai_bidder, int pai_price, String pi_id, String pai_runtime,	String pai_start, String pai_end, String pai_id) {
 		this.pai_idx = pai_idx;	this.pai_bidder = pai_bidder;	this.pai_price = pai_price;	this.pi_id = pi_id;	this.pai_runtime = pai_runtime;	this.pai_start = pai_start;	this.pai_end = pai_end;	this.pai_id = pai_id;
 	}
+	
+	public List<AuctionBidderInfo> getAuctionBidderInfo() {
+			return AuctionBidderInfo;
+		}
+
+		public void setAuctionBidderInfo(List<AuctionBidderInfo> auctionBidderInfo) {
+			AuctionBidderInfo = auctionBidderInfo;
+		}
+
 	public int getPai_idx() {
 		return pai_idx;
 	}
