@@ -42,12 +42,4 @@ public class ProductListSvc {
 		List<ProductOptionBig> productOptionBig = productListDao.getProductOptionBig();
 		return productOptionBig;
 	}
-
-
-	public String getProductAuctionListUp(String pi_ids) {
-		return productListDao.getProductAuctionListUp(pi_ids);
-	}
-
-
-
 }

@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="ctrl.ProductListCtrl"%>
 <%@page import="com.mysql.cj.PingTarget"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -37,6 +38,7 @@ arrSch[1] = p100000~200000 (가격대)
 		}
 	}
 }
+DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 %>
 
 <style>
@@ -183,23 +185,13 @@ if (pageInfo.getRcnt() > 0) {
 			if (diff < 0) {
 			document.getElementById("timer<%=i%>").innerHTML ='<div>종료된 경매 입니다.</div>';
 			} else {
-				<%
-				/* System.out.println();
-				if ( < LocalDateTime.now().format("yyyy")){			
-					lnk = "productView?piid=" + pi.getPi_id();
-					soldout	 = "<br /><span style='color:red;'>경매 종료</span>";
-					} else {
-				lnk = "productView?piid=" + pi.getPi_id();
-				soldout = "<br /><span style='color:#0B9649;'>경매중</span>";
-				} */
-				%>
 			document.getElementById("timer<%=i%>").innerHTML ='<div>' + d + '<span>일 </span>' + h + '<span>시 </span>' + m + '<span>분 </span>' + s + '<span>초</span></div>';
 			}
 		}
 		setInterval(updateTimer, 1000);	
 		</script>
 		<%
-		String price = "시작가 " +  pi.getPi_price() + "원 <br />";
+		String price = "시작가 " +  formatter.format(pi.getPi_price()) + "원 <br />";
 		if (i % 4 == 0) out.println("<tr>");
 	%>
 	<td width="10%" align="left">
@@ -208,8 +200,8 @@ if (pageInfo.getRcnt() > 0) {
 			<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
 			onmouseover="this.src='/potted/resources/images/product/<%=pi.getPi_img2() %>';" onmouseout="this.src='/potted/resources/images/product/<%=pi.getPi_img1() %>';"<% } %> />
 			<h3>잔여 시간</h3><h3 id="timer<%=i %>"></h3>
-			<h3>현재가 :</h3>
-			<h3>마감시간 :</h3>	
+			<h3>현재가 : <%=formatter.format(pi.getProductAuctionInfo().getPai_price()) %> 원</h3>
+			<h3>마감시간 :<br /><%=pi.getProductAuctionInfo().getPai_end() %></h3>	
 			<span style="font-size:15px; font-weight:bold;"><%=pi.getPi_name() %></span>
 		</a>
 		<%=soldout %>

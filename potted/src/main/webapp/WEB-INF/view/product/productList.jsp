@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="ctrl.ProductListCtrl"%>
 <%@page import="com.mysql.cj.PingTarget"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -37,7 +38,7 @@ arrSch[1] = p100000~200000 (가격대)
 		}
 	}
 }
-
+DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 %>
 
 <style>
@@ -172,10 +173,10 @@ if (pageInfo.getRcnt() > 0) {
 			lnk = "productView?piid=" + pi.getPi_id();
 			soldout = "<br /><span style='color:red;'>SOLD OUT</span>";
 		}
-		String price = pi.getPi_price() + "원";
+		String price = formatter.format(pi.getPi_price()) + "원";
 		if (pi.getPi_dc() > 0) {	// 할인율이 있으면
-			price = Math.round(pi.getPi_price() * (1 - pi.getPi_dc())) + "원";	// 할인이 있을때 실제 판매가
-			String rprice = "<br /><span style='color:grey;'><del>" + pi.getPi_price() + "</del></span>&nbsp;&nbsp;&nbsp;";
+			price = formatter.format(Math.round(pi.getPi_price() * (1 - pi.getPi_dc()))) + "원";	// 할인이 있을때 실제 판매가
+			String rprice = "<br /><span style='color:grey;'><del>" + formatter.format(pi.getPi_price()) + "</del></span>&nbsp;&nbsp;&nbsp;";
 			String dc = "&nbsp;&nbsp;<span style='color:#029900; font-weight:bold;'>" + (int)(pi.getPi_dc() * 100 ) + "%</span>";
 			
 			price += dc + rprice;
