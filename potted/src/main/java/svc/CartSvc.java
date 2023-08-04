@@ -22,6 +22,11 @@ public class CartSvc {
 		return orderCart;
 	}
 
+	public int cartDel(int ocidx, String miid) {
+		int result = cartDao.cartDel(ocidx, miid);
+		return result;
+	}
+
 
 
 
