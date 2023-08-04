@@ -5,16 +5,20 @@
 <script>
 function rInsert(flidx) {
 	var rcon = document.frm.rcontent.value;
-	$.ajax({
-		type : "POST", url : "/potted/replyIn", data : { "flidx" : flidx, "rcon" : rcon },
-		success : function(chk) {
-			if (chk != 2 && chk != 1 ) {	// 댓글 등록과 게시판 리스트 댓글증가가  실패했을 경우
-				alert("댓글 등록을 실패했습니다 \n다시 시도해 주세요.");
-			} else {	// 댓글 등록이 성공했을경우
-				location.href = "freeView?cpage=1&flidx=" + flidx;
+		if(rcon == "" || rcon == null){
+		$.ajax({
+			type : "POST", url : "/potted/replyIn", data : { "flidx" : flidx, "rcon" : rcon },
+			success : function(chk) {
+				if (chk != 2 && chk != 1 ) {	// 댓글 등록과 게시판 리스트 댓글증가가  실패했을 경우
+					alert("댓글 등록을 실패했습니다 \n다시 시도해 주세요.");
+				} else {	// 댓글 등록이 성공했을경우
+					location.href = "freeView?cpage=1&flidx=" + flidx;
+				}
 			}
-		}
-	});
+		});
+	} else {
+		alert("내용 안쓸꺼니?");
+	}
 }
 
 
@@ -94,10 +98,11 @@ function rInsert(flidx) {
 <form name="frm" method="post">
 	<table style="width:100%;" cellpadding="0" cellspacing="0">
 	<tr height="60">
-	<td align="center" class="rtList" width="20%" class="rtList"><strong>${loginInfo.getMi_name()}</strong></td>
-	<td width="*" class="rtList"><input type="text" name="rcontent" placeholder="댓글을 입력해주세요." value="" /></td>
-	<td width="20" class="rtList">&nbsp;&nbsp;<input type="button" id="btn" value="등록" class="bt" onclick="rInsert(${fl.getFl_idx()});"></td>
-	</tr>
+	<td align="center" width="20%" style="font-size:18px;"><strong>${loginInfo.getMi_name()}</strong></td>
+	<td width="75%"><input type="text" name="rcontent" style="width:800px; height:60px;" placeholder="댓글을 입력해주세요.엔터금지" value="" /></td>
+	<td width="5%">&nbsp;&nbsp;<input type="button" id="btn" value="등록" class="bt" onclick="rInsert(${fl.getFl_idx()});"></td>
+	</tr><tr height="30" style="border-style: double;"><td colspan="3" style="border:0; border-bottom:2px; border-style: double;"></td></tr>
+	</tr><tr height="10" style="border-style: double;"><td colspan="3" style="border:0; border-bottom:2px; border-style: double;"></td></tr>
 	<c:if test="${replyList.size() > 0}">
 		<c:forEach items="${replyList}" var="rl" varStatus="status">
 		<tr height="60">

@@ -66,5 +66,14 @@ public class NoticeDao {
 		
 		return nl;
 	}
+
+	public int noticeInsert(NoticeList nl) {
+		String sql = "select max(nl_idx) + 1 from t_notice_list";
+		int idx = jdbc.queryForObject(sql, Integer.class);
+
+		sql = "insert into t_notice_list (nl_idx, ai_idx, nl_title, nl_content) values (?, ?, ?, ?)";
+		int result = jdbc.update(sql, idx, nl.getAi_idx(), nl.getNl_title(), nl.getNl_content());
+		return idx;
+	}
 }
 

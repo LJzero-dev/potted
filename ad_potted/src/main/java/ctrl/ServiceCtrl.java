@@ -4,6 +4,8 @@ import java.io.*;
 import javax.servlet.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.*;
 import java.net.*;
 import org.springframework.ui.*;
@@ -85,4 +87,29 @@ public class ServiceCtrl {
 		
 		return "service/noticeView";
 	}
+	
+	@GetMapping("/noticeFormIn")
+	public String noticeFormIn() {
+		return "service/noticeFormIn";
+	}
+	
+	@PostMapping("/noticeProcIn")
+	public String noticeProcIn(HttpServletRequest request) throws Exception {
+		NoticeList nl = new NoticeList();
+
+		String title = request.getParameter("nl_title");
+		String content = request.getParameter("nl_content");
+		nl.setNl_title(title);
+		nl.setNl_content(content);
+
+		HttpSession session = request.getSession();
+		AdminInfo ai = (AdminInfo)session.getAttribute("loginInfo");
+		nl.setAi_idx(ai.getAi_idx());// 현재 로그인한 어드민 idx를 noticeList에 넣음
+
+		int result = noticeSvc.noticeInsert(nl);
+
+		return "redirect:/noticeView?cpage=1&nlidx=" + result;
+										// 앞에 ,를 짜르기 위한 substring
+	}
+	
 }

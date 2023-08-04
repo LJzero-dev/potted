@@ -26,4 +26,8 @@ public class NoticeSvc {
 		return nl;
 	}
 
+	public int noticeInsert(NoticeList nl) {
+		int result = noticeDao.noticeInsert(nl);
+		return result;
+	}
 }
