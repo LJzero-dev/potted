@@ -3,7 +3,7 @@ package vo;
 import java.util.List;
 
 public class ProductAuctionInfo {
-	private int pai_idx, pai_bidder, pai_price;
+	private int pai_idx, pai_bidder, pai_price, isend;
 	private String pi_id, pai_runtime, pai_start, pai_end, pai_id;
 	private List<AuctionBidderInfo> AuctionBidderInfo;
 		public ProductAuctionInfo(int pai_idx, int pai_bidder, int pai_price, String pi_id, String pai_runtime,	String pai_start, String pai_end, String pai_id) {
@@ -16,6 +16,14 @@ public class ProductAuctionInfo {
 
 		public void setAuctionBidderInfo(List<AuctionBidderInfo> auctionBidderInfo) {
 			AuctionBidderInfo = auctionBidderInfo;
+		}
+
+	public int getIsend() {
+			return isend;
+		}
+
+		public void setIsend(int isend) {
+			this.isend = isend;
 		}
 
 	public int getPai_idx() {

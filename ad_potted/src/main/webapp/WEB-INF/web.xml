@@ -28,6 +28,7 @@
 				config.ServiceConfig
 				config.FreeConfig
 				config.ScheduleConfig
+				config.AuctionConfig
 				/WEB-INF/spring/appServlet/servlet-context.xml
 			</param-value>
 		</init-param>

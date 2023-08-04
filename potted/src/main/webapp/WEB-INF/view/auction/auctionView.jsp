@@ -167,9 +167,17 @@ function bid() {
 	</table>
 	</td>
 	</tr>
-	<tr><td colspan="2" align="center">
-		입찰 금액 : <input type="text" id="price" name="price" />
+	<tr><td colspan="2" align="center">	
+	<%if (pi.getProductAuctionInfo().getIsend() == 1) { %>	
+		종료된 경매 입니다.<br />
+	<% if(loginInfo.getMi_id().equals(pi.getProductAuctionInfo().getPai_id())) {%>
+		입찰에 성공하셨습니다.<br />
+		<input type="button" value="결제 하기" class="smt" onclick="" />
+	<% } %>
+		<% } else { %>
+				입찰 금액 : <input type="text" id="price" name="price" />
 		<input type="button" value="입찰 하기" class="smt" onclick="bid();" />
+		<% } %>
 	</td></tr>
 	</table>
 	</form>

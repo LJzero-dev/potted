@@ -75,9 +75,10 @@ public class ProductListDao {
 							rs.getInt("pi_cost"), rs.getInt("pi_read"), rs.getInt("pi_review"), rs.getInt("pi_sale"), rs.getInt("ai_idx"), rs.getInt("pi_admin"), 
 							rs.getDouble("pi_dc"), rs.getString("pcb_name"), rs.getString("pcs_name"), rs.getInt("pi_stock"));
 					if (rs.getString("pi_auction").equals("y")) {
-						List<ProductAuctionInfo> productAuctionInfo = jdbc.query("select pai_idx, pai_bidder, pai_price, pi_id, pai_runtime, pai_start,  date_add(date_add(date_add(pai_start, interval left(pai_runtime,2) day), interval mid(pai_runtime,4,2) hour), interval right(pai_runtime,2) minute) end, pai_id from t_product_auction_info where pi_id = '" + rs.getString("pi_id") + "'", 
+						List<ProductAuctionInfo> productAuctionInfo = jdbc.query("select (now() > date_add(date_add(date_add(pai_start, interval left(pai_runtime,2) day), interval mid(pai_runtime,4,2) hour), interval right(pai_runtime,2) minute)) isend, pai_idx, pai_bidder, pai_price, pi_id, pai_runtime, pai_start,  date_add(date_add(date_add(pai_start, interval left(pai_runtime,2) day), interval mid(pai_runtime,4,2) hour), interval right(pai_runtime,2) minute) end, pai_id from t_product_auction_info where pi_id = '" + rs.getString("pi_id") + "'", 
 								(ResultSet rs2, int rowNum2) -> {
 									ProductAuctionInfo pai = new ProductAuctionInfo(rs2.getInt("pai_idx"), rs2.getInt("pai_bidder"), rs2.getInt("pai_price"), rs2.getString("pi_id"), rs2.getString("pai_runtime"), rs2.getString("pai_start"), rs2.getString("end"), rs2.getString("pai_id"));
+									pai.setIsend(rs2.getInt(1));
 									if (rs2.getInt("pai_bidder") > 0) {
 										List<AuctionBidderInfo> AuctionBidderInfo = jdbc.query("select * from t_auction_bidder_info where pi_id = '" + piid + "'",
 												(ResultSet rs3, int rowNum3) -> {

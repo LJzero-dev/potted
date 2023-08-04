@@ -1,9 +1,27 @@
 package config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
-import ctrl.*;
-import svc.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import ctrl.AuctionCtrl;
+import ctrl.FreeCtrl;
+import ctrl.IndexCtrl;
+import ctrl.LoginCtrl;
+import ctrl.LogoutCtrl;
+import ctrl.MemberInfoCtrl;
+import ctrl.ProductCtrl;
+import ctrl.SalesSlipCtrl;
+import ctrl.ScheduleCtrl;
+import ctrl.ServiceCtrl;
+import ctrl.SetbannerCtrl;
+import svc.AuctionSvc;
+import svc.FreeSvc;
+import svc.LoginSvc;
+import svc.MemberSvc;
+import svc.NoticeSvc;
+import svc.ProductInSvc;
+import svc.ScheduleSvc;
 
 @Configuration
 public class CtrlConfig {
@@ -25,6 +43,9 @@ public class CtrlConfig {
 
 	@Autowired	// ÇÊ¿äÇÒ¶§ ¾Ë¾Æ¼­ ¶¯°Ü¾¸
 	private ScheduleSvc scheduleSvc;
+	
+	@Autowired
+	private AuctionSvc auctionSvc;
 	
 	@Bean
 	public ProductCtrl productCtrl() {
@@ -85,4 +106,10 @@ public class CtrlConfig {
 	public SetbannerCtrl setbannerCtrl() {
 		return new SetbannerCtrl();
 	}
+	@Bean
+	public AuctionCtrl auctionCtrl() {
+		AuctionCtrl auctionCtrl = new AuctionCtrl();
+		auctionCtrl.setAuctionSvc(auctionSvc);
+		return auctionCtrl;
+	}	
 }
