@@ -203,7 +203,7 @@ if (pi.getPi_dc() != 0) {
 	<tr><td><%=price %></td></tr>
 	<tr valign="left" ><td >
 		<span style="color:#0B9649; font-size:20px; font-weight: bold; margin-right:8px;"><%=dc %></span>
-		<span style="font-size:24px; font-weight: bold;"><%=formatter.format(realPrice) %>원</span>
+		<span style="font-size:24px; font-weight: bold;"><%=realPrice %>원</span>
 	</td></tr>
 	
 <% 
@@ -220,7 +220,7 @@ if (productOptionStock.size() > 0) {
 			ProductOptionStock pos = productOptionStock.get(j);
 			if (pob.getPob_id().equals(pos.getPob_id())){
 %>
-			<option value="<%=pos.getPos_idx() + ":" + pos.getPos_id() + "," + pos.getPos_price()%>"><%=pos.getPos_id() %>&nbsp;<%=formatter.format(pos.getPos_price()) %></option>
+			<option value="<%=pos.getPos_idx() + ":" + pos.getPos_id() + "," + pos.getPos_price()%>"><%=pos.getPos_id() %>&nbsp;<%=pos.getPos_price() %></option>
 <%
 			}
 		}
@@ -238,7 +238,7 @@ if (productOptionStock.size() > 0) {
 			<input type="button" value="-" onclick="setCnt(this.value);" />
 			<input type="text" name="cnt" id="cnt" value="1" readonly="readonly" />
 			<input type="button" value="+" onclick="setCnt(this.value);" />
-			<div style="text-align:right; font-weight:bold;"><span id=""><%=formatter.format(realPrice) %></span>원</div>
+			<div style="text-align:right; font-weight:bold;"><span id=""><%=realPrice %></span>원</div>
 		</div>
 	</td></tr>
 	<tr><td><span id="addOp"></span></td></tr>
@@ -249,7 +249,7 @@ if (pi.getPi_stock() <= 0) {
 	border:0px; margin-bottom:10px; background: #EC3E3E; border-radius: 20px;">SOLD OUT!</div>!현재 조회하신 상품이 재입고 대기 중입니다!</td></tr>
 <% } else { %>
 	<tr><td colspan="2" align="right" >
-		<div style="margin-right:50px; font-size: 15px; font-weight:bold;" >구매 가격 : <span id="total"><%=formatter.format(realPrice) %></span>원</div>
+		<div style="margin-right:50px; font-size: 15px; font-weight:bold;" >구매 가격 : <span id="total"><%=realPrice %></span>원</div>
 	</td></tr>
 	<tr><td colspan="2" align="left">
 		<input type="button" value="장바구니 담기" class="smt" onclick="buy('c');" />

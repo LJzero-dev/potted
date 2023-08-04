@@ -37,6 +37,9 @@ public class CtrlConfig {
 	@Autowired
 	private IndexSvc indexSvc;
 	
+	@Autowired
+	private OrderSvc orderSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
 		IndexCtrl indexCtrl = new IndexCtrl();
@@ -51,12 +54,7 @@ public class CtrlConfig {
 		
 		return productListCtrl;
 	}
-	
-	
-	@Bean
-	public OrderFormCtrl orderFormCtrl() {
-		return new OrderFormCtrl();
-	}
+
 	@Bean
 	public MyPlantCtrl myPlantCtrl() {
 		MyPlantCtrl myPlantCtrl = new MyPlantCtrl();
@@ -97,6 +95,13 @@ public class CtrlConfig {
 		CartCtrl cartCtrl = new CartCtrl();
 		cartCtrl.setCartSvc(cartSvc);
 		return cartCtrl;
+	}
+	
+	@Bean
+	public OrderFormCtrl orderFormCtrl() {
+		OrderFormCtrl orderFormCtrl = new OrderFormCtrl();
+		orderFormCtrl.setOrderSvc(orderSvc);
+		return orderFormCtrl;
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)

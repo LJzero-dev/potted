@@ -1,5 +1,6 @@
 package config;
 
+import static config.DbConfig.*;
 import org.apache.tomcat.jdbc.pool.*;
 import org.springframework.context.annotation.*;
 import dao.*;
@@ -7,9 +8,10 @@ import svc.*;
 
 @Configuration
 public class OrderConfig {
+	
 	@Bean
 	public OrderDao orderDao() {
-		return new OrderDao(DbConfig.dataSource());
+		return new OrderDao(dataSource());
 	}
 	
 	@Bean

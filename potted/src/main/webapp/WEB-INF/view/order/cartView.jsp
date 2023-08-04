@@ -176,7 +176,7 @@ function setCnt(ocidx, num, cnt, stock){
 			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dcPrice}" /><p>할인금액</p></td>
 			<td>=<p style="height:15px;"></p></td>
 			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice + deliPrice}" /><p>총 주문금액</p></td>
-			<td width="10%"></td>
+			<td width="10%"><input type="hidden" name="totalc" value="${totalPrice + deliPrice}" /></td>
 		</tr>
 	</table>
 	<br />
