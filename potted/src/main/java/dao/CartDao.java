@@ -26,10 +26,11 @@ public class CartDao {
 
 	
 	public List<OrderCart> getOrderCart(String miid) {
-		String sql = "select a.mi_id, a.pi_id, a.oc_date, a.oc_option, a.oc_cnt, a.oc_price, b.pi_img1, b.pi_name from t_order_cart a, t_product_info b where a.pi_id = b.pi_id and a.mi_id = '" + miid + "' ";
+		String sql = "select a.mi_id, a.pi_id, a.oc_date, a.oc_option, a.oc_cnt, a.oc_price, a.oc_idx, b.pi_img1, b.pi_name from t_order_cart a, t_product_info b where a.pi_id = b.pi_id and a.mi_id = '" + miid + "' ";
 		List<OrderCart> orderCart = jdbc.query(sql, (ResultSet rs, int rowNum) -> {
 			OrderCart oc = new OrderCart();
 			oc.setMi_id(miid);
+			oc.setOc_idx(rs.getInt("oc_idx"));
 			oc.setPi_id(rs.getString("pi_id"));
 			oc.setOc_date(rs.getString("oc_date"));
 			oc.setOc_option(rs.getString("oc_option"));
@@ -42,6 +43,14 @@ public class CartDao {
 		});
 
 		return orderCart;
+	}
+
+	public int cartDel(int ocidx, String miid) {
+		String sql = "delete from t_order_cart where oc_idx = " + ocidx + " and mi_id = '" + miid + "'";
+		int result = jdbc.update(sql);
+		System.out.println(sql);
+		System.out.println(result);
+		return result;
 	}
 	
 }

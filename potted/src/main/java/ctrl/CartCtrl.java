@@ -57,11 +57,25 @@ public class CartCtrl {
 		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 		String miid = loginInfo.getMi_id();
 		List<OrderCart> orderCart = cartSvc.getOrderCart(miid);
-
 		
 		model.addAttribute("orderCart", orderCart);
 		
 		return "order/cartView";
+	}
+	
+	@PostMapping ("/cartProcDel")
+	public void cartProcDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int ocidx = Integer.parseInt(request.getParameter("ocidx"));
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		
+		int result = cartSvc.cartDel(ocidx, miid);
+
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(result);
 	}
 
 }
