@@ -49,7 +49,6 @@ a:hover { text-decoration:underline; color:red; }
     			out.println("</script>");
             %>
             <% } else { %>
-                <a href="memberList" class="minfor">회원정보</a>
                 <a href="logout" class="logout">로그아웃</a>
             <% } %>
             </div>

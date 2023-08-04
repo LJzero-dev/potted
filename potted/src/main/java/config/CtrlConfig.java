@@ -104,6 +104,11 @@ public class CtrlConfig {
 		return orderFormCtrl;
 	}
 	
+	@Bean
+	public MemberCtrl memberCtrl() {
+		return new MemberCtrl();
+	}
+	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.METHOD)
 	public @interface LoginRequired {
