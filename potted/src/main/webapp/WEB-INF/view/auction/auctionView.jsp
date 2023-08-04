@@ -24,10 +24,6 @@ DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 #del { border: 0; background: #F5F5F5; cursor:pointer; }
 .smt { width:218px; height:30px; background:white; font-size: 15px; border-radius: 20px; border:1.5px solid  #6E6E6E; cursor: pointer; }
 .smt:hover { border-color: #0B9649; background:#0B9649; color: white; }
-.btn1 { border: 0; width:350px; font-size: 14px; background: #fff; padding-bottom: 8px; cursor: pointer; }
-.btn1:hover { font-weight: bold; }
-.btn2 { border: 0; width:350px; font-size: 14px; background: #fff; padding-bottom: 8px; cursor: pointer; }
-.btn2:hover { font-weight: bold; }
 #menu1 {}
 #menu2 { display:none; }
 </style>
@@ -178,15 +174,11 @@ function bid() {
 </table>
 <br /><br />
 <!-- 상품 상세 정보 및 구매 후기 영역 -->
-<input type="button" class="btn1" value="상품 상세 정보" onclick="showMenu(1);" />
-<input type="button" class="btn2" value="구매후기" onclick="showMenu(2);"/>
+<p style="margin-left: 330px;">상품 상세 정보</p>
 <hr style="margin-left:0px; width:740px;" />
 <br />
 <div class="productDetail" id="menu1">
 <img src="" style="width:740px; height:2000px; " />
-</div>
-<div class="productReview" id="menu2">
-구매후기 내용~~~
 </div>
 
 </div>

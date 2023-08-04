@@ -421,17 +421,6 @@ create table t_sales_slip (
 );
 
 -- drop table t_product_auction_info;
-create table t_product_auction_info(
-pai_idx	int auto_increment primary key,			-- 일련번호
-pi_id char(7),						-- 상품ID
-pai_bidder int default 0,			-- 입찰 수
-pai_price int default 0,			-- 현재가
-pai_runtime char(8) not null,		-- 경매 진행시간
-pai_start datetime,					-- 경매 시작시간
-pai_id varchar(20),					-- 입찰자 or 낙찰자
-constraint fk_product_auction_info foreign key (pi_id) references t_product_info(pi_id)
-);
-
 
 insert into t_product_auction_info values (null, 'AAbb111', 1, 51000, '03:02:30', now(), 'test1');
 insert into t_product_auction_info values (null, 'AAbb211', 1, 51000, '03:02:30', now(), 'test1');
@@ -466,8 +455,7 @@ pai_id varchar(20),					-- 입찰자 or 낙찰자
 constraint fk_product_auction_info foreign key (pi_id) references t_product_info(pi_id)
 );
 
-
-
+-- 입찰자 테이블
 create table t_auction_bidder_info(
 	abi_idx	int auto_increment primary key,		-- 일련번호
     pi_id char(7),								-- 상품ID
