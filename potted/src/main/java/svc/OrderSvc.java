@@ -11,8 +11,9 @@ public class OrderSvc {
 		this.orderDao = orderDao;
 	}
 
-	public ArrayList<OrderCart> getBuyList(String kind, String sql) {
-		ArrayList<OrderCart> pdtList = orderDao.getBuyList(kind, sql);
+	public List<OrderCart> getBuyList(String kind, String sql) {
+		System.out.println("orderDao : " + orderDao);
+		List<OrderCart> pdtList = orderDao.getBuyList(kind, sql);
 		return pdtList;
 	}
 
@@ -20,5 +21,4 @@ public class OrderSvc {
 		ArrayList<MemberAddr> addrList = orderDao.getAddrList(miid);
 		return addrList;
 	}
-
 }

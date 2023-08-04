@@ -58,6 +58,7 @@ public class CartCtrl {
 		String miid = loginInfo.getMi_id();
 		List<OrderCart> orderCart = cartSvc.getOrderCart(miid);
 		
+		
 		model.addAttribute("orderCart", orderCart);
 		
 		return "order/cartView";
@@ -73,6 +74,25 @@ public class CartCtrl {
 		
 		int result = cartSvc.cartDel(ocidx, miid);
 
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(result);
+	}
+	
+	@PostMapping ("/cartProcUp")
+	public void cartProcUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int ocidx = Integer.parseInt(request.getParameter("ocidx"));
+		int cnt = Integer.parseInt(request.getParameter("cnt"));
+		String num = request.getParameter("num");
+		int stock = Integer.parseInt(request.getParameter("stock"));
+		
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		
+		int result = cartSvc.cartUp(ocidx, miid, cnt, num, stock);
+		
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println(result);

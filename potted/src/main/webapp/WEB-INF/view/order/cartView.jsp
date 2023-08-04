@@ -14,6 +14,7 @@
 #all { font-size:13px; }
 .btn1 { padding:6px 20px; font-size:15px; color:#6E6E6E; cursor:pointer; text-align:center; height:30px; border:1.5px solid  #6E6E6E; margin-bottom:10px; background:white; border-radius:20px;  }
 .btn2 { padding:6px 20px; font-size:15px; color:white; cursor:pointer; text-align:center; height:30px; margin-bottom:10px; background:#0B9649; border-radius:20px; border:0; width:150px;  }
+#cnt { width:35px; height:15px; text-align:center; }
 </style>
 <script>
 function chkAll(all) {
@@ -83,58 +84,99 @@ function chkBuy() {
 	else				document.frmCart.submit();
 
 }
+
+function setCnt(ocidx, num, cnt, stock){
+// 상품 수량 변경 함수
+// ajax로 장바구니 수량 수정 하고
+// 수량 더해질 때마다 상품 가격 더해주기 가격은 (상품 판매가격 * (1-할인율))
+// 장바구니내 특정 상품의 수량을 변경하는 함수
+// num이 +면 수량 1증가 num이 -면 수량 1감소
+// alert(cnt);
+	$.ajax({
+		type : "POST", url : "/potted/cartProcUp", data : {"ocidx" : ocidx, "num" : num, "cnt" : cnt, "stock" : stock},
+		success : function(chkRs) {
+			if (chkRs == 0) {
+				alert("상품 수량 변경에 실패했습니다.\n다시 시도하세요.");
+			}
+			location.reload();
+		}
+	});
 	
+}
+
 </script>
 <div style="width:1000px; margin-left:570px; ">
 <h2>장바구니</h2>
 <form name="frmCart" action="orderForm" method="post">
+<input type="hidden" name="kind" value="c" />
+<c:set var="optionPrice" value="0" />
+<c:set var="dcPrice" value="0" />
+<c:set var="pcPrice" value="0" />
+<c:set var="productPrice" value="0" />
+<c:set var="deliPrice" value="3500" />
 <c:set var="totalPrice" value="0" />
+
 <input type="checkbox" name="all" id ="all" checked="checked" onclick="chkAll(this);" />
 <input type="hidden" name="chk" /><!-- chk 체크박스를 배열로 처리하기 위해 인위적으로 지정해 놓은 컨트롤 (값이 하나일때는 배열로 만들 수 없기 때문에) -->
 <label for="all" id="all">전체 선택</label>
-	<div style="display:none;">
-	<c:if test="${orderCart.size() > 0}">
-		<c:forEach items="${orderCart}" var="oc" varStatus="status">
-			${totalPrice = totalPrice + oc.getOc_price()}
-		</c:forEach>
-	</c:if>
-	</div>
+
 <c:if test="${orderCart.size() > 0}">
-	<table id="list" cellpadding="20" cellspacing="0">
+	<table id="list" cellpadding="15" cellspacing="0">
 		<tr height="20">
 			<th width="*" colspan="3">상품정보</th>
-			<th width="10%">수량</th>
+			<th width="20%">수량</th>
 			<th width="15%">주문금액</th>
 			<th></th>
 		</tr>
 		<c:forEach items="${orderCart}" var="oc" varStatus="status">
+			<input type="hidden" name="stock" id="stock" value="${oc.getPi_stock()}">
+			<div style="display:none;">
+				${productPrice = oc.getPi_price() * (1 - oc.getPi_dc())}
+				${pcPrice = productPrice * oc.getOc_cnt()}
+				${optionPrice = oc.getOc_price() - productPrice }
+				${dcPrice = dcPrice + ((oc.getPi_price() * oc.getPi_dc()) * oc.getOc_cnt())}
+				${totalPrice = totalPrice + optionPrice + pcPrice}
+				<c:if test="${totalPrice >= 30000}">
+					${deliPrice = 0}
+				</c:if>
+			</div>
 		<tr height="30">
 			<td width="5%" valign="top">
 				<input type="checkbox" name="chk" value="${oc.getOc_idx()}" onclick="chkOne(this);" checked="checked" />
 			</td>
-			<td><a href="productView?piid=${oc.getPi_id()}"><img src="/potted/resources/images/product/${oc.getPi_img()}" id="img" /></a></td>
-			<td valign="top"><span style="font-size:17px;">${oc.getPi_name()}</span><br /><span style="color:grey;">${oc.getOc_option()}</span></td>
-			<td align="center">${oc.getOc_cnt()}</td>
+			<td width="10%"><a href="productView?piid=${oc.getPi_id()}"><img src="/potted/resources/images/product/${oc.getPi_img()}" id="img" /></a></td>
+			<td valign="top" width="40%"><span style="font-size:17px;">${oc.getPi_name()}</span><br /><span style="color:grey;">${oc.getOc_option()}</span></td>
+			<td align="center"><input type="button" value="-" onclick="setCnt(${oc.getOc_idx()}, this.value, ${oc.getOc_cnt()}, ${oc.getPi_stock()});" />
+			<input type="text" name="cnt" id="cnt" value="${oc.getOc_cnt()}" readonly="readonly" />
+			<input type="button" value="+" onclick="setCnt(${oc.getOc_idx()}, this.value, ${oc.getOc_cnt()}, ${oc.getPi_stock()});" />
+			</td>
 			
-			<td align="center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${oc.getOc_price()}" /></td>
+			<td align="center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${pcPrice + optionPrice}" /></td>
 			<td valign="top"><input type="button" id="del" value="⊗" onclick="cartDel(${oc.getOc_idx()});" /></td>
 		</tr>
 		</c:forEach>
 	</table>	
 	<br /><br />
+	<span style="font-size:15px;">📦3만원 이상 구매시 배송비 무료</span>
 	<hr width="800" align="left" style="border-bottom:1.5px solid #A1A1A1;"/>
+	<div style="display:none;">
+	<c:if test="${orderCart.size() > 0}">
+		<c:forEach items="${orderCart}" var="oc" varStatus="status">
+		</c:forEach>
+	</c:if>
+	</div>
 	<table id="total" cellpadding="0" cellspacing="0">
-		<tr height="30px;"><th colspan="9">총 주문 상품 ${orderCart.size()}개</th></tr>
+		<tr height="30px;"><th colspan="9">총 주문 상품 ${orderCart.size()}개 </th></tr>
 		<tr height="120px;">
 			<td width="10%"></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice}" /><p>상품 금액</p></td>
+			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice + dcPrice}" /><p>상품 금액</p></td>
 			<td>+<p style="height:15px;"></p></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="3500" /><p>배송비</p></td>
+			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${deliPrice}" /><p>배송비</p></td>
 			<td>-<p style="height:15px;"></p></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="3500" /><p>할인금액</p></td>
+			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dcPrice}" /><p>할인금액</p></td>
 			<td>=<p style="height:15px;"></p></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice}" /><p>총 주문금액</p></td>
-			<td width="10%"></td>
+			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice + deliPrice}" /><p>총 주문금액</p></td>
+			<td width="10%"><input type="hidden" name="totalc" value="${totalPrice + deliPrice}" /></td>
 		</tr>
 	</table>
 	<br />

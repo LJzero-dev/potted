@@ -27,6 +27,11 @@ public class CartSvc {
 		return result;
 	}
 
+	public int cartUp(int ocidx, String miid, int cnt, String num, int stock) {
+		int result = cartDao.cartUp(ocidx, miid, cnt, num, stock);
+		return result;
+	}
+
 
 
 

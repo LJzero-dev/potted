@@ -14,6 +14,11 @@ import vo.*;
 
 @Controller
 public class OrderFormCtrl {
+	private OrderSvc orderSvc;
+
+    public void setOrderSvc(OrderSvc orderSvc) {
+        this.orderSvc = orderSvc;
+    }
 
 	@LoginRequired
 	@PostMapping("/orderForm")
@@ -25,13 +30,14 @@ public class OrderFormCtrl {
 		String pi_name = request.getParameter("pi_name");
 		String total = request.getParameter("totalPrice");
 		String option = request.getParameter("option");
+		String totalc = request.getParameter("totalc");
 		
 		
 		MemberInfo mi = (MemberInfo) request.getSession().getAttribute("loginInfo");
 		
 		String miid = mi.getMi_id();
 		
-		String select = "select a.pi_id, a.pi_name, a.pi_img1, b.pos_id, if(a.pi_dc > 0, round((1 - a.pi_dc) * a.pi_price), a.pi_price) price, "; 
+		String select = "select a.pi_id, a.pi_name, a.pi_img1, b.pos_id, "; 
 		String from = "from t_product_info a, t_product_option_stock b "; 
 		String where = "where a.pi_id = b.pi_id and a.pi_isview = 'y' and b.pos_isview = 'y' ";
 		
@@ -39,7 +45,7 @@ public class OrderFormCtrl {
 			String[] arr = request.getParameterValues("chk");
 			select += " c.oc_cnt cnt, c.oc_idx ";
 			from += ", t_order_cart c ";
-			where += " and a.pi_id = c.pi_id and b.pos_idx = c.pos_idx and c.mi_id = '" + miid + "' and (";
+			where += " and a.pi_id = c.pi_id and b.pos_id = c.mi_id = '" + miid + "' and (";
 			
 			for (int i = 1 ; i < arr.length ; i++) {
 				if (i == 1) where += "c.oc_idx = " + arr[i];
@@ -49,12 +55,12 @@ public class OrderFormCtrl {
 			
 		} else {	// 바로 구매(d)일 경우
 				int cnt = Integer.parseInt(request.getParameter("cnt"));
+				System.out.println(cnt);
 				select += cnt + " cnt ";
-				where += " and a.pi_id = '" + pi_id;
+				where += " and a.pi_id = '" + pi_id + "' ";
 		}
 		
-		OrderSvc orderSvc = new OrderSvc(); 
-		ArrayList<OrderCart> pdtList = orderSvc.getBuyList(kind, select + from + where);
+		List<OrderCart> pdtList = orderSvc.getBuyList(kind, select + from + where);
 		ArrayList<MemberAddr> addrList = orderSvc.getAddrList(miid);
 		
 		request.setAttribute("pdtList", pdtList);
