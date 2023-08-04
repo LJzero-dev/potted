@@ -3,7 +3,20 @@
 <%@ include file="../inc/inc_head.jsp" %>
 <c:set var="loginInfo" value="<%=loginInfo %>" />
 <script>
-	function rInsert()
+function rInsert(flidx) {
+	var rcon = document.frm.rcontent.value;
+	$.ajax({
+		type : "POST", url : "/potted/replyIn", data : { "flidx" : flidx, "rcon" : rcon },
+		success : function(chk) {
+			if (chk != 2 && chk != 1 ) {	// 댓글 등록과 게시판 리스트 댓글증가가  실패했을 경우
+				alert("댓글 등록을 실패했습니다 \n다시 시도해 주세요.");
+			} else {	// 댓글 등록이 성공했을경우
+				location.href = "freeView?cpage=1&flidx=" + flidx;
+			}
+		}
+	});
+}
+
 
 	function rDel(fridx, flidx) {
 		if(confirm("정말 삭제하시겠습니까?")){
@@ -61,27 +74,29 @@
 	</c:if>
 	<br />
 <hr style="border-width:1px;" />
-	<br />
-	<div>
+<br />
+<div>
 		<div style="float:left; font-size:16px;">
 		댓글 : ${fl.getFl_reply()}
 		</div>
 		<div style="float:right;">
 		<input type="button" class="bt" value="글목록" onclick="location.href='freeList${args}';" />&nbsp;&nbsp;
+		<c:if test="${loginInfo.getMi_id() == rl.getMi_id()}">
 		<input type="button" class="bt" value="수정" onclick="" />&nbsp;&nbsp;
 		<input type="button" class="bt" value="삭제" onclick="" />
+		</c:if>
 		</div>
-	</div>
-	<br /><br /><br />
-	<!--  게시글 내용 종료 -->
-	<hr style="border-width:1px;" />
-	
-	<!--  댓글 내용 시작 -->
+</div>
+<br /><br /><br />
+<!--  게시글 내용 종료 -->
+<hr style="border-width:1px;" />
+<!--  댓글 내용 시작 -->
+<form name="frm" method="post">
 	<table style="width:100%;" cellpadding="0" cellspacing="0">
 	<tr height="60">
 	<td align="center" class="rtList" width="20%" class="rtList"><strong>${loginInfo.getMi_name()}</strong></td>
-	<td width="*" class="rtList"><textarea cols="200" rows="5" placeholder="댓글을 입력해주세요."></textarea></td>
-	<td width="20" class="rtList">&nbsp;&nbsp;<input type="button" value="등록" class="bt" onclick="rInsert(${loginInfo.getMi_id()})"></td>
+	<td width="*" class="rtList"><input type="text" name="rcontent" placeholder="댓글을 입력해주세요." value="" /></td>
+	<td width="20" class="rtList">&nbsp;&nbsp;<input type="button" id="btn" value="등록" class="bt" onclick="rInsert(${fl.getFl_idx()});"></td>
 	</tr>
 	<c:if test="${replyList.size() > 0}">
 		<c:forEach items="${replyList}" var="rl" varStatus="status">
@@ -96,6 +111,7 @@
 		</c:forEach>
 	</c:if>
 	</table>
+</form>
 	<!--  댓글 내용 종료 -->
 </div>
 

@@ -32,9 +32,25 @@ public class FreeSvc {
 		List<ReplyList> replyList= freeDao.getReplyList(flidx);
 		return replyList;
 	}
-
+	/*
+	public int replyIn() {
+		int result = freeDao.replyIn();
+		return result;
+	}*/
+	
+	
 	public int replyDel(int fridx, int flidx) {
 		int result = freeDao.replyDel(fridx, flidx);
+		return result;
+	}
+
+	public int freeInsert(FreeList fl) {
+		int result = freeDao.freeInsert(fl);
+		return result;
+	}
+
+	public int replyInsert(String miid, String fr_content, int flidx) {
+		int result = freeDao.replyInsert(miid, fr_content, flidx);
 		return result;
 	}
 	

@@ -36,6 +36,15 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		
+				<!-- 파일 업로드를 위한 추가부분 -->
+		<multipart-config>
+			<max-file-size>20971520</max-file-size><!-- 20MB : 업로드되는 파일의 최대크기 -->
+			<max-request-size>41943040</max-request-size><!-- 40MB : 한번에 올릴수 있는 최대크기 -->
+			<file-size-threshold>20971520</file-size-threshold><!-- 20MB : 메모리 사용용량 -->
+		</multipart-config>
+		<!-- 파일 업로드를 위한 추가부분 종료 -->
+		
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>

@@ -84,6 +84,15 @@ public class FreeDao {
 			});
 		return fl;
 	}
+	
+	public int freeInsert(FreeList fl) {
+		String sql = "select max(fl_idx) + 1 from t_free_list";
+		int idx = jdbc.queryForObject(sql, Integer.class);
+
+		sql = "insert into t_free_list (fl_idx, fl_writer, fl_title, fl_content, fl_img1) values (?, ?, ?, ?, ?)";
+		int result = jdbc.update(sql, idx, fl.getFl_writer(), fl.getFl_title(), fl.getFl_content(), fl.getFl_img1());
+		return idx;
+	}
 
 	public List<ReplyList> getReplyList(int flidx) {
 		String sql="select a.*, if(curdate() = date(fr_date), mid(fr_date, 12, 5), mid(fr_date, 3, 8)) wdate, b.mi_name from t_free_reply a, t_member_info b " + 
@@ -106,4 +115,23 @@ public class FreeDao {
 		result += jdbc.update(sql);
 		return result;
 	}
+
+	public int replyUpdate(int flidx) {
+	// 지정한 게시글의 댓글수를 1 증가시키는 메소드
+	
+		String sql = "update t_free_list set fl_reply = fl_reply + 1 where fl_idx = " + flidx;
+		int result = jdbc.update(sql);
+		return result;
+	}
+
+
+	public int replyInsert(String miid, String fr_content, int flidx) {
+		int result = replyUpdate(flidx);
+		String sql = "insert into t_free_reply (fl_idx, mi_id, fr_content) values (" + flidx + ", '" + miid + "', '" + fr_content + "')";
+		result += jdbc.update(sql);
+		
+		return result;
+	}
+
+
 }

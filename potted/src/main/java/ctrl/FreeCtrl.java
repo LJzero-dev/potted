@@ -4,6 +4,10 @@ import java.io.*;
 import javax.servlet.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import config.CtrlConfig.LoginRequired;
+
 import java.util.*;
 import java.net.*;
 import org.springframework.ui.*;
@@ -92,6 +96,62 @@ public class FreeCtrl {
 		
 		return "free/freeView";
 	}
+	
+	@LoginRequired
+	@GetMapping("/freeFormIn")
+	public String freeFormIn() {
+		return "free/freeFormIn";
+	}
+
+	@PostMapping("/freeProcIn")
+	public String freeProcIn(MultipartFile[] uploadFile, HttpServletRequest request) throws Exception {
+	// 받아오는 file컨트롤의 이름과 매개변수의 이름이 같아야 함
+		String uploadPath = "E:/shj/pjp/potted/src/main/webapp/resources/images/free";
+		String files = "";	// for문돌리기위해  ""을 안넣으면 null이되서
+		FreeList fl = new FreeList();
+		for (MultipartFile file : uploadFile) {
+			File saveFile = new File(uploadPath, file.getOriginalFilename());
+			// 저장할 파일 객체생성
+			try {
+				file.transferTo(saveFile);
+				files += "," + file.getOriginalFilename();
+				fl.setFl_img1(file.getOriginalFilename());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		String title = request.getParameter("fl_title");
+		String content = request.getParameter("fl_content");
+		fl.setFl_title(title);
+		fl.setFl_content(content);
+
+		HttpSession session = request.getSession();
+		MemberInfo mi = (MemberInfo)session.getAttribute("loginInfo");
+		fl.setFl_writer(mi.getMi_id());
+
+		int result = freeSvc.freeInsert(fl);
+
+		return "redirect:/freeView?cpage=1&flidx=" + result;
+										// 앞에 ,를 짜르기 위한 substring
+	}
+	
+	@PostMapping("/replyIn")
+	public void replyeInProc(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		String fr_content = request.getParameter("rcon").trim();
+		int flidx = Integer.parseInt(request.getParameter("flidx"));
+		
+		int result = freeSvc.replyInsert(miid, fr_content, flidx);
+
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(result);
+	}
+	
 	
 	@GetMapping("/replyDel")
 	public String replyDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
