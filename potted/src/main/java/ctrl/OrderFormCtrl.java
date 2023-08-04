@@ -31,6 +31,8 @@ public class OrderFormCtrl {
 		String total = request.getParameter("totalPrice");
 		String option = request.getParameter("option");
 		String totalc = request.getParameter("totalc");
+		String delic = request.getParameter("delic");
+		String todelc = request.getParameter("todelc");
 		
 		
 		MemberInfo mi = (MemberInfo) request.getSession().getAttribute("loginInfo");
@@ -75,7 +77,11 @@ public class OrderFormCtrl {
 		model.addAttribute("pi_name", pi_name);
 		model.addAttribute("total", total);
 		model.addAttribute("option", option);
-		model.addAttribute("mi_name", mi_name);
+		model.addAttribute("option", option);
+		model.addAttribute("option", option);
+		model.addAttribute("totalc", totalc);
+		model.addAttribute("delic", delic);
+		model.addAttribute("todelc", todelc);
 		model.addAttribute("mi_phone", mi_phone);
 		model.addAttribute("mi_email", mi_email);
 		model.addAttribute("mi_point", mi_point);

@@ -47,17 +47,16 @@ function changePoint(amt,pnt,min,unit) {
 function chAddr(val) {
 	var frm = document.frmOrder;
 	var arr = val.split("|");
-	var phone = arr[2].split("-");
-	frm.ma_name.value = arr[0];
-	frm.oi_name.value = arr[1];
-	frm.p2.value = phone[1];
-	frm.p3.value = phone[2];
-	frm.oi_zip.value = arr[3];
-	frm.oi_addr1.value = arr[4];
-	frm.oi_addr2.value = arr[5];
+	frm.oi_name.value = arr[0];
+	frm.oi_phone.value = arr[1];
+	frm.oi_zip.value = arr[2];
+	frm.oi_addr1.value = arr[3];
+	frm.oi_addr2.value = arr[4];
 }
 </script>
+
 <div class="shop_content payment">
+	<form name="frmOrder" action="orderProcIn" method="post">
 	<div class="order_wrap">
 		<h1 class="shop_tit">결제하기</h1>
 		<div class="pd_box">
@@ -98,14 +97,13 @@ function chAddr(val) {
 	    <div class="pd_box delivery">
 	    	<h3>배송 정보</h3>
 	    	<span>주소 선택 :</span>
-	    	<select class="form_control">
+	    	<select class="form_control" onchange="chAddr(this.value);">
 			<%
 			String maname = "", marname = "", maphone = "", mazip = "", maaddr1 = "", maaddr2 = "";
 			// 처음 페이지 로딩 시 보여줄 기본주소의 값들을 저장할 변수
 			
 			for (MemberAddr ma : addrList) {
 				if (ma.getMa_basic().equals("y")) {	// 기본주소이면
-					
 					maname = ma.getMa_name();
 					marname = ma.getMa_rname();
 					maphone = ma.getMa_phone();
@@ -114,23 +112,23 @@ function chAddr(val) {
 					maaddr2 = ma.getMa_addr2();
 				}
 				String val = "", txt = "";
-				val = ma.getMa_name() + "|" + ma.getMa_rname() + "|" + ma.getMa_phone() + "|" + ma.getMa_zip() + "|" + ma.getMa_addr1() + "|" + ma.getMa_addr2();
-				txt = "[" + ma.getMa_zip() + "] " + ma.getMa_addr1() + " " + ma.getMa_addr2();
+				val = ma.getMa_rname() + "|" + ma.getMa_phone() + "|" + ma.getMa_zip() + "|" + ma.getMa_addr1() + "|" + ma.getMa_addr2();
+				txt = ma.getMa_name();
 				
 				out.println("<option value='" + val + "'>" + txt + "</option>");
 			}
 			%>
 			</select>
 			<div class="inp_box pd">
-				<input type="text" placeholder="수령인" class="w50 h30" />
-				<input type="text" placeholder="연락처" class="w50 h30" />
+				<input type="text" name="oi_name" value="<%=marname %>" placeholder="수령인" class="w50 h30" />
+				<input type="text" name="oi_phone" value="<%=maphone %>" placeholder="연락처" class="w50 h30" />
 			</div>
 			<div class="inp_box">				
-				<input type="text" placeholder="우편번호" class="w50 h30" />
+				<input type="text" name="oi_zip" value="<%=mazip %>" placeholder="우편번호" class="w50 h30" />
 			</div>
 			<div class="inp_box">				
-				<input type="text" placeholder="주소" class="w100 h30" />
-				<input type="text" placeholder="상세주소" class="w100 h30" style="margin-top:6px;" />
+				<input type="text" name="oi_addr1" value="<%=maaddr1 %>" placeholder="주소" class="w100 h30" />
+				<input type="text" name="oi_addr2" value="<%=maaddr2 %>" placeholder="상세주소" class="w100 h30" style="margin-top:6px;" />
 			</div>
 			<select class="form_control2">
 				<option value="">배송메모를 선택해 주세요.</option>
@@ -174,8 +172,8 @@ function chAddr(val) {
 					<p class="text-gray">상품 할인금액</p>
 				</div>
 				<div class="pay_number">
-					<p>${total}원</p>
-					<p>+3,500원</p>
+					<p>${totalc}원</p>
+					<p>${delic }원</p>
 					<p>-118,656원</p>
 				</div>
 				<div class="col_ctr">
@@ -192,5 +190,6 @@ function chAddr(val) {
 			<a href="javascript:void(0);" class="paymentBtn">결제하기</a>
 	    </div>
 	</div>
+	</form>
 	<%@ include file="../inc/inc_foot.jsp" %>
 </div>
