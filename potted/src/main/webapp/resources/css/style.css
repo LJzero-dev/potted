@@ -72,7 +72,7 @@
 .paydetail .col_ctr p:nth-of-type(2) {float:right; text-align:right; font-size:16px; font-weight:bold;}
 .bg-gray {margin-top:49px; padding:7px 30px; background:#e7e7e7;}
 .bg-gray p {font-size:13px; font-weight:bold;}
-.paymentBtn {display:block; width:100%; padding:20px 0; text-align:center; font-size:16px; font-weight:bold; background:#00b564; color:#fff !important;}
+.paymentBtn {display:block; width:100%; padding:20px 0; text-align:center; font-size:16px; font-weight:bold; background:#00b564; color:#fff !important; border:0; cursor:pointer;}
 
 /* notice table css */
 .nhList { border-bottom:2px solid black; font-size:20px; color:#1cad0a;}

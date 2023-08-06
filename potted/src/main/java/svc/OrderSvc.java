@@ -21,4 +21,9 @@ public class OrderSvc {
 		ArrayList<MemberAddr> addrList = orderDao.getAddrList(miid);
 		return addrList;
 	}
+
+	public int orderInsert(OrderInfo oi, OrderDetail od) {
+		int result = orderDao.memberInsert(oi, od);
+		   return result;
+	}
 }

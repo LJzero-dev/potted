@@ -190,6 +190,9 @@ if (pi.getPi_dc() != 0) {
 	<input type="hidden" name="kind" value="d" />
 	<input type="hidden" name="pi_id" value="<%=pi.getPi_id() %>" />
 	<input type="hidden" name="pi_name" value="<%=pi.getPi_name()%>" />
+	<input type="hidden" name="pi_price" value="<%=pi.getPi_price()%>" />
+	<input type="hidden" name="pi_img1" value="<%=pi.getPi_img1() %>" />
+	<input type="hidden" name="pi_dc" value="<%=pi.getPi_dc()%>" />
 	<input type="hidden" id="option" name="option" value="없음" /><!-- 옵션들어갈 부분 -->
 	<input type="hidden" id="totalPrice" name="totalPrice" value="<%=realPrice %>" />
 	<table width="100%" cellpadding="5" id="info" >

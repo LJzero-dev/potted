@@ -28,6 +28,9 @@ public class OrderFormCtrl {
 		// 장바구니 구매 : c | 바로구매 : d
 		String pi_id = request.getParameter("pi_id");
 		String pi_name = request.getParameter("pi_name");
+		String pi_price = request.getParameter("pi_price");
+		String pi_img1 = request.getParameter("pi_img1");
+		String pi_dc = request.getParameter("pi_dc");
 		String total = request.getParameter("totalPrice");
 		String option = request.getParameter("option");
 		String totalc = request.getParameter("totalc");
@@ -75,9 +78,11 @@ public class OrderFormCtrl {
 		
 		model.addAttribute("pi_id", pi_id);
 		model.addAttribute("pi_name", pi_name);
+		model.addAttribute("pi_price", pi_price);
+		model.addAttribute("pi_img1", pi_img1);
+		model.addAttribute("pi_dc", pi_dc);
 		model.addAttribute("total", total);
-		model.addAttribute("option", option);
-		model.addAttribute("option", option);
+		model.addAttribute("mi_name", mi_name);
 		model.addAttribute("option", option);
 		model.addAttribute("totalc", totalc);
 		model.addAttribute("delic", delic);
@@ -88,5 +93,50 @@ public class OrderFormCtrl {
 		
 		
 		return "order/orderForm";
+	}
+	
+	@PostMapping("/orderProcIn")
+	public String orderProcIn(Model model, HttpServletRequest request) throws Exception  {
+		request.setCharacterEncoding("utf-8");
+		
+		MemberInfo mi = (MemberInfo) request.getSession().getAttribute("loginInfo");
+		String miid = mi.getMi_id();
+		
+		String oi_apointParam = request.getParameter("oi_apoint");
+	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // 소숫점 이하 부분 제거
+		
+		OrderInfo oi = new OrderInfo();
+		OrderDetail od = new OrderDetail();
+	
+		System.out.println(request.getParameter("oi_name"));
+		System.out.println(request.getParameter("oi_phone"));
+		System.out.println(request.getParameter("oi_zip"));
+		System.out.println(request.getParameter("oi_addr1"));
+		System.out.println(request.getParameter("oi_payment"));
+		System.out.println(Integer.parseInt(request.getParameter("oi_pay")));
+		System.out.println(Integer.parseInt(request.getParameter("oi_upoint")));
+		System.out.println(oi_apoint);
+		System.out.println(request.getParameter("od_name"));
+		System.out.println(request.getParameter("option"));
+		
+		oi.setMi_id(miid);
+		oi.setOi_name(request.getParameter("oi_name"));
+		oi.setOi_phone(request.getParameter("oi_phone"));
+		oi.setOi_zip(request.getParameter("oi_zip"));
+		oi.setOi_addr1(request.getParameter("oi_addr1"));
+		oi.setOi_addr2(request.getParameter("oi_addr2"));
+		oi.setOi_memo(request.getParameter("oi_memo"));
+		oi.setOi_payment(request.getParameter("oi_payment"));
+		oi.setOi_pay(Integer.parseInt(request.getParameter("oi_pay")));
+		oi.setOi_upoint(Integer.parseInt(request.getParameter("oi_upoint")));
+		oi.setOi_apoint(oi_apoint);
+		
+		int result = orderSvc.orderInsert(oi, od);
+		
+		
+		od.setOd_name(request.getParameter("od_name"));
+		od.setOd_option(request.getParameter("option"));
+		
+		return "order/orderComplete";
 	}
 }

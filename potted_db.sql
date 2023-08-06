@@ -248,9 +248,10 @@ create table t_order_info (
 	oi_payment char(1) default 'a',		-- 결제수단
 	oi_pay int default 0,				-- 결제액
 	oi_upoint int default 0,			-- 사용포인트
+    oi_apoint int default 0,			-- 적립포인트
 	oi_spoint varchar(50) default '',	-- 송장번호
 	oi_status char(1) default 'a',		-- 주문상태
-	oi_date datetime default now(),		-- 주무일
+	oi_date datetime default now(),		-- 주문일
     constraint fk_t_order_info_pi_id foreign key (pi_id) references t_product_info(pi_id),
 	constraint fk_t_order_info_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
