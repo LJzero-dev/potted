@@ -132,5 +132,11 @@ public class FreeDao {
 		return result;
 	}
 
+	
+	public int flDel(int idx) {
+		String sql = "update t_free_list set fl_isview = 'n' where fl_idx = " + idx;
+		int result = jdbc.update(sql);
+		return result;
+	}
 
 }

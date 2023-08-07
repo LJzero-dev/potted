@@ -3,6 +3,13 @@
 <%@ include file="../inc/inc_head.jsp" %>
 <c:set var="loginInfo" value="<%=loginInfo %>" />
 <script>
+function flDel(idx) {
+	if(confirm("정말 삭제하시겠습니까?")){
+		location.href = "flDel?flidx=" + idx;
+	}
+}
+
+
 function rInsert(flidx) {
 	var rcon = document.frm.rcontent.value;
 		if(rcon != "" || rcon != null){
@@ -87,7 +94,7 @@ function rInsert(flidx) {
 		<input type="button" class="bt" value="글목록" onclick="location.href='freeList${args}';" />&nbsp;&nbsp;
 		<c:if test="${loginInfo.getMi_id() == rl.getMi_id()}">
 		<input type="button" class="bt" value="수정" onclick="" />&nbsp;&nbsp;
-		<input type="button" class="bt" value="삭제" onclick="" />
+		<input type="button" class="bt" value="삭제" onclick="flDel(${fl.getFl_idx()});" />
 		</c:if>
 		</div>
 </div>

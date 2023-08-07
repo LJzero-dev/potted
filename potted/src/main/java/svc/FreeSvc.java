@@ -54,4 +54,9 @@ public class FreeSvc {
 		return result;
 	}
 	
+	public int flDel(int idx) {
+		int result = freeDao.flDel(idx);
+		return result;
+	}
+	
 }

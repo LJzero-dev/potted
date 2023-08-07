@@ -4,6 +4,12 @@
 <c:set var="loginInfo" value="<%=loginInfo %>" />
 <script>
 
+	function flDel(idx) {
+		if(confirm("정말 삭제하시겠습니까?")){
+			location.href = "flDel?flidx=" + idx;
+		}
+	}
+
 
 	function rDel(fridx, flidx) {
 		if(confirm("정말 삭제하시겠습니까?")){
@@ -67,7 +73,7 @@
 		</div>
 		<div style="float:right;">
 			<input type="button" class="bt" value="글목록" onclick="location.href='freeList${args}';" />
-			<input type="button" class="bt" value="삭제" onclick="flDel()" />
+			<input type="button" class="bt" value="삭제" onclick="flDel(${fl.getFl_idx()});" />
 		</div>
 	</div>
 	<br /><br /><br />

@@ -37,5 +37,10 @@ public class FreeSvc {
 		int result = freeDao.replyDel(fridx, flidx);
 		return result;
 	}
+
+	public int flDel(int idx) {
+		int result = freeDao.flDel(idx);
+		return result;
+	}
 	
 }
