@@ -16,19 +16,19 @@ canvas {
 <script>
 var color = Chart.helpers.color;
 var barChartData = {
-	labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
+	labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
 	datasets: [{
 		label: '매출액',
 		backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 		borderColor: window.chartColors.red,
 		borderWidth: 1,
-		data: [30, 40, 35, 25, 55, 44, 18]
+		data: [30, 40, 35, 25, 55, 44, 18, 30, 40, 35, 25, 55]
 	}, {
 		label: '순이익',
 		backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
 		borderColor: window.chartColors.blue,
 		borderWidth: 1,
-		data: [15, 20, 17, 13, 28, 22, 9]
+		data: [15, 20, 17, 13, 28, 22, 9, 15, 20, 17, 13, 28]
 	}
 /* -- 데이터 막대 추가
 	, {

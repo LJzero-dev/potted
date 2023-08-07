@@ -144,7 +144,7 @@ function setCnt(ocidx, num, cnt, stock){
 			<td width="5%" valign="top">
 				<input type="checkbox" name="chk" value="${oc.getOc_idx()}" onclick="chkOne(this);" checked="checked" />
 			</td>
-			<td width="10%"><a href="productView?piid=${oc.getPi_id()}"><img src="/potted/resources/images/product/${oc.getPi_img()}" id="img" /></a></td>
+			<td width="10%"><a href="productView?piid=${oc.getPi_id()}"><img src="/ad_potted/resources/images/product/${oc.getPi_img()}" id="img" /></a></td>
 			<td valign="top" width="40%"><span style="font-size:17px;">${oc.getPi_name()}</span><br /><span style="color:grey;">${oc.getOc_option()}</span></td>
 			<td align="center"><input type="button" value="-" onclick="setCnt(${oc.getOc_idx()}, this.value, ${oc.getOc_cnt()}, ${oc.getPi_stock()});" />
 			<input type="text" name="cnt" id="cnt" value="${oc.getOc_cnt()}" readonly="readonly" />

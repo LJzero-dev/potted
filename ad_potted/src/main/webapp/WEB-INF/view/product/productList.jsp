@@ -79,7 +79,7 @@ if (pageInfo.getRcnt() > 0) {
 		<tr align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
 		<td><%=num %></td>
 		<td width="24%"><a href="<%=lnk %>">
-			<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="100" height="100" border="0" align="left" />
+			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="100" height="100" border="0" align="left" />
 			<input type="hidden" name="piid" value="<%=pi.getPi_id()%>" />
 			<div style="float:right; font-size:16px;"><%=pi.getPi_name() %></div>
 		</a></td>

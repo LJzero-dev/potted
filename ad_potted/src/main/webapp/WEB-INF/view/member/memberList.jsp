@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table>
+<h2>회원관리</h2>
+<%-- <table>
 <tr>
 <th>no</th>
 <th>회원ID</th>
@@ -21,11 +22,12 @@
 	<td align="center" class="ntList">${status.index}</td>
 	<td align="center" class="ntList">${mi.getMi_id()}</td>
 	<td align="center" class="ntList"></td>
+	<td align="center" class="ntList">${mi.getMi_date()}</td>
 	<td align="center" class="ntList">${mi.getMi_lastlogin()}</td>
 	</tr>
 	</c:forEach>
 </c:if>
-</table>
+</table> --%>
 
 </body>
 </html>

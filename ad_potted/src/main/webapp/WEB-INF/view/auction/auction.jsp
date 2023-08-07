@@ -27,7 +27,7 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 
 </script>
 <div style="width:1000px; margin:0 auto; ">
-<h2 style="font-size:20pt;"><a href="productList" style="text-decoration:none; color:black;">상품관리</a></h2>
+<h2 style="font-size:20pt;"><a href="productList" style="text-decoration:none; color:black;">옥션관리</a></h2>
 
 
 <table width="1000">

@@ -16,14 +16,14 @@
 <div style="width:800px; margin:0 auto; align:center; ">
 <br />
 <table>
-<tr><td colspan="10"><img src="" style="width:750px; height:300px;"/></td></tr>
+<tr><td colspan="10"><img src="/potted/resources/images/banner/index.png" style="width:750px; height:300px;"/></td></tr>
 <tr height="40px;"></tr>
 <tr><td class="title">새로들어온 식물</td><td colspan="3" >&nbsp;<a href="productList?cpage=1&ob=a" class="showall">모두 보기 >></a></td></tr>
 <tr>
 <c:forEach items="${productLista}" var="pi" >
 	<c:set var="price">${pi.getPi_price() * (1 - pi.getPi_dc())}</c:set>
 	<c:set var="dc">${pi.getPi_dc() * 100}</c:set>
-	<td><a href="productView?piid=${pi.getPi_id()}"><img id="timg" src="/potted/resources/images/product/${pi.getPi_img1()}" /><br /><span class="name">${pi.getPi_name()}</span></a><br />
+	<td><a href="productView?piid=${pi.getPi_id()}"><img id="timg" src="/ad_potted/resources/images/product/${pi.getPi_img1()}" /><br /><span class="name">${pi.getPi_name()}</span></a><br />
 	<span class="price">${fn:substringBefore(price, '.')}원</span>&nbsp;<span class="dc">${fn:substringBefore(dc, '.')}%</span><br />
 	<span class="realprice"><del>${pi.getPi_price() }</del></span></td><td width="50px;"></td>
 </c:forEach>
@@ -34,7 +34,7 @@
 <c:forEach items="${productListb}" var="pi" >
 	<c:set var="price">${pi.getPi_price() * (1 - pi.getPi_dc())}</c:set>
 	<c:set var="dc">${pi.getPi_dc() * 100}</c:set>
-	<td><a href="productView?piid=${pi.getPi_id()}"><img id="timg" src="/potted/resources/images/product/${pi.getPi_img1()}" /><br /><span class="name">${pi.getPi_name()}</span></a><br />
+	<td><a href="productView?piid=${pi.getPi_id()}"><img id="timg" src="/ad_potted/resources/images/product/${pi.getPi_img1()}" /><br /><span class="name">${pi.getPi_name()}</span></a><br />
 	<span class="price">${fn:substringBefore(price, '.')}원</span>&nbsp;<span class="dc">${fn:substringBefore(dc, '.')}%</span><br />
 	<span class="realprice"><del>${pi.getPi_price() }</del></span></td><td width="50px;"></td>
 </c:forEach>
