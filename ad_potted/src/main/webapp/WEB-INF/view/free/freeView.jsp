@@ -42,7 +42,7 @@
 	<br /><br />
 	<!--  이미지1이 있을 때 -->
 	<c:if test="${fl.getFl_img1() != null && fl.getFl_img1() != ''}">
-	<img src="/potted/resources/images/free/${fl.getFl_img1()}" />
+	<img src="/potted/resources/images/free/${fl.getFl_img1()}" width="300" height="300" />
 	<br /><br />
 	</c:if>
 	<!--  이미지1이 없을 때 -->
@@ -51,7 +51,7 @@
 	</c:if>
 	<!--  이미지2가 있을 때 -->
 	<c:if test="${fl.getFl_img2() != null && fl.getFl_img2() != ''}">
-	<img src="/potted/resources/images/free/${fl.getFl_img2()}" />
+	<img src="/potted/resources/images/free/${fl.getFl_img2()}" width="300" height="300" />
 	<br />
 	</c:if>
 	<!--  이미지2가 없을 때 -->

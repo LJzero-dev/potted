@@ -35,7 +35,7 @@ var arr = [];
 function showBig(img){
 	var big = document.getElementById("bigImg");
 	//큰 이미지를 보여주는 img태그를 big이라는 이름의 객체로 받아옴.
-	big.src = "/potted/resources/images/product/" + img;
+	big.src = "/ad_potted/resources/images/product/" + img;
 }
 function updateTimer() {
 	const future = Date.parse("<%=pi.getProductAuctionInfo().getPai_end()%>");
@@ -97,20 +97,20 @@ function bid() {
 <!-- 이미지 관련 영역 -->
 	<table width="100%" cellpadding="5" valign="top">
 	<tr><td colspan="3" align="center">
-		<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="260" height="230" id="bigImg" />
+		<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="260" height="230" id="bigImg" />
 	</td></tr>
 	<tr align="center">
 	<td width="33.3%">
-		<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" class="imgs"  onclick="showBig('<%=pi.getPi_img1() %>');" />
+		<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" class="imgs"  onclick="showBig('<%=pi.getPi_img1() %>');" />
 	</td>
 	<td width="33.3%">
 <% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
-		<img src="/potted/resources/images/product/<%=pi.getPi_img2() %>" class="imgs" onclick="showBig('<%=pi.getPi_img2() %>');" />
+		<img src="/ad_potted/resources/images/product/<%=pi.getPi_img2() %>" class="imgs" onclick="showBig('<%=pi.getPi_img2() %>');" />
 <% } %>
 	</td>
 	<td width="33.3%">
 <% if (pi.getPi_img3() != null && !pi.getPi_img3().equals("")) { %>
-		<img src="/potted/resources/images/product/<%=pi.getPi_img3() %>" class="imgs" onclick="showBig('<%=pi.getPi_img3() %>');" />
+		<img src="/ad_potted/resources/images/product/<%=pi.getPi_img3() %>" class="imgs" onclick="showBig('<%=pi.getPi_img3() %>');" />
 <% } %>
 	</td>
 	</tr>

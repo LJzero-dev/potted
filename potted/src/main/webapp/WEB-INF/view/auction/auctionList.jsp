@@ -94,7 +94,7 @@ function showCtgrS(code) {
 }
 </script>
 <div style="width:850px; margin:0 auto; ">
-<h2 style="font-size:20pt;"><a href="auctionList"; style="text-decoration:none; color:black;">STORE</a></h2>
+<h2 style="font-size:20pt;"><a href="auctionList"; style="text-decoration:none; color:black;">AUCTION</a></h2>
 <form name="frm0">
 <div style="overflow:hidden;">
 	<div class="ctgrb" id="AA" onclick="showCtgrB(1);" >다육⦁선인장</div>
@@ -197,9 +197,9 @@ if (pageInfo.getRcnt() > 0) {
 	%>
 	<td width="10%" align="left">
 		<a href="<%=lnk %>">
-			<img id="timg" src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" 
+			<img id="timg" src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" 
 			<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
-			onmouseover="this.src='/potted/resources/images/product/<%=pi.getPi_img2() %>';" onmouseout="this.src='/potted/resources/images/product/<%=pi.getPi_img1() %>';"<% } %> />
+			onmouseover="this.src='/ad_potted/resources/images/product/<%=pi.getPi_img2() %>';" onmouseout="this.src='/ad_potted/resources/images/product/<%=pi.getPi_img1() %>';"<% } %> />
 			<h3>잔여 시간</h3><h3 id="timer<%=i %>"></h3>
 			<h3>현재가 : <%=formatter.format(pi.getProductAuctionInfo().getPai_price()) %> 원</h3>
 			<h3>마감시간 :<br /><%=pi.getProductAuctionInfo().getPai_end() %></h3>	

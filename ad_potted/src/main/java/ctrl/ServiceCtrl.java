@@ -112,4 +112,23 @@ public class ServiceCtrl {
 										// 앞에 ,를 짜르기 위한 substring
 	}
 	
+	@GetMapping("/noticeDel")
+	public String noticeDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		
+		int result = noticeSvc.noticeDel(idx);
+		if (result < 1) {
+			response.setContentType("text/html; charset=utf-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>");
+	         out.println("alert('게시글 삭제에 실패했습니다.');");
+	         out.println("history.back();");
+	         out.println("</script>");
+	         out.close();
+		}
+		
+		return "redirect:/noticeList";
+	}
+	
 }

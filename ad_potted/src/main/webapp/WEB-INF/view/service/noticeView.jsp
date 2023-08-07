@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
-
+<script>
+function noticeDel(idx) {
+	if(confirm("정말 삭제하시겠습니까?")) {
+		location.href = "noticeDel?idx=" + idx;
+	}
+}
+</script>
 
 <h2 style="display:inline; margin-left:20px;">SERVICE</h2>
 <form style="display:inline; float:right;">
@@ -36,7 +42,7 @@
 	<div align="right">
 		<input type="button" class="bt" value="글목록" onclick="location.href='noticeList${args}';" />
 		<input type="button" class="bt" value="수정" onclick="">
-		<input type="button" class="bt" value="삭제" onclick="">
+		<input type="button" class="bt" value="삭제" onclick="noticeDel(${nl.getNl_idx()});">
 	</div>
 </div>
 

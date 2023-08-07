@@ -75,5 +75,11 @@ public class NoticeDao {
 		int result = jdbc.update(sql, idx, nl.getAi_idx(), nl.getNl_title(), nl.getNl_content());
 		return idx;
 	}
+
+	public int noticeDel(int idx) {
+		String sql = "update t_notice_list set nl_isview = 'n' where nl_idx = " + idx;
+		int result = jdbc.update(sql);
+		return result;
+	}
 }
 

@@ -106,7 +106,7 @@ public class FreeCtrl {
 	@PostMapping("/freeProcIn")
 	public String freeProcIn(MultipartFile[] uploadFile, HttpServletRequest request) throws Exception {
 	// 받아오는 file컨트롤의 이름과 매개변수의 이름이 같아야 함
-		String uploadPath = "E:/shj/pjp/potted/src/main/webapp/resources/images/free";
+		String uploadPath = "E:/esm/project/potted/src/main/webapp/resources/images/free";
 		String files = "";	// for문돌리기위해  ""을 안넣으면 null이되서
 		FreeList fl = new FreeList();
 		for (MultipartFile file : uploadFile) {
@@ -127,7 +127,7 @@ public class FreeCtrl {
 
 		HttpSession session = request.getSession();
 		MemberInfo mi = (MemberInfo)session.getAttribute("loginInfo");
-		fl.setFl_writer(mi.getMi_id());
+		fl.setFl_writer(mi.getMi_name());
 
 		int result = freeSvc.freeInsert(fl);
 

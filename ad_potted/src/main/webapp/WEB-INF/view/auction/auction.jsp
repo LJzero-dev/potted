@@ -27,7 +27,7 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 
 </script>
 <div style="width:1000px; margin:0 auto; ">
-<h2 style="font-size:20pt;"><a href="productList" style="text-decoration:none; color:black;">옥션관리</a></h2>
+<h2 style="font-size:20pt;"><a href="auction" style="text-decoration:none; color:black;">옥션관리</a></h2>
 
 
 <table width="1000">
@@ -47,7 +47,7 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	</form>	 
 <%
 if (pageInfo.getRcnt() > 0) {
-	String lnk = "productList?cpage=1" + pageInfo.getSchargs();
+	String lnk = "auction?cpage=1" + pageInfo.getSchargs();
 %>
 	<select name="ob" class="sct" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
 		<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순  🌱</option>
@@ -79,7 +79,7 @@ if (pageInfo.getRcnt() > 0) {
 		<tr align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
 		<td><%=num %></td>
 		<td width="24%"><a href="<%=lnk %>">
-			<img src="/potted/resources/images/product/<%=pi.getPi_img1() %>" width="100" height="100" border="0" align="left" />
+			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="100" height="100" border="0" align="left" />
 			<input type="hidden" name="piid" value="<%=pi.getPi_id()%>" />
 			<div style="float:right; font-size:16px;"><%=pi.getPi_name() %></div>
 		</a></td>
@@ -104,23 +104,23 @@ if (pageInfo.getRcnt() > 0) {
 	if (pageInfo.getCpage() == 1) {
 		out.println("&lt;&lt;&nbsp;&nbsp;&lt;&nbsp;");
 	} else {
-		out.println("<a href='productList?cpage=1" + qs + "'>&lt;&lt;</a>&nbsp;&nbsp;");
-		out.println("<a href='productList?cpage=" + (pageInfo.getCpage() - 1) + qs + "'>&lt;</a>&nbsp;");
+		out.println("<a href='auction?cpage=1" + qs + "'>&lt;&lt;</a>&nbsp;&nbsp;");
+		out.println("<a href='auction?cpage=" + (pageInfo.getCpage() - 1) + qs + "'>&lt;</a>&nbsp;");
 	}
 
 	for (int k = 1, j = pageInfo.getSpage() ; k <= pageInfo.getBsize() && j <= pageInfo.getPcnt() ; k++, j++) {
 		if (pageInfo.getCpage() == j) {
 			out.println("&nbsp;<strong>" + j + "</strong>&nbsp;");
 		} else {
-			out.println("&nbsp;<a href='productList?cpage=" + j + qs + "'>" + j + "</a>&nbsp;");
+			out.println("&nbsp;<a href='auction?cpage=" + j + qs + "'>" + j + "</a>&nbsp;");
 		}
 	}
 	
 	if (pageInfo.getCpage() == pageInfo.getPcnt()) {
 		out.println("&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;&gt;&gt;");
 	} else {
-		out.println("&nbsp;&nbsp;<a href='productList?cpage=" + (pageInfo.getCpage() + 1) + qs + "'>&gt;</a>");
-		out.println("&nbsp;&nbsp;&nbsp;<a href='productList?cpage=" + pageInfo.getPcnt() + qs + "'>&gt;&gt;</a>");
+		out.println("&nbsp;&nbsp;<a href='auction?cpage=" + (pageInfo.getCpage() + 1) + qs + "'>&gt;</a>");
+		out.println("&nbsp;&nbsp;&nbsp;<a href='auction?cpage=" + pageInfo.getPcnt() + qs + "'>&gt;&gt;</a>");
 	}
 	out.println("</p>");
 } else {

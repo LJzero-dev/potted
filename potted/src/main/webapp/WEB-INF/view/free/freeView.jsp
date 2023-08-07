@@ -49,7 +49,7 @@ function rInsert(flidx) {
 	${fl.getFl_title()}
 	</div>
 	<div style="display:inline; float:right; font-size:18px;">
-	${loginInfo.getMi_name()} | ${fl.getFl_date()}&nbsp;&nbsp;조회 : ${fl.getFl_read()}
+	${fl.getFl_writer()} | ${fl.getFl_date()}&nbsp;&nbsp;조회 : ${fl.getFl_read()}
 	</div>
 	<br />
 	<hr style="border-width:1px;" />
@@ -60,7 +60,7 @@ function rInsert(flidx) {
 	<br /><br />
 	<!--  이미지1이 있을 때 -->
 	<c:if test="${fl.getFl_img1() != null && fl.getFl_img1() != ''}">
-	<img src="/potted/resources/images/free/${fl.getFl_img1()}" />
+	<img src="/potted/resources/images/free/${fl.getFl_img1()}" width="200" height="200" />
 	<br /><br />
 	</c:if>
 	<!--  이미지1이 없을 때 -->
@@ -69,7 +69,7 @@ function rInsert(flidx) {
 	</c:if>
 	<!--  이미지2가 있을 때 -->
 	<c:if test="${fl.getFl_img2() != null && fl.getFl_img2() != ''}">
-	<img src="/potted/resources/images/free/${fl.getFl_img2()}" />
+	<img src="/potted/resources/images/free/${fl.getFl_img2()}" width="200" height="200" />
 	<br />
 	</c:if>
 	<!--  이미지2가 없을 때 -->

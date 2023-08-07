@@ -30,4 +30,9 @@ public class NoticeSvc {
 		int result = noticeDao.noticeInsert(nl);
 		return result;
 	}
+
+	public int noticeDel(int idx) {
+		int result = noticeDao.noticeDel(idx);
+		return result;
+	}
 }

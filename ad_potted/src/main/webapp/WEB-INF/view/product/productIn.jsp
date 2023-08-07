@@ -199,7 +199,7 @@ th {width:130px; text-align:left;}
 	</table>
 	<div class="btnBox">
 		<input type="submit" value="상품 등록" class="insertBtn"/>
-		<a href="javascript:void(0);" class="cancelBtn">취소</a>
+		<a href="productList" class="cancelBtn">취소</a>
 	</div>
 	</form>
 </div>

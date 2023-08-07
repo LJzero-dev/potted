@@ -53,7 +53,7 @@ function chAddr(val) {
 	                <div>
 	                	<div class="shop_item_thumb">
                            <div class="product_img_wrap">
-                               <img src="/potted/resources/images/product/${pi_img1 }" alt="주문상품 이미지">
+                               <img src="/ad_potted/resources/images/product/${pi_img1 }" alt="주문상품 이미지">
                            </div>
                            <div class="product_info_wrap">
                                <span class="shop_item_title">${pi_name }</span>
