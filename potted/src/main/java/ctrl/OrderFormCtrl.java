@@ -31,11 +31,13 @@ public class OrderFormCtrl {
 		String pi_price = request.getParameter("pi_price");
 		String pi_img1 = request.getParameter("pi_img1");
 		String pi_dc = request.getParameter("pi_dc");
+		
 		String total = request.getParameter("totalPrice");
 		String option = request.getParameter("option");
 		String totalc = request.getParameter("totalc");
 		String delic = request.getParameter("delic");
 		String todelc = request.getParameter("todelc");
+		String orderCart = request.getParameter("orderCart");
 		
 		
 		MemberInfo mi = (MemberInfo) request.getSession().getAttribute("loginInfo");
@@ -48,6 +50,8 @@ public class OrderFormCtrl {
 		
 		if (kind.equals("c")) {	// 장바구니를 통한 구매(c)일 경우
 			String[] arr = request.getParameterValues("chk");
+			
+			
 			select += " c.oc_cnt cnt, c.oc_idx ";
 			from += ", t_order_cart c ";
 			where += " and a.pi_id = c.pi_id and b.pos_id = c.mi_id = '" + miid + "' and (";
@@ -56,7 +60,7 @@ public class OrderFormCtrl {
 				if (i == 1) where += "c.oc_idx = " + arr[i];
 				else 		where += " or c.oc_idx = " + arr[i];
 			}
-			where += ") order by a.pi_id, c.pos_idx";
+			where += ") order by a.pi_id";
 			
 		} else {	// 바로 구매(d)일 경우
 				int cnt = Integer.parseInt(request.getParameter("cnt"));
@@ -89,6 +93,8 @@ public class OrderFormCtrl {
 		model.addAttribute("mi_phone", mi_phone);
 		model.addAttribute("mi_email", mi_email);
 		model.addAttribute("mi_point", mi_point);
+
+		model.addAttribute("orderCart", orderCart);
 		
 		
 		return "order/orderForm";
