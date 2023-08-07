@@ -28,8 +28,10 @@ function chAddr(val) {
 </script>
 <div class="shop_content payment">
 	<form name="frmOrder" action="orderProcIn" method="post">
+	<input type="hidden" name="pi_id" value="${pi_id }" />
 	<input type="hidden" name="od_name" value="${pi_name }" />
 	<input type="hidden" name="option" value="${option }" />
+	<input type="hidden" name="od_img" value="${pi_img1 }" />
 	<input type="hidden" name="total" value="${total }" />
 	<input type="hidden" name="mi_name" value="${mi_name }" />
 	<input type="hidden" name="od_price" value="${pi_price}" />

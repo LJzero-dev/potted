@@ -23,7 +23,7 @@ public class OrderSvc {
 	}
 
 	public int orderInsert(OrderInfo oi, OrderDetail od) {
-		int result = orderDao.memberInsert(oi, od);
+		int result = orderDao.orderInsert(oi, od);
 		   return result;
 	}
 }

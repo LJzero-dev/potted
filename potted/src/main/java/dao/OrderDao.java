@@ -1,7 +1,9 @@
 package dao;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -50,15 +52,27 @@ public class OrderDao {
 		return addrList;
 	}
 
-	public int memberInsert(OrderInfo oi, OrderDetail od) {
+	public int orderInsert(OrderInfo oi, OrderDetail od) {
 		
-		String sql = "insert into t_order_info (oi_id, mi_id, pi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, oi_date) values (?, ?, ?, 'a', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'a', now())";
-		int result = jdbc.update(sql, oi.getMi_id(), oi.getOi_name(), oi.getOi_phone(), oi.getOi_zip(), oi.getOi_addr1(), oi.getOi_addr2(), oi.getOi_memo(), oi.getOi_payment(), oi.getOi_pay(), oi.getOi_upoint(), oi.getOi_apoint());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        String datePart = dateFormat.format(new Date());
+
+        Random random = new Random();
+        int randomValue = random.nextInt(90) + 10; // 2자리 랜덤 숫자 생성 (10 이상 99 이하)
+        
+		String sql = "insert into t_order_info (oi_id, mi_id, pi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, oi_date) values (?, ?, ?, ?, 'a', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'a', now())";
+		int result = jdbc.update(sql, datePart + oi.getPi_id() + randomValue, oi.getMi_id(), oi.getPi_id(), oi.getOi_name(), oi.getOi_phone(), oi.getOi_zip(), oi.getOi_addr1(), oi.getOi_addr2(), oi.getOi_memo(), oi.getOi_payment(), oi.getOi_pay(), oi.getOi_upoint(), oi.getOi_apoint());
+		
+		if (result == 1) {
+	    	String oiIdQuery = "select oi_id from t_order_info where oi_id = ?";
+	        String oiId = jdbc.queryForObject(oiIdQuery, String.class, datePart + oi.getPi_id() + randomValue);
+	        
+			sql = "insert into t_order_detail (oi_id, pi_id, od_option, od_name, od_img) values (?, ?, ?, ?, ?)";
+			result += jdbc.update(sql, oiId, oi.getPi_id(), od.getOd_option(), od.getOd_name(), od.getOd_img());
+	    }
 		
 		return result;
 	}
-	
-	
-	
+
 
 }

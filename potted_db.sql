@@ -235,7 +235,7 @@ insert into t_product_option_stock values (9, '3-3:자갈', '3.마감돌', 'CCaa
 
 -- 주문정보 테이블
 create table t_order_info (
-	oi_id char(14) primary key,			-- 주문정보
+	oi_id char(15) primary key,			-- 주문정보
 	mi_id varchar(20) not null,			-- 회원아이디
     pi_id char(7) not null,				-- 상품ID
 	oi_name varchar(20) not null,		-- 수취인명
@@ -255,8 +255,6 @@ create table t_order_info (
     constraint fk_t_order_info_pi_id foreign key (pi_id) references t_product_info(pi_id),
 	constraint fk_t_order_info_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
-
-
 
 -- 장바구니 테이블
 create table t_order_cart (

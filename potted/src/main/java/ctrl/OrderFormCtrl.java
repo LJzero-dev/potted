@@ -60,7 +60,6 @@ public class OrderFormCtrl {
 			
 		} else {	// 바로 구매(d)일 경우
 				int cnt = Integer.parseInt(request.getParameter("cnt"));
-				System.out.println(cnt);
 				select += cnt + " cnt ";
 				where += " and a.pi_id = '" + pi_id + "' ";
 		}
@@ -107,19 +106,9 @@ public class OrderFormCtrl {
 		
 		OrderInfo oi = new OrderInfo();
 		OrderDetail od = new OrderDetail();
-	
-		System.out.println(request.getParameter("oi_name"));
-		System.out.println(request.getParameter("oi_phone"));
-		System.out.println(request.getParameter("oi_zip"));
-		System.out.println(request.getParameter("oi_addr1"));
-		System.out.println(request.getParameter("oi_payment"));
-		System.out.println(Integer.parseInt(request.getParameter("oi_pay")));
-		System.out.println(Integer.parseInt(request.getParameter("oi_upoint")));
-		System.out.println(oi_apoint);
-		System.out.println(request.getParameter("od_name"));
-		System.out.println(request.getParameter("option"));
 		
 		oi.setMi_id(miid);
+		oi.setPi_id(request.getParameter("pi_id"));
 		oi.setOi_name(request.getParameter("oi_name"));
 		oi.setOi_phone(request.getParameter("oi_phone"));
 		oi.setOi_zip(request.getParameter("oi_zip"));
@@ -131,12 +120,15 @@ public class OrderFormCtrl {
 		oi.setOi_upoint(Integer.parseInt(request.getParameter("oi_upoint")));
 		oi.setOi_apoint(oi_apoint);
 		
+		od.setOd_name(request.getParameter("od_name"));
+		od.setOd_img(request.getParameter("od_img"));
+		od.setOd_option(request.getParameter("option"));
+		
 		int result = orderSvc.orderInsert(oi, od);
 		
 		
-		od.setOd_name(request.getParameter("od_name"));
-		od.setOd_option(request.getParameter("option"));
+
 		
-		return "order/orderComplete";
+		return "redirect:/mypage";
 	}
 }
