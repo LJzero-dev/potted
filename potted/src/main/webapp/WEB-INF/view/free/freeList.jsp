@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
-
+<c:set var="loginInfo" value="<%=loginInfo %>" />
 <h2 style="display:inline; margin-left:20px;">COMMUNITY</h2>
 <form style="display:inline; float:right;">
 <div style="width:450px;"> <!--  게시판 내 검색창 시작-->
@@ -31,7 +31,7 @@
 	<tr height="40">
 	<td align="center" class="ntList">${si.getNum() - status.index}</td>
 	<td class="ndList"><a href="freeView?flidx=${fl.getFl_idx()}${si.getArgs()}">${fl.getFl_title()}</a></td>
-	<td align="center" class="ntList">${fl.getFl_writer()}</td>
+	<td align="center" class="ntList">${loginInfo.getMi_name()}</td>
 	<td align="center" class="ntList">${fl.getFl_date()}</td>
 	<td align="center" class="ntList">${fl.getFl_read()}</td>
 	</tr>

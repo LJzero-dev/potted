@@ -49,7 +49,7 @@ function rInsert(flidx) {
 	${fl.getFl_title()}
 	</div>
 	<div style="display:inline; float:right; font-size:18px;">
-	${fl.getFl_writer()} | ${fl.getFl_date()}&nbsp;&nbsp;조회 : ${fl.getFl_read()}
+	${loginInfo.getMi_name()} | ${fl.getFl_date()}&nbsp;&nbsp;조회 : ${fl.getFl_read()}
 	</div>
 	<br />
 	<hr style="border-width:1px;" />
