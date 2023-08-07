@@ -46,7 +46,7 @@ var arr = [];
 function showBig(img){
 	var big = document.getElementById("bigImg");
 	//큰 이미지를 보여주는 img태그를 big이라는 이름의 객체로 받아옴.
-	big.src = "/potted/resources/images/product/" + img;
+	big.src = "/ad_potted/resources/images/product/" + img;
 }
 
 function opDel(idx) {
