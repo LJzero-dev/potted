@@ -129,7 +129,6 @@ public class FreeDao {
 		int result = replyUpdate(flidx);
 		String sql = "insert into t_free_reply (fl_idx, mi_id, fr_content) values (" + flidx + ", '" + miid + "', '" + fr_content + "')";
 		result += jdbc.update(sql);
-		
 		return result;
 	}
 

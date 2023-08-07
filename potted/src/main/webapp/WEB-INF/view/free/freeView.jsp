@@ -5,7 +5,7 @@
 <script>
 function rInsert(flidx) {
 	var rcon = document.frm.rcontent.value;
-		if(rcon == "" || rcon == null){
+		if(rcon != "" || rcon != null){
 		$.ajax({
 			type : "POST", url : "/potted/replyIn", data : { "flidx" : flidx, "rcon" : rcon },
 			success : function(chk) {
