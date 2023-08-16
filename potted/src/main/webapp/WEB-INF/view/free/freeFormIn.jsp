@@ -22,13 +22,13 @@
 <table width="70%" align="center" cellpadding="0" cellspacing="0">
 	<tr>
 	<td width="*" class="ndList">
-		<input type="text" name="fl_title" placeholder="제목을 입력해주세요" style="width:1200px; height:20; border:0; font-size:16pt; resize:none;" />
+		<input type="text" name="fl_title" value="" placeholder="제목을 입력해주세요" style="width:1200px; height:20; border:0; font-size:16pt; resize:none;" />
 	</td>
 	<td width="20%" class="rdList">${loginInfo.getMi_name()}</td>
 </table>
 <br /><br />
 <div align="center"><!-- 게시글 내용 입력 -->
-	<textarea name="fl_content" cols="185" rows="25" placeholder="내용을 입력해주세요." style="border:none; font-size:16px;"></textarea>
+	<textarea name="fl_content" cols="185" rows="25" value="" placeholder="내용을 입력해주세요." style="border:none; font-size:16px;"></textarea>
 </div>
 <br /><br /><!--  첨부파일 -->
 <div style="margin-left:300px; font-size:20px;">

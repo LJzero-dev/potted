@@ -93,7 +93,7 @@ function rInsert(flidx) {
 		<div style="float:right;">
 		<input type="button" class="bt" value="글목록" onclick="location.href='freeList${args}';" />&nbsp;&nbsp;
 		<c:if test="${loginInfo.getMi_id() == rl.getMi_id()}">
-		<input type="button" class="bt" value="수정" onclick="" />&nbsp;&nbsp;
+		<input type="button" class="bt" value="수정" onclick="flUpdate" />&nbsp;&nbsp;
 		<input type="button" class="bt" value="삭제" onclick="flDel(${fl.getFl_idx()});" />
 		</c:if>
 		</div>

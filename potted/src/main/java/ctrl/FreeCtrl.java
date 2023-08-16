@@ -173,6 +173,7 @@ public class FreeCtrl {
 		return "redirect:/freeView?cpage=1&flidx=" + flidx;
 	}
 	
+	@LoginRequired
 	@GetMapping("/flDel")
 	public String flDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
