@@ -232,7 +232,6 @@ insert into t_product_option_stock values (8, '3-2.화산석', '3.마감돌', 'C
 insert into t_product_option_stock values (9, '3-3:자갈', '3.마감돌', 'CCaa201',9000, 200, 0, 'y');
 
 
-
 -- 주문정보 테이블
 create table t_order_info (
 	oi_id char(15) primary key,			-- 주문정보
@@ -276,7 +275,7 @@ create table t_order_cart (
 -- 주문 상세정보 테이블
 create table t_order_detail (
 	od_idx int primary key auto_increment,	-- 일련번호
-	oi_id char(14) not null,				-- 주문번호
+	oi_id char(15) not null,				-- 주문번호
 	pi_id char(7) not null,					-- 상품ID
     od_option varchar(100) not null,		-- 옵션 
 	od_cnt int default 1,					-- 개수

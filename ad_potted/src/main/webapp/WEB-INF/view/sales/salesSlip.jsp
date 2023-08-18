@@ -60,6 +60,7 @@ window.onload = function() {
 <h2> 매출 표 </h2>
 <div style="margin-right:90px; float:right;">
 <select name="kind">
+	<option value="">월별</option>
 	<option value="a">계절별</option>
 	<option value="b">상품 대분류 별</option>
 	<option value="c">나이대 별</option>
