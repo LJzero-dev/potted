@@ -27,7 +27,7 @@ public class NoticeDao {
 		String sql = "select a.nl_idx, a.nl_title, b.ai_id, " +
 			" if(curdate() = date(nl_date), mid(nl_date, 12, 5), mid(nl_date, 3, 8)) wdate " +
 			" from t_notice_list a, t_admin_info b " + where + " and a.ai_idx = b.ai_idx  order by nl_idx desc limit " + ((cpage - 1) * psize) + ", " + psize;
-		System.out.println(sql);
+		// System.out.println(sql);
 		List<NoticeList> noticeList = jdbc.query(sql, (ResultSet rs, int rowNum) -> {
 			NoticeList nl = new NoticeList();
 			nl.setNl_idx(rs.getInt("nl_idx"));		nl.setAi_id(rs.getString("ai_id"));

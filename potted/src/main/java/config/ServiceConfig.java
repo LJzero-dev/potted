@@ -20,5 +20,17 @@ public class ServiceConfig {
 		public NoticeDao noticeDao() {
 			return new NoticeDao(DbConfig.dataSource());
 		}
+		
+		@Bean
+		public QnaSvc qnaSvc() {
+			QnaSvc qnaSvc = new QnaSvc();
+			qnaSvc.setQnaListDao(qnaDao()); 
+			return qnaSvc;
+		}
+		
+		@Bean
+		public QnaDao qnaDao() {
+			return new QnaDao(DbConfig.dataSource());
+		}
 	}
 

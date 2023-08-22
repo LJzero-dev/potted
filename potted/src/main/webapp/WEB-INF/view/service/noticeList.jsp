@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
 
 
@@ -16,7 +15,7 @@
 </div>
 </form>	<!--  게시판 내 검색창 종료-->
 <hr color="#1cad0a" style="border-width:1px; height:1px; border:0;" />
-&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;">공지사항</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;">문의</h3>
+&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;"><a href="noticeList">공지사항</a></h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;"><a href="qnaList">문의</a></h3>
 <br /><br />
 <!--  게시글 리스트 시작 -->
 <table width="60%" height="80px" border="0" align="center" cellpadding="0" cellspacing="0">
