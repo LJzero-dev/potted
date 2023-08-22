@@ -17,7 +17,7 @@ public class CartDao {
 	}
 
 	public int cartInsert(OrderCart oc) {
-		String sql = "insert into t_order_cart (mi_id, pi_id, oc_option, oc_cnt, oc_price) values ('" + oc.getMi_id() + "', '" + oc.getPi_id() + "', '" + oc.getOc_option() + "', " + oc.getOc_cnt() + ", " + oc.getOc_price() + ")";
+		String sql = "insert into t_order_cart (mi_id, pi_id, oc_option, oc_cnt, oc_price) values ('" + oc.getMi_id() + "', '" + oc.getPi_id() + "', '" + oc.getOc_option() + "', " + oc.getOc_cnt() + ", " + oc.getOp_price() + ")";
 		int result = jdbc.update(sql);
 		System.out.println(sql);
 		System.out.println(result);
@@ -35,7 +35,7 @@ public class CartDao {
 			oc.setOc_date(rs.getString("oc_date"));
 			oc.setOc_option(rs.getString("oc_option"));
 			oc.setOc_cnt(rs.getInt("oc_cnt"));
-			oc.setOc_price(rs.getInt("oc_price"));
+			oc.setOp_price(rs.getInt("oc_price"));
 			oc.setPi_img(rs.getString("pi_img1"));
 			oc.setPi_name(rs.getString("pi_name"));
 			oc.setPi_price(rs.getInt("pi_price"));

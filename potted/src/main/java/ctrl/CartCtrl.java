@@ -40,7 +40,7 @@ public class CartCtrl {
 		oc.setPi_id(piid);
 		oc.setOc_option(option);
 		oc.setOc_cnt(cnt);
-		oc.setOc_price(price);
+		oc.setOp_price(price);
 		int result = cartSvc.cartInsert(oc);
 
 		response.setContentType("text/html; charset=utf-8");

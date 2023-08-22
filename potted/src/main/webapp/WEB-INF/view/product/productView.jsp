@@ -96,11 +96,13 @@ function setCnt(num){
 	var total = document.getElementById("total").innerHTML;
 	if (num == "+" && cnt < max) {
 		document.frm.cnt.value = cnt + 1;
-		document.getElementById("total").innerHTML = Number(total) + formatter.format(price);
+//		document.getElementById("total").innerHTML = Number(total) + formatter.format(price);
+		document.getElementById("total").innerHTML = Number(total) + price;
 	}		
 	if (num == "-" && cnt > 1) {
 		document.frm.cnt.value = cnt - 1;
-		document.getElementById("total").innerHTML = Number(total) - formatter.format(price);
+//		document.getElementById("total").innerHTML = Number(total) - formatter.format(price);
+		document.getElementById("total").innerHTML = Number(total) - price;
 	}
 }
 
@@ -112,7 +114,7 @@ function buy(kind) {
 	document.getElementById("totalPrice").value = totalPrice;
 	var option = frm.option.value;
 	var cnt = frm.cnt.value;
-	var price = frm.totalPrice.value;
+	var price = frm.totalPrice.value - (cnt*(frm.pi_price.value*(1-frm.pi_dc.value)));
 	
 	if (kind == "c") {	// 장바구니 담기일 경우
 		$.ajax({

@@ -105,7 +105,7 @@ function setCnt(ocidx, num, cnt, stock){
 }
 
 </script>
-<div style="width:1000px; margin-left:570px; ">
+<div style="width:1000px; margin-left:470px; ">
 <h2>장바구니</h2>
 <form name="frmCart" action="orderForm" method="post">
 <input type="hidden" name="kind" value="c" />
@@ -133,7 +133,7 @@ function setCnt(ocidx, num, cnt, stock){
 			<div style="display:none;">
 				${productPrice = oc.getPi_price() * (1 - oc.getPi_dc())}
 				${pcPrice = productPrice * oc.getOc_cnt()}
-				${optionPrice = oc.getOc_price() - productPrice }
+				${optionPrice = oc.getOp_price()}
 				${dcPrice = dcPrice + ((oc.getPi_price() * oc.getPi_dc()) * oc.getOc_cnt())}
 				${totalPrice = totalPrice + optionPrice + pcPrice}
 				<c:if test="${totalPrice >= 30000}">
