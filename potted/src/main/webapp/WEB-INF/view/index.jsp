@@ -13,10 +13,116 @@
 .free { width:750px; }
 .free td { font-size:15px; border-bottom:1px solid black; }
 </style>
+<style>
+body { margin:0; }
+.slideshow { background:#000; height:500px; min-width:960px; overflow:hidden; position:relative; }
+.slideshow-slides { width:100%; height:100%; position:absolute; }
+.slideshow-slides .slide { width:100%; height:100%; position:absolute; overflow:hidden; }
+.slideshow-slides .slide img { left:50%; margin-left:-800px; position:absolute; }
+.slideshow-nav a, .slideshow-indicator a { background:rgba(0, 0, 0, 0); overflow:hidden; }
+.slideshow-nav a:before, .slideshow-indicator a:before { content:url("images/sprites.png"); display:inline-block; font-size:0; line-height:0; }
+
+.slideshow-nav a { position:absolute; top:50%; left:50%; width:72px; height:72px; margin-top:-36px; }
+.slideshow-nav a.prev { margin-left:-480px; }
+.slideshow-nav a.prev:before { margin-top:-20px; }
+.slideshow-nav a.next { margin-left:408px; }
+.slideshow-nav a.next:before { margin:-20px 0 0 -80px; }
+.slideshow-nav a.disabled { display:none; }
+
+.slideshow-indicator { height:16px; left:0; bottom:30px; right:0; text-align:center; position:absolute; }
+.slideshow-indicator a { display:inline-block; width:16px; height:16px; margin:0 3px; }
+.slideshow-indicator a.active { cursor:default; }
+.slideshow-indicator a:before { margin-left:-110px; }
+.slideshow-indicator a.active:before { margin-left:-130px; }
+</style>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script>
+$(document).ready(function() {
+	$(".slideshow").each(function() {
+		var $container = $(this), 
+			$slideGroup = $container.find(".slideshow-slides"), 
+			$slides = $slideGroup.find(".slide"), 
+			$nav = $container.find(".slideshow-nav"), 
+			$indicator = $container.find(".slideshow-indicator"), 
+			slideCount = $slides.length, 
+			indicatorHTML = "", 
+			currentIndex = 0, 
+			duration = 500, 
+			easing = "easeInOutExpo", 
+			interval = 3000, 
+			timer;
+
+		$slides.each(function(i) {
+			$(this).css({ left:100 * i + "%" });
+			indicatorHTML += "<a href='#'>" + (i + 1) + "</a>";
+		});
+		$indicator.html(indicatorHTML);
+
+		function goToSlide(idx) {
+			$slideGroup.animate({ left:-100 * idx + "%" }, duration, easing);
+			currentIndex = idx;
+			updateNav();
+		}
+
+ 		function updateNav() {
+			var $navPrev = $nav.find(".prev");
+			var $navNext = $nav.find(".next");
+
+			if (currentIndex == 0)	$navPrev.addClass("disabled");
+			else					$navPrev.removeClass("disabled");
+
+			if (currentIndex == slideCount - 1)	$navNext.addClass("disabled");
+			else								$navNext.removeClass("disabled");
+
+			$indicator.find("a").removeClass("active").eq(currentIndex).addClass("active");
+		} 
+
+		function startTimer() {
+			timer = setInterval(function() {
+				var nextIndex = (currentIndex + 1) % slideCount;
+				goToSlide(nextIndex);
+			}, interval);
+		}
+
+		function stopTimer() {
+			clearInterval(timer);
+		}
+
+		$nav.on("click", "a", function(evt) {
+			evt.preventDefault();
+
+			if ($(this).hasClass("prev"))	goToSlide(currentIndex - 1);	
+			else							goToSlide(currentIndex + 1);	
+		});
+
+		$indicator.on("click", "a", function(evt) {
+			evt.preventDefault();
+			if (!$(this).hasClass("active"))
+				goToSlide($(this).index());
+		});
+
+		$container.on({ mouseenter:stopTimer, mouseleave:startTimer });
+		goToSlide(currentIndex);
+		startTimer();
+	});
+});
+</script>
+<div class="slideshow">
+	<div class="slideshow-slides">
+		<a href="#" class="slide" id="slide-1"><img src="/potted/resources/images/banner/test1.png" width="1600" height="465" /></a>
+		<a href="#" class="slide" id="slide-2"><img src="/potted/resources/images/banner/test2.png" width="1600" height="465" /></a>
+		<a href="#" class="slide" id="slide-3"><img src="/potted/resources/images/banner/test3.png" width="1600" height="465" /></a>
+		<a href="#" class="slide" id="slide-4"><img src="/potted/resources/images/banner/test4.png" width="1600" height="465" /></a>
+	</div>
+	<!-- <div class="slideshow-nav">
+		<a href="#" class="prev">Prev</a>
+		<a href="#" class="next">Next</a>
+	</div> -->
+	<div class="slideshow-indicator"></div>
+</div>
 <div style="width:800px; margin:0 auto; align:center; ">
 <br />
 <table>
-<tr><td colspan="10"><img src="/potted/resources/images/banner/index.png" style="width:750px; height:300px;"/></td></tr>
 <tr height="40px;"></tr>
 <tr><td class="title">새로들어온 식물</td><td colspan="3" >&nbsp;<a href="productList?cpage=1&ob=a" class="showall">모두 보기 >></a></td></tr>
 <tr>
