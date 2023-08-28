@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="inc/inc_head.jsp" %>
 <style>
-#timg { width:150px; height:120px; border:0; }
+#timg { width:190px; height:170px; border:0; border-radius:20%; }
 .title { font-size:20px; font-weight:bold; }
 .showall { font-color:#0B9649; }
 .dc { color:#0B9649; font-weight:bold; }
