@@ -76,12 +76,9 @@ public class OrderDao {
 			jdbc.update("update t_member_info set mi_protein = mi_protein + " + (int)oi.getOi_pay()/30000 + " where mi_id = '" + oi.getMi_id() + "'");
 			jdbc.update("update t_member_info set mi_point = mi_point + " + (oi.getOi_apoint() - oi.getOi_upoint()) + " where mi_id = '" + oi.getMi_id() + "'");	
 
-			if (oi.getOi_upoint() != 0) {
-				jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'u', -" + oi.getOi_upoint() + ", '물품 구매')");
-			}
-			if (oi.getOi_apoint() != 0) {
-				jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'a', " + oi.getOi_apoint() + ", '물품 구매')");				
-			}
+			if (oi.getOi_upoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'u', -" + oi.getOi_upoint() + ", '물품 구매')");			
+			if (oi.getOi_apoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'a', " + oi.getOi_apoint() + ", '물품 구매')");							
+			if (oi.getIsAuction().equals("y")) jdbc.update("update t_product_info set pi_status = 'n' where pi_id = '" + oi.getPi_id() + "'");
 	    }		
 		return result;
 	}

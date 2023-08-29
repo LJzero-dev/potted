@@ -30,6 +30,7 @@ public class OrderFormCtrl {
 	public String orderForm(Model model, HttpServletRequest request) throws Exception  {
 		request.setCharacterEncoding("utf-8");
 		String kind = request.getParameter("kind");
+		String isAuction = request.getParameter("isAuction");
 		// ��ٱ��� ���� : c | �ٷα��� : d
 		String pi_id = request.getParameter("pi_id");
 		String pi_name = request.getParameter("pi_name");
@@ -98,8 +99,9 @@ public class OrderFormCtrl {
 		model.addAttribute("mi_phone", mi_phone);
 		model.addAttribute("mi_email", mi_email);
 		model.addAttribute("mi_point", mi_point);
-
 		model.addAttribute("orderCart", orderCart);
+		model.addAttribute("isAuction", request.getParameter("isAuction") != null ? "y" : "n");
+		 
 		
 		
 		return "order/orderForm";
@@ -129,6 +131,8 @@ public class OrderFormCtrl {
 		oi.setOi_pay(Integer.parseInt(request.getParameter("oi_pay")));
 		oi.setOi_upoint(Integer.parseInt(request.getParameter("oi_upoint")));
 		oi.setOi_apoint(oi_apoint);
+		oi.setOi_kind(request.getParameter("oi_kind"));
+		oi.setIsAuction(request.getParameter("isAuction"));
 		od.setOd_name(request.getParameter("od_name"));
 		od.setOd_img(request.getParameter("od_img"));
 		od.setOd_option(request.getParameter("option"));

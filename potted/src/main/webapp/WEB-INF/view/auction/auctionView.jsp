@@ -131,6 +131,7 @@ function bid() {
 <!-- 상품 정보 관련 영역 -->
 	<form name="frm" method="post">
 	<input type="hidden" name="kind" value="f" />
+	<input type="hidden" name="isAuction" value="y" />
 	<input type="hidden" name="cnt" value="1" />
 	<input type="hidden" name="pi_id" value="<%=pi.getPi_id() %>" />
 	<input type="hidden" name="pi_name" value="<%=pi.getPi_name()%>" />
@@ -179,11 +180,13 @@ function bid() {
 	<tr><td colspan="2" align="center">
 	<%if (pi.getProductAuctionInfo().getIsend() == 1) { %>	
 		종료된 경매 입니다.<br />
-	<% if(loginInfo != null && loginInfo.getMi_id().equals(pi.getProductAuctionInfo().getPai_id()) && Integer.parseInt(String.valueOf(LocalDate.now()).replace("-", "")) - 3 < Integer.parseInt(pi.getProductAuctionInfo().getPai_end().substring(0,10).replace("-", ""))) {%>
+	<% if(loginInfo != null && loginInfo.getMi_id().equals(pi.getProductAuctionInfo().getPai_id()) 
+	&& Integer.parseInt(String.valueOf(LocalDate.now()).replace("-", "")) - 3 < Integer.parseInt(pi.getProductAuctionInfo().getPai_end().substring(0,10).replace("-", "")) &&
+	pi.getPi_status().equals("y")) {%>
 		입찰에 성공하셨습니다.<br />
 		<input type="button" value="결제 하기" class="smt" onclick="buy();" />
 	<% } else { %>
-		<input type="text" value="결제 가능 시간이 지났습니다."/>
+		<input type="text" value="결제 가능 시간이 아닙니다."/>
 	<%	} %>
 		<% } else { %>
 				입찰 금액 : <input type="text" id="price" name="price" />
