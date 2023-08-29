@@ -24,7 +24,7 @@ public class ProductListCtrl {
 	public PageInfo pageNsearch(HttpServletRequest request, HttpServletResponse response, String kind) throws Exception  {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, spage = 0, psize = 12, bsize = 5, rcnt = 0, pcnt = 0;
-		//	ÆäÀÌÁö ¹øÈ£  
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£  
 		if (request.getParameter("cpage") != null)
 			cpage = Integer.parseInt(request.getParameter("cpage"));
 		String status = "";
@@ -33,11 +33,11 @@ public class ProductListCtrl {
 		} else {
 			status = " a.pi_status <> 'c' ";
 		}
-		// °Ë»öÁ¶°Ç ÀÛ¾÷ : ´ëºÐ·ù, ¼ÒºÐ·ù, °¡°Ý´ë, »óÇ°¸í
+		// ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ : ï¿½ï¿½Ð·ï¿½, ï¿½ÒºÐ·ï¿½, ï¿½ï¿½ï¿½Ý´ï¿½, ï¿½ï¿½Ç°ï¿½ï¿½
 		String where = " where a.pi_isview = 'y' and " + status + " and a.pi_auction = '" + kind + "' ", schargs = "";
-		String pcb = request.getParameter("pcb");	// ´ëºÐ·ù Á¶°Ç
-		String pcs = request.getParameter("pcs");	// ¼ÒºÐ·ù Á¶°Ç
-		String sch = request.getParameter("sch");	// °Ë»öÁ¶°Ç(°¡°Ý´ëp, »óÇ°¸ín)
+		String pcb = request.getParameter("pcb");	// ï¿½ï¿½Ð·ï¿½ ï¿½ï¿½ï¿½ï¿½
+		String pcs = request.getParameter("pcs");	// ï¿½ÒºÐ·ï¿½ ï¿½ï¿½ï¿½ï¿½
+		String sch = request.getParameter("sch");	// ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ý´ï¿½p, ï¿½ï¿½Ç°ï¿½ï¿½n)
 		if (pcb != null && !pcb.equals(""))	{
 			where += " and left(a.pcs_id, 2) = '" + pcb + "' ";
 			schargs += "&pcb=" + pcb;
@@ -47,40 +47,40 @@ public class ProductListCtrl {
 			schargs += "&pcs=" + pcs;
 		}			
 		if (sch != null && !sch.equals("")) {
-		// °Ë»öÁ¶°Ç : &sch=ntest,p100000~200000
+		// ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ : &sch=ntest,p100000~200000
 			schargs += "&sch=" + sch;
 			String[] arrSch = sch.split(",");
 			for (int i = 0 ; i < arrSch.length ; i++) {
 				char c = arrSch[i].charAt(0);
-				if (c == 'n') {			// »óÇ°¸í °Ë»öÀÏ °æ¿ì(n°Ë»ö¾î)
-					where += " and a.pi_name like '%" + arrSch[i].substring(1) + "%' ";	// °Ë»ö¾î¸¸ °¡Á®¿À±â À§ÇØ Àß¶ó¿È
+				if (c == 'n') {			// ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(nï¿½Ë»ï¿½ï¿½ï¿½)
+					where += " and a.pi_name like '%" + arrSch[i].substring(1) + "%' ";	// ï¿½Ë»ï¿½ï¿½î¸¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¶ï¿½ï¿½
 					
-				} else if (c == 'p') {	// °¡°Ý´ë °Ë»öÀÏ °æ¿ì(p½ÃÀÛ°¡~Á¾·á°¡)
-					String sp = arrSch[i].substring(1, arrSch[i].indexOf('~'));			// ½ÃÀÛ°¡ / ¹°°áÇ¥½Ã Àü±îÁö ÀÚ¸§
+				} else if (c == 'p') {	// ï¿½ï¿½ï¿½Ý´ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(pï¿½ï¿½ï¿½Û°ï¿½~ï¿½ï¿½ï¿½á°¡)
+					String sp = arrSch[i].substring(1, arrSch[i].indexOf('~'));			// ï¿½ï¿½ï¿½Û°ï¿½ / ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½
 					if (sp != null && !sp.equals(""))
 						where += " and if(a.pi_dc <> 0, a.pi_price * (1 - a.pi_dc), a.pi_price) >= " + sp;
 
-					String ep = arrSch[i].substring(arrSch[i].indexOf('~') + 1);		// Á¾·á°¡
+					String ep = arrSch[i].substring(arrSch[i].indexOf('~') + 1);		// ï¿½ï¿½ï¿½á°¡
 					if (ep != null && !ep.equals(""))
 						where += " and if(a.pi_dc <> 0, a.pi_price * (1 - a.pi_dc), a.pi_price) <= " + ep;
 				}
 			}
 		}
 		
-		String orderBy = " order by ";	// ¸ñ·Ï Á¤·Ä ¼ø¼­
-		String ob = request.getParameter("ob");	// Á¤·ÄÁ¶°Ç
-		if (ob == null || ob.equals(""))	ob = "a";	// ¸ñ·Ï Ã³À½ µé¾î¿ÔÀ» ¶§´Â Á¤·Ä Á¶°ÇÀÌ ¾øÀ¸¹Ç·Î ÀÓÀÇ·Î a·Î Á¤ÇØµÒ
-		String obargs = "&ob=" + ob; // Á¤·ÄÁ¶°ÇÀ» À§ÇÑ Äõ¸®½ºÆ®¸µ
+		String orderBy = " order by ";	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		String ob = request.getParameter("ob");	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if (ob == null || ob.equals(""))	ob = "a";	// ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½Ç·ï¿½ aï¿½ï¿½ ï¿½ï¿½ï¿½Øµï¿½
+		String obargs = "&ob=" + ob; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½
 		switch (ob) {
-		case "a" :	// µî·Ï¿ª¼ø(±âº»°ª)(ÃÖ±Ù µî·ÏÀÌ °¡Àå À§¿¡ ¿È
+		case "a" :	// ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½(ï¿½âº»ï¿½ï¿½)(ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			orderBy += " a.pi_date desc ";		break;
-		case "b" :	// ÆÇ¸Å·®(ÀÎ±â)¼ø
+		case "b" :	// ï¿½Ç¸Å·ï¿½(ï¿½Î±ï¿½)ï¿½ï¿½
 			orderBy += " a.pi_sale desc ";		break;
-		case "c" :	// ÀÌ¸§¼ø
+		case "c" :	// ï¿½Ì¸ï¿½ï¿½ï¿½
 			orderBy += " a.pi_name desc ";		break;
-		case "d" :	// ³·Àº °¡°Ý ¼ø
+		case "d" :	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			orderBy += " a.pi_price desc ";		break;
-		case "e" :	// ³ôÀº °¡°Ý ¼ø
+		case "e" :	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			orderBy += " a.pi_price asc ";		break;
 		}
 
@@ -117,13 +117,13 @@ public class ProductListCtrl {
 	@GetMapping("/productView")
 	public String productView(HttpServletRequest request, HttpServletResponse response) throws Exception  {
 		request.setCharacterEncoding("utf-8");
-		// 1. Á¶È¸¼ö Áõ°¡ / 2. º¸¿©ÁÙ »óÇ° Á¤º¸ ¹Þ¾Æ¿À±â / 3. ÇØ´ç »óÇ°ÀÇ ÈÄ±â ¸ñ·Ï ¹Þ¾Æ¿À±â / 4. »óÇ°»ó¼¼º¸±â È­¸éÀ¸·Î ÀÌµ¿
+		// 1. ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / 2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ / 3. ï¿½Ø´ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ / 4. ï¿½ï¿½Ç°ï¿½ó¼¼ºï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 		
 		String piid = request.getParameter("piid");
 		
-		// 1. Á¶È¸¼ö Áõ°¡ -> »óÇ° Á¤º¸ ¹Þ¾Æ¿À´Â ¸Þ¼Òµå¿¡¼­ È£ÃâÇÔ
+		// 1. ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½Þ¼Òµå¿¡ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½
 		
-		// 2. º¸¿©ÁÙ »óÇ° Á¤º¸ ¹Þ¾Æ¿À±â
+		// 2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 		ProductInfo productInfo = productListSvc.getProductInfo(piid);
 		request.setAttribute("productInfo", productInfo);
 		
@@ -133,9 +133,9 @@ public class ProductListCtrl {
 		List<ProductOptionBig> productOptionBig = productListSvc.getProductOptionBig();
 		request.setAttribute("productOptionBig", productOptionBig);
 		
-		// 3. ÈÄ±â ¸ñ·Ï ¹Þ¾Æ¿À±â
+		// 3. ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 		
-		// 4. »óÇ° »ó¼¼º¸±â È­¸éÀ¸·Î ÀÌµ¿
+		// 4. ï¿½ï¿½Ç° ï¿½ó¼¼ºï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 		return "product/productView";
 	}
 	
@@ -149,13 +149,8 @@ public class ProductListCtrl {
 	@GetMapping("/auctionView")
 	public String auctionView(HttpServletRequest request, HttpServletResponse response) throws Exception  {
 		request.setCharacterEncoding("utf-8");
-		// 1. Á¶È¸¼ö Áõ°¡ / 2. º¸¿©ÁÙ »óÇ° Á¤º¸ ¹Þ¾Æ¿À±â / 3. ÇØ´ç »óÇ°ÀÇ ÈÄ±â ¸ñ·Ï ¹Þ¾Æ¿À±â / 4. »óÇ°»ó¼¼º¸±â È­¸éÀ¸·Î ÀÌµ¿
 		
 		String piid = request.getParameter("piid");
-		
-		// 1. Á¶È¸¼ö Áõ°¡ -> »óÇ° Á¤º¸ ¹Þ¾Æ¿À´Â ¸Þ¼Òµå¿¡¼­ È£ÃâÇÔ
-		
-		// 2. º¸¿©ÁÙ »óÇ° Á¤º¸ ¹Þ¾Æ¿À±â
 		ProductInfo productInfo = productListSvc.getProductInfo(piid);
 		request.setAttribute("productInfo", productInfo);
 		
@@ -165,9 +160,6 @@ public class ProductListCtrl {
 		List<ProductOptionBig> productOptionBig = productListSvc.getProductOptionBig();
 		request.setAttribute("productOptionBig", productOptionBig);
 		
-		// 3. ÈÄ±â ¸ñ·Ï ¹Þ¾Æ¿À±â
-		
-		// 4. »óÇ° »ó¼¼º¸±â È­¸éÀ¸·Î ÀÌµ¿
 		return "auction/auctionView";
 	}
 	@LoginRequired

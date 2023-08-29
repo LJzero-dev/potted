@@ -7,7 +7,6 @@
 <%@ page import="vo.*" %>
 <%
 request.setCharacterEncoding("utf-8");
-
 ProductInfo pi = (ProductInfo)request.getAttribute("productInfo");
 List<ProductOptionBig> productOptionBig = (List<ProductOptionBig>)request.getAttribute("productOptionBig");
 
@@ -37,8 +36,20 @@ function showBig(img){
 	//큰 이미지를 보여주는 img태그를 big이라는 이름의 객체로 받아옴.
 	big.src = "/ad_potted/resources/images/product/" + img;
 }
+
+function buy() {
+	var frm = document.frm;
+// 옵션 정보 들어갈 부분
+	var totalPrice = "<%=realPrice %>";
+	document.getElementById("totalPrice").value = totalPrice;
+	
+	frm.action = "orderForm";
+	frm.submit();
+}
+
+
 function updateTimer() {
-	const future = Date.parse("<%=pi.getProductAuctionInfo().getPai_end()%>");
+	const future = Date.parse("<%=pi.getProductAuctionInfo().getPai_end() %>");
 	const now = new Date();
 	const diff = future - now;
 	const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -119,7 +130,9 @@ function bid() {
 <td width="*">
 <!-- 상품 정보 관련 영역 -->
 	<form name="frm" method="post">
-	<input type="hidden" name="kind" value="d" />
+	<input type="hidden" name="kind" value="f" />
+	<input type="hidden" name="isAuction" value="y" />
+	<input type="hidden" name="cnt" value="1" />
 	<input type="hidden" name="pi_id" value="<%=pi.getPi_id() %>" />
 	<input type="hidden" name="pi_name" value="<%=pi.getPi_name()%>" />
 	<input type="hidden" id="option" name="option" value="없음" /><!-- 옵션들어갈 부분 -->
@@ -152,7 +165,8 @@ function bid() {
 		<tr>
 			<td width="30%">입찰자</td><td width="30%">금액</td><td width="40%">입찰 시간</td>
 		</tr>
-		<% if (pi.getProductAuctionInfo().getAuctionBidderInfo() != null && pi.getProductAuctionInfo().getAuctionBidderInfo().size() > 0 ) {for (AuctionBidderInfo abi : pi.getProductAuctionInfo().getAuctionBidderInfo()) { %>
+		<% if (pi.getProductAuctionInfo().getAuctionBidderInfo() != null && pi.getProductAuctionInfo().getAuctionBidderInfo().size() > 0 ) {
+			for (AuctionBidderInfo abi : pi.getProductAuctionInfo().getAuctionBidderInfo()) { %>
 		<tr>
 			<td><%=abi.getMi_id() %></td><td><%=formatter.format(abi.getAbi_price()) %></td><td><%=abi.getPai_date() %></td>
 		</tr>
@@ -163,13 +177,17 @@ function bid() {
 	</table>
 	</td>
 	</tr>
-	<tr><td colspan="2" align="center">	
+	<tr><td colspan="2" align="center">
 	<%if (pi.getProductAuctionInfo().getIsend() == 1) { %>	
 		종료된 경매 입니다.<br />
-	<% if(loginInfo.getMi_id().equals(pi.getProductAuctionInfo().getPai_id())) {%>
+	<% if(loginInfo != null && loginInfo.getMi_id().equals(pi.getProductAuctionInfo().getPai_id()) 
+	&& Integer.parseInt(String.valueOf(LocalDate.now()).replace("-", "")) - 3 < Integer.parseInt(pi.getProductAuctionInfo().getPai_end().substring(0,10).replace("-", "")) &&
+	pi.getPi_status().equals("y")) {%>
 		입찰에 성공하셨습니다.<br />
-		<input type="button" value="결제 하기" class="smt" onclick="" />
-	<% } %>
+		<input type="button" value="결제 하기" class="smt" onclick="buy();" />
+	<% } else { %>
+		<input type="text" value="결제 가능 시간이 아닙니다."/>
+	<%	} %>
 		<% } else { %>
 				입찰 금액 : <input type="text" id="price" name="price" />
 		<input type="button" value="입찰 하기" class="smt" onclick="bid();" />

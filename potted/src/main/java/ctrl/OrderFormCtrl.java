@@ -1,16 +1,21 @@
 package ctrl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import config.CtrlConfig.LoginRequired;
-import svc.*;
-import vo.*;
+import svc.OrderSvc;
+import vo.MemberAddr;
+import vo.MemberInfo;
+import vo.OrderCart;
+import vo.OrderDetail;
+import vo.OrderInfo;
 
 @Controller
 public class OrderFormCtrl {
@@ -25,7 +30,8 @@ public class OrderFormCtrl {
 	public String orderForm(Model model, HttpServletRequest request) throws Exception  {
 		request.setCharacterEncoding("utf-8");
 		String kind = request.getParameter("kind");
-		// Àå¹Ù±¸´Ï ±¸¸Å : c | ¹Ù·Î±¸¸Å : d
+		String isAuction = request.getParameter("isAuction");
+		// ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : c | ï¿½Ù·Î±ï¿½ï¿½ï¿½ : d
 		String pi_id = request.getParameter("pi_id");
 		String pi_name = request.getParameter("pi_name");
 		String pi_price = request.getParameter("pi_price");
@@ -48,7 +54,7 @@ public class OrderFormCtrl {
 		String from = "from t_product_info a, t_product_option_stock b "; 
 		String where = "where a.pi_id = b.pi_id and a.pi_isview = 'y' and b.pos_isview = 'y' ";
 		
-		if (kind.equals("c")) {	// Àå¹Ù±¸´Ï¸¦ ÅëÇÑ ±¸¸Å(c)ÀÏ °æ¿ì
+		if (kind.equals("c")) {	// ï¿½ï¿½Ù±ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(c)ï¿½ï¿½ ï¿½ï¿½ï¿½
 			String[] arr = request.getParameterValues("chk");
 			
 			
@@ -62,7 +68,7 @@ public class OrderFormCtrl {
 			}
 			where += ") order by a.pi_id";
 			
-		} else {	// ¹Ù·Î ±¸¸Å(d)ÀÏ °æ¿ì
+		} else {	// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½(d)ï¿½ï¿½ ï¿½ï¿½ï¿½
 				int cnt = Integer.parseInt(request.getParameter("cnt"));
 				select += cnt + " cnt ";
 				where += " and a.pi_id = '" + pi_id + "' ";
@@ -93,8 +99,9 @@ public class OrderFormCtrl {
 		model.addAttribute("mi_phone", mi_phone);
 		model.addAttribute("mi_email", mi_email);
 		model.addAttribute("mi_point", mi_point);
-
 		model.addAttribute("orderCart", orderCart);
+		model.addAttribute("isAuction", request.getParameter("isAuction") != null ? "y" : "n");
+		 
 		
 		
 		return "order/orderForm";
@@ -108,8 +115,7 @@ public class OrderFormCtrl {
 		String miid = mi.getMi_id();
 		
 		String oi_apointParam = request.getParameter("oi_apoint");
-	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // ¼Ò¼ýÁ¡ ÀÌÇÏ ºÎºÐ Á¦°Å
-		
+	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½
 		OrderInfo oi = new OrderInfo();
 		OrderDetail od = new OrderDetail();
 		
@@ -125,16 +131,14 @@ public class OrderFormCtrl {
 		oi.setOi_pay(Integer.parseInt(request.getParameter("oi_pay")));
 		oi.setOi_upoint(Integer.parseInt(request.getParameter("oi_upoint")));
 		oi.setOi_apoint(oi_apoint);
-		
+		oi.setOi_kind(request.getParameter("oi_kind"));
+		oi.setIsAuction(request.getParameter("isAuction"));
 		od.setOd_name(request.getParameter("od_name"));
 		od.setOd_img(request.getParameter("od_img"));
 		od.setOd_option(request.getParameter("option"));
 		
 		int result = orderSvc.orderInsert(oi, od);
-		
-		
-
-		
+		mi.setMi_point(mi.getMi_point() + oi_apoint - oi.getOi_upoint());
 		return "redirect:/mypage";
 	}
 }

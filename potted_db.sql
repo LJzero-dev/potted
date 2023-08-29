@@ -13,7 +13,7 @@ create table t_admin_info (
     ai_date datetime default now()		-- 등록일
 );
 insert into t_admin_info (ai_id,ai_pw,ai_name) values ('admin','1234','admin');
-select * from t_member_info;
+select * from t_admin_info;
 
 -- 회원 테이블 테이블
 create table t_member_info (
@@ -78,7 +78,8 @@ create table t_member_point (
 	mp_admin int default 0,					-- 관리자번호
 	constraint fk_t_member_point_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
-
+select * from t_member_point;
+insert into t_member_point (mi_id, mp_su, mp_point, ) values ('test1', 'u', 100, '물품 구매', '',);
 
 -- 상품 대분류 테이블
 create table t_product_ctgr_big (
@@ -170,7 +171,7 @@ insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi
 values ('CCbb201', 'CC', 'CCbb', '11채소', 10000, 8000, 0, 'a', 'CCbb20101.jpg', '', 23, 'y', 1);
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx) 
 values ('CCbb301', 'CC', 'CCbb', '22채소', 10000, 8000, 0.2, 'a', 'CCbb30101.jpg', '', 100, 'y', 1);
-
+update t_product_info set pi_price = 30000 where pcb_id ='CC';
 
 
 insert into t_product_info(pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_desc, pi_stock, pi_isview, ai_idx, pi_auction) values ('AAbb111', 'AA', 'AAbb', '00선인장', 10000, 8000, 0, 'a', 'AAbb10101.jpg', '', 100, 'y', 1, 'y');
@@ -198,7 +199,6 @@ select * from t_product_info;
 create table t_product_option_big (
 	pob_id varchar(10) primary key		-- 옵션 대분류 코드
 );
-
 -- drop table t_product_option_stock;
 -- 상품 옵션 재고 테이블
 create table t_product_option_stock (
@@ -420,8 +420,8 @@ create table t_sales_slip (
 
 -- drop table t_product_auction_info;
 
-insert into t_product_auction_info values (null, 'AAbb111', 1, 51000, '03:02:30', now(), 'test1');
-insert into t_product_auction_info values (null, 'AAbb211', 1, 51000, '03:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb111', 1, 51000, '00:02:30', now(), 'test1');
+insert into t_product_auction_info values (null, 'AAbb211', 1, 51000, '00:00:00', now(), 'test1');
 insert into t_product_auction_info values (null, 'AAbb311', 2, 41000, '03:02:30', now(), 'test1');
 insert into t_product_auction_info values (null, 'AAaa111', 3, 17000, '03:02:00', now(), 'test1');
 insert into t_product_auction_info values (null, 'AAaa211', 4, 10200, '03:02:30', now(), 'test1');
@@ -439,7 +439,7 @@ insert into t_product_auction_info values (null, 'CCbb111', 0, 1220300, '03:02:0
 insert into t_product_auction_info values (null, 'CCbb211', 2, 1000, '03:02:10', now(), 'test1');
 insert into t_product_auction_info values (null, 'CCbb311', 1, 1000, '03:02:00', now(), 'test1');
 
-update t_product_auction_info set pai_runtime = '00:00:00' where pai_idx = 1;
+update t_product_auction_info set pai_runtime = '00:00:00', pai_start = now() where pai_idx = 1;
 select * from t_product_auction_info;
 
 create table t_product_auction_info(

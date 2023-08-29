@@ -23,8 +23,8 @@ public class ProductListDao {
 		this.jdbc = new JdbcTemplate(dataSource);
 	}
 	
-	public List<ProductInfo> getProductList(PageInfo pageInfo) {	// °Ë»öÁ¶°Ç µé¾î°¥ °÷
-		// ÁöÁ¤ÇÑ Á¦Ç°µéÀÇ ¸ñ·ÏÀ» List<ProductInfo>·Î ¸®ÅÏÇÏ´Â ¸Þ¼Òµå
+	public List<ProductInfo> getProductList(PageInfo pageInfo) {	// ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ List<ProductInfo>ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c " + pageInfo.getWhere() + " and a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id group by a.pi_id " + pageInfo.getOrderby() + " limit " + ((pageInfo.getCpage() - 1) * pageInfo.getPsize()) + ", " + pageInfo.getPsize();
 		System.out.println(sql);
 		List<ProductInfo> productList = jdbc.query(sql, 
@@ -34,7 +34,6 @@ public class ProductListDao {
 			rs.getString("pi_special"), rs.getString("pi_isview"), rs.getString("pi_date"), rs.getString("pi_last"), rs.getInt("pi_price"), 
 			rs.getInt("pi_cost"), rs.getInt("pi_read"), rs.getInt("pi_review"), rs.getInt("pi_sale"), rs.getInt("ai_idx"), rs.getInt("pi_admin"), 
 			rs.getDouble("pi_dc"), rs.getString("pcb_name"), rs.getString("pcs_name"), rs.getInt("pi_stock"));
-			
 			if (rs.getString("pi_auction").equals("y")) {
 				List<ProductAuctionInfo> productAuctionInfo = jdbc.query("select pai_idx, pai_bidder, pai_price, pi_id, pai_runtime, pai_start,  date_add(date_add(date_add(pai_start, interval left(pai_runtime,2) day), interval mid(pai_runtime,4,2) hour), interval right(pai_runtime,2) minute) end, pai_id from t_product_auction_info where pi_id = '" + rs.getString("pi_id") + "'", 
 						(ResultSet rs2, int rowNum2) -> {
@@ -64,7 +63,7 @@ public class ProductListDao {
 
 	public ProductInfo getProductInfo(String piid) {
 		int result = readUpdate(piid);
-		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c where a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id and a.pi_isview = 'y' and a.pi_status = 'a' and a.pi_id = '" + piid + "' ";
+		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c where a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id and a.pi_isview = 'y' and a.pi_id = '" + piid + "' ";
 		ProductInfo pi = jdbc.queryForObject(sql,
 			new RowMapper<ProductInfo>() {
 				@Override
@@ -79,6 +78,7 @@ public class ProductListDao {
 								(ResultSet rs2, int rowNum2) -> {
 									ProductAuctionInfo pai = new ProductAuctionInfo(rs2.getInt("pai_idx"), rs2.getInt("pai_bidder"), rs2.getInt("pai_price"), rs2.getString("pi_id"), rs2.getString("pai_runtime"), rs2.getString("pai_start"), rs2.getString("end"), rs2.getString("pai_id"));
 									pai.setIsend(rs2.getInt(1));
+									
 									if (rs2.getInt("pai_bidder") > 0) {
 										List<AuctionBidderInfo> AuctionBidderInfo = jdbc.query("select * from t_auction_bidder_info where pi_id = '" + piid + "'",
 												(ResultSet rs3, int rowNum3) -> {

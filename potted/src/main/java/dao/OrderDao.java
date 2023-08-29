@@ -1,16 +1,20 @@
 package dao;
 
-import java.sql.*;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 
-import vo.*;
+import vo.MemberAddr;
+import vo.OrderCart;
+import vo.OrderDetail;
+import vo.OrderInfo;
 
 public class OrderDao {
 	private JdbcTemplate jdbc;
@@ -26,7 +30,7 @@ public class OrderDao {
 			oc.setPi_id(rs.getString("pi_id"));
 			oc.setPi_img(rs.getString("pi_img1"));
 			if (kind.equals("c"))	oc.setOc_idx(rs.getInt("oc_idx"));
-			// Àå¹Ù±¸´Ï¸¦ ÅëÇÑ ±¸¸ÅÀÏ °æ¿ì¿¡¸¸ Àå¹Ù±¸´Ï ÀÎµ¦½º¸¦ Ãß°¡ ÀúÀåÇÔ
+			// ï¿½ï¿½Ù±ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			else 					oc.setOc_idx(0);
 			oc.setPi_name(rs.getString("pi_name"));
 			oc.setOc_cnt(rs.getInt("cnt"));
@@ -58,7 +62,7 @@ public class OrderDao {
         String datePart = dateFormat.format(new Date());
 
         Random random = new Random();
-        int randomValue = random.nextInt(90) + 10; // 2ÀÚ¸® ·£´ý ¼ýÀÚ »ý¼º (10 ÀÌ»ó 99 ÀÌÇÏ)
+        int randomValue = random.nextInt(90) + 10; // 2ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (10 ï¿½Ì»ï¿½ 99 ï¿½ï¿½ï¿½ï¿½)
         
 		String sql = "insert into t_order_info (oi_id, mi_id, pi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, oi_date) values (?, ?, ?, ?, 'a', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'a', now())";
 		int result = jdbc.update(sql, datePart + oi.getPi_id() + randomValue, oi.getMi_id(), oi.getPi_id(), oi.getOi_name(), oi.getOi_phone(), oi.getOi_zip(), oi.getOi_addr1(), oi.getOi_addr2(), oi.getOi_memo(), oi.getOi_payment(), oi.getOi_pay(), oi.getOi_upoint(), oi.getOi_apoint());
@@ -69,8 +73,13 @@ public class OrderDao {
 	        
 			sql = "insert into t_order_detail (oi_id, pi_id, od_option, od_name, od_img) values (?, ?, ?, ?, ?)";
 			result += jdbc.update(sql, oiId, oi.getPi_id(), od.getOd_option(), od.getOd_name(), od.getOd_img());
-	    }
-		
+			jdbc.update("update t_member_info set mi_protein = mi_protein + " + (int)oi.getOi_pay()/30000 + " where mi_id = '" + oi.getMi_id() + "'");
+			jdbc.update("update t_member_info set mi_point = mi_point + " + (oi.getOi_apoint() - oi.getOi_upoint()) + " where mi_id = '" + oi.getMi_id() + "'");	
+
+			if (oi.getOi_upoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'u', -" + oi.getOi_upoint() + ", 'ë¬¼í’ˆ êµ¬ë§¤')");			
+			if (oi.getOi_apoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'a', " + oi.getOi_apoint() + ", 'ë¬¼í’ˆ êµ¬ë§¤')");							
+			if (oi.getIsAuction().equals("y")) jdbc.update("update t_product_info set pi_status = 'n' where pi_id = '" + oi.getPi_id() + "'");
+	    }		
 		return result;
 	}
 
