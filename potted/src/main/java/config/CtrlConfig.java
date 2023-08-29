@@ -40,6 +40,9 @@ public class CtrlConfig {
 	@Autowired
 	private OrderSvc orderSvc;
 	
+	@Autowired
+	private MemberSvc memberSvc;
+	
 	@Bean
 	public IndexCtrl indexCtrl() {
 		IndexCtrl indexCtrl = new IndexCtrl();
@@ -106,7 +109,9 @@ public class CtrlConfig {
 	
 	@Bean
 	public MemberCtrl memberCtrl() {
-		return new MemberCtrl();
+		MemberCtrl memberCtrl = new MemberCtrl();
+		memberCtrl.setMemberSvc(memberSvc);
+		return memberCtrl;
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)
