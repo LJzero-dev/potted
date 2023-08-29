@@ -1,16 +1,20 @@
 package dao;
 
-import java.sql.*;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 
-import vo.*;
+import vo.MemberAddr;
+import vo.OrderCart;
+import vo.OrderDetail;
+import vo.OrderInfo;
 
 public class OrderDao {
 	private JdbcTemplate jdbc;
@@ -69,10 +73,16 @@ public class OrderDao {
 	        
 			sql = "insert into t_order_detail (oi_id, pi_id, od_option, od_name, od_img) values (?, ?, ?, ?, ?)";
 			result += jdbc.update(sql, oiId, oi.getPi_id(), od.getOd_option(), od.getOd_name(), od.getOd_img());
-			
-			sql = "update t_member_info set mi_protein = mi_protein + 1 where mi_id = " + oi.getMi_id();
-	    }
-		
+			jdbc.update("update t_member_info set mi_protein = mi_protein + " + (int)oi.getOi_pay()/30000 + " where mi_id = '" + oi.getMi_id() + "'");
+			jdbc.update("update t_member_info set mi_point = mi_point + " + (oi.getOi_apoint() - oi.getOi_upoint()) + " where mi_id = '" + oi.getMi_id() + "'");	
+
+			if (oi.getOi_upoint() != 0) {
+				jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'u', -" + oi.getOi_upoint() + ", '물품 구매')");
+			}
+			if (oi.getOi_apoint() != 0) {
+				jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'a', " + oi.getOi_apoint() + ", '물품 구매')");				
+			}
+	    }		
 		return result;
 	}
 

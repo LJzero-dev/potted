@@ -5,7 +5,7 @@ import java.util.*;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 
 public class OrderInfo {
-	private String oi_id, mi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_status, oi_date, pi_id;
+	private String oi_id, mi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_status, oi_date, pi_id, pi_kind;
 	private int oi_pay, oi_upoint, oi_spoint, oi_apoint;
 	private ArrayList<OrderDetail> detailList;
 	
