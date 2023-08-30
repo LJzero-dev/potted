@@ -10,9 +10,14 @@ canvas {
 	-webkit-user-select: none;
 	-ms-user-select: none;
 }
+.btn1 { border: 0; width:100px; font-size: 20px; background: #0B9649; color:white; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
+.btn2 { border: 0; width:100px; font-size: 20px; background: #fff; padding-bottom: 8px; cursor: pointer; }
+#menu1 {}
+#menu2 { display:none; }
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 var color = Chart.helpers.color;
@@ -58,19 +63,30 @@ window.onload = function() {
 </script>
 </head>
 <body>
-<h2> 매출 표 </h2>
-<div style="margin-right:90px; float:right;">
-<select name="kind">
-    <option value="">월별</option>
-    <option value="a">계절별</option>
-    <option value="b">상품 대분류 별</option>
-    <option value="c">나이대 별</option>
-    <option value="d">성별</option>
-    <option value="e">옥션 매출</option>
-</select>
+<div id="app">
+<input type="button" class="btn1" value="매출" onclick="location.href='salesSlip';" />
+<input type="button" class="btn2" value="회원통계" onclick="location.href='memberChart';"/>
+<hr width="900" align="left" />
+<!-- 매출 통계 시작 -->
+	<div class="salesSlip" id="menu1">
+		<div style="margin-right:90px; float:right;">
+		<select name="kind">
+			<option value="a">월별</option>
+			<option value="b">계절별</option>
+			<option value="c">상품 대분류 별</option>
+			<option value="d">옥션 매출</option>
+		</select>
+		</div>
+		<div id="container" style="width: 90%;">
+			<canvas id="canvas"></canvas>
+		</div>
+	</div>
+<!-- 매출 통계 끝 -->
+
+<!-- 회원 통계 시작 -->
+
+<!-- 회원 통계 끝 -->
 </div>
-<div id="container" style="width: 90%;">
-    <canvas id="canvas"></canvas>
-</div>
+
 </body>
 </html>
