@@ -14,19 +14,28 @@ MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-#member { border:1.5px solid #CFD4CD; width:800px; height:100px; padding: 30px 30px; }
-#welcome { font-size:30px; font-weight:bold; }
+#title { font-size:20px; font-weight: bold; }
+#listbox { margin-left:60px; }
+#table th, td{ font-weight: lighter; border:1.5px solid #CFD4CD; }
+#table { border:1.5px solid #CFD4CD; border-collapse:collapse; }
+#table tr { width:600px; height:30px; }
 </style>
 </head>
 <body>
-<div id="member">
-<span id="welcome">${loginInfo.getMi_name()}</span> 님 안녕하세요. <br />
-<div align="right">보유 포인트 : <br />
-${loginInfo.getMi_point()}</div>
-</div>
 <!-- 회원 주문 내역 리스트 시작 -->
-<table>
-</table>
+<div id="listbox"><br />
+	<span id="title">주문조회</span>
+	<select style="margin-left:550px;">
+		<option value="a">최신순</option>
+		<option value="b">오래된순</option>
+		<option value="c">가격 높은 순</option>
+		<option value="d">가격 낮은 순</option>
+	</select><br /><br />
+	<table id="table" width="750px;" >
+	<tr><th width="*">주문번호</th><th width="21%">상품명</th><th width="8%">수량</th><th width="12%">상태</th><th width="15%">주문금액</th><th width="15%">주문일자</th></tr>
+	<tr><td></td></tr>
+	</table>
+</div>
 <!-- 회원 주문 내역 리스트 종료 -->
 </body>
 </html>

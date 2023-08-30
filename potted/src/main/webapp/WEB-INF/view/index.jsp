@@ -3,15 +3,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="inc/inc_head.jsp" %>
 <style>
-#timg { width:150px; height:120px; border:0; }
-.title { font-size:20px; font-weight:bold; }
-.showall { font-color:#0B9649; }
+#timg { width:190px; height:170px; border:0; border-radius:20%; }
+.title { font-size:30px; font-weight:bold; height:50px; }
+.showall { font-color:#0B9649; font-size:15px; font-weight:light; }
 .dc { color:#0B9649; font-weight:bold; }
 .realprice { color:grey; }
 .name { font-size:20px; }
 .price { font-weight:bold; }
 .free { width:750px; }
 .free td { font-size:15px; border-bottom:1px solid black; }
+#txt { text-align: center; }
+.imgbox { background-color: #F4F5F3; width:220px; height:300px; border-radius:10%;  box-shadow: 0px 0px 10px #000; }
 </style>
 <style>
 body { margin:0; }
@@ -120,29 +122,35 @@ $(document).ready(function() {
 	</div> -->
 	<div class="slideshow-indicator"></div>
 </div>
-<div style="width:800px; margin:0 auto; align:center; ">
+<div style="width:1100px; margin:0 auto; align:center; ">
 <br />
 <table>
 <tr height="40px;"></tr>
-<tr><td class="title">새로들어온 식물</td><td colspan="3" >&nbsp;<a href="productList?cpage=1&ob=a" class="showall">모두 보기 >></a></td></tr>
+<tr><td class="title" colspan="4">NEW&nbsp;&nbsp;<a href="productList?cpage=1&ob=a" class="showall">모두 보기 >></a></td></tr>
 <tr>
 <c:forEach items="${productLista}" var="pi" >
 	<c:set var="price">${pi.getPi_price() * (1 - pi.getPi_dc())}</c:set>
 	<c:set var="dc">${pi.getPi_dc() * 100}</c:set>
-	<td><a href="productView?piid=${pi.getPi_id()}"><img id="timg" src="/ad_potted/resources/images/product/${pi.getPi_img1()}" /><br /><span class="name">${pi.getPi_name()}</span></a><br />
-	<span class="price">${fn:substringBefore(price, '.')}원</span>&nbsp;<span class="dc">${fn:substringBefore(dc, '.')}%</span><br />
-	<span class="realprice"><del>${pi.getPi_price() }</del></span></td><td width="50px;"></td>
+	<td id="txt"><div class="imgbox"><br />
+		<a href="productView?piid=${pi.getPi_id()}"><img id="timg" src="/ad_potted/resources/images/product/${pi.getPi_img1()}" /><br />
+		<span class="name">${pi.getPi_name()}</span></a><br />
+		<span class="price">${fn:substringBefore(price, '.')}원</span>&nbsp;<span class="dc">${fn:substringBefore(dc, '.')}%</span><br />
+		<span class="realprice"><del>${pi.getPi_price() }</del></span>
+	</div></td><td width="50px;"></td>
 </c:forEach>
 </tr>
 <tr height="40px;"></tr>
-<tr><td class="title">인기 식물</td><td colspan="3" >&nbsp;<a href="productList?cpage=1&ob=b" class="showall">모두 보기 >></a></td></tr>
+<tr><td class="title" colspan="4">Best&nbsp;&nbsp;<a href="productList?cpage=1&ob=b" class="showall">모두 보기 >></a></td></tr>
 <tr>
 <c:forEach items="${productListb}" var="pi" >
 	<c:set var="price">${pi.getPi_price() * (1 - pi.getPi_dc())}</c:set>
 	<c:set var="dc">${pi.getPi_dc() * 100}</c:set>
-	<td><a href="productView?piid=${pi.getPi_id()}"><img id="timg" src="/ad_potted/resources/images/product/${pi.getPi_img1()}" /><br /><span class="name">${pi.getPi_name()}</span></a><br />
-	<span class="price">${fn:substringBefore(price, '.')}원</span>&nbsp;<span class="dc">${fn:substringBefore(dc, '.')}%</span><br />
-	<span class="realprice"><del>${pi.getPi_price() }</del></span></td><td width="50px;"></td>
+	<td id="txt"><div class="imgbox"><br />
+		<a href="productView?piid=${pi.getPi_id()}"><img id="timg" src="/ad_potted/resources/images/product/${pi.getPi_img1()}" /><br />
+		<span class="name">${pi.getPi_name()}</span></a><br />
+		<span class="price">${fn:substringBefore(price, '.')}원</span>&nbsp;<span class="dc">${fn:substringBefore(dc, '.')}%</span><br />
+		<span class="realprice"><del>${pi.getPi_price() }</del></span>
+	</div></td><td width="50px;"></td>
 </c:forEach>
 </tr>
 </table>

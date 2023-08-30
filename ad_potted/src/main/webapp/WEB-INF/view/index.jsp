@@ -27,11 +27,11 @@ function loadpage(num) {
 }
 </script>
 
-<div style="width:1200px; margin:0 auto; margin-top:80px;">
+<div style="width:1200px; margin:0 auto; margin-top:10px;">
 <table>
 <tr>
 	<td><table id="menus">
-	<tr><td><input type="button" value="매출 전표📊" class="menu" onclick="loadpage(1);" /></td></tr>
+	<tr><td><input type="button" value="통계📊" class="menu" onclick="loadpage(1);" /></td></tr>
 	<tr><td><input type="button" value="일정 관리🗓" class="menu" onclick="loadpage(2);" /></td></tr>
 	<tr><td><input type="button" value="회원 관리😄" class="menu" onclick="loadpage(3);" /></td></tr>
 	<tr><td><input type="button" value="배너 설정📁" class="menu" onclick="loadpage(4);" /></td></tr>

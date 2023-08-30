@@ -11,7 +11,7 @@ AdminInfo loginInfo = (AdminInfo)session.getAttribute("loginInfo");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="/potted/resources/css/style.css">
-<title>potted</title>
+<title>ad_potted</title>
 <style>
 html, body {margin:0; padding:0;}
 body, th, td, div, p { font-size:12px; }

@@ -20,4 +20,16 @@ public class MemberConfig {
 		loginSvc.setLoginDao(loginDao());
 		return loginSvc;
 	}
+	
+	@Bean
+	public MemberDao memberDao() {
+		return new MemberDao(DbConfig.dataSource());
+	}
+	
+	@Bean
+	public MemberSvc memberSvc() {
+		MemberSvc memberSvc = new MemberSvc();
+		memberSvc.setMemberDao(memberDao());
+		return memberSvc;
+	}
 }
