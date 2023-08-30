@@ -65,7 +65,7 @@ window.onload = function() {
 <div id="app">
 <input type="button" class="btn1" value="매출" onclick="location.href='salesSlip';" />
 <input type="button" class="btn2" value="회원통계" onclick="location.href='memberChart';"/>
-<hr width="900" align="left" />
+<hr width="1000" align="left" />
 <!-- 매출 통계 시작 -->
 	<div class="salesSlip" id="menu1">
 		<div style="margin-right:90px; float:right;">

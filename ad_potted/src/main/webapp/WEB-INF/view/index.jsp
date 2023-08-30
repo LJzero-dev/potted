@@ -7,7 +7,7 @@
 #menus td{ height:50px; }
 .menua { font-size:20px; font-weight:bold; border:0px; cursor:pointer; background-color: #087237; color:white; }
 .menua:hover { color:black; }
-#showpage { width:1000px; height:800px; border:0; margin-top:50px; }
+#showpage { width:1100px; height:900px; border:0; margin-top:50px; }
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>

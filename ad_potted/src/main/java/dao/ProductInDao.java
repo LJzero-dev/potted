@@ -45,9 +45,9 @@ public class ProductInDao {
 
 	public int productInsert(ProductInfo pi, ProductOptionInfo po) {
 		Random random = new Random();
-	    int randomValue = random.nextInt(1000); // 0 ÀÌ»ó 999 ÀÌÇÏÀÇ ·£´ıÇÑ Á¤¼ö »ı¼º
+	    int randomValue = random.nextInt(1000); // 0 ï¿½Ì»ï¿½ 999 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	    double dc = pi.getPi_dc() / 100.0; // ÇÒÀÎµÈ °¡°İ °è»ê
+	    double dc = pi.getPi_dc() / 100.0; // ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	    	
 	    String sql = "insert into t_product_info (pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_img2, pi_img3, pi_desc, pi_stock, pi_isview, ai_idx) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'y', 1)";
 	    int result = jdbc.update(sql, pi.getPcs_id() + String.format("%03d", randomValue), pi.getPcb_id(), pi.getPcs_id(), pi.getPi_name(), pi.getPi_price(), pi.getPi_cost(), dc, pi.getPi_status(), pi.getPi_img1(), pi.getPi_img2(), pi.getPi_img3(), pi.getPi_desc(), pi.getPi_stock());
@@ -84,8 +84,8 @@ public class ProductInDao {
 			pi.setPi_cost(rs.getInt("pi_cost"));
 			pi.setPi_dc (rs.getInt("pi_dc"));
 			String pistatus = "";
-			if (rs.getString("pi_status").equals("a"))		pistatus = "ÆÇ¸Å Áß";
-			else											pistatus = "ÆÇ¸Å ÁßÁö";
+			if (rs.getString("pi_status").equals("a"))		pistatus = "íŒë§¤ì¤‘";
+			else											pistatus = "íŒë§¤ì¤‘ì§€";
 			pi.setPi_status(pistatus);
 			pi.setPi_img1(rs.getString("pi_img1"));
 			pi.setPi_img2(rs.getString("pi_img2"));
