@@ -33,10 +33,10 @@ function finish(val) {
 <h3>현재 식물 : <%=mt.getMt_grade() == 1 ? "고급" : mt.getMt_grade() == 2 ? "중급" : "초급" %>자용<br />
 남은 HP : <%=mt.getMt_hp() %><br />
 물준 횟수 : (<%=mt.getMt_count() %>/<%=mt.getMt_grade() == 4 ? "3" : mt.getMt_grade() == 2 ? "7" : "14" %>)<br />
-상태 : <%=mt.getMt_hp() >= 9000 ? "S등급" : mt.getMt_hp() >= 8000 ? "A등급" : mt.getMt_hp() >= 7000 ? "B등급" : mt.getMt_hp() >= 6000 ? "C등급" : "폐사" %><br />
+상태 : <%=mt.getMt_hp() == 9000 ? "S등급" : mt.getMt_hp() >= 8000 ? "A등급" : mt.getMt_hp() >= 7000 ? "B등급" : mt.getMt_hp() >= 6000 ? "C등급" : "폐사" %><br />
 </h3>
 <form name="frm" action="plnatFinish" method="post">
-<input type="hidden" name="grade" id="grade" value="">
+<input type="hidden" name="grade" id="grade" value="<%=mt.getMt_grade()%>">
 <input type="hidden" name="addPoint" value="<%=addPoint %>">
 </form>
 <% if(result.equals("false"))  { %>

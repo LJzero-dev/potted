@@ -25,6 +25,7 @@ a:hover { text-decoration:underline; }
 
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 
 </script>
@@ -39,8 +40,9 @@ a:hover { text-decoration:underline; }
             </div>
             <button class="search" id="searchSubmit"><span class="blind">검색</span></button>
         </div>
-        <div class="gnb">
+        <div class="gnb">       
             <ul class="menu">
+                <li><a href="plantBook" class="dep01">PLANT BOOK</a></li>
                 <li><a href="productList" class="dep01">STORE</a></li>
                 <li><a href="freeList" class="dep01">COMMUNITY</a></li>
                 <li><a href="myPlant" class="dep01">MY PLANT</a></li>
