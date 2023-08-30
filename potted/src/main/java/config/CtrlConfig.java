@@ -24,6 +24,7 @@ import svc.CartSvc;
 import svc.FreeSvc;
 import svc.IndexSvc;
 import svc.LoginSvc;
+import svc.MemberSvc;
 import svc.MyPlantSvc;
 import svc.NoticeSvc;
 import svc.OrderSvc;
