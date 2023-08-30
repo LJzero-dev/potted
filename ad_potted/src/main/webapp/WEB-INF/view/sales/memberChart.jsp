@@ -6,6 +6,7 @@
 <%@ page import="vo.*" %>
 <%
 ArrayList<MemberInfo> memberInfo = (ArrayList<MemberInfo>)request.getAttribute("memberInfo"); 
+ArrayList<MemberInfo> memberAge = (ArrayList<MemberInfo>)request.getAttribute("memberAge"); 
 
 CalendarInfo ci = (CalendarInfo)request.getAttribute("ci");
 int sy = ci.getSchYear(), sm = ci.getSchMonth();
@@ -39,6 +40,7 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 <style>
 .btn1 { border: 0; width:100px; font-size: 20px; background: #0B9649; color:white; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
 .btn2 { border: 0; width:100px; font-size: 20px; background: #fff; padding-bottom: 8px; cursor: pointer; }
+.btn2:hover { border: 0; width:100px; font-size: 20px; background: #0B9649; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
 #yearmonth { width:920px; text-align:center; }
 #searchBox { margin-left:600px; }
 #select { cellpadding:0; cellspacing:0; }
@@ -81,12 +83,15 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 </tr>
 </table>
 </div>
-	<div id="chartDiv"></div>
+<div id="chartDiv1"></div>
+<hr width="900" align="left" />
+<div id="chartDiv2"></div>
+	
 
 </body>
 <script>
 
-
+/* 월별 회원 가입자 수 시작 */
 google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawBasic);
 
@@ -125,9 +130,44 @@ for (int j = 1 ; j <= eDay ; j++) {
         }
       };
 
-      var chart = new google.visualization.LineChart(document.getElementById('chartDiv'));
+      var chart = new google.visualization.LineChart(document.getElementById('chartDiv1'));
 
       chart.draw(data, options);
     }
+/* 월별 회원 가입자 수 끝*/
+
+
+/* 나이대별 회원 수 시작 */ 
+<%
+int cnt1 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt5 = 0, cnt6 = 0, cnt7 = 0;
+for (int i = 0 ; i < memberAge.size() ; i++) {
+	MemberInfo ma = memberAge.get(i);
+	
+	if (ma.getMi_age() < 14)	cnt1++;
+	else if (14 <= ma.getMi_age() && ma.getMi_age() < 20)	cnt2++;
+	else if (20 <= ma.getMi_age() && ma.getMi_age() < 30)	cnt3++;
+	else if (30 <= ma.getMi_age() && ma.getMi_age() < 40)	cnt4++;
+	else if (40 <= ma.getMi_age() && ma.getMi_age() < 50)	cnt5++;
+	else if (50 <= ma.getMi_age() && ma.getMi_age() < 60)	cnt6++;
+	else cnt7++;
+}
+%>
+</script>
+<script>
+var agedata = [
+	["나이대", "회원 수", {role:"style"}, {role:"annotation"}], ["만 14세", <%=cnt1%>, "red", "만 14세"], ["만 14~19세", <%=cnt2%>, "#0000ff", "만 14~19세"], 
+	["20대", <%=cnt3%>, "green", "20대"], ["30대", <%=cnt4%>, "gray", "30대"], ["40대", <%=cnt5%>, "yellow", "40대"], ["50대", <%=cnt6%>, "pink", "50대"], ["60대", <%=cnt6%>, "orange", "60대"]
+];
+google.charts.load("current", {packages: ["corechart"]});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+	var data = google.visualization.arrayToDataTable(agedata);
+	var options = {title: "나이대별 회원 수", "is3D" : true};
+	var chart = new google.visualization.PieChart(document.getElementById("chartDiv2"));
+	chart.draw(data, options);
+}
+
+/* 나이대별 회원 수 끝 */ 
 </script>
 </html>

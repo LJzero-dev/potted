@@ -45,21 +45,21 @@ public class SalesSlipCtrl {
 		}*/
 		request.setCharacterEncoding("utf-8");
 		
+		// 월별 회원 가입자 수
 		int curYear, curMonth, curDay, schYear, schMonth, schDay, schLast;
-		LocalDate today = LocalDate.now();	// 오늘 날짜를 가진 인스턴스 생성
+		LocalDate today = LocalDate.now();
 		curYear = today.getYear();
 		curMonth = today.getMonthValue();
 		curDay = today.getDayOfMonth();
 
 		if (request.getParameter("schYear") == null) {
-			// 검색한 년월이 없을 경우 오늘 날짜의 달력으로 검색
 				schYear = curYear;	schMonth = curMonth;	schDay = curDay;
 		} else {
 			schYear = Integer.parseInt(request.getParameter("schYear"));
 			schMonth = Integer.parseInt(request.getParameter("schMonth"));
 			schDay = 1;
 		}
-		System.out.println(schYear + ":::" + schMonth);
+//		System.out.println(schYear + ":::" + schMonth);
 
 		CalendarInfo ci = new CalendarInfo();
 		ci.setCurYear(curYear);	ci.setCurMonth(curMonth);	ci.setCurDay(curDay);
@@ -71,10 +71,12 @@ public class SalesSlipCtrl {
 		
 		List<MemberInfo> memberInfo = salesSlipSvc.getMemberInfo(schYear, schMonth);
 
-
 		request.setAttribute("ci", ci);
-		
 		request.setAttribute("memberInfo", memberInfo);
+		
+		// 나이별 회원 수
+		List<MemberInfo> memberAge = salesSlipSvc.getMemberAge();
+		request.setAttribute("memberAge", memberAge);
 		
 		return "sales/memberChart";
 	}

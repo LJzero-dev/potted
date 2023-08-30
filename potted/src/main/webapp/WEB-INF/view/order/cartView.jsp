@@ -151,7 +151,7 @@ function setCnt(ocidx, num, cnt, stock){
 			<input type="button" value="+" onclick="setCnt(${oc.getOc_idx()}, this.value, ${oc.getOc_cnt()}, ${oc.getPi_stock()});" />
 			</td>
 			
-			<td align="center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${pcPrice + optionPrice}" /></td>
+			<td align="center"><fmt:formatNumber type="number" maxFractionDigits="0" value="${pcPrice + optionPrice}" /></td>
 			<td valign="top"><input type="button" id="del" value="⊗" onclick="cartDel(${oc.getOc_idx()});" /></td>
 		</tr>
 		</c:forEach>
@@ -169,13 +169,13 @@ function setCnt(ocidx, num, cnt, stock){
 		<tr height="30px;"><th colspan="9">총 주문 상품 ${orderCart.size()}개 </th></tr>
 		<tr height="120px;">
 			<td width="10%"></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice + dcPrice}" /><p>상품 금액</p></td>
+			<td><fmt:formatNumber type="number" maxFractionDigits="0" value="${totalPrice + dcPrice}" /><p>상품 금액</p></td>
 			<td>+<p style="height:15px;"></p></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${deliPrice}" /><p>배송비</p></td>
+			<td><fmt:formatNumber type="number" maxFractionDigits="0" value="${deliPrice}" /><p>배송비</p></td>
 			<td>-<p style="height:15px;"></p></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${dcPrice}" /><p>할인금액</p></td>
+			<td><fmt:formatNumber type="number" maxFractionDigits="0" value="${dcPrice}" /><p>할인금액</p></td>
 			<td>=<p style="height:15px;"></p></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice + deliPrice}" /><p>총 주문금액</p></td>
+			<td><fmt:formatNumber type="number" maxFractionDigits="0" value="${totalPrice + deliPrice}" /><p>총 주문금액</p></td>
 			<td><input type="hidden" name="totalc" value="${totalPrice + dcPrice}" /></td>
 			<td><input type="hidden" name="delic" value="${deliPrice}" /></td>
 		</tr>

@@ -20,7 +20,7 @@ public class SalesSlipDao {
 		String month = "";
 		if(m < 10)	month = "0" + m;
 		String sql = "select count(*) mcnt, mid(mi_date, 9, 2) miday from t_member_info where mid(mi_date, 1, 4) = '" + y + "' and mid(mi_date, 6, 2) = '" + month + "' group by miday";
-		System.out.println(sql);
+//		System.out.println(sql);
 		List<MemberInfo> memberInfo = jdbc.query(sql, 
 		(ResultSet rs, int rowNum) -> {
 			MemberInfo mi = new MemberInfo();
@@ -29,5 +29,17 @@ public class SalesSlipDao {
 			return mi;
 		});
 		return memberInfo;
+	}
+
+	public List<MemberInfo> getMemberAge() {
+		String sql = "select mi_id, mid(curdate(), 1, 4) - mid(mi_birth, 1, 4) miage from t_member_info order by miage";
+		List<MemberInfo> memberAge = jdbc.query(sql, 
+		(ResultSet rs, int rowNum) -> {
+			MemberInfo ma = new MemberInfo();
+			ma.setMi_id(rs.getString("mi_id"));
+			ma.setMi_age(rs.getInt("miage"));
+			return ma;
+		});
+		return memberAge;
 	}	
 }

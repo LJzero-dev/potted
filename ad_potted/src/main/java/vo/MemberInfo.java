@@ -2,7 +2,7 @@ package vo;
 
 public class MemberInfo {
 	private String mi_id, mi_pw, mi_name, mi_gender, mi_birth, mi_phone, mi_email, mi_isad, mi_status, mi_date, mi_lastlogin, mi_day, mi_month;
-	private int mi_point, order_count, mi_count;
+	private int mi_point, order_count, mi_count, mi_age;
 	
 	public int getOrder_count() {
 		return order_count;
@@ -102,6 +102,12 @@ public class MemberInfo {
 	}
 	public void setMi_count(int mi_count) {
 		this.mi_count = mi_count;
+	}
+	public int getMi_age() {
+		return mi_age;
+	}
+	public void setMi_age(int mi_age) {
+		this.mi_age = mi_age;
 	}
 	
 	

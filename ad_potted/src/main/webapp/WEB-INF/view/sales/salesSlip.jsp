@@ -12,8 +12,7 @@ canvas {
 }
 .btn1 { border: 0; width:100px; font-size: 20px; background: #0B9649; color:white; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
 .btn2 { border: 0; width:100px; font-size: 20px; background: #fff; padding-bottom: 8px; cursor: pointer; }
-#menu1 {}
-#menu2 { display:none; }
+.btn2:hover { border: 0; width:100px; font-size: 20px; background: #0B9649; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>

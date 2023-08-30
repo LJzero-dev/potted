@@ -114,7 +114,8 @@ function buy(kind) {
 	document.getElementById("totalPrice").value = totalPrice;
 	var option = frm.option.value;
 	var cnt = frm.cnt.value;
-	var price = frm.totalPrice.value - (cnt*(frm.pi_price.value*(1-frm.pi_dc.value)));
+	var price = frm.totalPrice.value - Math.ceil((cnt*(frm.pi_price.value*(1-frm.pi_dc.value))));
+//	alert(frm.totalPrice.value + ":::" + Math.ceil((cnt*(frm.pi_price.value*(1-frm.pi_dc.value)))));
 	
 	if (kind == "c") {	// 장바구니 담기일 경우
 		$.ajax({

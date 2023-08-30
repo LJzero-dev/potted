@@ -16,4 +16,9 @@ public class SalesSlipSvc {
 		List<MemberInfo> memberInfo = salesSlipDao.getMemberInfo(y, m);
 		return memberInfo;
 	}
+
+	public List<MemberInfo> getMemberAge() {
+		List<MemberInfo> memberAge = salesSlipDao.getMemberAge();
+		return memberAge;
+	}
 }
