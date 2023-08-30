@@ -1,8 +1,8 @@
 package vo;
 
 public class MemberInfo {
-	private String mi_id, mi_pw, mi_name, mi_gender, mi_birth, mi_phone, mi_email, mi_isad, mi_status, mi_date, mi_lastlogin;
-	private int mi_point,order_count;
+	private String mi_id, mi_pw, mi_name, mi_gender, mi_birth, mi_phone, mi_email, mi_isad, mi_status, mi_date, mi_lastlogin, mi_day, mi_month;
+	private int mi_point, order_count, mi_count;
 	
 	public int getOrder_count() {
 		return order_count;
@@ -81,6 +81,27 @@ public class MemberInfo {
 	}
 	public void setMi_point(int mi_point) {
 		this.mi_point = mi_point;
+	}
+	
+	// 회원 통계 관련 부분
+
+	public String getMi_day() {
+		return mi_day;
+	}
+	public void setMi_day(String mi_day) {
+		this.mi_day = mi_day;
+	}
+	public String getMi_month() {
+		return mi_month;
+	}
+	public void setMi_month(String mi_month) {
+		this.mi_month = mi_month;
+	}
+	public int getMi_count() {
+		return mi_count;
+	}
+	public void setMi_count(int mi_count) {
+		this.mi_count = mi_count;
 	}
 	
 	

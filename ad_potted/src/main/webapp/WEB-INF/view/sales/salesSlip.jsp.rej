@@ -1,0 +1,16 @@
+diff a/ad_potted/src/main/webapp/WEB-INF/view/sales/salesSlip.jsp b/ad_potted/src/main/webapp/WEB-INF/view/sales/salesSlip.jsp	(rejected hunks)
+@@ -10,9 +10,14 @@
+ 	-webkit-user-select: none;
+ 	-ms-user-select: none;
+ }
++.btn1 { border: 0; width:100px; font-size: 20px; background: #0B9649; color:white; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
++.btn2 { border: 0; width:100px; font-size: 20px; background: #fff; padding-bottom: 8px; cursor: pointer; }
++#menu1 {}
++#menu2 { display:none; }
+ </style>
+ <script src="${pageContext.request.contextPath}/resources/js/Chart.min.js"></script>
+ <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
++<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ <script>
+ var color = Chart.helpers.color;
+ var barChartData = {
