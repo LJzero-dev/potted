@@ -2,6 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="inc/inc_head.jsp" %>
+<%@ page import="java.util.*"  %>
+<%
+
+Calendar cal = Calendar.getInstance();
+int y = cal.get(Calendar.YEAR);
+int m = cal.get(Calendar.MONTH)+1;
+int d = cal.get(Calendar.DATE);
+int h = cal.get(Calendar.HOUR_OF_DAY);
+
+String month = "";
+String day = "";
+String hour = "";
+if (m < 10)		month = "0" + m;
+else			month = m + "";
+
+if (d < 10)		day = "0" + d;
+else			day = d + "";
+
+if (h < 10)		hour = "0" + h;
+else			hour = h + "";
+
+String today = y + "" + month + "" + day;
+%>
 <style>
 #timg { width:190px; height:170px; border:0; border-radius:20%; }
 .title { font-size:30px; font-weight:bold; height:50px; }
@@ -36,8 +59,27 @@ body { margin:0; }
 .slideshow-indicator a.active { cursor:default; }
 .slideshow-indicator a:before { margin-left:-110px; }
 .slideshow-indicator a.active:before { margin-left:-130px; }
+
+.weather {background-image: url("/potted/resources/images/weather/clouds.png"); background-repeat : no-repeat;}
+.wsize {width:1400px; height:600px; margin-left:350px; }
+.weatherInfo { text-align:right; padding-top:25px; margin-right:110px; font-size:50px; color:white; }
+.wday { text-align:right; padding-top:40px; margin-right:80px; font-size:30px; color:white; }
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script>
+$.getJSON('https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=8v9f7y0t91f1wlfyspJ%2BQEpRi%2BnQ1LWm%2FEoMFm8iqGkdSM8clOR3q7h5y6WtC9%2Bxxa5wWZIQhdP77%2B3v%2FdOEA%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=<%=today%>&base_time=<%=hour%>00&nx=61&ny=125', function(data) {
+	console.log(data);
+	let wy = data.response.body.items.item[3].baseDate.substring(2); // 날짜
+	let wh = data.response.body.items.item[3].baseTime;	// 시간
+	let wt = data.response.body.items.item[3].obsrValue; // 온도
+	let pty = data.response.body.items.item[0].obsrValue; // 강수형태 : 0 = 없음, (1,2,4,5) = 비, (3,6,7) = 눈
+	 $('.weatherInfo').text(wt + "℃");
+	 $('.wday').text(wy.substring(0, 2) + "년 " + wy.substring(2, 4) + "월 " + wy.substring(4) + "일");
+	console.log(pty);
+	console.log(wt);
+	
+});
+</script>
 <script>
 $(document).ready(function() {
 	$(".slideshow").each(function() {
@@ -109,6 +151,7 @@ $(document).ready(function() {
 	});
 });
 </script>
+
 <div class="slideshow">
 	<div class="slideshow-slides">
 		<a href="#" class="slide" id="slide-1"><img src="/potted/resources/images/banner/test1.png" width="1600" height="465" /></a>
@@ -154,6 +197,18 @@ $(document).ready(function() {
 </c:forEach>
 </tr>
 </table>
+<br /><br />
+<!-- 날씨정보 시작 -->
+<h1>오늘의 날씨</h1><br />
+</div>
+<div class="weather wsize">
+	<p class="wday"></p><br />
+	<p class="weatherInfo"></p><br />
+	<p class=""></p>
+</div>
+<br />
+<!-- 날씨정보 종료 -->
+<div style="width:1100px; margin:0 auto; align:center; ">
 <table class="free" cellpadding="0" cellspacing="0">
 <tr height="40px;"></tr>
 <tr><td colspan="4"><span class="title">인기 글</span>&nbsp;<a href="freeList?cpage=1&ob=b" class="showall">모두 보기 >></a></td></tr>
