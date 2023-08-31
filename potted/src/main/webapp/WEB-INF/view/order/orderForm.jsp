@@ -36,6 +36,7 @@ function chAddr(val) {
 	<input type="hidden" name="total" value="${total }" />
 	<input type="hidden" name="mi_name" value="${mi_name }" />
 	<input type="hidden" name="od_price" value="${pi_price}" />
+	<input type="hidden" name="pcnt" value="${pcnt}" />
 	<input type="hidden" id="totaldel" name="oi_pay" value="${total + deliPrice}">
 	<c:set var="deliPrice" value="3500" />
 	<c:set var="pcPrice" value="0" />
@@ -57,7 +58,7 @@ function chAddr(val) {
                                <img src="/ad_potted/resources/images/product/${pi_img1 }" alt="주문상품 이미지">
                            </div>
                            <div class="product_info_wrap">
-                               <span class="shop_item_title">${pi_name }</span>
+                               <span class="shop_item_title">${pi_name } | 수량 : ${pcnt}</span>
                                <div class="shop_item_opt">
                                    <p>${option }</p>
                                </div>

@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 
 public class OrderInfo {
 	private String oi_id, mi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_status, oi_date, pi_id, oi_kind, isAuction;
-	private int oi_pay, oi_upoint, oi_spoint, oi_apoint;
+	private int oi_pay, oi_upoint, oi_spoint, oi_apoint, oi_cnt;
 	private ArrayList<OrderDetail> detailList;
 	
 	public String getOi_id() {
@@ -128,6 +128,12 @@ public class OrderInfo {
 	}
 	public void setIsAuction(String isAuction) {
 		this.isAuction = isAuction;
+	}
+	public int getOi_cnt() {
+		return oi_cnt;
+	}
+	public void setOi_cnt(int oi_cnt) {
+		this.oi_cnt = oi_cnt;
 	}
 	
 	

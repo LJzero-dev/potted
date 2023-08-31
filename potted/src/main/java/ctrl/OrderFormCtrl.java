@@ -31,12 +31,13 @@ public class OrderFormCtrl {
 		request.setCharacterEncoding("utf-8");
 		String kind = request.getParameter("kind");
 		String isAuction = request.getParameter("isAuction");
-		// ��ٱ��� ���� : c | �ٷα��� : d
+		// 占쏙옙袂占쏙옙占� 占쏙옙占쏙옙 : c | 占쌕로깍옙占쏙옙 : d
 		String pi_id = request.getParameter("pi_id");
 		String pi_name = request.getParameter("pi_name");
 		String pi_price = request.getParameter("pi_price");
 		String pi_img1 = request.getParameter("pi_img1");
 		String pi_dc = request.getParameter("pi_dc");
+		int pcnt = Integer.parseInt(request.getParameter("cnt"));
 		
 		String total = request.getParameter("totalPrice");
 		String option = request.getParameter("option");
@@ -54,7 +55,7 @@ public class OrderFormCtrl {
 		String from = "from t_product_info a, t_product_option_stock b "; 
 		String where = "where a.pi_id = b.pi_id and a.pi_isview = 'y' and b.pos_isview = 'y' ";
 		
-		if (kind.equals("c")) {	// ��ٱ��ϸ� ���� ����(c)�� ���
+		if (kind.equals("c")) {	// 占쏙옙袂占쏙옙玖占� 占쏙옙占쏙옙 占쏙옙占쏙옙(c)占쏙옙 占쏙옙占�
 			String[] arr = request.getParameterValues("chk");
 			
 			
@@ -68,7 +69,7 @@ public class OrderFormCtrl {
 			}
 			where += ") order by a.pi_id";
 			
-		} else {	// �ٷ� ����(d)�� ���
+		} else {	// 占쌕뤄옙 占쏙옙占쏙옙(d)占쏙옙 占쏙옙占�
 				int cnt = Integer.parseInt(request.getParameter("cnt"));
 				select += cnt + " cnt ";
 				where += " and a.pi_id = '" + pi_id + "' ";
@@ -90,6 +91,7 @@ public class OrderFormCtrl {
 		model.addAttribute("pi_price", pi_price);
 		model.addAttribute("pi_img1", pi_img1);
 		model.addAttribute("pi_dc", pi_dc);
+		model.addAttribute("pcnt", pcnt);
 		model.addAttribute("total", total);
 		model.addAttribute("mi_name", mi_name);
 		model.addAttribute("option", option);
@@ -115,7 +117,7 @@ public class OrderFormCtrl {
 		String miid = mi.getMi_id();
 		
 		String oi_apointParam = request.getParameter("oi_apoint");
-	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // �Ҽ��� ���� �κ� ����
+	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // 占쌀쇽옙占쏙옙 占쏙옙占쏙옙 占싸븝옙 占쏙옙占쏙옙
 		OrderInfo oi = new OrderInfo();
 		OrderDetail od = new OrderDetail();
 		
@@ -133,6 +135,7 @@ public class OrderFormCtrl {
 		oi.setOi_apoint(oi_apoint);
 		oi.setOi_kind(request.getParameter("oi_kind"));
 		oi.setIsAuction(request.getParameter("isAuction"));
+		oi.setOi_cnt(Integer.parseInt(request.getParameter("pcnt")));
 		od.setOd_name(request.getParameter("od_name"));
 		od.setOd_img(request.getParameter("od_img"));
 		od.setOd_option(request.getParameter("option"));
