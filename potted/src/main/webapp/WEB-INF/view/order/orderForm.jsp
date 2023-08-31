@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../inc/inc_head.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
 
-ArrayList<OrderCart> pdtList = (ArrayList<OrderCart>)request.getAttribute("pdtList");
 ArrayList<MemberAddr> addrList = (ArrayList<MemberAddr>)request.getAttribute("addrList");
 
 %>
@@ -31,12 +31,18 @@ function chAddr(val) {
 	<input type="hidden" name="pi_id" value="${pi_id }" />
 	<input type="hidden" name="isAuction" value="${isAuction }" />
 	<input type="hidden" name="od_name" value="${pi_name }" />
-	<input type="hidden" name="option" value="${option }" />
+	<c:choose>
+	    <c:when test="${kind eq 'c'}">
+	        <input type="hidden" name="option" value="${oc.oc_option}" />
+	    </c:when>
+	    <c:otherwise>
+	        <input type="hidden" name="option" value="${option}" />
+	    </c:otherwise>
+	</c:choose>
 	<input type="hidden" name="od_img" value="${pi_img1 }" />
 	<input type="hidden" name="total" value="${total }" />
 	<input type="hidden" name="mi_name" value="${mi_name }" />
 	<input type="hidden" name="od_price" value="${pi_price}" />
-	<input type="hidden" name="pcnt" value="${pcnt}" />
 	<input type="hidden" id="totaldel" name="oi_pay" value="${total + deliPrice}">
 	<c:set var="deliPrice" value="3500" />
 	<c:set var="pcPrice" value="0" />
@@ -53,21 +59,38 @@ function chAddr(val) {
 	        <div class="row">
 	            <div class="item_box">
 	                <div>
-	                	<div class="shop_item_thumb">
-                           <div class="product_img_wrap">
-                               <img src="/ad_potted/resources/images/product/${pi_img1 }" alt="주문상품 이미지">
+	                	<c:forEach var="oc" items="${pdtList}">
+                        <div class="shop_item_thumb">
+                           <div class="product_img_wrap">                            
+                               <img src="/ad_potted/resources/images/product/${oc.pi_img}" alt="주문상품 이미지">
                            </div>
-                           <div class="product_info_wrap">
-                               <span class="shop_item_title">${pi_name } | 수량 : ${pcnt}</span>
-                               <div class="shop_item_opt">
-                                   <p>${option }</p>
-                               </div>
-                               <div class="shop_item_pay">
-								    <span id="total"><fmt:formatNumber type="number" maxFractionDigits="3" value="${total}" />원</span>
-								    <span style="text-decoration: line-through"></span>
-								</div>
-                           </div>
+                           <div class="product_info_wrap">                               
+                               <div class="shop_item_opt">                                   
+	                               <span class="shop_item_title">${oc.pi_name }</span>
+	                               <div class="shop_item_opt">
+	                               <c:choose>
+	                                   <c:when test="${kind eq 'c'}">
+	                                   		<p>${oc.oc_option }</p>
+	                                   </c:when>
+	                                   <c:otherwise>
+	                                        <p>${option }</p>
+	                                   </c:otherwise>
+	                               </c:choose>
+	                               </div>
+	                               <div class="shop_item_pay">
+	                               		<c:choose>
+		                               		<c:when test="${kind eq 'c'}">
+		                               			<span id="total"><fmt:formatNumber type="number" maxFractionDigits="3" value="" />원</span>	  
+		                               		</c:when>
+		                               		<c:otherwise>
+		                                    	<span id="total"><fmt:formatNumber type="number" maxFractionDigits="3" value="${total}" />원</span>	       
+		                                    </c:otherwise>     
+	                                    </c:choose>                     
+									</div>
+	                           </div>
+	                    	</div>
 	                    </div>
+	                    </c:forEach>
 	                    <div class="im-payment-deliv">
 	                     	<div>배송비 <span class="text-bold"><fmt:formatNumber type="number" maxFractionDigits="3" value="${deliPrice }" /></span></div>
 	                    </div>	               

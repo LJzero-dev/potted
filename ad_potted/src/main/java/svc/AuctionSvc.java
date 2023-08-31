@@ -8,7 +8,7 @@ import vo.PageInfo;
 import vo.ProductCtgrBig;
 import vo.ProductCtgrSmall;
 import vo.ProductInfo;
-import vo.ProductOptionInfo;
+import vo.ProductOptionStock;
 
 public class AuctionSvc {
 	private AuctionDao auctionDao;
@@ -27,7 +27,7 @@ public class AuctionSvc {
 		return smallList;
 	}
 
-	public int productInsert(ProductInfo pi, ProductOptionInfo po) {
+	public int productInsert(ProductInfo pi, ProductOptionStock po) {
 		int result = auctionDao.productInsert(pi, po);
 		return result;
 	}
@@ -48,8 +48,8 @@ public class AuctionSvc {
 		return productInfo;
 	}
 
-	public List<ProductOptionInfo> getProductOptionInfo(String piid) {
-		List<ProductOptionInfo> poList = auctionDao.getProductOptionInfo(piid);
+	public List<ProductOptionStock> getProductOptionStock(String piid) {
+		List<ProductOptionStock> poList = auctionDao.getProductOptionInfo(piid);
 		return poList;
 	}
 }

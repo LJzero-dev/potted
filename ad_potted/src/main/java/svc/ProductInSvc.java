@@ -25,8 +25,8 @@ public class ProductInSvc {
 		return smallList;
 	}
 
-	public int productInsert(ProductInfo pi, ProductOptionInfo po) {
-		int result = productInDao.productInsert(pi, po);
+	public int productInsert(ProductInfo pi, ArrayList<ProductOptionStock> poList) {
+		int result = productInDao.productInsert(pi, poList);
 		return result;
 	}
 
@@ -46,8 +46,8 @@ public class ProductInSvc {
 		return productInfo;
 	}
 
-	public List<ProductOptionInfo> getProductOptionInfo(String piid) {
-		List<ProductOptionInfo> poList = productInDao.getProductOptionInfo(piid);
+	public List<ProductOptionStock> getProductOptionInfo(String piid) {
+		List<ProductOptionStock> poList = productInDao.getProductOptionInfo(piid);
 		return poList;
 	}
 

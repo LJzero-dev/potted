@@ -43,11 +43,11 @@ public class ProductInDao {
 	}
 
 
-	public int productInsert(ProductInfo pi, ProductOptionInfo po) {
+	public int productInsert(ProductInfo pi, ArrayList<ProductOptionStock> poList) {
 		Random random = new Random();
-	    int randomValue = random.nextInt(1000); // 0 �̻� 999 ������ ������ ���� ����
+	    int randomValue = random.nextInt(1000); // 0 이상 999 이하의 랜덤 값
 
-	    double dc = pi.getPi_dc() / 100.0; // ���ε� ���� ���
+	    double dc = pi.getPi_dc() / 100.0; // 할인률 계산
 	    	
 	    String sql = "insert into t_product_info (pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_img2, pi_img3, pi_desc, pi_stock, pi_isview, ai_idx) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'y', 1)";
 	    int result = jdbc.update(sql, pi.getPcs_id() + String.format("%03d", randomValue), pi.getPcb_id(), pi.getPcs_id(), pi.getPi_name(), pi.getPi_price(), pi.getPi_cost(), dc, pi.getPi_status(), pi.getPi_img1(), pi.getPi_img2(), pi.getPi_img3(), pi.getPi_desc(), pi.getPi_stock());
@@ -57,7 +57,16 @@ public class ProductInDao {
 	        String piId = jdbc.queryForObject(piIdQuery, String.class, pi.getPcs_id() + String.format("%03d", randomValue));
 	        
 			sql = "insert into t_product_option_stock (pos_id, pob_id, pi_id, pos_price, pos_isview) values (?, ?, ?, ?, 'y')";
-			result += jdbc.update(sql, po.getPos_id(), po.getPob_id(), piId, po.getPos_price());
+			
+			
+			for (ProductOptionStock po : poList) {
+				
+				System.out.println("pob_id: " + po.getPob_id());
+				
+				int insertCount = jdbc.update(sql, po.getPos_id(), po.getPob_id(), piId, po.getPos_price());
+
+		        result += insertCount;
+			}
 	    }
 		
 		return result;
@@ -131,13 +140,13 @@ public class ProductInDao {
 		return pi;
 	}
 	
-	public List<ProductOptionInfo> getProductOptionInfo(String piid) {
+	public List<ProductOptionStock> getProductOptionInfo(String piid) {
         String sql = "select * from t_product_option_stock where pos_isview = 'y' and pi_id = '" + piid + "' ";
-         List<ProductOptionInfo> poList = jdbc.query(sql,
-            new RowMapper<ProductOptionInfo>() {
+         List<ProductOptionStock> poList = jdbc.query(sql,
+            new RowMapper<ProductOptionStock>() {
                 @Override
-                public ProductOptionInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    ProductOptionInfo po = new ProductOptionInfo();
+                public ProductOptionStock mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    ProductOptionStock po = new ProductOptionStock();
                     po.setPi_id(rs.getString("pi_id"));
                     po.setPob_id(rs.getString("pob_id"));
                     po.setPos_id(rs.getString("pos_id"));

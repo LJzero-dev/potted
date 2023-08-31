@@ -52,6 +52,37 @@ function showDiv(num) {
 	if (obj.style.display == "block")	obj.style.display = "none";
 	else								obj.style.display = "block";
 }
+
+function posArr() {
+    var checkedBoxesPos = document.querySelectorAll('input[name="pos_id"]:checked');
+    var checkedBoxesPob = document.querySelectorAll('input[name="pob_id"]:checked');
+    var pos_ids = [];
+    var pob_ids = [];
+    
+    for (var i = 0; i < checkedBoxesPob.length; i++) {
+        pob_ids.push(checkedBoxesPob[i].value);
+    }
+    
+ 	// "pob_ids" 필드에 체크된 값들을 하나의 문자열로 넣기
+    var pob_ids_value = pob_ids.length > 0 ? pob_ids.join('/') : "없음";
+    document.getElementById('pob_ids').value = pob_ids_value;
+    
+ 	// "pob_id" 필드에도 값을 설정
+    document.getElementById('pob_id').value = pob_ids_value;
+    
+    for (var i = 0; i < checkedBoxesPos.length; i++) {
+        pos_ids.push(checkedBoxesPos[i].value);
+    }
+    
+    // "pos_ids" 필드에 체크된 값들을 하나의 문자열로 넣기
+    var pos_ids_value = pos_ids.length > 0 ? pos_ids.join('/') : "없음";
+    document.getElementById('pos_ids').value = pos_ids_value;
+    
+    // "pos_id" 필드에도 값을 설정
+    document.getElementById('pos_id').value = pos_ids_value;
+    
+}
+
 </script>
 <style>
 .title {color:#1cad0a;}
@@ -69,7 +100,11 @@ th {width:130px; text-align:left;}
 
 <div style="width:1100px; margin:0 auto; overflow:hidden;">
 	<h2>상품 등록</h2>
-	<form name="frm" action="productProcIn" method="post"  enctype="multipart/form-data">
+	<form name="frm" action="productProcIn" method="post"  enctype="multipart/form-data" onsubmit="posArr();">
+	<input type="hidden" name="pos_id" id="pos_id">
+	<input type="hidden" name="pos_ids" id="pos_ids" value="">
+	<input type="hidden" name="pob_id" id="pob_id">
+	<input type="hidden" name="pob_ids" id="pob_ids" value="">
 	<table>
 		<tr>
 			<th class="title">상품 상태</th>
@@ -128,28 +163,28 @@ th {width:130px; text-align:left;}
 		</tr>
 		<tr>
 			<th class="title" rowspan="3" style="padding-top:15px; vertical-align:text-top;">서브상품</th>
-			<td align="right">
+			<td align="right" valign="top">
 				<div id="sub1">
 				<span style="vertical-align:super;">분갈이</span>
-				<input type="checkbox" name="pos_id" value="10000,1-1:직접 분갈이 (분갈이+난석+깔망)" id="pds01" style="vertical-align:super;" /> <label for="pds01" class="psub">1-1 직접 분갈이 (분갈이+난석+깔망)</label><br /><br />
-				<input type="checkbox" name="pos_id" value="7500,1-2:분갈이 요청(분갈이+난석+분갈이)" id="pds02" /> <label for="pds02" class="psub">1-2 분갈이 요청(분갈이+난석+분갈이)</label>
+				<input type="checkbox" name="pos_id" value="1.분갈이,10000,1-1:직접 분갈이 (분갈이+난석+깔망)" id="pds01" style="vertical-align:super;" /> <label for="pds01" class="psub">1-1 직접 분갈이 (분갈이+난석+깔망)</label><br /><br />
+				<input type="checkbox" name="pos_id" value="1.분갈이,7500,1-2:분갈이 요청(분갈이+난석+분갈이)" id="pds02" /> <label for="pds02" class="psub">1-2 분갈이 요청(분갈이+난석+분갈이)</label>
 				</div>
 			</td>
-			<td align="right">
+			<td align="right" valign="top">
 				<div id="sub2">
 				<span>화분</span>
-				<input type="checkbox" name="pos_id" value="4500,2-2:아트스톤 화분" id="pt01" /> <label for="pt01" class="psub">2-1 아트스톤 화분</label><br /><br />
-				<input type="checkbox" name="pos_id" value="5000,2-2:도자기 화분" id="pt02" /> <label for="pt02" class="psub">2-2 도자기 화분</label><br /><br />
-				<input type="checkbox" name="pos_id" value="9000,2-3:유약분" id="pt03" /> <label for="pt03" class="psub">2-3 유약분</label><br /><br />
-				<input type="checkbox" name="pos_id" value="2-4:토분" id="st04" /> <label for="st04" class="psub">2-4 토분</label>
+				<input type="checkbox" name="pos_id" value="2.화분,4500,2-1:아트스톤 화분" id="pt01" /> <label for="pt01" class="psub">2-1 아트스톤 화분</label><br /><br />
+				<input type="checkbox" name="pos_id" value="2.화분,5000,2-2:도자기 화분" id="pt02" /> <label for="pt02" class="psub">2-2 도자기 화분</label><br /><br />
+				<input type="checkbox" name="pos_id" value="2.화분,9000,2-3:유약분" id="pt03" /> <label for="pt03" class="psub">2-3 유약분</label><br /><br />
+				<input type="checkbox" name="pos_id" value="2.화분,8000,2-4:토분" id="st04" /> <label for="st04" class="psub">2-4 토분</label>
 				</div>
 			</td>
-			<td align="right">
+			<td align="right" valign="top">
 				<div id="sub3">
 				<span>마감돌</span>
-				<input type="checkbox" name="pos_id" value="1000,3-1:마사토" id="st01" /> <label for="st01" class="psub">3-1 마사토</label><br /><br />
-				<input type="checkbox" name="pos_id" value="1500,3-2:화산석" id="st02" /> <label for="st02" class="psub">3-2 화산석</label><br /><br />
-				<input type="checkbox" name="pos_id" value="500,3-3:자갈" id="st03" /> <label for="st03" class="psub">3-3 자갈</label>
+				<input type="checkbox" name="pos_id" value="3.마감돌,1000,3-1:마사토" id="st01" /> <label for="st01" class="psub">3-1 마사토</label><br /><br />
+				<input type="checkbox" name="pos_id" value="3.마감돌,1500,3-2:화산석" id="st02" /> <label for="st02" class="psub">3-2 화산석</label><br /><br />
+				<input type="checkbox" name="pos_id" value="3.마감돌,500,3-3:자갈" id="st03" /> <label for="st03" class="psub">3-3 자갈</label>
 				</div>
 			</td>
 
@@ -198,7 +233,7 @@ th {width:130px; text-align:left;}
 		</tr>
 	</table>
 	<div class="btnBox">
-		<input type="submit" value="상품 등록" class="insertBtn"/>
+		<input type="submit" value="상품 등록" class="insertBtn" />
 		<a href="productList" class="cancelBtn">취소</a>
 	</div>
 	</form>

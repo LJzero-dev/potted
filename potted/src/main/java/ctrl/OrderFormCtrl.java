@@ -59,7 +59,7 @@ public class OrderFormCtrl {
 			String[] arr = request.getParameterValues("chk");
 			
 			
-			select += " c.oc_cnt cnt, c.oc_idx ";
+			select += " c.oc_option, c.oc_cnt cnt, c.oc_idx ";
 			from += ", t_order_cart c ";
 			where += " and a.pi_id = c.pi_id and b.pos_id = c.mi_id = '" + miid + "' and (";
 			
@@ -69,16 +69,15 @@ public class OrderFormCtrl {
 			}
 			where += ") order by a.pi_id";
 			
-		} else {	// 占쌕뤄옙 占쏙옙占쏙옙(d)占쏙옙 占쏙옙占�
-				int cnt = Integer.parseInt(request.getParameter("cnt"));
-				select += cnt + " cnt ";
-				where += " and a.pi_id = '" + pi_id + "' ";
-		}
+		} else {    // 바로 구매(d)일 경우
+            int cnt = Integer.parseInt(request.getParameter("cnt"));
+            select += cnt + " cnt ";
+            where += " and a.pi_id = '" + pi_id + "' ";
+        }
 		
 		List<OrderCart> pdtList = orderSvc.getBuyList(kind, select + from + where);
 		ArrayList<MemberAddr> addrList = orderSvc.getAddrList(miid);
 		
-		request.setAttribute("pdtList", pdtList);
 		request.setAttribute("addrList", addrList);
 		
 	    String mi_name = mi.getMi_name();
@@ -86,6 +85,8 @@ public class OrderFormCtrl {
 	    String mi_email = mi.getMi_email();
 	    int mi_point = mi.getMi_point();
 		
+	    model.addAttribute("pdtList", pdtList);
+        model.addAttribute("kind", kind);
 		model.addAttribute("pi_id", pi_id);
 		model.addAttribute("pi_name", pi_name);
 		model.addAttribute("pi_price", pi_price);

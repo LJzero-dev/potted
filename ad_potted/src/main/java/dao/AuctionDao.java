@@ -15,7 +15,7 @@ import vo.PageInfo;
 import vo.ProductCtgrBig;
 import vo.ProductCtgrSmall;
 import vo.ProductInfo;
-import vo.ProductOptionInfo;
+import vo.ProductOptionStock;
 
 public class AuctionDao {
 	private JdbcTemplate jdbc;
@@ -52,9 +52,9 @@ public class AuctionDao {
 	}
 
 
-	public int productInsert(ProductInfo pi, ProductOptionInfo po) {
+	public int productInsert(ProductInfo pi, ProductOptionStock po) {
 		Random random = new Random();
-	    int randomValue = random.nextInt(1000); // 0 ÀÌ»ó 999 ÀÌÇÏÀÇ ·£´ýÇÑ Á¤¼ö »ý¼º
+	    int randomValue = random.nextInt(1000); // 0 ï¿½Ì»ï¿½ 999 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	    System.out.println("1");
 	    String sql = "insert into t_product_info (pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_img2, pi_img3, pi_desc, pi_stock, pi_isview, ai_idx) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'y', 1)";
@@ -92,8 +92,8 @@ public class AuctionDao {
 			pi.setPi_cost(rs.getInt("pi_cost"));
 			pi.setPi_dc (rs.getInt("pi_dc"));
 			String pistatus = "";
-			if (rs.getString("pi_status").equals("a"))		pistatus = "ÆÇ¸Å Áß";
-			else											pistatus = "ÆÇ¸Å ÁßÁö";
+			if (rs.getString("pi_status").equals("a"))		pistatus = "ï¿½Ç¸ï¿½ ï¿½ï¿½";
+			else											pistatus = "ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½";
 			pi.setPi_status(pistatus);
 			pi.setPi_img1(rs.getString("pi_img1"));
 			pi.setPi_img2(rs.getString("pi_img2"));
@@ -139,13 +139,13 @@ public class AuctionDao {
 		return pi;
 	}
 	
-	public List<ProductOptionInfo> getProductOptionInfo(String piid) {
+	public List<ProductOptionStock> getProductOptionInfo(String piid) {
         String sql = "select * from t_product_option_stock where pos_isview = 'y' and pi_id = '" + piid + "' ";
-         List<ProductOptionInfo> poList = jdbc.query(sql,
-            new RowMapper<ProductOptionInfo>() {
+         List<ProductOptionStock> poList = jdbc.query(sql,
+            new RowMapper<ProductOptionStock>() {
                 @Override
-                public ProductOptionInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    ProductOptionInfo po = new ProductOptionInfo();
+                public ProductOptionStock mapRow(ResultSet rs, int rowNum) throws SQLException {
+                	ProductOptionStock po = new ProductOptionStock();
                     po.setPi_id(rs.getString("pi_id"));
                     po.setPob_id(rs.getString("pob_id"));
                     po.setPos_id(rs.getString("pos_id"));

@@ -30,7 +30,7 @@ public class ProductCtrl {
 	public String productList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, spage = 0, psize = 5, bsize = 5, rcnt = 0, pcnt = 0;
-		//	ÆäÀÌÁö ¹øÈ£  
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£  
 		if (request.getParameter("cpage") != null)
 			cpage = Integer.parseInt(request.getParameter("cpage"));
 		
@@ -41,22 +41,22 @@ public class ProductCtrl {
 			where += " and pi_name like '%" + keyword + "%'";
 		}
 		
-		String orderBy = " order by ";	// ¸ñ·Ï Á¤·Ä ¼ø¼­
-		String ob = request.getParameter("ob");	// Á¤·ÄÁ¶°Ç
-		if (ob == null || ob.equals(""))	ob = "a";	// ¸ñ·Ï Ã³À½ µé¾î¿ÔÀ» ¶§´Â Á¤·Ä Á¶°ÇÀÌ ¾øÀ¸¹Ç·Î ÀÓÀÇ·Î a·Î Á¤ÇØµÒ
-		String obargs = "&ob=" + ob; // Á¤·ÄÁ¶°ÇÀ» À§ÇÑ Äõ¸®½ºÆ®¸µ
+		String orderBy = " order by ";	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		String ob = request.getParameter("ob");	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if (ob == null || ob.equals(""))	ob = "a";	// ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½Ç·ï¿½ aï¿½ï¿½ ï¿½ï¿½ï¿½Øµï¿½
+		String obargs = "&ob=" + ob; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½
 		switch (ob) {
-		case "a" :	// µî·Ï¿ª¼ø(±âº»°ª)(ÃÖ±Ù µî·ÏÀÌ °¡Àå À§¿¡ ¿È
+		case "a" :	// ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½(ï¿½âº»ï¿½ï¿½)(ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			orderBy += " pi_date desc ";		break;
-		case "b" :	// ÆÇ¸ÅÁß
+		case "b" :	// ï¿½Ç¸ï¿½ï¿½ï¿½
 			where += " and pi_status = 'a' ";
 			orderBy += " pi_date desc ";		break;
-		case "c" :	// ÆÇ¸Å ÁßÁö
+		case "c" :	// ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 			where += " and pi_status = 'b' ";
 			orderBy += " pi_date desc ";		break;
-		case "d" :	// ¸¹ÀÌ ÆÇ¸ÅµÈ ¼ø
+		case "d" :	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸Åµï¿½ ï¿½ï¿½
 			orderBy += " pi_sale desc ";		break;
-		case "e" :	// Á¶È¸¼ö ¼ø
+		case "e" :	// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½
 			orderBy += " pi_read desc ";		break;
 		}
 
@@ -97,13 +97,21 @@ public class ProductCtrl {
 	public String productProcIn(HttpServletRequest request, @RequestPart("pi_img1") Part piImg1,
 	        @RequestPart("pi_img2") Part piImg2, @RequestPart("pi_img3") Part piImg3, @RequestPart("pi_desc") Part piDesc) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		String uploadFiles = "";	// ¾÷·ÎµåÇÑ ÆÄÀÏµéÀÇ ÀÌ¸§À» ´©ÀûÇÏ¿© ÀúÀåÇÒ º¯¼ö
+		String uploadFiles = "";	// ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		ProductInfo pi = new ProductInfo();
-		ProductOptionInfo po = new ProductOptionInfo();
+		ArrayList<ProductOptionStock> poList = new ArrayList<ProductOptionStock>();
+//		ProductOptionInfo po = new ProductOptionInfo();
 		
-		String[] posIds = request.getParameter("pos_id").split(",");
+//		System.out.println(request.getParameter("pob_ids"));
+//		System.out.println(request.getParameter("pos_ids"));
 		
+		String pobIdsStr = request.getParameter("pob_ids");
+		String[] pobIdsSlashSplit = pobIdsStr.split("/");
+		
+		String posIdsStr = request.getParameter("pos_ids");
+		String[] posIdsSlashSplit = posIdsStr.split("/");
+
 		pi.setPi_id(request.getParameter("pi_id"));
 		pi.setPcb_id(request.getParameter("pcb_id"));
 		pi.setPcs_id(request.getParameter("pcs_id"));
@@ -117,21 +125,40 @@ public class ProductCtrl {
 		pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));
 		pi.setPi_stock(Integer.parseInt(request.getParameter("pi_stock")));
 		pi.setPi_desc(getUploadFileName(piDesc.getHeader("content-disposition")));
-		pi.setPi_date(request.getParameter("pi_date"));
+		pi.setPi_date(request.getParameter("pi_date")); 
 		pi.setAi_idx(1);
-	
-		po.setPos_id(posIds[1]);
-		po.setPos_price(Integer.parseInt(posIds[0]));
-		po.setPob_id(request.getParameter("pob_id"));
+
+		/*po.setPob_id(request.getParameter("pob_id"));*/
 		
-		int result = productInSvc.productInsert(pi, po);
+		for (String pobIdsSegment : pobIdsSlashSplit) {		// ì¶”ê°€ìƒí’ˆ ì„ íƒ ë£¨í”„
+		    for (String posIdsSegment : posIdsSlashSplit) {	// ì¶”ê°€ìƒí’ˆì˜ ì„œë¸Œìƒí’ˆ ë£¨í”„
+				String[] posIds = posIdsSegment.split(",");
+				
+				if (posIds[0].equals(pobIdsSegment)) {
+				    ProductOptionStock po = new ProductOptionStock();
+				    po.setPob_id(pobIdsSegment);
+				    po.setPos_id(posIds[2]);
+					po.setPos_price(Integer.parseInt(posIds[1]));
+
+				    poList.add(po);
+				}
+			}
+		}
+
+		int n = 0;
+		for (ProductOptionStock po : poList) {
+			n++;
+			System.out.println("po" + n + " : " + po.getPob_id() + "::" + po.getPos_id() + "::" + po.getPos_price());
+		}
+		
+		int result = productInSvc.productInsert(pi, poList);
 		
 		for (Part part : request.getParts()) {
 			if (part.getName().startsWith("pi_img") || part.getName().equals("pi_desc")) {
 				String cd =  part.getHeader("content-disposition");
 				String uploadName = getUploadFileName(cd);
 				if (!uploadName.equals("")) {
-				// ¾÷·ÎµåÇÒ ÆÄÀÏÀÌ ÀÖÀ¸¸é
+				// ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					uploadFiles += ", " + uploadName;
 					part.write(uploadName);
 				}
@@ -160,7 +187,7 @@ public class ProductCtrl {
 
 		 String piid = request.getParameter("piid");
 	        ProductInfo pi = productInSvc.getProductInfo(piid);
-	        List<ProductOptionInfo> poList = productInSvc.getProductOptionInfo(piid);
+	        List<ProductOptionStock> poList = productInSvc.getProductOptionInfo(piid);
 	        ArrayList<ProductCtgrBig> bigList = productInSvc.getBigList();
 	        ArrayList<ProductCtgrSmall> smallList = productInSvc.getSmallList();
 	        
@@ -173,12 +200,12 @@ public class ProductCtrl {
 
 
 	        Set<String> PobIds = new HashSet<>();
-	        for (ProductOptionInfo po : poList) {
+	        for (ProductOptionStock po : poList) {
 	            PobIds.add(po.getPob_id());
 	        }
 	        
 	        Set<String> PosIds = new HashSet<>();
-	        for (ProductOptionInfo po : poList) {
+	        for (ProductOptionStock po : poList) {
 	            PosIds.add(po.getPos_id());
 	        }
 	        

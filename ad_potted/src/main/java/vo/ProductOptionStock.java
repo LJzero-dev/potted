@@ -1,19 +1,14 @@
 package vo;
 
-public class ProductOptionInfo {
-	private String pos_id, pos_name, pob_id, pi_id, pos_isview;
-	private int pos_stock, pos_sale, pos_price;
+public class ProductOptionStock {
+	private String pos_id, pob_id, pi_id, pos_isview;
+	private int pos_stock, pos_sale, pos_idx, pos_price;
+	
 	public String getPos_id() {
 		return pos_id;
 	}
 	public void setPos_id(String pos_id) {
 		this.pos_id = pos_id;
-	}
-	public String getPos_name() {
-		return pos_name;
-	}
-	public void setPos_name(String pos_name) {
-		this.pos_name = pos_name;
 	}
 	public String getPob_id() {
 		return pob_id;
@@ -44,6 +39,12 @@ public class ProductOptionInfo {
 	}
 	public void setPos_sale(int pos_sale) {
 		this.pos_sale = pos_sale;
+	}
+	public int getPos_idx() {
+		return pos_idx;
+	}
+	public void setPos_idx(int pos_idx) {
+		this.pos_idx = pos_idx;
 	}
 	public int getPos_price() {
 		return pos_price;

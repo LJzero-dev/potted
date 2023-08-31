@@ -35,7 +35,7 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 		<multipart-config>
-			<location>E:/esm/project/ad_potted/src/main/webapp/resources/images/product</location>
+			<location>E:\lhn\web\potted\ad_potted\src\main\webapp\resources\images\product</location>
 			<max-file-size>20971520</max-file-size> <!-- 최대크기 20M -->
 			<max-request-size>41943040</max-request-size> <!-- 한번에 올릴 최대 크기 40M -->
 			<file-size-threshold>20971520</file-size-threshold> <!-- 메모리 -->
