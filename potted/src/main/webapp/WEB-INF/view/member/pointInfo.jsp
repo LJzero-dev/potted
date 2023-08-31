@@ -91,7 +91,9 @@ for (int i = 0 ; i < memberPoint.size() ; i++) {
 	String point = "";
 	if (mp.getMp_point() >= 0) {
 		point = "+" + mp.getMp_point();
-	} 
+	} else {
+		point = mp.getMp_point() + "";
+	}
 	
 	obj = (i == 0 ? "" : ", ") + "{mpidx:\"" + mp.getMp_idx() + "\", mpdesc:\"" + mp.getMp_desc() + "\", mppoint:\"" + point + 
 		"\", mpdate:\"" + mp.getMp_date() + "\", mpdetail:\"" + mp.getMp_detail() + "\"}";

@@ -30,7 +30,27 @@ public class MemberCtrl {
 	
 	@LoginRequired
 	@GetMapping ("/orderInfo")
-	public String orderInfo() {
+	public String orderInfo(Model model, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int cpage = 1, pcnt = 0, spage = 0, rcnt = 0, psize = 5, bsize = 5;
+		if (request.getParameter("cpage") != null)		cpage = Integer.parseInt(request.getParameter("cpage"));
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		List<OrderInfo> orderList = memberSvc.getOrderList(miid, cpage, psize);
+		
+		rcnt = memberSvc.getOrderListCount(miid);
+
+		pcnt = rcnt / psize;	if(rcnt % psize > 0)	pcnt++;
+		spage = (cpage - 1) / bsize * bsize + 1;
+		PageInfo pi = new PageInfo();
+		pi.setBsize(bsize);			pi.setCpage(cpage);
+		pi.setPcnt(pcnt);			pi.setPsize(psize);
+		pi.setRcnt(rcnt);			pi.setSpage(spage);
+		
+		model.addAttribute("pi", pi);
+		request.setAttribute("orderList", orderList);
+		
 		return "member/orderInfo";
 	}
 	

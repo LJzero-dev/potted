@@ -21,4 +21,14 @@ public class MemberSvc {
 		return result;
 	}
 
+	public List<OrderInfo> getOrderList(String miid, int cpage, int psize) {
+		List<OrderInfo> OrderList = memberDao.getOrderList(miid, cpage, psize);
+		return OrderList;
+	}
+
+	public int getOrderListCount(String miid) {
+		int result = memberDao.getOrderListCount(miid);
+		return result;
+	}
+
 }
