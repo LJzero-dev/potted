@@ -251,6 +251,7 @@ create table t_order_info (
 	oi_spoint varchar(50) default '',	-- 송장번호
 	oi_status char(1) default 'a',		-- 주문상태
 	oi_date datetime default now(),		-- 주문일
+    oi_cnt int default 0,				-- 상품 수량
     constraint fk_t_order_info_pi_id foreign key (pi_id) references t_product_info(pi_id),
 	constraint fk_t_order_info_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
