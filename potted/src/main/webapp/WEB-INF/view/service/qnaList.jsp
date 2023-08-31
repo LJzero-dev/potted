@@ -26,10 +26,6 @@
 <th width="15%" class="nhList">유형</th>
 <th width="15%" class="nhList">답변여부</th>
 </tr>
-<!--<c:if test="${qnaList.size() > 0}">
-	<c:forEach items="${qnaList}" val="ql" varStatus="status">
-	</c:forEach> -->
 </table>
 <!--  게시글 리스트 종료 -->
-
 <%@ include file="../inc/inc_foot.jsp" %>
