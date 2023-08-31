@@ -45,8 +45,11 @@ DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 .ctgrb {margin-right:10px; padding: 6px 20px; font-size: 20px; color: #6E6E6E; cursor: pointer; text-align: center; height:30px; 
 	border:1.5px solid  #6E6E6E; float:left; margin-bottom:10px; background: white; border-radius: 20px;  }
 .ctgrb:hover { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
-.btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; border:1px solid #000; margin-right:10px; }
-.sct { height:25px; margin-left:690px; }
+.btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; font-color: #6E6E6E; border:1px solid #6E6E6E; margin-right:10px; width:50px; height:30px; }
+.btnr { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; font-color: #6E6E6E; border:1px solid #6E6E6E; margin-right:10px; width:100px; height:30px; }
+.btn:hover { background:#0B9649; border-color: #0B9649; font-color: white; }
+.btnr:hover { background:#0B9649; border-color: #0B9649; font-color: white; }
+.sct { height:30px; margin-left:790px; font-size:18px; }
 
 #ctgr1 { display: <% if(pcb.equals("AA") || pcs.equals("AAaa") || pcs.equals("AAbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
 #ctgr2 { display: <% if(pcb.equals("BB") || pcs.equals("BBaa") || pcs.equals("BBbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
@@ -94,7 +97,7 @@ function showCtgrS(code) {
 }
 
 </script>
-<div style="width:850px; margin:0 auto; ">
+<div style="width:1000px; margin:0 auto; ">
 <h2 style="font-size:20pt;"><a href="productList"; style="text-decoration:none; color:black;">STORE</a></h2>
 <form name="frm0">
 <div style="overflow:hidden;">
@@ -102,7 +105,7 @@ function showCtgrS(code) {
 	<div class="ctgrb" id="BB" onclick="showCtgrB(2);" >관엽식물</div>
 	<div class="ctgrb" id="CC" onclick="showCtgrB(3);" >허브⦁채소</div>
 </div>
-<hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />
+<hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb; width:930px;" />
 <div id="ctgr1" >
 	<div class="ctgrb" id="AAaa" onclick="showCtgrS('AAaa')" >다육</div>
 	<div class="ctgrb" id="AAbb" onclick="showCtgrS('AAbb')" >선인장</div>
@@ -136,12 +139,12 @@ function showCtgrS(code) {
 		<input type="text" name="sp" class="price" value="<%=sp %>" placeholder="최저가" onkeyup="onlyNum(this);" style="height:20px;" />&nbsp;&nbsp; ~ &nbsp;
 		<input type="text" name="ep" class="price" value="<%=ep %>" placeholder="최고가" onkeyup="onlyNum(this);" style="height:20px;" />
 		<input type="button" value="검색" class="btn" onclick="makeSch();" />
-		<input type="button" value="검색 초기화" class="btn" onclick="location.href='productList';" />
+		<input type="button" value="검색 초기화" class="btnr" onclick="location.href='productList';" />
 	</div>
 	<br /><br />
-	<div>
+	<div style="width:970px;">
 		<img src="/potted/resources/images/product/search.png" width="25"/>&nbsp;
-		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="<%=name %>" style="width:700px; border:0; font-size:13pt;" />
+		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="<%=name %>" style="width:800px; border:0; font-size:13pt;" />
 		<input type="button" value="검색" class="btn" onclick="makeSch();" />
 	<hr />
 	</div>
@@ -188,7 +191,7 @@ if (pageInfo.getRcnt() > 0) {
 	%>
 	<td width="10%" align="left">
 		<a href="<%=lnk %>">
-			<img id="timg" src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" 
+			<img id="timg" src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="180" height="180" border="0" 
 			<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
 			onmouseover="this.src='/ad_potted/resources/images/product/<%=pi.getPi_img2() %>';" onmouseout="this.src='/ad_potted/resources/images/product/<%=pi.getPi_img1() %>';"<% } %> />
 			<br /><span style="font-size:15px; font-weight:bold;"><%=pi.getPi_name() %></span>

@@ -34,12 +34,12 @@ a:hover { text-decoration:underline; }
 <header id="header">
     <div class="header_inner">
         <h1><a href="/potted/" class="logo"><img src="/potted/resources/images/main/logo.jpg" /></a></h1>
-         <div class="top_search clear">
+         <!-- <div class="top_search clear">
             <div class="inner_search">
               <input class="in_keyword" type="text" name="search" id="preSWord" title="검색어 입력" value="" placeholder="search">
             </div>
             <button class="search" id="searchSubmit"><span class="blind">검색</span></button>
-        </div>
+        </div> -->
         <div class="gnb">
             <ul class="menu">
                 <li><a href="plantBook" class="dep01">PLANT BOOK</a></li>

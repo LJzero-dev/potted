@@ -38,6 +38,8 @@ DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 .btn2:hover { font-weight: bold; }
 #menu1 {}
 #menu2 { display:none; }
+.share { width:84px; height:80px; border-radius: 50px; cursor: pointer; }
+.shareTxt { text-align:center; font-size:14px; }
 </style>
 <script>
 // 상품 구매, 장바구니 이동시 들고갈 배열 
@@ -255,13 +257,18 @@ if (pi.getPi_stock() <= 0) {
 	border:0px; margin-bottom:10px; background: #EC3E3E; border-radius: 20px;">SOLD OUT!</div>!현재 조회하신 상품이 재입고 대기 중입니다!</td></tr>
 <% } else { %>
 	<tr><td colspan="2" align="right" >
-		<div style="margin-right:50px; font-size: 15px; font-weight:bold;" >구매 가격 : <span id="total"><%=realPrice %></span>원</div>
+		<div style="margin-right:50px; font-size: 15px; font-weight:bold; margin-bottom:10px;" >구매 가격 : <span id="total"><%=realPrice %></span>원</div>
 	</td></tr>
 	<tr><td colspan="2" align="left">
 		<input type="button" value="장바구니 담기" class="smt" onclick="buy('c');" />
 		<input type="button" value="바로 구매하기" class="smt" onclick="buy('d');" />
 	</td></tr>
 <% } %>
+	<tr><td align="center"><table style="margin-top:40px;">
+	<tr><td><img src="/potted/resources/images/product/kakao.png" class="share" onclick="sendLinkDefault();" /></td><td width="10%"></td>
+	<td><img src="/potted/resources/images/product/url.png" class="share" onclick="shareUrl();" /></td><td width="20%"></td></tr>
+	<tr><td class="shareTxt">카카오톡 공유</td><td width="10%"></td><td class="shareTxt">URL 복사</td><td width="20%"></td></tr>
+	</table></td></tr>
 	</table>
 	</form>
 </td>
@@ -282,8 +289,48 @@ if (pi.getPi_stock() <= 0) {
 </table>
 <hr />
 </div>
-
 </div>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script>
+try {
+   function sendLinkDefault() {
+   Kakao.init('0c7b57fda6cd714148d4d0ef5fbdd8e9')
+   Kakao.Link.sendDefault({
+     objectType: 'feed',
+     content: {
+       title: 'POTTED',
+       description: '<%=pi.getPi_name()%> | <%=realPrice%>원',
+       imageUrl:'http://localhost:8086/ad_potted/resources/images/product/apple.png',
+       link: {
+         mobileWebUrl: 'https://developers.kakao.com',
+         webUrl: 'http://localhost:8086/potted/productView?piid=<%=pi.getPi_id() %>',
+       },
+     },
+     buttons: [
+       {
+         title: '자세히 보기',
+         link: {
+           mobileWebUrl: 'https://developers.kakao.com',
+           webUrl: 'http://localhost:8086/potted/productView?piid=<%=pi.getPi_id() %>',
+         },
+       },
+     ],
+   })
+}
+; window.kakaoDemoCallback && window.kakaoDemoCallback() }
+catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
 
+function shareUrl() {
+	var url = "";
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+</script>
 
 <%@ include file="../inc/inc_foot.jsp" %>

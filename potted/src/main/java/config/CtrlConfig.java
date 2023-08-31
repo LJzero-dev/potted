@@ -9,26 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import ctrl.CartCtrl;
-import ctrl.FreeCtrl;
-import ctrl.IndexCtrl;
-import ctrl.LoginCtrl;
-import ctrl.LogoutCtrl;
-import ctrl.MemberCtrl;
-import ctrl.MyPlantCtrl;
-import ctrl.OrderFormCtrl;
-import ctrl.PlantBookCtrl;
-import ctrl.ProductListCtrl;
-import ctrl.ServiceCtrl;
-import svc.CartSvc;
-import svc.FreeSvc;
-import svc.IndexSvc;
-import svc.LoginSvc;
-import svc.MemberSvc;
-import svc.MyPlantSvc;
-import svc.NoticeSvc;
-import svc.OrderSvc;
-import svc.ProductListSvc;
+import ctrl.*;
+import svc.*;
 
 @Configuration
 public class CtrlConfig {	
@@ -58,6 +40,7 @@ public class CtrlConfig {
 	
 	@Autowired
 	private MemberSvc memberSvc;
+
 	
 	@Bean
 	public IndexCtrl indexCtrl() {
@@ -143,4 +126,5 @@ public class CtrlConfig {
 	public PlantBookCtrl plantBookCtrl() {
 		return new PlantBookCtrl();
 	}
+
 }
