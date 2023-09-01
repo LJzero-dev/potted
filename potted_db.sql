@@ -480,4 +480,12 @@ create table t_schedule_info (
 	constraint fk_schedule_info_ai_id foreign key (ai_id) references t_admin_info(ai_id)
 );
 
-
+-- 농원 정보 테이블 
+create table t_garden_info (
+	gi_idx int primary key auto_increment,	-- 일련번호
+	gi_name varchar(50) not null,			-- 농원이름
+	gi_location varchar(100) not null, 		-- 농원 위치
+	gi_link varchar(200) default 'n',		-- 농원 사이트 링크
+	gi_content varchar(500) not null, 		-- 농원 설명
+	gi_date datetime default now()			-- 등록 일자
+);

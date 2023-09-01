@@ -33,6 +33,8 @@
 				config.CartConfig
 				config.IndexConfig
 				config.OrderConfig
+				config.KakaoConfig
+				config.MapConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

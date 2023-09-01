@@ -41,6 +41,12 @@ public class CtrlConfig {
 	@Autowired
 	private MemberSvc memberSvc;
 
+	@Autowired
+	private KakaoSvc kakaoSvc;
+
+	@Autowired
+	private MapSvc mapSvc;
+
 	
 	@Bean
 	public IndexCtrl indexCtrl() {
@@ -125,6 +131,20 @@ public class CtrlConfig {
 	@Bean
 	public PlantBookCtrl plantBookCtrl() {
 		return new PlantBookCtrl();
+	}
+	
+	@Bean
+	public KakaoCtrl kakaoCtrl() {
+		KakaoCtrl kakaoCtrl = new KakaoCtrl();
+		kakaoCtrl.setKakaoSvc(kakaoSvc);
+		return kakaoCtrl;
+	}
+	
+	@Bean
+	public MapCtrl mapCtrl() {
+		MapCtrl mapCtrl = new MapCtrl();
+		mapCtrl.setMapSvc(mapSvc);
+		return mapCtrl;
 	}
 
 }
