@@ -40,7 +40,7 @@ String today = y + "" + month + "" + day;
 </style>
 <style>
 body { margin:0; }
-.slideshow { background:#000; height:500px; min-width:960px; overflow:hidden; position:relative; }
+.slideshow { background:#000; height:600px; min-width:960px; overflow:hidden; position:relative; }
 .slideshow-slides { width:100%; height:100%; position:absolute; }
 .slideshow-slides .slide { width:100%; height:100%; position:absolute; overflow:hidden; }
 .slideshow-slides .slide img { left:50%; margin-left:-800px; position:absolute; }
@@ -154,10 +154,10 @@ $(document).ready(function() {
 
 <div class="slideshow">
 	<div class="slideshow-slides">
-		<a href="#" class="slide" id="slide-1"><img src="/potted/resources/images/banner/test1.png" width="1600" height="465" /></a>
-		<a href="#" class="slide" id="slide-2"><img src="/potted/resources/images/banner/test2.png" width="1600" height="465" /></a>
-		<a href="#" class="slide" id="slide-3"><img src="/potted/resources/images/banner/test3.png" width="1600" height="465" /></a>
-		<a href="#" class="slide" id="slide-4"><img src="/potted/resources/images/banner/test4.png" width="1600" height="465" /></a>
+		<a href="#" class="slide" id="slide-1"><img src="/potted/resources/images/banner/test1.jpg" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-2"><img src="/potted/resources/images/banner/test2.png" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-3"><img src="/potted/resources/images/banner/test3.png" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-4"><img src="/potted/resources/images/banner/test4.png" width="1600" height="600" /></a>
 	</div>
 	<!-- <div class="slideshow-nav">
 		<a href="#" class="prev">Prev</a>

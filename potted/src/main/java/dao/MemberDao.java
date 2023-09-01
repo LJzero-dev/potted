@@ -38,7 +38,7 @@ public class MemberDao {
 
 	public List<OrderInfo> getOrderList(String miid, int cpage, int psize) {
 		String sql = "select oi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, " + 
-	"concat(mid(oi_date, 3, 2), '/', mid(oi_date, 6, 2), '/', mid(oi_date, 9, 2), ' ', mid(oi_date, 12, 5)) odate, oi_cnt, b.pi_name " + 
+	"concat(mid(oi_date, 3, 2), '/', mid(oi_date, 6, 2), '/', mid(oi_date, 9, 2), ' ', mid(oi_date, 12, 5)) odate, oi_cnt, b.pi_id, b.pi_name " + 
 	"from t_order_info a, t_product_info b where a.pi_id = b.pi_id and mi_id = '" + miid + "' order by oi_date desc limit " + ((cpage - 1) * psize) + ", " + psize;
 		List<OrderInfo> orderList = jdbc.query(sql, 
 		(ResultSet rs, int rowNum) -> {
@@ -59,6 +59,7 @@ public class MemberDao {
 			oi.setOi_date(rs.getString("odate"));
 			oi.setPi_name(rs.getString("pi_name"));
 			oi.setOi_cnt(rs.getInt("oi_cnt"));
+			oi.setPi_id(rs.getString("pi_id"));
 			
 			return oi;
 		});

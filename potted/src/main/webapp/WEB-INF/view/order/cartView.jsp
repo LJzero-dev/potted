@@ -105,8 +105,8 @@ function setCnt(ocidx, num, cnt, stock){
 }
 
 </script>
-<div style="width:1000px; margin-left:470px; ">
-<h2>장바구니</h2>
+<div style="width:1200px; margin-left:550px; ">
+<h2 style="font-size:20pt;">장바구니</h2>
 <form name="frmCart" action="orderForm" method="post">
 <input type="hidden" name="kind" value="c" />
 <c:set var="optionPrice" value="0" />

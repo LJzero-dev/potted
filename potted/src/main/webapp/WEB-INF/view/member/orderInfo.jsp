@@ -72,7 +72,7 @@ a:hover { text-decoration:underline; }
 var orderList = {
 		props: ["object"], 
 		template:`<table id="table" width="750px;" >
-			<tr><td width="*">{{object.oiid}}</td><td width="21%">{{object.piname}}</td><td width="8%">{{object.oicnt}}</td><td width="12%">{{object.oistatus}}</td>
+			<tr><td width="*">{{object.oiid}}</td><td width="21%"><a :href="object.oilnk" target="_blank">{{object.piname}}</a></td><td width="8%">{{object.oicnt}}</td><td width="12%">{{object.oistatus}}</td>
 			<td width="15%">{{object.oipay}}</td><td width="15%">{{object.oidate}}</td></tr>
 			</table>
 		`
@@ -85,6 +85,7 @@ new Vue({
 <%
 String obj = "";
 String status = "";
+String oilnk = "";
 for (int i = 0 ; i < orderList.size() ; i++) {
 	OrderInfo oi = orderList.get(i);
 	if(oi.getOi_status().equals("a")) {
@@ -93,8 +94,10 @@ for (int i = 0 ; i < orderList.size() ; i++) {
 		status = "배송 중";
 	} else { status = "배송 완료"; }
 	
+	oilnk = "http://localhost:8086/potted/productView?piid=" + oi.getPi_id();
+	
 	obj = (i == 0 ? "" : ", ") + "{oiidx:\"" + i + "\", oiid:\"" + oi.getOi_id() + "\", piname:\"" + oi.getPi_name() + "\", oicnt:\"" + oi.getOi_cnt() + 
-		"\", oistatus:\"" + status + "\", oipay:\"" + oi.getOi_pay() + "\", oidate:\"" + oi.getOi_date() + "\"}";
+		"\", oistatus:\"" + status + "\", oipay:\"" + oi.getOi_pay() + "\", oidate:\"" + oi.getOi_date() + "\", oilnk:\"" + oilnk + "\"}";
 		out.println(obj);
 }
 %>
