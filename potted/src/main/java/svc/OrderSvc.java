@@ -12,7 +12,6 @@ public class OrderSvc {
 	}
 
 	public List<OrderCart> getBuyList(String kind, String sql) {
-		System.out.println("orderDao : " + orderDao);
 		List<OrderCart> pdtList = orderDao.getBuyList(kind, sql);
 		return pdtList;
 	}

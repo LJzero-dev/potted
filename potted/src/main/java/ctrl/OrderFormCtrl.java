@@ -31,7 +31,7 @@ public class OrderFormCtrl {
 		request.setCharacterEncoding("utf-8");
 		String kind = request.getParameter("kind");
 		String isAuction = request.getParameter("isAuction");
-		// 占쏙옙袂占쏙옙占� 占쏙옙占쏙옙 : c | 占쌕로깍옙占쏙옙 : d
+		// ������熬���������占� ������������ : c | ����濡�源��������� : d
 		String pi_id = request.getParameter("pi_id");
 		String pi_name = request.getParameter("pi_name");
 		String pi_price = request.getParameter("pi_price");
@@ -51,11 +51,11 @@ public class OrderFormCtrl {
 		
 		String miid = mi.getMi_id();
 		
-		String select = "select a.pi_id, a.pi_name, a.pi_img1, b.pos_id, "; 
+		String select = "select a.pi_id, a.pi_name, a.pi_img1, group_concat(b.pos_id) pos_id, "; 
 		String from = "from t_product_info a, t_product_option_stock b "; 
 		String where = "where a.pi_id = b.pi_id and a.pi_isview = 'y' and b.pos_isview = 'y' ";
 		
-		if (kind.equals("c")) {	// 占쏙옙袂占쏙옙玖占� 占쏙옙占쏙옙 占쏙옙占쏙옙(c)占쏙옙 占쏙옙占�
+		if (kind.equals("c")) {	// ������熬�����������占� ������������ ������������(c)������ ��������占�
 			String[] arr = request.getParameterValues("chk");
 			
 			
@@ -69,7 +69,7 @@ public class OrderFormCtrl {
 			}
 			where += ") order by a.pi_id";
 			
-		} else {    // 바로 구매(d)일 경우
+		} else {    // 諛�濡� 援щℓ(d)�� 寃쎌��
             int cnt = Integer.parseInt(request.getParameter("cnt"));
             select += cnt + " cnt ";
             where += " and a.pi_id = '" + pi_id + "' ";
@@ -118,7 +118,7 @@ public class OrderFormCtrl {
 		String miid = mi.getMi_id();
 		
 		String oi_apointParam = request.getParameter("oi_apoint");
-	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // 占쌀쇽옙占쏙옙 占쏙옙占쏙옙 占싸븝옙 占쏙옙占쏙옙
+	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // �����쎌�������� ������������ ���몃��� ������������
 		OrderInfo oi = new OrderInfo();
 		OrderDetail od = new OrderDetail();
 		
