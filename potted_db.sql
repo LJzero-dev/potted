@@ -220,6 +220,7 @@ select * from t_product_option_stock;
 insert into t_product_option_big values ('1.분갈이');
 insert into t_product_option_big values ('2.화분');
 insert into t_product_option_big values ('3.마감돌');
+insert into t_product_option_big values ('없음');
 
 insert into t_product_option_stock values (1, '1-1.직접 분갈이 (분갈이+난석+깔망)', '1.분갈이', 'CCaa201',3000 , 50, 0, 'y');
 insert into t_product_option_stock values (2, '1-2.분갈이 요청(분갈이+난석+분갈이)', '1.분갈이', 'CCaa201',5000 , 100, 0, 'y');

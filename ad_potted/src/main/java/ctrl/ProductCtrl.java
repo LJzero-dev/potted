@@ -134,11 +134,19 @@ public class ProductCtrl {
 		    for (String posIdsSegment : posIdsSlashSplit) {	// 추가상품의 서브상품 루프
 				String[] posIds = posIdsSegment.split(",");
 				
+				System.out.println("posIds 배열 길이: " + posIds.length);
+				
 				if (posIds[0].equals(pobIdsSegment)) {
 				    ProductOptionStock po = new ProductOptionStock();
+				    
 				    po.setPob_id(pobIdsSegment);
-				    po.setPos_id(posIds[2]);
-					po.setPos_price(Integer.parseInt(posIds[1]));
+				 
+				    if (posIds.length >= 2) {				
+				    	po.setPos_id(posIds[2]);
+				    	po.setPos_price(Integer.parseInt(posIds[1]));
+				    } else {
+				    	po.setPos_id(request.getParameter("pos_ids"));
+				    }
 
 				    poList.add(po);
 				}

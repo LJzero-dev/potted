@@ -67,7 +67,7 @@ public class OrderFormCtrl {
 				if (i == 1) where += "c.oc_idx = " + arr[i];
 				else 		where += " or c.oc_idx = " + arr[i];
 			}
-			where += ") order by a.pi_id";
+			where += ") group by a.pi_id, a.pi_name, a.pi_img1, c.oc_option, c.oc_idx order by a.pi_id";
 			
 		} else {    // 諛�濡� 援щℓ(d)�� 寃쎌��
             int cnt = Integer.parseInt(request.getParameter("cnt"));
