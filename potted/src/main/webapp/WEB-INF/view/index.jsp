@@ -154,10 +154,10 @@ $(document).ready(function() {
 
 <div class="slideshow">
 	<div class="slideshow-slides">
-		<a href="#" class="slide" id="slide-1"><img src="/potted/resources/images/banner/test1.jpg" width="1600" height="600" /></a>
-		<a href="#" class="slide" id="slide-2"><img src="/potted/resources/images/banner/test2.png" width="1600" height="600" /></a>
-		<a href="#" class="slide" id="slide-3"><img src="/potted/resources/images/banner/test3.png" width="1600" height="600" /></a>
-		<a href="#" class="slide" id="slide-4"><img src="/potted/resources/images/banner/test4.png" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-1"><img src="http://localhost:8086/ad_potted/resources/images/banner/test1.png" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-2"><img src="http://localhost:8086/ad_potted/resources/images/banner/test2.png" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-3"><img src="http://localhost:8086/ad_potted/resources/images/banner/test3.png" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-4"><img src="http://localhost:8086/ad_potted/resources/images/banner/test4.png" width="1600" height="600" /></a>
 	</div>
 	<!-- <div class="slideshow-nav">
 		<a href="#" class="prev">Prev</a>
