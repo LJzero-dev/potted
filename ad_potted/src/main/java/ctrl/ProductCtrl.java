@@ -101,10 +101,6 @@ public class ProductCtrl {
 		
 		ProductInfo pi = new ProductInfo();
 		ArrayList<ProductOptionStock> poList = new ArrayList<ProductOptionStock>();
-//		ProductOptionInfo po = new ProductOptionInfo();
-		
-//		System.out.println(request.getParameter("pob_ids"));
-//		System.out.println(request.getParameter("pos_ids"));
 		
 		String pobIdsStr = request.getParameter("pob_ids");
 		String[] pobIdsSlashSplit = pobIdsStr.split("/");
@@ -127,14 +123,10 @@ public class ProductCtrl {
 		pi.setPi_desc(getUploadFileName(piDesc.getHeader("content-disposition")));
 		pi.setPi_date(request.getParameter("pi_date")); 
 		pi.setAi_idx(1);
-
-		/*po.setPob_id(request.getParameter("pob_id"));*/
 		
 		for (String pobIdsSegment : pobIdsSlashSplit) {		// 추가상품 선택 루프
 		    for (String posIdsSegment : posIdsSlashSplit) {	// 추가상품의 서브상품 루프
 				String[] posIds = posIdsSegment.split(",");
-				
-				System.out.println("posIds 배열 길이: " + posIds.length);
 				
 				if (posIds[0].equals(pobIdsSegment)) {
 				    ProductOptionStock po = new ProductOptionStock();

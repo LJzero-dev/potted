@@ -32,6 +32,7 @@ public class OrderDao {
 			if (kind.equals("c"))    {
                 oc.setOc_idx(rs.getInt("oc_idx"));
                 oc.setOc_option(rs.getString("oc_option"));
+                oc.setOc_price(rs.getInt("oc_price"));
             }
 			// 占쏙옙袂占쏙옙玖占� 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙荑∽옙占� 占쏙옙袂占쏙옙占� 占싸듸옙占쏙옙占쏙옙 占쌩곤옙 占쏙옙占쏙옙占쏙옙
 			else 					oc.setOc_idx(0);

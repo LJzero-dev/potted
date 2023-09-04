@@ -49,6 +49,10 @@ create table t_member_addr (
 	ma_date datetime default now(),			-- 등록일
     constraint fk_t_member_addr_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
+
+insert into t_member_addr values (1, 'test1', '집주소', '홍길동', '010-1111-3333', '12345', '부산시 연제구 연산동', '987-654', 'y', now());
+insert into t_member_addr values (2, 'test1', '회사', '홍길순', '010-1111-1111', '23537', '서울시 강남구 역삼동', '63층 101호', 'n', now());
+
 select a.mi_protein, b.mt_grade, b.mt_hp, b.mt_count, b.mt_date from t_member_info a, t_member_tree b where a.mi_id = b.mi_id and b.mt_plant = 'y' and b.mi_id = 'test1';
 select mt_grade, mt_date, mt_hp from t_member_tree where mi_id = 'test1' and mt_plant = 'y';
 -- drop table t_member_tree;
@@ -73,7 +77,7 @@ create table t_member_point (
 	mp_su char(1) default 's',				-- 사용/적립
 	mp_point int default 0,					-- 포인트
 	mp_desc varchar(20) not null,			-- 사용/적립내용
-	mp_detail varchar(20) default '',					-- 내역상세				
+	mp_detail varchar(20) default '',		-- 내역상세				
 	mp_date datetime default now(),			-- 사용/적립일
 	mp_admin int default 0,					-- 관리자번호
 	constraint fk_t_member_point_mi_id foreign key(mi_id) references t_member_info(mi_id)
@@ -257,6 +261,8 @@ create table t_order_info (
 	constraint fk_t_order_info_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
 
+select * from t_order_info;
+
 -- 장바구니 테이블
 create table t_order_cart (
 	oc_idx int primary key auto_increment,	-- 일련번호
@@ -270,6 +276,8 @@ create table t_order_cart (
     constraint fk_t_order_cart_mi_id foreign key (mi_id) references t_member_info(mi_id),
     constraint fk_t_order_cart_pi_id foreign key (pi_id) references t_product_info(pi_id)
 );
+
+select * from t_order_cart;
 
 
 

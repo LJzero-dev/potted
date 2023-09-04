@@ -59,7 +59,7 @@ public class OrderFormCtrl {
 			String[] arr = request.getParameterValues("chk");
 			
 			
-			select += " c.oc_option, c.oc_cnt cnt, c.oc_idx ";
+			select += " c.oc_option, c.oc_price, c.oc_cnt cnt, c.oc_idx ";
 			from += ", t_order_cart c ";
 			where += " and a.pi_id = c.pi_id and b.pos_id = c.mi_id = '" + miid + "' and (";
 			
@@ -121,6 +121,9 @@ public class OrderFormCtrl {
 	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // �����쎌�������� ������������ ���몃��� ������������
 		OrderInfo oi = new OrderInfo();
 		OrderDetail od = new OrderDetail();
+		
+		System.out.println(request.getParameter("option"));
+		System.out.println(request.getParameter("total"));
 		
 		oi.setMi_id(miid);
 		oi.setPi_id(request.getParameter("pi_id"));

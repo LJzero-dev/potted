@@ -31,20 +31,22 @@ function chAddr(val) {
 	<input type="hidden" name="pi_id" value="${pi_id }" />
 	<input type="hidden" name="isAuction" value="${isAuction }" />
 	<input type="hidden" name="od_name" value="${pi_name }" />
-	<c:choose>
-	    <c:when test="${kind eq 'c'}">
-	        <input type="hidden" name="option" value="${oc.oc_option}" />
-	    </c:when>
-	    <c:otherwise>
-	        <input type="hidden" name="option" value="${option}" />
-	    </c:otherwise>
-	</c:choose>
 	<input type="hidden" name="od_img" value="${pi_img1 }" />
-	<input type="hidden" name="total" value="${total }" />
 	<input type="hidden" name="mi_name" value="${mi_name }" />
 	<input type="hidden" name="od_price" value="${pi_price}" />
 	<input type="hidden" id="totaldel" name="oi_pay" value="${total + deliPrice}">
 	<c:set var="deliPrice" value="3500" />
+	<c:set var="totalPrice" value="0" />
+	<c:set var="totalOption" value="" />
+	<c:forEach var="oc" items="${pdtList}">
+	    <c:set var="totalPrice" value="${totalPrice + oc.oc_price}" />
+	    <c:if test="${not empty totalOption}">
+	        <c:set var="totalOption" value="${totalOption}/${oc.oc_option}" />
+	    </c:if>
+	    <c:if test="${empty totalOption}">
+	        <c:set var="totalOption" value="${oc.oc_option}" />
+	    </c:if>
+	</c:forEach>
 	<c:set var="pcPrice" value="0" />
 	<div style="display:none;">
 		${pcPrice = pi_price * pi_dc}
@@ -80,7 +82,7 @@ function chAddr(val) {
 	                               <div class="shop_item_pay">
 	                               		<c:choose>
 		                               		<c:when test="${kind eq 'c'}">
-		                               			<span id="total"><fmt:formatNumber type="number" maxFractionDigits="3" value="" />원</span>	  
+		                               			<span id="total"><fmt:formatNumber type="number" maxFractionDigits="3" value="${oc.oc_price }" />원</span>	  
 		                               		</c:when>
 		                               		<c:otherwise>
 		                                    	<span id="total"><fmt:formatNumber type="number" maxFractionDigits="3" value="${total}" />원</span>	       
@@ -91,6 +93,16 @@ function chAddr(val) {
 	                    	</div>
 	                    </div>
 	                    </c:forEach>
+	                    <c:choose>
+						    <c:when test="${kind eq 'c'}">
+						        <input type="hidden" name="option" value="${totalOption}" />
+						        <input type="hidden" name="total" value="${totalPrice}" />
+						    </c:when>
+						    <c:otherwise>
+						        <input type="hidden" name="option" value="${option}" />
+						        <input type="hidden" name="total" value="${total }" />
+						    </c:otherwise>
+						</c:choose>
 	                    <div class="im-payment-deliv">
 	                     	<div>배송비 <span class="text-bold"><fmt:formatNumber type="number" maxFractionDigits="3" value="${deliPrice }" /></span></div>
 	                    </div>	               
@@ -196,7 +208,15 @@ function chAddr(val) {
 				<div class="col_ctr">
 					<p>총 주문금액</p>
 					<p>
-						<span id="result_pnt"><fmt:formatNumber type="number" maxFractionDigits="3" value="${total + deliPrice}" />원</span>
+						<c:choose>
+							<c:when test="${kind eq 'c'}">
+								<span id="result_pnt"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice}" />원</span>  
+							</c:when>
+							<c:otherwise>
+								<span id="result_pnt"><fmt:formatNumber type="number" maxFractionDigits="3" value="${total + deliPrice}" />원</span>	       
+							</c:otherwise>     
+						</c:choose>  
+						
 						<input type="hidden" id="totaldel" name="oi_pay" value="${total + deliPrice}">
 					</p>
 				</div>		
@@ -226,7 +246,7 @@ function chkPoint(amt,pnt,min,unit,sp) {
 }
 
 function changePoint(amt,pnt,min,unit) {
-	var pcPrice = ${pcPrice}
+	var pcPrice = ${pcPrice};
 	var v_point = parseInt(document.getElementById("use_pnt").value);
 	if (v_point > pnt) { //입력값이 사용가능 포인트보다 클때
 		v_point = pnt;
