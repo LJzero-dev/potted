@@ -121,7 +121,7 @@ function buy(kind) {
 	
 	if (kind == "c") {	// 장바구니 담기일 경우
 		$.ajax({
-			type : "POST", url : "/potted/cartProc", data : {"piid" : "<%=pi.getPi_id()%>", "option" : option, "cnt" : cnt, "price" : price},
+			type : "POST", url : "/potted/cartProc", data : {"piid" : "<%=pi.getPi_id()%>", "option" : option, "cnt" : cnt, "price" : price, "totalPrice" : totalPrice},
 			success : function(chkRs) {
 				if (chkRs == 0) {	// 장바구니 담기에 실패했을 경우
 					alert("장바구니 담기에 실패했습니다.\n다시 시도해 보세요.");

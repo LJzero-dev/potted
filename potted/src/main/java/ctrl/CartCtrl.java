@@ -28,6 +28,7 @@ public class CartCtrl {
 		String option = request.getParameter("option");
 		int cnt = Integer.parseInt(request.getParameter("cnt"));
 		int price = Integer.parseInt(request.getParameter("price"));
+		int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 		
 		HttpSession session = request.getSession();
 		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
@@ -41,6 +42,8 @@ public class CartCtrl {
 		oc.setOc_option(option);
 		oc.setOc_cnt(cnt);
 		oc.setOp_price(price);
+		oc.setOc_price(totalPrice);
+		oc.setFirst_cnt(cnt);
 		int result = cartSvc.cartInsert(oc);
 
 		response.setContentType("text/html; charset=utf-8");
@@ -57,6 +60,7 @@ public class CartCtrl {
 		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
 		String miid = loginInfo.getMi_id();
 		List<OrderCart> orderCart = cartSvc.getOrderCart(miid);
+		
 		
 		
 		model.addAttribute("orderCart", orderCart);

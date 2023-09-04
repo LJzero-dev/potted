@@ -266,6 +266,7 @@ create table t_order_cart (
 	oc_cnt int default 1,					-- 개수
 	oc_date datetime default now(),			-- 등록일
     oc_price int default 0,					-- 상품+옵션 가격
+    first_cnt int default 0, 				-- 사용자가 처음선택한 상품 수량
     constraint fk_t_order_cart_mi_id foreign key (mi_id) references t_member_info(mi_id),
     constraint fk_t_order_cart_pi_id foreign key (pi_id) references t_product_info(pi_id)
 );

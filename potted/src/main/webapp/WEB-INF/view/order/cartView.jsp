@@ -133,7 +133,7 @@ function setCnt(ocidx, num, cnt, stock){
 			<div style="display:none;">
 				${productPrice = oc.getPi_price() * (1 - oc.getPi_dc())}
 				${pcPrice = productPrice * oc.getOc_cnt()}
-				${optionPrice = oc.getOp_price()}
+				${optionPrice = oc.getOc_price() - (productPrice * oc.getFirst_cnt())}
 				${dcPrice = dcPrice + ((oc.getPi_price() * oc.getPi_dc()) * oc.getOc_cnt())}
 				${totalPrice = totalPrice + optionPrice + pcPrice}
 				<c:if test="${totalPrice >= 30000}">
@@ -152,8 +152,10 @@ function setCnt(ocidx, num, cnt, stock){
 			</td>
 			
 			<td align="center"><fmt:formatNumber type="number" maxFractionDigits="0" value="${pcPrice + optionPrice}" /></td>
+			<td>상품 하나의 가격 : ${productPrice} || 상품 가격(수량 포함) : ${pcPrice} || 옵션가격 : ${optionPrice} || 할인가격 : ${dcPrice} || 처음 수량 : ${oc.getFirst_cnt()}</td>
 			<td valign="top"><input type="button" id="del" value="⊗" onclick="cartDel(${oc.getOc_idx()});" /></td>
 		</tr>
+		
 		</c:forEach>
 	</table>	
 	<br /><br />

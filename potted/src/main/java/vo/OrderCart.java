@@ -4,7 +4,7 @@ public class OrderCart {
 	private String mi_id, pi_id, oc_date, oc_option, pi_img, pi_name;
 	private int oc_idx, pos_idx, oc_cnt, oc_price, pi_price, pi_stock, op_price;
 	double pi_dc;
-	
+	private int first_cnt; 
 	
 	public String getMi_id() {
 		return mi_id;
@@ -90,7 +90,12 @@ public class OrderCart {
 	public void setOp_price(int op_price) {
 		this.op_price = op_price;
 	}
-	
+	public int getFirst_cnt() {
+		return first_cnt;
+	}
+	public void setFirst_cnt(int first_cnt) {
+		this.first_cnt = first_cnt;
+	}
 	
 	
 }
