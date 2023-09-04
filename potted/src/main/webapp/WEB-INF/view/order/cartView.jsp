@@ -152,7 +152,6 @@ function setCnt(ocidx, num, cnt, stock){
 			</td>
 			
 			<td align="center"><fmt:formatNumber type="number" maxFractionDigits="0" value="${pcPrice + optionPrice}" /></td>
-			<td>상품 하나의 가격 : ${productPrice} || 상품 가격(수량 포함) : ${pcPrice} || 옵션가격 : ${optionPrice} || 할인가격 : ${dcPrice} || 처음 수량 : ${oc.getFirst_cnt()}</td>
 			<td valign="top"><input type="button" id="del" value="⊗" onclick="cartDel(${oc.getOc_idx()});" /></td>
 		</tr>
 		
