@@ -5,6 +5,8 @@
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
 <%
+LocalDate today = LocalDate.now();
+int cyear = today.getYear();
 ArrayList<MemberInfo> memberInfo = (ArrayList<MemberInfo>)request.getAttribute("memberInfo"); 
 ArrayList<MemberInfo> memberAge = (ArrayList<MemberInfo>)request.getAttribute("memberAge"); 
 
@@ -47,20 +49,23 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 #select td { font-size:15px; border-bottom:1px solid #0B9649; font-size:15px; }
 #chartDiv1 { width:1000px; height:300px; }
 #chartDiv2 { width:1000px; height:300px; }
+.go {padding:6px 12px; border-radius:6px; color:#495057; border:1px solid #ced4da; cursor:pointer; }
+.go:hover { background-color:#ced4da; }
+.go:active { background-color:#6B727A; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
-<input type="button" class="btn2" value="매출" onclick="location.href='salesSlip';" />
+<input type="button" class="btn2" value="매출" onclick="location.href='salesSlip?kind=a&year=<%=cyear %>';" />
 <input type="button" class="btn1" value="회원통계" onclick="location.href='memberChart';"/>
 <hr width="1000" align="left" />
 <div id="yearmonth">
 <table>
 <tr>
 	<td style="font-size:15px; font-weight:bold;">월별 가입자 수</td>
-	<td width="55%"></td>
-	<td align="right" width="30%">
+	<td width="48%"></td>
+	<td align="right" width="40%">
 	<form name="frm">
 		<table id="select"><tr><td align="left">년</td>
 		<td><select name="schYear" onchange="this.form.submit();">
@@ -73,11 +78,11 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 			<option <% if(sm == i) { %>selected="selected"<% } %>><%=i %></option>
 <% 		} %>
 		</select></td></tr><tr><td align="justify" colspan="2" style="border:0px;">
-		<input type="button" value="작년" onclick="<%=prevYearLink %>" />
-		<input type="button" value="이전달" onclick="<%=prevMonthLink %>" />
-		<input type="button" value="오늘" onclick="location.href='memberChart';" />
-		<input type="button" value="다음달" onclick="<%=nextMonthLink %>" />
-		<input type="button" value="내년" onclick="<%=nextYearLink %>" />
+		<input type="button" class="go" value="작년" onclick="<%=prevYearLink %>" />
+		<input type="button" class="go" value="이전달" onclick="<%=prevMonthLink %>" />
+		<input type="button" class="go" value="이번달" onclick="location.href='memberChart';" />
+		<input type="button" class="go" value="다음달" onclick="<%=nextMonthLink %>" />
+		<input type="button" class="go" value="내년" onclick="<%=nextYearLink %>" />
 		</td></tr>
 		</table>
 	</form>

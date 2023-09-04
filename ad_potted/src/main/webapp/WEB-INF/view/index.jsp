@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="inc/inc_head.jsp" %>
+<%@ page import="java.time.*" %>
+<%
+LocalDate today = LocalDate.now();
+int cyear = today.getYear();
+%>
 <style>
 #menubars { width:1500px; margin:0 auto; }
 #bars { background-color: #087237; width:200px; }
@@ -14,7 +19,7 @@
 <script>
 function loadpage(num) {
 	if(num == 1) {
-		document.getElementById("showpage").src = "salesSlip";
+		document.getElementById("showpage").src = "salesSlip?kind=a";
 	} else if(num == 2) {
 		document.getElementById("showpage").src = "schedule";
 	} else if(num == 3) {
@@ -42,7 +47,7 @@ function loadpage(num) {
 	</table></td>
 	<td width="120px;"></td>
 	<td>
-	<iframe id="showpage" src="salesSlip" ></iframe>
+	<iframe id="showpage" src="salesSlip?kind=a&year=<%=cyear %>" ></iframe>
 	</td>
 </tr>
 </table>

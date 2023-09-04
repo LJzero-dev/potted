@@ -25,12 +25,26 @@ public class SalesSlipCtrl {
 	
 	@GetMapping("salesSlip")
 	public String salesSlip(Model model, HttpServletRequest request) throws Exception {
-		/*request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 		String kind = request.getParameter("kind");
-		String select = "", where = "", orderBy = "";
-		if (kind.equals("a")) {
-			select = "";
-		}*/
+		String year = request.getParameter("year");
+		PageInfo pageInfo = new PageInfo();
+		pageInfo.setOb(kind);
+		pageInfo.setSch(year);
+		String sql = "";
+		
+		if (kind.equals("a") || kind.equals("b")) {
+			sql = "select sum(a.oi_pay) sales, mid(a.oi_date, 6, 2) smonth, mid(a.oi_date, 1, 4) syear, (sum(a.oi_pay) - sum(b.pi_cost)) realprice, mid(a.oi_date, 1, 4) pcb from t_order_info a, t_product_info b where a.pi_id = b.pi_id and oi_type = 'a' and mid(oi_date, 1, 4) = '" + year + "' group by smonth, syear order by smonth asc";
+		} else if (kind.equals("c")) {
+			sql = "select sum(a.oi_pay) sales, mid(a.pi_id, 1, 2) pcb, (sum(a.oi_pay) - sum(b.pi_cost)) realprice, sum(a.oi_pay) smonth from t_order_info a, t_product_info b where mid(a.pi_id, 1, 2) = mid(b.pi_id, 1, 2) and mid(a.oi_date, 1, 4) = '" + year + "' and a.oi_type = 'a' group by pcb";
+		} else {
+			sql = "select sum(a.oi_pay) sales, mid(a.oi_date, 6, 2) smonth, mid(a.oi_date, 1, 4) syear, (sum(a.oi_pay) - sum(b.pi_cost)) realprice, mid(a.oi_date, 1, 4) pcb from t_order_info a, t_product_info b where a.pi_id = b.pi_id and oi_type = 'b' and mid(oi_date, 1, 4) = '" + year + "' group by smonth, syear order by smonth asc";
+		}
+		
+		
+		List<SalesSlip> salesSlipList = salesSlipSvc.getSalesSlipList(sql);
+		request.setAttribute("salesSlipList", salesSlipList);
+		request.setAttribute("pageInfo", pageInfo);
 		
 		return "sales/salesSlip";
 	}
@@ -45,7 +59,6 @@ public class SalesSlipCtrl {
 		}*/
 		request.setCharacterEncoding("utf-8");
 		
-		// ¿ùº° È¸¿ø °¡ÀÔÀÚ ¼ö
 		int curYear, curMonth, curDay, schYear, schMonth, schDay, schLast;
 		LocalDate today = LocalDate.now();
 		curYear = today.getYear();
@@ -66,15 +79,15 @@ public class SalesSlipCtrl {
 		ci.setSchYear(schYear);	ci.setSchMonth(schMonth);	ci.setSchDay(schDay);
 
 		LocalDate edate = LocalDate.of(schYear, schMonth, 1);
-		ci.setSchLast(edate.lengthOfMonth());	// ¸»ÀÏ
-		ci.setsWeek(edate.getDayOfWeek().getValue());	// 1ÀÏÀÇ ¿äÀÏ¹øÈ£
+		ci.setSchLast(edate.lengthOfMonth());	// ï¿½ï¿½ï¿½ï¿½
+		ci.setsWeek(edate.getDayOfWeek().getValue());	// 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¹ï¿½È£
 		
 		List<MemberInfo> memberInfo = salesSlipSvc.getMemberInfo(schYear, schMonth);
 
 		request.setAttribute("ci", ci);
 		request.setAttribute("memberInfo", memberInfo);
 		
-		// ³ªÀÌº° È¸¿ø ¼ö
+		// ï¿½ï¿½ï¿½Ìºï¿½ È¸ï¿½ï¿½ ï¿½ï¿½
 		List<MemberInfo> memberAge = salesSlipSvc.getMemberAge();
 		request.setAttribute("memberAge", memberAge);
 		

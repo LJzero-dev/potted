@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import vo.MemberInfo;
+import vo.SalesSlip;
 
 public class SalesSlipDao {
 	private JdbcTemplate jdbc;
@@ -41,5 +42,18 @@ public class SalesSlipDao {
 			return ma;
 		});
 		return memberAge;
+	}
+
+	public List<SalesSlip> getSalesSlipList(String sql) {
+		List<SalesSlip> salesSlipList = jdbc.query(sql, 
+		(ResultSet rs, int rowNum) -> {
+			SalesSlip ss = new SalesSlip();
+			ss.setSs_month(rs.getInt("smonth"));
+			ss.setSs_sale(rs.getInt("sales"));
+			ss.setSs_real(rs.getInt("realPrice"));
+			ss.setSs_pcb(rs.getString("pcb"));
+			return ss;
+		});
+		return salesSlipList;
 	}	
 }
