@@ -31,4 +31,9 @@ public class MemberSvc {
 		return result;
 	}
 
+	public int chkDupId(String uid) {
+		int result = memberDao.chkDupId(uid);
+		return result;
+	}
+
 }

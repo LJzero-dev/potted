@@ -86,4 +86,24 @@ public class MemberCtrl {
 	public String out() {
 		return "member/out";
 	}
+	
+	@GetMapping("/joinForm")
+	public String joinForm() {
+		return "member/joinForm";
+	}
+	
+	@GetMapping("/termsOfService")
+	public String termsOfService() {
+		return "member/termsOfService";
+	}
+	
+	@PostMapping("/dupId")
+	@ResponseBody
+	public String dupId(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		String uid = request.getParameter("uid").trim().toLowerCase();
+		int result = memberSvc.chkDupId(uid);
+
+		return result + "";
+	}
 }

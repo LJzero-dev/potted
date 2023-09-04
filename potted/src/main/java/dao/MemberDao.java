@@ -72,4 +72,10 @@ public class MemberDao {
 		return rcnt;
 	}
 
+	public int chkDupId(String uid) {
+		String sql = "select count(*) from t_member_info where mi_id = '" + uid + "' ";
+		int result = jdbc.queryForObject(sql, Integer.class);
+		return result;
+	}
+
 }
