@@ -34,7 +34,9 @@ function chAddr(val) {
 	<input type="hidden" name="od_img" value="${pi_img1 }" />
 	<input type="hidden" name="mi_name" value="${mi_name }" />
 	<input type="hidden" name="od_price" value="${pi_price}" />
-	<input type="hidden" id="totaldel" name="oi_pay" value="${total + deliPrice}">
+	<input type="hidden" name="option" value="${option}" />
+	<input type="hidden" name="total" value="${total }" />
+	<input type="hidden" name="pcnt" value="${pcnt }" />
 	<c:set var="deliPrice" value="3500" />
 	<c:set var="totalPrice" value="0" />
 	<c:set var="totalOption" value="" />
@@ -47,6 +49,17 @@ function chAddr(val) {
 	        <c:set var="totalOption" value="${oc.oc_option}" />
 	    </c:if>
 	</c:forEach>
+	<c:choose>
+		<c:when test="${kind eq 'c'}">
+			<input type="hidden" id="totaldel" name="oi_pay" value="${totalPrice}">
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" id="totaldel" name="oi_pay" value="${total + deliPrice}">     
+		</c:otherwise>     
+	</c:choose>
+	
+	<input type="hidden" id="totaldel" name="oi_pay" value="${total + deliPrice}">  
+	
 	<c:set var="pcPrice" value="0" />
 	<div style="display:none;">
 		${pcPrice = pi_price * pi_dc}
@@ -93,16 +106,6 @@ function chAddr(val) {
 	                    	</div>
 	                    </div>
 	                    </c:forEach>
-	                    <c:choose>
-						    <c:when test="${kind eq 'c'}">
-						        <input type="hidden" name="option" value="${totalOption}" />
-						        <input type="hidden" name="total" value="${totalPrice}" />
-						    </c:when>
-						    <c:otherwise>
-						        <input type="hidden" name="option" value="${option}" />
-						        <input type="hidden" name="total" value="${total }" />
-						    </c:otherwise>
-						</c:choose>
 	                    <div class="im-payment-deliv">
 	                     	<div>배송비 <span class="text-bold"><fmt:formatNumber type="number" maxFractionDigits="3" value="${deliPrice }" /></span></div>
 	                    </div>	               
@@ -165,8 +168,24 @@ function chAddr(val) {
 	    	<h3>포인트</h3>
 	    	<div class="point_wrap">
 			    <div class="input_tools holder">
-			        <input type="number" title="보유" id="use_pnt" name="oi_upoint" value="0" class="form-control text-brand _input_point"  onchange="changePoint(${total}, ${mi_point}, 100, 100, ${pcPrice});" />
-			    	<a href="javascript:void(0);" id="chk_use" class="allpoint" onclick="chkPoint(${total}, ${mi_point}, 100, 100, ${pcPrice});">전액사용</a>
+			    	<c:choose>
+						<c:when test="${kind eq 'c'}">
+							 <input type="number" title="보유" id="use_pnt" name="oi_upoint" value="0" class="form-control text-brand _input_point"  onchange="changePoint(${totalPrice}, ${mi_point}, 100, 100, ${pc_price});" />
+						</c:when>
+						<c:otherwise>
+							 <input type="number" title="보유" id="use_pnt" name="oi_upoint" value="0" class="form-control text-brand _input_point"  onchange="changePoint(${total}, ${mi_point}, 100, 100, ${pcPrice});" />    
+						</c:otherwise>     
+					</c:choose>  
+			       
+			       	<c:choose>
+						<c:when test="${kind eq 'c'}">
+							 <a href="javascript:void(0);" id="chk_use" class="allpoint" onclick="chkPoint(${totalPrice}, ${mi_point}, 100, 100, ${pc_price});">전액사용</a>
+						</c:when>
+						<c:otherwise>
+							 <a href="javascript:void(0);" id="chk_use" class="allpoint" onclick="chkPoint(${total}, ${mi_point}, 100, 100, ${pcPrice});">전액사용</a>    
+						</c:otherwise>     
+					</c:choose>
+			    	
 				</div>
 				
 				<p class="text-13 margin-top-xl no-margin-bottom">
@@ -196,14 +215,16 @@ function chAddr(val) {
 				</div>
 				<div class="pay_number">
 					<p><fmt:formatNumber type="number" maxFractionDigits="3" value="${pi_price}" />원</p>
-					
 					<p>+<fmt:formatNumber type="number" maxFractionDigits="3" value="${deliPrice}" />원</p>
-					<c:if test="${pcPrice == 0}">
-					<p name="left_pnt"><fmt:formatNumber type="number" maxFractionDigits="3" value="${pcPrice }" />원</p>
-					</c:if>
-					<c:if test="${pcPrice > 0}">
-					<p name="left_pnt">-<fmt:formatNumber type="number" maxFractionDigits="3" value="${pcPrice }" />원</p>
-					</c:if>
+					<c:choose>
+						<c:when test="${kind eq 'c'}">
+							<p name="left_pnt">-<fmt:formatNumber type="number" maxFractionDigits="3" value="${pc_price }" />원</p>
+						</c:when>
+						<c:otherwise>
+							<p name="left_pnt">-<fmt:formatNumber type="number" maxFractionDigits="3" value="${pcPrice }" />원</p>
+						</c:otherwise>     
+					</c:choose>
+					
 				</div>
 				<div class="col_ctr">
 					<p>총 주문금액</p>
@@ -222,8 +243,17 @@ function chAddr(val) {
 				</div>		
 			</div>
 			<div class="tip-off bg-gray pay_area">
-				<p class="no-margin text-13"><span id="acc" class="text-brand"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(total + deliPrice) * 0.01}" /></span> 포인트 적립예정</p>
-				<input type="hidden" id="oi_apoint" name="oi_apoint" value="${(total + deliPrice) * 0.01}">
+				<c:choose>
+					<c:when test="${kind eq 'c'}">
+						<p class="no-margin text-13"><span id="acc" class="text-brand"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice * 0.01}" /></span> 포인트 적립예정</p>
+						<input type="hidden" id="oi_apoint" name="oi_apoint" value="${totalPrice * 0.01}">
+					</c:when>
+					<c:otherwise>
+						<p class="no-margin text-13"><span id="acc" class="text-brand"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(total + deliPrice) * 0.01}" /></span> 포인트 적립예정</p>
+						<input type="hidden" id="oi_apoint" name="oi_apoint" value="${(total + deliPrice) * 0.01}">
+					</c:otherwise>     
+				</c:choose> 
+				
 			</div>
 			<input type="submit" value="결제하기" class="paymentBtn">
 	    </div>
@@ -246,8 +276,14 @@ function chkPoint(amt,pnt,min,unit,sp) {
 }
 
 function changePoint(amt,pnt,min,unit) {
-	var pcPrice = ${pcPrice};
 	var v_point = parseInt(document.getElementById("use_pnt").value);
+	var kind = "${kind}";
+	
+	if (kind == 'c') {
+		var pcPrice = ${pc_price};
+	} else {
+		var pcPrice = ${pcPrice};
+	}
 	if (v_point > pnt) { //입력값이 사용가능 포인트보다 클때
 		v_point = pnt;
 		document.getElementById("use_pnt").value = v_point;
@@ -274,7 +310,11 @@ function changePoint(amt,pnt,min,unit) {
 
 	}
 	
-	var total = ${total + deliPrice}
+	if (kind == 'c') {
+		var total = ${totalPrice}
+	} else {
+		var total = ${total + deliPrice}
+	}
 	var tvp = total - v_point;
 	var accValue = (total - v_point) * 0.01;
 	var formattedTotal = (total - v_point).toLocaleString(); // 숫자에 천 단위마다 콤마 찍기

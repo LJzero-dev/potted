@@ -178,7 +178,7 @@ function setCnt(ocidx, num, cnt, stock){
 			<td>=<p style="height:15px;"></p></td>
 			<td><fmt:formatNumber type="number" maxFractionDigits="0" value="${totalPrice + deliPrice}" /><p>총 주문금액</p></td>
 			<td><input type="hidden" name="pi_price" value="${totalPrice + dcPrice}" /></td>
-			<td><input type="hidden" name="delic" value="${deliPrice}" /></td>
+			<td><input type="hidden" name="pc_price" value="${dcPrice}" /></td>
 		</tr>
 	</table>
 	<br />
