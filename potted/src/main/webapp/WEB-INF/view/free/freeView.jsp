@@ -26,6 +26,8 @@ function rInsert(flidx) {
 	} else {
 		alert("내용 안쓸꺼니?");
 	}
+	return fail;
+	location.href = "freeView?cpage=1&flidx=" + flidx;
 }
 
 
@@ -102,12 +104,12 @@ function rInsert(flidx) {
 <!--  게시글 내용 종료 -->
 <hr style="border-width:1px;" />
 <!--  댓글 내용 시작 -->
-<form name="frm" method="post">
+<form name="frm" method="post" onsubmit="rInsert(${fl.getFl_idx()});">
 	<table style="width:100%;" cellpadding="0" cellspacing="0">
 	<tr height="60">
 	<td align="center" width="20%" style="font-size:18px;"><strong>${loginInfo.getMi_name()}</strong></td>
-	<td width="75%"><input type="text" name="rcontent" style="width:800px; height:60px;" placeholder="댓글을 입력해주세요.엔터금지" value="" /></td>
-	<td width="5%">&nbsp;&nbsp;<input type="button" id="btn" value="등록" class="bt" onclick="rInsert(${fl.getFl_idx()});"></td>
+	<td width="75%"><input type="text" name="rcontent" style="width:800px; height:60px;" placeholder="댓글을 입력해주세요." value="" /></td>
+	<td width="5%">&nbsp;&nbsp;<input type="submit" id="btn" value="등록" class="bt" ></td>
 	</tr><tr height="30" style="border-style: double;"><td colspan="3" style="border:0; border-bottom:2px; border-style: double;"></td></tr>
 	</tr><tr height="10" style="border-style: double;"><td colspan="3" style="border:0; border-bottom:2px; border-style: double;"></td></tr>
 	<c:if test="${replyList.size() > 0}">

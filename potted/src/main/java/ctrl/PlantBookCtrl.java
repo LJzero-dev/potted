@@ -22,7 +22,7 @@ public class PlantBookCtrl {
 	        StringBuilder urlBuilder = new StringBuilder("http://openapi.nature.go.kr/openapi/service/rest/PlantService/naturalizedSearch2"); /*URL*/
 	        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=eK%2Bh7ZUqemVimmd2QHIY39z3iyTO6LPrfEsKz6ztWfVpnpcSVP9Iws9Q9G0avyhKEid0se7AOr8lSHas4L0yLQ%3D%3D"); /*Service Key*/
 	        urlBuilder.append("&" + URLEncoder.encode("st","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*1-국명/2-학명/3-국명일치/4-학명일치*/
-	        urlBuilder.append("&" + URLEncoder.encode("sw","UTF-8") + "=" + URLEncoder.encode("미국", "UTF-8")); /*검색대상어*/
+	        urlBuilder.append("&" + URLEncoder.encode("sw","UTF-8") + "=" + URLEncoder.encode("꽃", "UTF-8")); /*검색대상어*/
 	        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("5", "UTF-8")); /*한 페이지 결과 수*/
 	        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("2", "UTF-8")); /*페이지 번호*/
 	        URL url = new URL(urlBuilder.toString());
@@ -50,5 +50,9 @@ public class PlantBookCtrl {
         JSONObject jsonObj = XML.toJSONObject(xml.toString());
         String json = jsonObj.toString(4);
 		return json;
+	}
+	@GetMapping("/test3")
+	public String test3() {
+		return "test3";
 	}
 }

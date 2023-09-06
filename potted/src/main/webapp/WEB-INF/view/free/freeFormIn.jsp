@@ -3,7 +3,7 @@
 <%@ include file="../inc/inc_head.jsp" %>
 <c:set var="loginInfo" value="<%=loginInfo %>" />
 <h1 style="display:inline; margin-left:20px;">COMMUNITY</h1>
-<form style="display:inline; float:right;">
+<form name="frm" style="display:inline; float:right;">
 <div style="width:450px;"> <!--  게시판 내 검색창 시작-->
 		<select name="schtype">
 		<option value="title" <c:if test="${si.getSchtype() eq 'title'}">selected="selected"</c:if>>제목🌱</option>

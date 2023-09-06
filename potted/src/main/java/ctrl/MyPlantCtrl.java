@@ -60,7 +60,7 @@ public class MyPlantCtrl {
 			out.close();
 		} else {
 			out.println("<script>");
-			out.println("alert('½Ä¹° ¼±ÅÃ¿¡ ½ÇÆÐÇÏ¼Ì½À´Ï´Ù.')");
+			out.println("alert('ï¿½Ä¹ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½.')");
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
@@ -92,7 +92,7 @@ public class MyPlantCtrl {
 		out.close();
 		} else {
 			out.println("<script>");
-			out.println("alert('¼öÈ®¿¡ ½ÇÆÐÇÏ¼Ì½À´Ï´Ù.')");
+			out.println("alert('ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½.')");
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
