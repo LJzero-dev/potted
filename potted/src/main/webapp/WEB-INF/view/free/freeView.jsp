@@ -26,7 +26,8 @@ function rInsert(flidx) {
 	} else {
 		alert("내용 안쓸꺼니?");
 	}
-	return fail;
+	location.href = "freeView?cpage=1&flidx=" + flidx;
+	return false;
 	location.href = "freeView?cpage=1&flidx=" + flidx;
 }
 
