@@ -9,8 +9,8 @@ import svc.*;
 
 @Configuration
 public class CtrlConfig {
-// ±¸ÇöÇØ ³õÀº ÄÁÆ®·Ñ·¯µéÀ» ½ºÇÁ¸µ ºóÀ¸·Î µî·Ï½ÃÅ°´Â Å¬·¡½º
-	@Autowired // ÇÊ¿äÇÒ ¶§ ¾Ë¾Æ¼­ ¶¯°Ü ¾¸
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï½ï¿½Å°ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+	@Autowired // ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	private ProductInSvc productInSvc;
 	
 	@Autowired
@@ -25,7 +25,7 @@ public class CtrlConfig {
 	@Autowired
 	private FreeSvc freeSvc;
 
-	@Autowired	// ÇÊ¿äÇÒ¶§ ¾Ë¾Æ¼­ ¶¯°Ü¾¸
+	@Autowired	// ï¿½Ê¿ï¿½ï¿½Ò¶ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½Ü¾ï¿½
 	private ScheduleSvc scheduleSvc;
 	
 	@Autowired
@@ -33,6 +33,9 @@ public class CtrlConfig {
 	
 	@Autowired
 	private SalesSlipSvc salesSlipSvc;
+
+	@Autowired
+	private BannerSvc bannerSvc;
 	
 	@Bean
 	public ProductCtrl productCtrl() {
@@ -92,8 +95,10 @@ public class CtrlConfig {
 	}
 	
 	@Bean
-	public SetbannerCtrl setbannerCtrl() {
-		return new SetbannerCtrl();
+	public BannerCtrl bannerCtrl() {
+		BannerCtrl bannerCtrl = new BannerCtrl();
+		bannerCtrl.setbannerSvc(bannerSvc);
+		return bannerCtrl;
 	}
 	@Bean
 	public AuctionCtrl auctionCtrl() {

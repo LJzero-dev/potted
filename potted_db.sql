@@ -413,10 +413,10 @@ create table t_banner_list (
    bl_img1 varchar(50) not null,
    bl_img2 varchar(50) default '',
    bl_img3 varchar(50) default '',   
+   bl_img4 varchar(50) default '',   
    bl_date datetime default now(),
    constraint fk_banner_list_ai_idx foreign key (ai_idx) references t_admin_info(ai_idx)
 );
-
 
 -- 매출전표 테이블
 create table t_sales_slip (

@@ -1,11 +1,13 @@
 package dao;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import vo.*;
 
@@ -74,6 +76,23 @@ public class IndexDao {
 		});
 		
 		return freeList;
+	}
+
+	public BannerList getBannerList() {
+		String sql = "select bl_img1, bl_img2, bl_img3, bl_img4 from t_banner_list";
+		BannerList bl = jdbc.queryForObject(sql,
+			new RowMapper<BannerList>() {
+				@Override
+				public BannerList mapRow(ResultSet rs, int rowNum) throws SQLException {
+					BannerList bl = new BannerList();
+					bl.setBl_img1(rs.getString("bl_img1"));
+					bl.setBl_img2(rs.getString("bl_img2"));
+					bl.setBl_img3(rs.getString("bl_img3"));
+					bl.setBl_img4(rs.getString("bl_img4"));
+					return bl;
+				}
+			});
+		return bl;
 	}
 
 }

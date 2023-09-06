@@ -26,4 +26,9 @@ public class IndexSvc {
 		List<FreeList> freeList = indexDao.getFreeList();
 		return freeList;
 	}
+
+	public BannerList getBannerList() {
+		BannerList bl = indexDao.getBannerList();
+		return bl;
+	}
 }

@@ -29,6 +29,9 @@ public class IndexCtrl {
 		model.addAttribute("productLista", productLista);
 		model.addAttribute("productListb", productListb);
 		model.addAttribute("freeList", freeList);
+		
+		BannerList bl = indexSvc.getBannerList();
+		request.setAttribute("bl", bl);
 		return "index";
 	}
 }
