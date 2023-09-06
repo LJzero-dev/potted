@@ -19,7 +19,7 @@ int cyear = today.getYear();
 <script>
 function loadpage(num) {
 	if(num == 1) {
-		document.getElementById("showpage").src = "salesSlip?kind=a";
+		document.getElementById("showpage").src = "salesSlip?kind=a&year=<%=cyear %>";
 	} else if(num == 2) {
 		document.getElementById("showpage").src = "schedule";
 	} else if(num == 3) {
