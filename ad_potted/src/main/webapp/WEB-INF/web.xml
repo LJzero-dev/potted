@@ -30,6 +30,7 @@
 				config.ScheduleConfig
 				config.AuctionConfig
 				config.SalesSlipConfig
+				config.BannerConfig
 				/WEB-INF/spring/appServlet/servlet-context.xml
 			</param-value>
 		</init-param>

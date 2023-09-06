@@ -2,11 +2,13 @@ package ctrl;
 
 import java.util.HashMap;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import svc.KakaoSvc;
 
+@Controller
 public class KakaoCtrl {
 	private KakaoSvc kakaoSvc;
 
