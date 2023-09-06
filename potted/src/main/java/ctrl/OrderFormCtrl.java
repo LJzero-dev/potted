@@ -119,27 +119,10 @@ public class OrderFormCtrl {
 		String miid = mi.getMi_id();
 		
 		String oi_apointParam = request.getParameter("oi_apoint");
+		String kind = request.getParameter("kind");
 	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // �����쎌�������� ������������ ���몃��� ������������
 		OrderInfo oi = new OrderInfo();
 		OrderDetail od = new OrderDetail();
-		
-		System.out.println(request.getParameter("pi_id"));
-		System.out.println(request.getParameter("oi_name"));
-		System.out.println(request.getParameter("oi_phone"));
-		System.out.println(request.getParameter("oi_zip"));
-		System.out.println(request.getParameter("oi_addr1"));
-		System.out.println(request.getParameter("oi_addr2"));
-		System.out.println(request.getParameter("oi_memo"));
-		System.out.println(request.getParameter("oi_payment"));
-		System.out.println(Integer.parseInt(request.getParameter("oi_pay")));
-		System.out.println(Integer.parseInt(request.getParameter("oi_upoint")));
-		System.out.println(oi_apoint);
-		System.out.println(request.getParameter("oi_kind"));
-		System.out.println(Integer.parseInt(request.getParameter("pcnt")));
-		System.out.println(request.getParameter("od_name"));
-		System.out.println(request.getParameter("od_img"));
-		System.out.println(request.getParameter("option"));
-		
 		
 		oi.setMi_id(miid);
 		oi.setPi_id(request.getParameter("pi_id"));
@@ -160,7 +143,7 @@ public class OrderFormCtrl {
 		od.setOd_img(request.getParameter("od_img"));
 		od.setOd_option(request.getParameter("option"));
 		
-		int result = orderSvc.orderInsert(oi, od);
+		int result = orderSvc.orderInsert(kind, oi, od);
 		mi.setMi_point(mi.getMi_point() + oi_apoint - oi.getOi_upoint());
 		return "redirect:/mypage";
 	}

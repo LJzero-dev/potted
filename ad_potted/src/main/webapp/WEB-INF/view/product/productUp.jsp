@@ -130,7 +130,7 @@ th {width:130px; text-align:left;}
 			</td>
 			<td align="right">
 				<span>화분</span>
-				<input type="checkbox" name="pos_id" value="2-2:아트스톤 화분" id="pt01" <c:if test="${PosIds.contains('2-2:아트스톤 화분') }">checked="checked"</c:if> /> <label for="pt01" class="psub">2-1 아트스톤 화분</label> 
+				<input type="checkbox" name="pos_id" value="2-1:아트스톤 화분" id="pt01" <c:if test="${PosIds.contains('2-1:아트스톤 화분') }">checked="checked"</c:if> /> <label for="pt01" class="psub">2-1 아트스톤 화분</label> 
 			</td>
 			<td align="right">
 				<span>마감돌</span>

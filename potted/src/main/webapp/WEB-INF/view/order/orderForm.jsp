@@ -28,6 +28,7 @@ function chAddr(val) {
 </script>
 <div class="shop_content payment">
 	<form name="frmOrder" action="orderProcIn" method="post">
+	<input type="hidden" name="kind" value="${kind }" />
 	<input type="hidden" name="pi_id" value="${pi_id }" />
 	<input type="hidden" name="isAuction" value="${isAuction }" />
 	<input type="hidden" name="od_name" value="${pi_name }" />
@@ -64,6 +65,9 @@ function chAddr(val) {
 	<div style="display:none;">
 		${pcPrice = pi_price * pi_dc}
 		<c:if test="${totalPrice >= 30000}">
+			${deliPrice = 0}
+		</c:if>
+		<c:if test="${total >= 30000}">
 			${deliPrice = 0}
 		</c:if>
 	</div>
@@ -279,11 +283,13 @@ function changePoint(amt,pnt,min,unit) {
 	var v_point = parseInt(document.getElementById("use_pnt").value);
 	var kind = "${kind}";
 	
-	if (kind == 'c') {
-		var pcPrice = ${pc_price};
-	} else {
-		var pcPrice = ${pcPrice};
-	}
+	var pcPrice = 0;
+	
+    if (kind == 'c') {
+        pcPrice = ${pc_price}0;
+    } else {
+        pcPrice = ${pcPrice};
+    }
 	if (v_point > pnt) { //입력값이 사용가능 포인트보다 클때
 		v_point = pnt;
 		document.getElementById("use_pnt").value = v_point;

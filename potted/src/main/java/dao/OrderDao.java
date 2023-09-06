@@ -60,7 +60,7 @@ public class OrderDao {
 		return addrList;
 	}
 
-	public int orderInsert(OrderInfo oi, OrderDetail od) {
+	public int orderInsert(String kind, OrderInfo oi, OrderDetail od) {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         String datePart = dateFormat.format(new Date());
@@ -68,22 +68,28 @@ public class OrderDao {
         Random random = new Random();
         int randomValue = random.nextInt(90) + 10; // 2占쌘몌옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 (10 占싱삼옙 99 占쏙옙占쏙옙)
         
-		String sql = "insert into t_order_info (oi_id, mi_id, pi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, oi_date, oi_cnt) values (?, ?, ?, ?, 'a', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'a', now(), ?)";
+        String sql = "insert into t_order_info (oi_id, mi_id, pi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, oi_date, oi_cnt) values (?, ?, ?, ?, 'a', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'a', now(), ?)";
 		int result = jdbc.update(sql, datePart + oi.getPi_id() + randomValue, oi.getMi_id(), oi.getPi_id(), oi.getOi_name(), oi.getOi_phone(), oi.getOi_zip(), oi.getOi_addr1(), oi.getOi_addr2(), oi.getOi_memo(), oi.getOi_payment(), oi.getOi_pay(), oi.getOi_upoint(), oi.getOi_apoint(), oi.getOi_cnt());
-		
-		if (result == 1) {
-	    	String oiIdQuery = "select oi_id from t_order_info where oi_id = ?";
-	        String oiId = jdbc.queryForObject(oiIdQuery, String.class, datePart + oi.getPi_id() + randomValue);
-	        
-			sql = "insert into t_order_detail (oi_id, pi_id, od_option, od_name, od_img) values (?, ?, ?, ?, ?)";
-			result += jdbc.update(sql, oiId, oi.getPi_id(), od.getOd_option(), od.getOd_name(), od.getOd_img());
-			jdbc.update("update t_member_info set mi_protein = mi_protein + " + (int)oi.getOi_pay()/30000 + " where mi_id = '" + oi.getMi_id() + "'");
-			jdbc.update("update t_member_info set mi_point = mi_point + " + (oi.getOi_apoint() - oi.getOi_upoint()) + " where mi_id = '" + oi.getMi_id() + "'");	
+        
+        if (kind.equals("c")) {
+        	
+        } else {
+        	if (result == 1) {
+    	    	String oiIdQuery = "select oi_id from t_order_info where oi_id = ?";
+    	        String oiId = jdbc.queryForObject(oiIdQuery, String.class, datePart + oi.getPi_id() + randomValue);
+    	        
+    			sql = "insert into t_order_detail (oi_id, pi_id, od_option, od_name, od_img) values (?, ?, ?, ?, ?)";
+    			result += jdbc.update(sql, oiId, oi.getPi_id(), od.getOd_option(), od.getOd_name(), od.getOd_img());
+    			jdbc.update("update t_member_info set mi_protein = mi_protein + " + (int)oi.getOi_pay()/30000 + " where mi_id = '" + oi.getMi_id() + "'");
+    			jdbc.update("update t_member_info set mi_point = mi_point + " + (oi.getOi_apoint() - oi.getOi_upoint()) + " where mi_id = '" + oi.getMi_id() + "'");	
 
-			if (oi.getOi_upoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'u', -" + oi.getOi_upoint() + ", '상품 구매')");			
-			if (oi.getOi_apoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'a', " + oi.getOi_apoint() + ", '상품 구매')");							
-			if (oi.getIsAuction().equals("y")) jdbc.update("update t_product_info set pi_status = 'n' where pi_id = '" + oi.getPi_id() + "'");
-	    }		
+    			if (oi.getOi_upoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'u', -" + oi.getOi_upoint() + ", '상품 구매')");			
+    			if (oi.getOi_apoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'a', " + oi.getOi_apoint() + ", '상품 구매')");							
+    			if (oi.getIsAuction().equals("y")) jdbc.update("update t_product_info set pi_status = 'n' where pi_id = '" + oi.getPi_id() + "'");
+    	    }		
+        }
+     
+		
 		return result;
 	}
 
