@@ -15,11 +15,6 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-canvas {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-}
 .btn1 { border: 0; width:100px; font-size: 20px; background: #0B9649; color:white; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
 .btn2 { border: 0; width:100px; font-size: 20px; background: #fff; padding-bottom: 8px; cursor: pointer; }
 .btn2:hover { border: 0; width:100px; font-size: 20px; background: #0B9649; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }

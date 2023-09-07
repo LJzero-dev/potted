@@ -44,6 +44,8 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 <link rel="stylesheet" href="/potted/resources/css/style.css">
 <title>Insert title here</title>
 <style>
+select { border:2px solid #ced4da; padding:6px 12px; border-radius:5px; }
+input {	padding:5px 9px; border-radius:4px; color:#495057; border:1.5px solid #ced4da; }
 a:link { color:black; text-decoration:none; }
 a:hover { color:#0B9649; }
 a:visited { color:black; text-decoration:none; }
@@ -75,7 +77,7 @@ function hideSchedule(num) {
 function callDel(idx) {
 	if (confirm("정말 삭제하시겠습니까?")) {
 		location.href = "scheduleDel?idx=" + idx;
-		alert(idx);
+//		alert(idx);
 	}
 }
 </script>
@@ -85,8 +87,8 @@ function callDel(idx) {
 <table>
 <tr>
 	<td style="font-size:20px;"><%=sy %><br /><span align="left" style="font-size:40px; font-weight:bold;"><%=sm %>월</span></td>
-	<td width="55%"></td>
-	<td align="right" width="30%">
+	<td width="48%"></td>
+	<td align="right" width="33%">
 	<form name="frm">
 		<table id="select"><tr><td align="left">년</td>
 		<td><select name="schYear" onchange="this.form.submit();">

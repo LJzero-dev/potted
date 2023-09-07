@@ -14,6 +14,12 @@ int sy = ci.getSchYear(), sm = ci.getSchMonth(), sd = ci.getSchDay(), eDay = ci.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+select { border:1px solid #ced4da; padding:6px 12px; border-radius:5px; font-size:15px; }
+input {	padding:5px 9px; border-radius:4px; color:#495057; border:1.5px solid #ced4da; }
+table { font-size:18px; }
+#content { border:1px solid #ced4da; padding:6px 12px; border-radius:5px; font-size:17px; }
+</style>
 <script src="${pageContext.request.contextPath}/resources/js/date_change.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
 <script>
@@ -25,17 +31,33 @@ $(document).ready(function() {
 		$("#si_date").val(date);		$("#si_time").val(time);
 // 값 확인용
 //		alert($("#si_date").val() + "::" + $("#si_time").val());
+		
 		document.frm.submit();
 	});
 });
+
+function chkVal(form) {
+	if (form.title.value == "") {
+		alert("일정 제목을 입력해주세요.");
+		form.title.focus();
+		return false;
+	}
+	if (form.content.value == "") {
+		alert("일정 내용을 입력해주세요.");
+		form.content.focus();
+		return false;
+	}
+	
+}
 </script>
 </head>
 <body>
-<h2>일정 등록 폼</h2>
-<form name="frm" action="scheduleInProc" method="post">
+<h2>일정 등록</h2>
+※날짜를 확인하시고 일정 내용을 입력해주세요.<br /><br />
+<form name="frm" action="scheduleInProc" method="post" onsubmit="return chkVal(this);">
 <input type="hidden" name="si_date" id="si_date" value="" />
 <input type="hidden" name="si_time" id="si_time" value="" />
-<table width="500" cellpadding="5">
+<table width="800" cellpadding="5">
 <tr>
 <th width="15%">일시</th>
 <td width="*">
@@ -78,20 +100,17 @@ for (int i = 0 ; i <= 59 ; i++) {
 		<option><%=tmp %></option>
 <% } %>
 	</select>분
-</td>
-</tr>
+</td></tr>
 <tr>
 <th>일정제목</th>
 <td><input type="text" name="title" /></td>
 </tr>
 <tr>
 <th>일정내용</th>
-<td><textarea name="content" rows="5" cols="45"></textarea></td>
+<td><textarea id="content" name="content" rows="5" cols="45"></textarea></td>
 </tr>
-<tr><td colspan="2" align="center">
-	<input type="button" value="일정 등록" id="btn" />
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="button" value="취 소" onclick="history.back();" />
+<tr><td colspan="2" align="right">
+	<input type="button" value="취 소" onclick="history.back();" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="일정 등록" id="btn" />
 </td></tr>
 </table>
 </form>

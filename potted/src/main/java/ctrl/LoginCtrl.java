@@ -17,7 +17,7 @@ public class LoginCtrl {
 	public void setLoginSvc(LoginSvc loginSvc) {
 		this.loginSvc = loginSvc;
 	}
-	@GetMapping	// ¿äÃ»(loginSpr)À» get¹æ½ÄÀ¸·Î ¹Þ¾ÒÀ» °æ¿ì
+	@GetMapping	// ï¿½ï¿½Ã»(loginSpr)ï¿½ï¿½ getï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public String loginForm() {
 		return "loginForm";
 	}
@@ -33,7 +33,7 @@ public class LoginCtrl {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('¾ÆÀÌµð¿Í ¾ÏÈ£¸¦ È®ÀÎÇÏ¼¼¿ä.')");
+			out.println("alert('ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.')");
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
