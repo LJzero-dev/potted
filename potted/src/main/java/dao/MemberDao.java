@@ -1,9 +1,10 @@
 package dao;
 
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.List;
 import javax.sql.DataSource;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.*;
+
 import vo.*;
 
 public class MemberDao {
@@ -119,16 +120,89 @@ public class MemberDao {
 		String sql = "insert into t_member_info values ('" + mi.getMi_id() + "', '" + mi.getMi_pw() + "', '" + mi.getMi_name() + "', '" + mi.getMi_gender() + 
 				"', '" + mi.getMi_birth() + "', '" + mi.getMi_phone() + "', '" + mi.getMi_email() + "', '" + mi.getMi_isad() + "', 1000, '0', 'a', now(), null)";
 		int result = jdbc.update(sql);
-		System.out.println(sql);
+//		System.out.println(sql);
 		// 회원 주소록 테이블에 insert
 		sql = "insert into t_member_addr (mi_id, ma_name, ma_rname, ma_phone, ma_zip, ma_addr1, ma_addr2) values ('" + mi.getMi_id() + "', '집', '" + mi.getMi_name() + 
 				"', '" + mi.getMi_phone() + "', '" + ma.getMa_zip() + "', '" + ma.getMa_addr1() + "', '" + ma.getMa_addr1() + "')";
 		result += jdbc.update(sql);
-		System.out.println(sql);
+//		System.out.println(sql);
 		// 회원 포인트 테이블에 insert
 		sql = "insert into t_member_point (mi_id, mp_su, mp_point, mp_desc, mp_detail, mp_admin) values ('" + mi.getMi_id() + "', 'a', 1000, '회원 가입 축하 포인트', '회원 가입 축하 포인트', 1)";
 		result += jdbc.update(sql);
+//		System.out.println(sql);
+		
+		return result;
+	}
+
+	public List<MemberAddr> getMemberAddrList(String miid) {
+		String sql = "select ma_idx, ma_name, ma_rname, ma_phone, ma_zip, ma_addr1, ma_addr2, ma_basic from t_member_addr where mi_id = '" + miid + "' order by ma_basic desc";
+		List<MemberAddr> memberAddrList = jdbc.query(sql, 
+		(ResultSet rs, int rowNum) -> {
+			MemberAddr ma = new MemberAddr();
+			ma.setMa_idx(rs.getInt("ma_idx"));
+			ma.setMa_name(rs.getString("ma_name"));
+			ma.setMa_rname(rs.getString("ma_rname"));
+			ma.setMa_phone(rs.getString("ma_phone"));
+			ma.setMa_zip(rs.getString("ma_zip"));
+			ma.setMa_addr1(rs.getString("ma_addr1"));
+			ma.setMa_addr2(rs.getString("ma_addr2"));
+			ma.setMa_basic(rs.getString("ma_basic"));
+			
+			return ma;
+		});
+		return memberAddrList;
+	}
+
+	public MemberAddr getMemberAddr(String miid, int maidx) {
+		String sql = "select ma_idx, ma_name, ma_rname, ma_phone, ma_zip, ma_addr1, ma_addr2, ma_basic from t_member_addr where mi_id = '" + miid + "' and ma_idx = " + maidx;
+		MemberAddr ma = jdbc.queryForObject(sql,
+			new RowMapper<MemberAddr>() {
+				@Override
+				public MemberAddr mapRow(ResultSet rs, int rowNum) throws SQLException {
+					MemberAddr ma = new MemberAddr();
+					ma.setMa_idx(rs.getInt("ma_idx"));
+					ma.setMa_name(rs.getString("ma_name"));
+					ma.setMa_rname(rs.getString("ma_rname"));
+					ma.setMa_phone(rs.getString("ma_phone"));
+					ma.setMa_zip(rs.getString("ma_zip"));
+					ma.setMa_addr1(rs.getString("ma_addr1"));
+					ma.setMa_addr2(rs.getString("ma_addr2"));
+					ma.setMa_basic(rs.getString("ma_basic"));
+					return ma;
+				}
+			}
+		);
+		return ma;
+	}
+
+	public int addrInsert(MemberAddr ma, int idx) {
+		String sql = "insert into t_member_addr (mi_id, ma_name, ma_rname, ma_phone, ma_zip, ma_addr1, ma_addr2, ma_basic) values ('" + ma.getMi_id() + "', '" + ma.getMa_name() + 
+		"', '" + ma.getMa_rname() + "', '" + ma.getMa_phone() + "', '" + ma.getMa_zip() + "', '" + ma.getMa_addr1() + "', '" + ma.getMa_addr2() + "', '" + ma.getMa_basic() + "')";
+//		System.out.println(sql);
+		int result = jdbc.update(sql);
+		
+		if (ma.getMa_basic() == "y") {
+			sql = "update t_member_addr set ma_basic = 'n' where mi_id = '" + ma.getMi_id() + "' and ma_idx != " + idx;
+//			System.out.println(sql);
+			result += jdbc.update(sql);
+		}
+		
+		
+		return result;
+	}
+
+	public int addrUpdate(MemberAddr ma) {
+		String sql = "update t_member_addr set ma_name = '" + ma.getMa_name() + "', ma_rname = '" + ma.getMa_rname() + "', ma_phone = '" + ma.getMa_phone() + 
+			"', ma_zip = '" + ma.getMa_zip() + "', ma_addr1 = '" + ma.getMa_addr1() + "', ma_addr2 = '" + ma.getMa_addr2() + "', ma_basic = '" + ma.getMa_basic() + 
+			"' where ma_idx = " + ma.getMa_idx();
 		System.out.println(sql);
+		int result = jdbc.update(sql);
+		
+		if (ma.getMa_basic() == "y") {
+			sql = "update t_member_addr set ma_basic = 'n' where mi_id = '" + ma.getMi_id() + "' and ma_idx != " + ma.getMa_idx();
+			System.out.println(sql);
+			result += jdbc.update(sql);
+		}
 		
 		return result;
 	}

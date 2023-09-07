@@ -51,5 +51,25 @@ public class MemberSvc {
 		return result;
 	}
 
+	public List<MemberAddr> getMemberAddrList(String miid) {
+		List<MemberAddr> memberAddrList = memberDao.getMemberAddrList(miid);
+		return memberAddrList;
+	}
+
+	public MemberAddr getMemberAddr(String miid, int maidx) {
+		MemberAddr ma = memberDao.getMemberAddr(miid, maidx);
+		return ma;
+	}
+
+	public int addrInsert(MemberAddr ma, int idx) {
+		int result = memberDao.addrInsert(ma, idx);
+		return result;
+	}
+
+	public int addrUpdate(MemberAddr ma) {
+		int result = memberDao.addrUpdate(ma);
+		return result;
+	}
+
 
 }

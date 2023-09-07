@@ -58,6 +58,7 @@ a:hover { text-decoration:underline; }
             <div class="infor">
             <% if (loginInfo == null) { %>
                 <a href="login" class="login">로그인</a>
+                <a href="joinForm">회원가입</a>
             <% } else { %>
                 <a href="mypage" class="minfor">회원정보</a>
                 <a href="logout" class="logout">로그아웃</a>

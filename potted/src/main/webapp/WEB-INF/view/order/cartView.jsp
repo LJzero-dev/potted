@@ -15,6 +15,9 @@
 .btn1 { padding:6px 20px; font-size:15px; color:#6E6E6E; cursor:pointer; text-align:center; height:30px; border:1.5px solid  #6E6E6E; margin-bottom:10px; background:white; border-radius:20px;  }
 .btn2 { padding:6px 20px; font-size:15px; color:white; cursor:pointer; text-align:center; height:30px; margin-bottom:10px; background:#0B9649; border-radius:20px; border:0; width:150px;  }
 #cnt { width:35px; height:15px; text-align:center; }
+#empty { font-size:30px; font-weight:bold; align:center; }
+#empty2 { font-size:13px; align:center; }
+#emptytable { margin-left:290px; text-align:center; }
 </style>
 <script>
 function chkAll(all) {
@@ -116,11 +119,11 @@ function setCnt(ocidx, num, cnt, stock){
 <c:set var="deliPrice" value="3500" />
 <c:set var="totalPrice" value="0" />
 
-<input type="checkbox" name="all" id ="all" checked="checked" onclick="chkAll(this);" />
-<input type="hidden" name="chk" /><!-- chk 체크박스를 배열로 처리하기 위해 인위적으로 지정해 놓은 컨트롤 (값이 하나일때는 배열로 만들 수 없기 때문에) -->
-<label for="all" id="all">전체 선택</label>
 
 <c:if test="${orderCart.size() > 0}">
+	<input type="checkbox" name="all" id ="all" checked="checked" onclick="chkAll(this);" />
+	<input type="hidden" name="chk" /><!-- chk 체크박스를 배열로 처리하기 위해 인위적으로 지정해 놓은 컨트롤 (값이 하나일때는 배열로 만들 수 없기 때문에) -->
+	<label for="all" id="all">전체 선택</label>
 	<table id="list" cellpadding="15" cellspacing="0">
 		<tr height="20">
 			<th width="*" colspan="3">상품정보</th>
@@ -188,14 +191,13 @@ function setCnt(ocidx, num, cnt, stock){
 	</div>
 	</c:if>
 	<c:if test="${orderCart.size() == 0}">
-		<tr height="50"><td colspan="5" align="center">
-		텅~
-		</td></tr>
+	<table id="emptytable"><tr><td><img src="/potted/resources/images/main/empty_cart.png" style="width:200px; height:200px;" /><br /><br /></td></tr>
+	<tr><td><span id="empty">텅~</span></td></tr><tr><td><span id="empty2">장바구니가 비어있습니다.</span><br /><br /><br /><br /></td></tr></table>
 	</c:if>
 	</form>
 	<br />
 	<div style="margin-left:345px; font-size:15px;">
-	<a href="productList">계속 쇼핑하기</a>
+	<a href="productList">쇼핑하러 가기</a>
 	</div>
 </div>
 

@@ -217,7 +217,7 @@ if (pi.getPi_dc() != 0) {
 <% 
 int i = 0, j = 0;
 if (productOptionStock.size() > 0) {
-	for (i = 0 ; i < productOptionBig.size() ; i++) {
+	for (i = 0 ; i < 3 ; i++) {
 		ProductOptionBig pob = productOptionBig.get(i);
 %>
 		<tr><td><%=pob.getPob_id().substring(2) %></td></tr>

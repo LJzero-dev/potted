@@ -21,7 +21,7 @@
 	<tr><td><input type="button" value="주문조회" class="menu" onclick="loadpage(1);" /></td></tr>
 	<tr><td><input type="button" value="문의하기" class="menu" onclick="loadpage(2);" /></td></tr>
 	<tr><td><input type="button" value="포인트" class="menu" onclick="loadpage(3);" /></td></tr>
-	<tr><td><input type="button" value="정보수정" class="menu" onclick="loadpage(4);" /></td></tr>
+	<tr><td><input type="button" value="주소 설정" class="menu" onclick="loadpage(4);" /></td></tr>
 	<tr><td><input type="button" value="옥션조회" class="menu" onclick="loadpage(5);" /></td></tr>
 	<tr><td><input type="button" value="회원탈퇴" class="menu" onclick="loadpage(6);" /></td></tr>
 	</table></td>
@@ -46,7 +46,7 @@ function loadpage(num) {
 	} else if(num == 3) {
 		document.getElementById("showpage").src = "pointInfo";
 	} else if(num == 4) {
-		document.getElementById("showpage").src = "setInfo";
+		document.getElementById("showpage").src = "setInfo?maidx=1";
 	} else if(num == 5) {
 		document.getElementById("showpage").src = "auctionInfo";
 	} else {

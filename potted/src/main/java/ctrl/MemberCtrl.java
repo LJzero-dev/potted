@@ -178,4 +178,82 @@ public class MemberCtrl {
 		}
 		return "redirect:/login";
 	}
+	
+	@LoginRequired
+	@GetMapping ("/setInfo")
+	public String setInfo(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+
+		int maidx = Integer.parseInt(request.getParameter("maidx"));
+		PageInfo pageInfo = new PageInfo();
+		pageInfo.setCpage(maidx);
+		
+		List<MemberAddr> memberAddrList = memberSvc.getMemberAddrList(miid);
+		MemberAddr ma = memberSvc.getMemberAddr(miid, maidx);
+
+		request.setAttribute("ma", ma);
+		request.setAttribute("memberAddrList", memberAddrList);
+		request.setAttribute("pageInfo", pageInfo);
+		
+		return "member/setInfo";
+	}
+
+	@PostMapping("/addrInsert")
+	public String addrInsert(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		
+		String basic = "";
+		if (request.getParameter("ma_basic") == null)	basic = "n";
+		else											basic = "y";
+		
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		
+		MemberAddr ma = new MemberAddr();
+		ma.setMi_id(miid);
+		ma.setMa_basic(basic);
+		ma.setMa_name(request.getParameter("ma_name"));
+		ma.setMa_rname(request.getParameter("ma_rname"));
+		ma.setMa_phone(request.getParameter("p1") + "-" + request.getParameter("p2") + "-" + request.getParameter("p3"));
+		ma.setMa_zip(request.getParameter("ma_zip"));
+		ma.setMa_addr1(request.getParameter("ma_addr1"));
+		ma.setMa_addr2(request.getParameter("ma_addr2"));
+		
+		int result = memberSvc.addrInsert(ma, idx);
+		
+		return "redirect:/setInfo?maidx=1";
+	}
+
+	@PostMapping("/addrUpdate")
+	public String addrUpdate(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		
+		String basic = "";
+		if (request.getParameter("ma_basic") == null)	basic = "n";
+		else											basic = "y";
+		
+		MemberAddr ma = new MemberAddr();
+		ma.setMi_id(miid);
+		ma.setMa_basic(basic);
+		ma.setMa_idx(Integer.parseInt(request.getParameter("maidx")));
+		ma.setMa_name(request.getParameter("ma_name"));
+		ma.setMa_rname(request.getParameter("ma_rname"));
+		ma.setMa_phone(request.getParameter("p1") + "-" + request.getParameter("p2") + "-" + request.getParameter("p3"));
+		ma.setMa_zip(request.getParameter("ma_zip"));
+		ma.setMa_addr1(request.getParameter("ma_addr1"));
+		ma.setMa_addr2(request.getParameter("ma_addr2"));
+		
+		int result = memberSvc.addrUpdate(ma);
+		
+		return "redirect:/setInfo?maidx=1";
+	}
+	
 }
