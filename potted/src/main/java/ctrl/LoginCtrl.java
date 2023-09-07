@@ -33,7 +33,7 @@ public class LoginCtrl {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('���̵�� ��ȣ�� Ȯ���ϼ���.')");
+			out.println("alert('아이디와 비밀번호를 확인해주십시오.')");
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();

@@ -207,4 +207,10 @@ public class MemberDao {
 		return result;
 	}
 
+	public int memberOut(String miid) {
+		String sql = "update t_member_info set mi_status = 'c' where mi_id = '" + miid + "'";
+		int result = jdbc.update(sql);
+		return result;
+	}
+
 }

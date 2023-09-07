@@ -20,7 +20,14 @@
 탈퇴 후 같은 아이디로 재가입이 불가합니다.<br />
 보유 포인트도 모두 소멸 되며, 복구 불가 합니다.<br />
 회원 탈퇴를 진행하시겠습니까?<br /><br /><br />
-<input type="button" id="btn1" value="취소" />&nbsp;&nbsp;&nbsp;<input type="button" id="btn2" value="탈퇴" />
+<input type="button" id="btn2" value="탈퇴" onclick="isOut();" />
 </div>
+<script>
+function isOut() {
+	if(confirm("정말 탈퇴하시겠습니까?")) {
+		location.href="memberOut";
+	}
+}
+</script>
 </body>
 </html>

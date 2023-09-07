@@ -71,5 +71,10 @@ public class MemberSvc {
 		return result;
 	}
 
+	public int memberOut(String miid) {
+		int result = memberDao.memberOut(miid);
+		return result;
+	}
+
 
 }

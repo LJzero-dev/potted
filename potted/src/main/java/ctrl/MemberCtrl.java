@@ -256,4 +256,15 @@ public class MemberCtrl {
 		return "redirect:/setInfo?maidx=1";
 	}
 	
+	@GetMapping("/memberOut")
+	public String memberOut(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		int result = memberSvc.memberOut(miid);
+		
+		return "redirect:/";
+	}
+	
 }
