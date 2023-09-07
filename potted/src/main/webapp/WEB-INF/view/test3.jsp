@@ -9,7 +9,7 @@
     <div id="messageDiv"></div>
 
     <script>
-        const socket = new WebSocket("ws://localhost:8087/potted/websocket");
+        const socket = new WebSocket("wss://localhost:8086/potted/websocket");
 
         socket.onmessage = function(event) {
             const messageDiv = document.getElementById("messageDiv");
