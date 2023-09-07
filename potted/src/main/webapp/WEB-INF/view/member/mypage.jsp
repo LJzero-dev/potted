@@ -19,7 +19,7 @@
 <tr>
 	<td valign="top"><table id="menus">
 	<tr><td><input type="button" value="주문조회" class="menu" onclick="loadpage(1);" /></td></tr>
-	<tr><td><input type="button" value="문의하기" class="menu" onclick="loadpage(2);" /></td></tr>
+	<tr><td><input type="button" value="내가 쓴 후기" class="menu" onclick="loadpage(2);" /></td></tr>
 	<tr><td><input type="button" value="포인트" class="menu" onclick="loadpage(3);" /></td></tr>
 	<tr><td><input type="button" value="주소 설정" class="menu" onclick="loadpage(4);" /></td></tr>
 	<tr><td><input type="button" value="옥션조회" class="menu" onclick="loadpage(5);" /></td></tr>
@@ -42,7 +42,7 @@ function loadpage(num) {
 	if(num == 1) {
 		document.getElementById("showpage").src = "orderInfo";
 	} else if(num == 2) {
-		document.getElementById("showpage").src = "ask";
+		document.getElementById("showpage").src = "myReview";
 	} else if(num == 3) {
 		document.getElementById("showpage").src = "pointInfo";
 	} else if(num == 4) {

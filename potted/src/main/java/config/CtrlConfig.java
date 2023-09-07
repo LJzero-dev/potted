@@ -47,6 +47,9 @@ public class CtrlConfig {
 	@Autowired
 	private MapSvc mapSvc;
 
+	@Autowired
+	private ReviewSvc reviewSvc;
+
 	
 	@Bean
 	public IndexCtrl indexCtrl() {
@@ -145,6 +148,13 @@ public class CtrlConfig {
 		MapCtrl mapCtrl = new MapCtrl();
 		mapCtrl.setMapSvc(mapSvc);
 		return mapCtrl;
+	}
+	
+	@Bean
+	public ReviewCtrl reviewCtrl() {
+		ReviewCtrl reviewCtrl = new ReviewCtrl();
+		reviewCtrl.setReviewSvc(reviewSvc);
+		return reviewCtrl;
 	}
 
 }

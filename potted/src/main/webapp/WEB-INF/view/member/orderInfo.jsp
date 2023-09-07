@@ -16,6 +16,7 @@ ArrayList<OrderInfo> orderList = (ArrayList<OrderInfo>)request.getAttribute("ord
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <style>
+input {	padding:2px 2px; border-radius:4px; color:#495057; border:1.5px solid #ced4da; }
 a:link { text-decoration:none; color:black; }
 a:visited { text-decoration:none; color:black; }
 a:hover { text-decoration:underline; }
@@ -35,7 +36,7 @@ a:hover { text-decoration:underline; }
 	<tr><th width="*">주문번호</th><th width="21%">상품명</th><th width="8%">수량</th><th width="12%">상태</th><th width="15%">주문금액</th><th width="15%">주문일자</th></tr>
 	</table>
 	<div v-for="item in orderArr" :key="item.oiidx">
-	<order-list :object="item" ></order-list>
+	<order-list :object="item" v-on:go-review="goReview"></order-list>
 	</div>
 	<div style="margin-left:300px;">
 	<c:if test="${pi.getRcnt() > 0}">
@@ -72,10 +73,16 @@ a:hover { text-decoration:underline; }
 var orderList = {
 		props: ["object"], 
 		template:`<table id="table" width="750px;" >
-			<tr><td width="*">{{object.oiid}}</td><td width="21%"><a :href="object.oilnk" target="_blank">{{object.piname}}</a></td><td width="8%">{{object.oicnt}}</td><td width="12%">{{object.oistatus}}</td>
+			<tr><td width="*">{{object.oiid}}</td><td width="21%"><a :href="object.oilnk" target="_blank">{{object.piname}}</a></td><td width="8%">{{object.oicnt}}</td>
+			<td width="12%">{{object.oistatus}}<br /><input type="button" v-on:click="goReview(object.oiid)" value="리뷰 작성"></td>
 			<td width="15%">{{object.oipay}}</td><td width="15%">{{object.oidate}}</td></tr>
 			</table>
-		`
+		`,	
+	methods: {
+		goReview(oiid) { 
+			this.$emit("go-review", oiid);
+		}
+	}
 }
 
 new Vue({
@@ -105,7 +112,13 @@ for (int i = 0 ; i < orderList.size() ; i++) {
 	},
 	components: {
 		"order-list": orderList
+	},
+	methods: {
+		goReview(oiid) {
+		    window.open("reviewForm?oiid=" + oiid);
+		}
 	}
 });
+
 </script>
 </html>
