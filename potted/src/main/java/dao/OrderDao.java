@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.sql.DataSource;
@@ -33,6 +34,7 @@ public class OrderDao {
                 oc.setOc_idx(rs.getInt("oc_idx"));
                 oc.setOc_option(rs.getString("oc_option"));
                 oc.setOc_price(rs.getInt("oc_price"));
+                oc.setOc_idx(rs.getInt("oc_idx"));
             }
 			// 占쏙옙袂占쏙옙玖占� 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙荑∽옙占� 占쏙옙袂占쏙옙占� 占싸듸옙占쏙옙占쏙옙 占쌩곤옙 占쏙옙占쏙옙占쏙옙
 			else 					oc.setOc_idx(0);
@@ -60,7 +62,8 @@ public class OrderDao {
 		return addrList;
 	}
 
-	public int orderInsert(String kind, OrderInfo oi, OrderDetail od) {
+	public int orderInsert(String kind, String[] ocIdxs, OrderInfo oi, OrderDetail od) {
+		
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
         String datePart = dateFormat.format(new Date());
@@ -68,12 +71,63 @@ public class OrderDao {
         Random random = new Random();
         int randomValue = random.nextInt(90) + 10; // 2占쌘몌옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 (10 占싱삼옙 99 占쏙옙占쏙옙)
         
-        String sql = "insert into t_order_info (oi_id, mi_id, pi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, oi_date, oi_cnt) values (?, ?, ?, ?, 'a', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'a', now(), ?)";
-		int result = jdbc.update(sql, datePart + oi.getPi_id() + randomValue, oi.getMi_id(), oi.getPi_id(), oi.getOi_name(), oi.getOi_phone(), oi.getOi_zip(), oi.getOi_addr1(), oi.getOi_addr2(), oi.getOi_memo(), oi.getOi_payment(), oi.getOi_pay(), oi.getOi_upoint(), oi.getOi_apoint(), oi.getOi_cnt());
-        
-        if (kind.equals("c")) {
+       
+        if (kind.equals("c")) {        	
+        	String sql = "select a.pi_id, a.oc_option, a.oc_cnt, b.pi_name, b.pi_img1, a.oc_price from t_order_cart a, t_product_info b " + 
+					"where a.pi_id = b.pi_id and a.mi_id = '" + oi.getMi_id() + "' and (";
+        	String delWhere = " where mi_id = '" + oi.getMi_id() + "' and (";
+        	String[] arr = ocIdxs;
+        	
+        	for (int i = 0 ; i < arr.length ; i ++) {
+				if (i == 0) {
+					sql += "a.oc_idx = " + arr[i];
+					delWhere += "oc_idx = " + arr[i];
+				} else {
+					sql += " or a.oc_idx = " + arr[i];
+					delWhere += " or oc_idx = " + arr[i];
+				}
+			}
+			sql += ")";	// SQL 쿼리 완성			
+			delWhere += ")"; // 삭제 SQL 쿼리 완성 
+			
+        	System.out.println(sql);
+        	
+        	List<Map<String, Object>> resultRows = jdbc.queryForList(sql);
+        	
+        	int result = 0; // 최종 결과를 저장할 변수를 초기화
+
+        	for (Map<String, Object> rs : resultRows) {
+        	    String pi_id = (String) rs.get("pi_id");
+        	    String od_option = (String) rs.get("oc_option");
+        	    int oc_cnt = (int) rs.get("oc_cnt");
+        	    String od_name = (String) rs.get("pi_name");
+        	    String od_img = (String) rs.get("pi_img1");
+        	    int oc_price = (int) rs.get("oc_price");
+
+        	    sql = "insert into t_order_info (oi_id, mi_id, pi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, oi_date, oi_cnt) values (?, ?, ?, ?, 'a', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'a', now(), ?)";
+        	    
+        	    int insertResult = jdbc.update(sql, datePart + pi_id + randomValue, oi.getMi_id(), pi_id, oi.getOi_name(), oi.getOi_phone(), oi.getOi_zip(), oi.getOi_addr1(), oi.getOi_addr2(), oi.getOi_memo(), oi.getOi_payment(), oi.getOi_pay(), oi.getOi_upoint(), oi.getOi_apoint(), oc_cnt);
+        	    
+        	    if (insertResult == 1) {
+        	        String oiIdQuery = "select oi_id from t_order_info where oi_id = ?";
+        	        String oiId = jdbc.queryForObject(oiIdQuery, String.class, datePart + pi_id + randomValue);
+        	        
+        	        sql = "insert into t_order_detail (oi_id, pi_id, od_option, od_name, od_img) values (?, ?, ?, ?, ?)";
+        	        int detailResult = jdbc.update(sql, oiId, pi_id, od_option, od_name, od_img);
+        	        
+        	        result += detailResult; // 각 쿼리 결과를 result 변수에 누적
+        	    }
+        	}
+
+        	sql = "delete from t_order_cart " + delWhere;
+        	result = jdbc.update(sql);
+        	
+        	return result;
         	
         } else {
+        	String sql = "insert into t_order_info (oi_id, mi_id, pi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, oi_date, oi_cnt) values (?, ?, ?, ?, 'a', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'a', now(), ?)";
+     		int result = jdbc.update(sql, datePart + oi.getPi_id() + randomValue, oi.getMi_id(), oi.getPi_id(), oi.getOi_name(), oi.getOi_phone(), oi.getOi_zip(), oi.getOi_addr1(), oi.getOi_addr2(), oi.getOi_memo(), oi.getOi_payment(), oi.getOi_pay(), oi.getOi_upoint(), oi.getOi_apoint(), oi.getOi_cnt());
+             
         	if (result == 1) {
     	    	String oiIdQuery = "select oi_id from t_order_info where oi_id = ?";
     	        String oiId = jdbc.queryForObject(oiIdQuery, String.class, datePart + oi.getPi_id() + randomValue);
@@ -87,10 +141,12 @@ public class OrderDao {
     			if (oi.getOi_apoint() != 0)	jdbc.update("insert into t_member_point (mi_id, mp_su, mp_point, mp_desc) values ('" + oi.getMi_id() + "', 'a', " + oi.getOi_apoint() + ", '상품 구매')");							
     			if (oi.getIsAuction().equals("y")) jdbc.update("update t_product_info set pi_status = 'n' where pi_id = '" + oi.getPi_id() + "'");
     	    }		
+        	
+        	return result;
         }
      
 		
-		return result;
+		
 	}
 
 

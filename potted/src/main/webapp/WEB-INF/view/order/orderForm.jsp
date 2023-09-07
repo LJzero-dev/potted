@@ -42,10 +42,13 @@ function chAddr(val) {
 	<c:set var="totalPrice" value="0" />
 	<c:set var="totalOption" value="" />
 	<c:forEach var="oc" items="${pdtList}">
+		<input type="hidden" name="oc_idx" value="${oc.oc_idx}" />
+	    
 	    <c:set var="totalPrice" value="${totalPrice + oc.oc_price}" />
 	    <c:if test="${not empty totalOption}">
 	        <c:set var="totalOption" value="${totalOption}/${oc.oc_option}" />
 	    </c:if>
+	    
 	    <c:if test="${empty totalOption}">
 	        <c:set var="totalOption" value="${oc.oc_option}" />
 	    </c:if>

@@ -21,8 +21,8 @@ public class OrderSvc {
 		return addrList;
 	}
 
-	public int orderInsert(String kind, OrderInfo oi, OrderDetail od) {
-		int result = orderDao.orderInsert(kind, oi, od);
+	public int orderInsert(String kind, String[] ocIdxs, OrderInfo oi, OrderDetail od) {
+		int result = orderDao.orderInsert(kind, ocIdxs, oi, od);
 		   return result;
 	}
 }

@@ -32,6 +32,7 @@ public class OrderFormCtrl {
 		String kind = request.getParameter("kind");
 		String isAuction = request.getParameter("isAuction");
 		// ������熬���������占� ������������ : c | ����濡�源��������� : d
+
 		String pi_id = request.getParameter("pi_id");
 		String pi_name = request.getParameter("pi_name");
 		String pi_price = request.getParameter("pi_price");
@@ -42,7 +43,6 @@ public class OrderFormCtrl {
 		String total = request.getParameter("totalPrice");
 		String option = request.getParameter("option");
 		String totalc = request.getParameter("totalc");
-		System.out.println(request.getParameter("pcPrice"));
 		String pc_price = request.getParameter("pc_price");
 		String todelc = request.getParameter("todelc");
 		String orderCart = request.getParameter("orderCart");
@@ -85,7 +85,7 @@ public class OrderFormCtrl {
 	    String mi_phone = mi.getMi_phone();
 	    String mi_email = mi.getMi_email();
 	    int mi_point = mi.getMi_point();
-		
+
 	    model.addAttribute("pdtList", pdtList);
         model.addAttribute("kind", kind);
 		model.addAttribute("pi_id", pi_id);
@@ -121,8 +121,22 @@ public class OrderFormCtrl {
 		String oi_apointParam = request.getParameter("oi_apoint");
 		String kind = request.getParameter("kind");
 	    int oi_apoint = Integer.parseInt(oi_apointParam.split("\\.")[0]); // �����쎌�������� ������������ ���몃��� ������������
+	    
 		OrderInfo oi = new OrderInfo();
 		OrderDetail od = new OrderDetail();
+		
+		String[] ocIdxArray = request.getParameterValues("oc_idx");
+		String[] ocIdxs = null;
+		if (ocIdxArray != null) {
+		    ocIdxs = new String[ocIdxArray.length]; // 배열 크기 설정
+
+		    for (int i = 0; i < ocIdxArray.length; i++) {
+		        ocIdxs[i] = ocIdxArray[i]; // 값을 배열에 할당
+		       
+		    }
+		}
+		
+		System.out.println(request.getParameter("pi_id"));
 		
 		oi.setMi_id(miid);
 		oi.setPi_id(request.getParameter("pi_id"));
@@ -143,7 +157,7 @@ public class OrderFormCtrl {
 		od.setOd_img(request.getParameter("od_img"));
 		od.setOd_option(request.getParameter("option"));
 		
-		int result = orderSvc.orderInsert(kind, oi, od);
+		int result = orderSvc.orderInsert(kind, ocIdxs, oi, od);
 		mi.setMi_point(mi.getMi_point() + oi_apoint - oi.getOi_upoint());
 		return "redirect:/mypage";
 	}
