@@ -37,7 +37,7 @@ public class BannerCtrl {
 		request.setCharacterEncoding("utf-8");
 		int num = Integer.parseInt(request.getParameter("imgNumber"));
 		
-		String uploadPath = "E:/esm/project/ad_potted/src/main/webapp/resources/images/banner";
+		String uploadPath = "E:/esm/project/ad_potted/src/main/webapp/resources/images/product/banner";
 		String files = "";	// for문돌리기위해  ""을 안넣으면 null이되서
 		BannerList bl = new BannerList();
 		for (MultipartFile file : uploadFile) {

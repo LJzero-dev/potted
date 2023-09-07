@@ -156,10 +156,10 @@ $(document).ready(function() {
 
 <div class="slideshow">
 	<div class="slideshow-slides">
-		<a href="#" class="slide" id="slide-1"><img src="http://localhost:8086/ad_potted/resources/images/banner/<%=bl.getBl_img1() %>" width="1600" height="600" /></a>
-		<a href="#" class="slide" id="slide-2"><img src="http://localhost:8086/ad_potted/resources/images/banner/<%=bl.getBl_img2() %>" width="1600" height="600" /></a>
-		<a href="#" class="slide" id="slide-3"><img src="http://localhost:8086/ad_potted/resources/images/banner/<%=bl.getBl_img3() %>" width="1600" height="600" /></a>
-		<a href="#" class="slide" id="slide-4"><img src="http://localhost:8086/ad_potted/resources/images/banner/<%=bl.getBl_img4() %>" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-1"><img src="http://localhost:8086/ad_potted/resources/images/product/banner/<%=bl.getBl_img1() %>" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-2"><img src="http://localhost:8086/ad_potted/resources/images/product/banner/<%=bl.getBl_img2() %>" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-3"><img src="http://localhost:8086/ad_potted/resources/images/product/banner/<%=bl.getBl_img3() %>" width="1600" height="600" /></a>
+		<a href="#" class="slide" id="slide-4"><img src="http://localhost:8086/ad_potted/resources/images/product/banner/<%=bl.getBl_img4() %>" width="1600" height="600" /></a>
 	</div>
 	<!-- <div class="slideshow-nav">
 		<a href="#" class="prev">Prev</a>

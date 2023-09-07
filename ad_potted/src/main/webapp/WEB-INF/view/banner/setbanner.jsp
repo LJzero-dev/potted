@@ -34,10 +34,10 @@ input:active { background-color:#6B727A; }
 <input type="button" onclick="location.href='http://localhost:8086/ad_potted/setbanner'" value="새로고침" />
 <table class="now" cellpadding="10" cellspacing="10">
 <tr><th>배너이미지 1</th><th>배너이미지 2</th><th>배너이미지 3</th><th>배너이미지 4</th></tr><tr>
-<td><img class="nimg" src="http://localhost:8086/ad_potted/resources/images/banner/<%=bl.getBl_img1() %>" /><br /></td>
-<td><img class="nimg" src="http://localhost:8086/ad_potted/resources/images/banner/<%=bl.getBl_img2() %>" /><br /></td>
-<td><img class="nimg" src="http://localhost:8086/ad_potted/resources/images/banner/<%=bl.getBl_img3() %>" /><br /></td>
-<td><img class="nimg" src="http://localhost:8086/ad_potted/resources/images/banner/<%=bl.getBl_img4() %>" /><br /></td>
+<td><img class="nimg" src="http://localhost:8086/ad_potted/resources/images/product/banner/<%=bl.getBl_img1() %>" /><br /></td>
+<td><img class="nimg" src="http://localhost:8086/ad_potted/resources/images/product/banner/<%=bl.getBl_img2() %>" /><br /></td>
+<td><img class="nimg" src="http://localhost:8086/ad_potted/resources/images/product/banner/<%=bl.getBl_img3() %>" /><br /></td>
+<td><img class="nimg" src="http://localhost:8086/ad_potted/resources/images/product/banner/<%=bl.getBl_img4() %>" /><br /></td>
 </tr></table></div><br /><br />
 <span class="title">변경할 배너 이미지</span>
 <table class="now" cellpadding="10" cellspacing="10">
