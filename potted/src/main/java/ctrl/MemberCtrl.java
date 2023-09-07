@@ -1,5 +1,6 @@
 package ctrl;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,11 +56,37 @@ public class MemberCtrl {
 	}
 	
 	@LoginRequired
+	@GetMapping ("/auctionInfo")
+	public String auctionInfo(Model model, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int cpage = 1, pcnt = 0, spage = 0, rcnt = 0, psize = 5, bsize = 5;
+		if (request.getParameter("cpage") != null)		cpage = Integer.parseInt(request.getParameter("cpage"));
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		List<OrderInfo> auctionOrderList = memberSvc.getAuctionOrderList(miid, cpage, psize);
+		
+		rcnt = memberSvc.getAuctionOrderListCount(miid);
+
+		pcnt = rcnt / psize;	if(rcnt % psize > 0)	pcnt++;
+		spage = (cpage - 1) / bsize * bsize + 1;
+		PageInfo pi = new PageInfo();
+		pi.setBsize(bsize);			pi.setCpage(cpage);
+		pi.setPcnt(pcnt);			pi.setPsize(psize);
+		pi.setRcnt(rcnt);			pi.setSpage(spage);
+		
+		model.addAttribute("pi", pi);
+		request.setAttribute("auctionOrderList", auctionOrderList);
+		
+		return "member/auctionInfo";
+	}
+	
+	@LoginRequired
 	@GetMapping ("/pointInfo")
 	public String pointInfo(Model model, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, pcnt = 0, spage = 0, rcnt = 0, psize = 5, bsize = 5;
-		// ÇöÀç ÆäÀÌÁö ¹øÈ£, ÆäÀÌÁö ¼ö, ½ÃÀÛÆäÀÌÁö, °Ô½Ã±Û ¼ö, ÆäÀÌÁö Å©±â, ºí·Ï Å©±â¸¦ ÀúÀåÇÒ º¯¼ö
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ô½Ã±ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½, ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (request.getParameter("cpage") != null)		cpage = Integer.parseInt(request.getParameter("cpage"));
 		
 		HttpSession session = request.getSession();
@@ -105,5 +132,50 @@ public class MemberCtrl {
 		int result = memberSvc.chkDupId(uid);
 
 		return result + "";
+	}
+	
+	@PostMapping("/chkPw")
+	@ResponseBody
+	public String chkPw(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		String pw = request.getParameter("pw").trim().toLowerCase();
+		String pw2 = request.getParameter("pw2").trim().toLowerCase();
+		int result = 0;
+		if (!pw.equals(pw2))	result = 0;
+		else					result = 1;
+
+		return result + "";
+	}
+	
+	@PostMapping("/memberJoin")
+	public String memberJoin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		MemberInfo mi = new MemberInfo();
+		mi.setMi_id(request.getParameter("mi_id"));
+		mi.setMi_pw(request.getParameter("mi_pw"));
+		mi.setMi_email(request.getParameter("e1") + "@" + request.getParameter("e3"));
+		mi.setMi_phone(request.getParameter("p1") + "-" + request.getParameter("p2") + "-" + request.getParameter("p3"));
+		mi.setMi_name(request.getParameter("mi_name"));
+		mi.setMi_birth(request.getParameter("year") + "-" + request.getParameter("month") + "-" + request.getParameter("day"));
+		mi.setMi_gender(request.getParameter("mi_gender"));
+		mi.setMi_isad(request.getParameter("mi_isad"));
+		
+		MemberAddr ma = new MemberAddr();
+		ma.setMa_zip(request.getParameter("ma_zip"));
+		ma.setMa_addr1(request.getParameter("ma_addr1"));
+		ma.setMa_addr2(request.getParameter("ma_addr2"));
+		
+		int result = memberSvc.memberInsert(mi, ma);
+		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		if (result != 3) {
+			out.println("<script>");
+			out.println("alert('íšŒì›ê°€ì…ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.');");
+			out.println("history.back();");
+			out.println("</script>");
+			out.close();
+		}
+		return "redirect:/login";
 	}
 }

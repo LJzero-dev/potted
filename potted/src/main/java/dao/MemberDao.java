@@ -14,7 +14,7 @@ public class MemberDao {
 	}
 
 	public List<MemberPoint> getMemberPoint(String miid, int cpage, int psize) {
-		// ȸ�� ����Ʈ�� List<MemberPoint>������ ����
+		// ȸ�� ����Ʈ�� List<MemberPoint>������ ����
 		String sql = "select mp_idx, mp_point, mp_desc, mp_detail, concat(mid(mp_date, 3, 2), '/', mid(mp_date, 6, 2), '/', mid(mp_date, 9, 2), ' ', mid(mp_date, 12, 5)) wdate from t_member_point " + 
 		" where mi_id = '" + miid + "' order by mp_idx desc limit " + ((cpage - 1) * psize) + ", " + psize;
 		List<MemberPoint> memberPoint = jdbc.query(sql, 
@@ -39,7 +39,7 @@ public class MemberDao {
 	public List<OrderInfo> getOrderList(String miid, int cpage, int psize) {
 		String sql = "select oi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, " + 
 	"concat(mid(oi_date, 3, 2), '/', mid(oi_date, 6, 2), '/', mid(oi_date, 9, 2), ' ', mid(oi_date, 12, 5)) odate, oi_cnt, b.pi_id, b.pi_name " + 
-	"from t_order_info a, t_product_info b where a.pi_id = b.pi_id and mi_id = '" + miid + "' order by oi_date desc limit " + ((cpage - 1) * psize) + ", " + psize;
+	"from t_order_info a, t_product_info b where a.pi_id = b.pi_id and oi_type = 'a' and mi_id = '" + miid + "' order by oi_date desc limit " + ((cpage - 1) * psize) + ", " + psize;
 		List<OrderInfo> orderList = jdbc.query(sql, 
 		(ResultSet rs, int rowNum) -> {
 			OrderInfo oi = new OrderInfo();
@@ -67,7 +67,7 @@ public class MemberDao {
 	}
 
 	public int getOrderListCount(String miid) {
-		String sql = "select count(*) from t_order_info where mi_id = '" + miid + "'";
+		String sql = "select count(*) from t_order_info where mi_id = '" + miid + "' and oi_type = 'a'";
 		int rcnt = jdbc.queryForObject(sql, Integer.class);
 		return rcnt;
 	}
@@ -75,6 +75,61 @@ public class MemberDao {
 	public int chkDupId(String uid) {
 		String sql = "select count(*) from t_member_info where mi_id = '" + uid + "' ";
 		int result = jdbc.queryForObject(sql, Integer.class);
+		return result;
+	}
+
+	public List<OrderInfo> getAuctionOrderList(String miid, int cpage, int psize) {
+		String sql = "select oi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_pay, oi_upoint, oi_apoint, oi_status, " + 
+		"concat(mid(oi_date, 3, 2), '/', mid(oi_date, 6, 2), '/', mid(oi_date, 9, 2), ' ', mid(oi_date, 12, 5)) odate, oi_cnt, b.pi_id, b.pi_name " + 
+		"from t_order_info a, t_product_info b where a.pi_id = b.pi_id and oi_type = 'b' and mi_id = '" + miid + "' order by oi_date desc limit " + ((cpage - 1) * psize) + ", " + psize;
+		List<OrderInfo> orderList = jdbc.query(sql, 
+		(ResultSet rs, int rowNum) -> {
+			OrderInfo oi = new OrderInfo();
+			oi.setOi_id(rs.getString("oi_id"));
+			oi.setOi_name(rs.getString("oi_name"));
+			oi.setOi_type(rs.getString("oi_type"));
+			oi.setOi_phone(rs.getString("oi_phone"));
+			oi.setOi_zip(rs.getString("oi_zip"));
+			oi.setOi_addr1(rs.getString("oi_addr1"));
+			oi.setOi_addr2(rs.getString("oi_addr2"));
+			oi.setOi_memo(rs.getString("oi_memo"));
+			oi.setOi_payment(rs.getString("oi_payment"));
+			oi.setOi_pay(rs.getInt("oi_pay"));
+			oi.setOi_upoint(rs.getInt("oi_upoint"));
+			oi.setOi_apoint(rs.getInt("oi_apoint"));
+			oi.setOi_status(rs.getString("oi_status"));
+			oi.setOi_date(rs.getString("odate"));
+			oi.setPi_name(rs.getString("pi_name"));
+			oi.setOi_cnt(rs.getInt("oi_cnt"));
+			oi.setPi_id(rs.getString("pi_id"));
+			
+			return oi;
+		});
+		return orderList;
+	}
+
+	public int getAuctionOrderListCount(String miid) {
+		String sql = "select count(*) from t_order_info where mi_id = '" + miid + "' and oi_type = 'b'";
+		int rcnt = jdbc.queryForObject(sql, Integer.class);
+		return rcnt;
+	}
+
+	public int memberInsert(MemberInfo mi, MemberAddr ma) {
+		// 회원정보 테이블에 insert
+		String sql = "insert into t_member_info values ('" + mi.getMi_id() + "', '" + mi.getMi_pw() + "', '" + mi.getMi_name() + "', '" + mi.getMi_gender() + 
+				"', '" + mi.getMi_birth() + "', '" + mi.getMi_phone() + "', '" + mi.getMi_email() + "', '" + mi.getMi_isad() + "', 1000, '0', 'a', now(), null)";
+		int result = jdbc.update(sql);
+		System.out.println(sql);
+		// 회원 주소록 테이블에 insert
+		sql = "insert into t_member_addr (mi_id, ma_name, ma_rname, ma_phone, ma_zip, ma_addr1, ma_addr2) values ('" + mi.getMi_id() + "', '집', '" + mi.getMi_name() + 
+				"', '" + mi.getMi_phone() + "', '" + ma.getMa_zip() + "', '" + ma.getMa_addr1() + "', '" + ma.getMa_addr1() + "')";
+		result += jdbc.update(sql);
+		System.out.println(sql);
+		// 회원 포인트 테이블에 insert
+		sql = "insert into t_member_point (mi_id, mp_su, mp_point, mp_desc, mp_detail, mp_admin) values ('" + mi.getMi_id() + "', 'a', 1000, '회원 가입 축하 포인트', '회원 가입 축하 포인트', 1)";
+		result += jdbc.update(sql);
+		System.out.println(sql);
+		
 		return result;
 	}
 

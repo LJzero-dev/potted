@@ -182,7 +182,7 @@ function bid() {
 		종료된 경매 입니다.<br />
 	<% if(loginInfo != null && loginInfo.getMi_id().equals(pi.getProductAuctionInfo().getPai_id()) 
 	&& Integer.parseInt(String.valueOf(LocalDate.now()).replace("-", "")) - 3 < Integer.parseInt(pi.getProductAuctionInfo().getPai_end().substring(0,10).replace("-", "")) &&
-	pi.getPi_status().equals("y")) {%>
+	pi.getPi_status().equals("a")) {%>
 		입찰에 성공하셨습니다.<br />
 		<input type="button" value="결제 하기" class="smt" onclick="buy();" />
 	<% } else { %>

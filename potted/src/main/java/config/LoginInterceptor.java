@@ -34,7 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
      	 response.setContentType("text/html; charset=utf-8");
   		 PrintWriter out = response.getWriter();
   		 out.println("<script>");
-         out.println("alert('·Î±×ÀÎ ÈÄ ÀÌ¿ë ºÎÅ¹µå¸³´Ï´Ù.');");
+         out.println("alert('ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.');");
   		 out.println("location.href='/potted/login';");
   		 out.println("</script>");
   		 out.close();

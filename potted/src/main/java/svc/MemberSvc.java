@@ -36,4 +36,20 @@ public class MemberSvc {
 		return result;
 	}
 
+	public List<OrderInfo> getAuctionOrderList(String miid, int cpage, int psize) {
+		List<OrderInfo> auctionOrderList = memberDao.getAuctionOrderList(miid, cpage, psize);
+		return auctionOrderList;
+	}
+
+	public int getAuctionOrderListCount(String miid) {
+		int result = memberDao.getAuctionOrderListCount(miid);
+		return result;
+	}
+
+	public int memberInsert(MemberInfo mi, MemberAddr ma) {
+		int result = memberDao.memberInsert(mi, ma);
+		return result;
+	}
+
+
 }
