@@ -2,7 +2,7 @@ package vo;
 
 public class FreeList {
 	private int fl_idx, fl_reply, fl_read;
-	private String fl_ismem, fl_writer, fl_pw, fl_title;
+	private String mi_id, fl_ismem, fl_writer, fl_pw, fl_title;
 	private String fl_content, fl_isview, fl_date, fl_img1, fl_img2;
 	
 	public int getFl_idx() {
@@ -22,6 +22,12 @@ public class FreeList {
 	}
 	public void setFl_read(int fl_read) {
 		this.fl_read = fl_read;
+	}
+	public String getMi_id() {
+		return mi_id;
+	}
+	public void setMi_id(String mi_id) {
+		this.mi_id = mi_id;
 	}
 	public String getFl_ismem() {
 		return fl_ismem;

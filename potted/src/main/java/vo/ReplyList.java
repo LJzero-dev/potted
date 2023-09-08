@@ -2,7 +2,7 @@ package vo;
 
 public class ReplyList {
 	private int fr_idx,	fl_idx;
-	private String mi_id, mi_name, fr_ismem, fr_content,	fr_isview, fr_date;
+	private String mi_id, mi_name, fr_ismem, fr_content, fr_isview, fr_date;
 	public int getFr_idx() {
 		return fr_idx;
 	}
