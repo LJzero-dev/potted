@@ -83,7 +83,7 @@ create table t_member_point (
 	constraint fk_t_member_point_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
 select * from t_member_point;
-insert into t_member_point (mi_id, mp_su, mp_point, ) values ('test1', 'u', 100, '물품 구매', '',);
+/*insert into t_member_point (mi_id, mp_su, mp_point, ) values ('test1', 'u', 100, '물품 구매', '',);*/
 
 -- 상품 대분류 테이블
 create table t_product_ctgr_big (
@@ -417,6 +417,8 @@ create table t_banner_list (
    bl_date datetime default now(),
    constraint fk_banner_list_ai_idx foreign key (ai_idx) references t_admin_info(ai_idx)
 );
+
+insert into t_banner_list values (1, 'test1.png', 'test2.png', 'test3.png', 'test4.png', now());
 
 -- 매출전표 테이블
 create table t_sales_slip (

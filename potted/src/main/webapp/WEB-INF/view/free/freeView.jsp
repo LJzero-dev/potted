@@ -24,7 +24,7 @@ function rInsert(flidx) {
 			}
 		});
 	} else {
-		alert("내용 안쓸꺼니?");
+		alert("내용을 입력해주세요");
 	}
 	location.href = "freeView?cpage=1&flidx=" + flidx;
 	return false;

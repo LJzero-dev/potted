@@ -71,7 +71,6 @@ body { margin:0; }
 <script>
 $.getJSON('https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=8v9f7y0t91f1wlfyspJ%2BQEpRi%2BnQ1LWm%2FEoMFm8iqGkdSM8clOR3q7h5y6WtC9%2Bxxa5wWZIQhdP77%2B3v%2FdOEA%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=<%=today%>&base_time=<%=hour%>00&nx=61&ny=125', function(data) {
 	console.log(data);
-	let wy = data.response.body.items.item[3].baseDate.substring(2); // 날짜
 	let wh = data.response.body.items.item[3].baseTime;	// 시간
 	let wt = data.response.body.items.item[3].obsrValue; // 온도
 	let pty = data.response.body.items.item[0].obsrValue; // 강수형태 : 0 = 없음, (1,2,4,5) = 비, (3,6,7) = 눈
@@ -204,7 +203,7 @@ $(document).ready(function() {
 <h1>오늘의 날씨</h1><br />
 </div>
 <div class="weather wsize">
-	<p class="wday"></p><br />
+	<p class="wday"><%=y %>년 <%=m %>월 <%=d %>일</p><br />
 	<p class="weatherInfo"></p><br />
 	<p class=""></p>
 </div>
