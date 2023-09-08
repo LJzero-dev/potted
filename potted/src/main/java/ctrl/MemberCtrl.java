@@ -266,5 +266,30 @@ public class MemberCtrl {
 		
 		return "redirect:/";
 	}
-	
+
+	@LoginRequired
+	@GetMapping ("/myReview")
+	public String myReview(Model model, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int cpage = 1, pcnt = 0, spage = 0, rcnt = 0, psize = 5, bsize = 5;
+		if (request.getParameter("cpage") != null)		cpage = Integer.parseInt(request.getParameter("cpage"));
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		String miid = loginInfo.getMi_id();
+		List<ReviewList> reviewList = memberSvc.getReviewList(miid, cpage, psize);
+		
+		rcnt = memberSvc.getReviewListCount(miid);
+
+		pcnt = rcnt / psize;	if(rcnt % psize > 0)	pcnt++;
+		spage = (cpage - 1) / bsize * bsize + 1;
+		PageInfo pi = new PageInfo();
+		pi.setBsize(bsize);			pi.setCpage(cpage);
+		pi.setPcnt(pcnt);			pi.setPsize(psize);
+		pi.setRcnt(rcnt);			pi.setSpage(spage);
+		
+		model.addAttribute("pi", pi);
+		request.setAttribute("reviewList", reviewList);
+		
+		return "member/myReview";
+	}
 }

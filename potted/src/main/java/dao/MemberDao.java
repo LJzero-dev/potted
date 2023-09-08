@@ -213,4 +213,29 @@ public class MemberDao {
 		return result;
 	}
 
+	public List<ReviewList> getReviewList(String miid, int cpage, int psize) {
+		String sql = "select rl_idx, mi_id, pi_id, rl_name, rl_content, rl_img, rl_good, concat(mid(rl_date, 3, 2), '/', mid(rl_date, 6, 2), '/', mid(rl_date, 9, 2), ' ', mid(rl_date, 12, 5)) wdate from t_review_list where mi_id = '" + miid + "' and rl_isview = 'y'";
+//		System.out.println(sql);	
+		List<ReviewList> reviewList = jdbc.query(sql, 
+			(ResultSet rs, int rowNum) -> {
+				ReviewList rl = new ReviewList();
+				rl.setRl_idx(rs.getInt("rl_idx"));
+				rl.setMi_id(rs.getString("mi_id"));
+				rl.setPi_id(rs.getString("pi_id"));
+				rl.setRl_name(rs.getString("rl_name"));
+				rl.setRl_content(rs.getString("rl_content"));
+				rl.setRl_img(rs.getString("rl_img"));
+				rl.setRl_good(rs.getString("rl_good"));
+				rl.setRl_date(rs.getString("wdate"));
+				return rl;
+		});
+		return reviewList;
+	}
+
+	public int getReviewCount(String miid) {
+		String sql = "select count(*) from t_review_list where mi_id = '" + miid + "' and rl_isview = 'y'";
+		int rcnt = jdbc.queryForObject(sql, Integer.class);
+		return rcnt;
+	}
+
 }

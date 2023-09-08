@@ -19,7 +19,7 @@
 <tr>
 	<td valign="top"><table id="menus">
 	<tr><td><input type="button" value="주문조회" class="menu" onclick="loadpage(1);" /></td></tr>
-	<tr><td><input type="button" value="내가 쓴 후기" class="menu" onclick="loadpage(2);" /></td></tr>
+	<tr><td><input type="button" value="내 후기" class="menu" onclick="loadpage(2);" /></td></tr>
 	<tr><td><input type="button" value="포인트" class="menu" onclick="loadpage(3);" /></td></tr>
 	<tr><td><input type="button" value="주소 설정" class="menu" onclick="loadpage(4);" /></td></tr>
 	<tr><td><input type="button" value="옥션조회" class="menu" onclick="loadpage(5);" /></td></tr>

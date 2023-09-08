@@ -76,5 +76,15 @@ public class MemberSvc {
 		return result;
 	}
 
+	public List<ReviewList> getReviewList(String miid, int cpage, int psize) {
+		List<ReviewList> reviewList = memberDao.getReviewList(miid, cpage, psize);
+		return reviewList;
+	}
+
+	public int getReviewListCount(String miid) {
+		int result = memberDao.getReviewCount(miid);
+		return result;
+	}
+
 
 }

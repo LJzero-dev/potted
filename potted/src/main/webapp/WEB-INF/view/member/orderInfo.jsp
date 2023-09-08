@@ -25,6 +25,7 @@ a:hover { text-decoration:underline; }
 #table th, td{ font-weight: lighter; border:1.5px solid #CFD4CD; }
 #table { border:1.5px solid #CFD4CD; border-collapse:collapse; text-align:center; }
 #table tr { width:620px; height:50px; }
+.isDone { font-size:13px; }
 </style>
 </head>
 <body>
@@ -33,7 +34,7 @@ a:hover { text-decoration:underline; }
 	<span id="title">주문조회</span>
 	<br /><br />
 	<table id="table" width="750px;" >
-	<tr><th width="*">주문번호</th><th width="21%">상품명</th><th width="8%">수량</th><th width="12%">상태</th><th width="15%">주문금액</th><th width="15%">주문일자</th></tr>
+	<tr><th width="*">주문번호</th><th width="21%">상품명</th><th width="8%">수량</th><th width="16%">상태</th><th width="15%">주문금액</th><th width="16%">주문일자</th></tr>
 	</table>
 	<div v-for="item in orderArr" :key="item.oiidx">
 	<order-list :object="item" v-on:go-review="goReview"></order-list>
@@ -74,8 +75,9 @@ var orderList = {
 		props: ["object"], 
 		template:`<table id="table" width="750px;" >
 			<tr><td width="*">{{object.oiid}}</td><td width="21%"><a :href="object.oilnk" target="_blank">{{object.piname}}</a></td><td width="8%">{{object.oicnt}}</td>
-			<td width="12%">{{object.oistatus}}<br /><input type="button" v-on:click="goReview(object.oiid)" value="리뷰 작성"></td>
-			<td width="15%">{{object.oipay}}</td><td width="15%">{{object.oidate}}</td></tr>
+			<td width="16%">{{object.val}}<input type="button" v-if="object.oistatus == 'c'" v-on:click="goReview(object.oiid)" value="리뷰 작성"><br />
+			<span class="isDone">{{object.isdone}}</span></td>
+			<td width="15%">{{object.oipay}}</td><td width="16%">{{object.oidate}}</td></tr>
 			</table>
 		`,	
 	methods: {
@@ -90,21 +92,25 @@ new Vue({
 	data: {
 		orderArr: [
 <%
-String obj = "";
-String status = "";
-String oilnk = "";
+String obj = "", status = "", oilnk = "", isdone = "";
 for (int i = 0 ; i < orderList.size() ; i++) {
 	OrderInfo oi = orderList.get(i);
 	if(oi.getOi_status().equals("a")) {
 		status = "배송 대기";
 	} else if (oi.getOi_status().equals("b")) {
 		status = "배송 중";
-	} else { status = "배송 완료"; }
+	} else if (oi.getOi_status().equals("c")) {
+		status = "배송 완료";
+	} else { 
+		status = "배송 완료";
+		isdone = "(후기작성완료)";		
+	}
 	
 	oilnk = "http://localhost:8086/potted/productView?piid=" + oi.getPi_id();
 	
 	obj = (i == 0 ? "" : ", ") + "{oiidx:\"" + i + "\", oiid:\"" + oi.getOi_id() + "\", piname:\"" + oi.getPi_name() + "\", oicnt:\"" + oi.getOi_cnt() + 
-		"\", oistatus:\"" + status + "\", oipay:\"" + oi.getOi_pay() + "\", oidate:\"" + oi.getOi_date() + "\", oilnk:\"" + oilnk + "\"}";
+		"\", oistatus:\"" + oi.getOi_status() + "\", oipay:\"" + oi.getOi_pay() + "\", oidate:\"" + oi.getOi_date() + "\", oilnk:\"" + oilnk + 
+		"\", val:\"" + status + "\", isdone:\"" + isdone + "\"}";
 		out.println(obj);
 }
 %>

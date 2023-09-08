@@ -1,4 +1,4 @@
-drop database potted;
+-- drop database potted;
 create database potted;
 use potted;
 show tables;
@@ -33,7 +33,7 @@ create table t_member_info (
 );
 insert into t_member_info values ('test1', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '3', 'a', now(), null);
 insert into t_member_info values ('test2', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '2', 'a', now(), null);
-insert into t_member_info values ('test3', '1234', '홍길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '0', 'a', now(), null);
+insert into t_member_info values ('test4', '1234', '김길동', '남', '1975-05-24', '010-1234-1234', 'hong@naver.com', 'y', 1000, '0', 'a', now(), null);
 select * from t_member_info;
 -- 회원 주소록 테이블
 create table t_member_addr (
@@ -50,7 +50,7 @@ create table t_member_addr (
     constraint fk_t_member_addr_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
 
-insert into t_member_addr values (1, 'test1', '집주소', '홍길동', '010-1111-3333', '12345', '부산시 연제구 연산동', '987-654', 'y', now());
+insert into t_member_addr (mi_id, ma_name, ma_rname, ma_phone, ma_zip, ma_addr1, ma_addr2) values ('test1', '집주소', '홍길동', '010-1111-3333', '12345', '부산시 연제구 연산동', '987-654');
 insert into t_member_addr values (2, 'test1', '회사', '홍길순', '010-1111-1111', '23537', '서울시 강남구 역삼동', '63층 101호', 'n', now());
 
 select a.mi_protein, b.mt_grade, b.mt_hp, b.mt_count, b.mt_date from t_member_info a, t_member_tree b where a.mi_id = b.mi_id and b.mt_plant = 'y' and b.mi_id = 'test1';
@@ -83,7 +83,7 @@ create table t_member_point (
 	constraint fk_t_member_point_mi_id foreign key(mi_id) references t_member_info(mi_id)
 );
 select * from t_member_point;
-/*insert into t_member_point (mi_id, mp_su, mp_point, ) values ('test1', 'u', 100, '물품 구매', '',);*/
+insert into t_member_point (mi_id, mp_su, mp_point, mp_desc, mp_detail, mp_admin) values ('test1', 'a', 1000, '회원 가입 축하 포인트', '회원 가입 축하 포인트', 1);
 
 -- 상품 대분류 테이블
 create table t_product_ctgr_big (
@@ -345,7 +345,6 @@ create table t_free_reply (
 );
 
 
-
 -- 공지사항 테이블
 create table t_notice_list (
 	nl_idx int primary key auto_increment,	-- 글번호
@@ -390,9 +389,9 @@ create table  t_qna_list (
 
 -- 구매후기 테이블
 create table t_review_list (
-	rl_idx int unique,							-- 후기번호
+	rl_idx int primary key auto_increment,		-- 후기번호
 	mi_id varchar(20) not null,					-- 회원아이디
-	oi_id char(14) not null,					-- 주문번호ID
+	oi_id char(15) not null,					-- 주문번호ID
 	pi_id char(7) not null,						-- 상품ID
 	rl_name varchar(100) not null,				-- 상품명/옵션명
 	rl_content text not null,					-- 내용
@@ -401,7 +400,6 @@ create table t_review_list (
 	rl_ip varchar(15)not null,					-- IP주소
 	rl_isview char(1) default 'y',				-- 게시여부
 	rl_date datetime default now(),				-- 작성일
-    constraint pk_review_list primary key (mi_id, oi_id, pi_id),
     constraint fk_review_list_mi_id foreign key (mi_id) references t_member_info(mi_id),
     constraint fk_review_list_oi_id foreign key (oi_id) references t_order_info(oi_id),
     constraint fk_review_list_pi_id foreign key (pi_id) references t_product_info(pi_id)
@@ -417,8 +415,6 @@ create table t_banner_list (
    bl_date datetime default now(),
    constraint fk_banner_list_ai_idx foreign key (ai_idx) references t_admin_info(ai_idx)
 );
-
-insert into t_banner_list values (1, 'test1.png', 'test2.png', 'test3.png', 'test4.png', now());
 
 -- 매출전표 테이블
 create table t_sales_slip (
@@ -451,8 +447,9 @@ insert into t_product_auction_info values (null, 'CCaa311', 0, 1720200, '03:02:0
 insert into t_product_auction_info values (null, 'CCbb111', 0, 1220300, '03:02:00', now(), 'test1');
 insert into t_product_auction_info values (null, 'CCbb211', 2, 1000, '03:02:10', now(), 'test1');
 insert into t_product_auction_info values (null, 'CCbb311', 1, 1000, '03:02:00', now(), 'test1');
+select * from t_product_info;
 
-update t_product_auction_info set pai_runtime = '00:00:00', pai_start = now() where pai_idx = 1;
+update t_product_auction_info set pai_runtime = '00:00:00' where pI_id = "CCbb211";
 select * from t_product_auction_info;
 
 create table t_product_auction_info(
