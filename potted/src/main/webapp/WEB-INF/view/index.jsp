@@ -10,10 +10,12 @@ int y = cal.get(Calendar.YEAR);
 int m = cal.get(Calendar.MONTH)+1;
 int d = cal.get(Calendar.DATE);
 int h = cal.get(Calendar.HOUR_OF_DAY);
+int tm = cal.get(Calendar.MINUTE);
 
 String month = "";
 String day = "";
 String hour = "";
+String minute = "";
 if (m < 10)		month = "0" + m;
 else			month = m + "";
 
@@ -23,6 +25,8 @@ else			day = d + "";
 if (h < 10)		hour = "0" + h;
 else			hour = h + "";
 
+if (tm < 10)		minute = "0" + tm;
+else			minute = tm + "";
 String today = y + "" + month + "" + day;
 
 BannerList bl = (BannerList)request.getAttribute("bl");
@@ -65,17 +69,17 @@ body { margin:0; }
 .weather {background-image: url("/potted/resources/images/weather/clouds.png"); background-repeat : no-repeat;}
 .wsize {width:1400px; height:600px; margin-left:350px; }
 .weatherInfo { text-align:right; padding-top:25px; margin-right:110px; font-size:50px; color:white; }
-.wday { text-align:right; padding-top:40px; margin-right:80px; font-size:30px; color:white; }
+.wday { text-align:right; padding-top:30px; margin-right:80px; font-size:30px; color:white; }
+.wtime { text-align:right; padding-top:30px; margin-right:120px; font-size:30px; color:white; }
+.wimg { margin-right:140px; width:80px; height:80px; }
 </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script>
-$.getJSON('https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=8v9f7y0t91f1wlfyspJ%2BQEpRi%2BnQ1LWm%2FEoMFm8iqGkdSM8clOR3q7h5y6WtC9%2Bxxa5wWZIQhdP77%2B3v%2FdOEA%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=<%=today%>&base_time=<%=hour%>00&nx=61&ny=125', function(data) {
+$.getJSON('https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=8v9f7y0t91f1wlfyspJ%2BQEpRi%2BnQ1LWm%2FEoMFm8iqGkdSM8clOR3q7h5y6WtC9%2Bxxaa5wWZIQhdP77%2B3v%2FdOEA%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=<%=today%>&base_time=<%=hour%>00&nx=61&ny=125', function(data) {
 	console.log(data);
-	let wh = data.response.body.items.item[3].baseTime;	// 시간
 	let wt = data.response.body.items.item[3].obsrValue; // 온도
 	let pty = data.response.body.items.item[0].obsrValue; // 강수형태 : 0 = 없음, (1,2,4,5) = 비, (3,6,7) = 눈
 	 $('.weatherInfo').text(wt + "℃");
-	 $('.wday').text(wy.substring(0, 2) + "년 " + wy.substring(2, 4) + "월 " + wy.substring(4) + "일");
 	console.log(pty);
 	console.log(wt);
 	
@@ -204,8 +208,9 @@ $(document).ready(function() {
 </div>
 <div class="weather wsize">
 	<p class="wday"><%=y %>년 <%=m %>월 <%=d %>일</p><br />
+	<p class="wtime"><%=hour %>시 <%=minute %>분</p><br />
 	<p class="weatherInfo"></p><br />
-	<p class=""></p>
+	<img src="/potted/resources/images/weather/sun.png" class="wimg" align="right" />
 </div>
 <br />
 <!-- 날씨정보 종료 -->
