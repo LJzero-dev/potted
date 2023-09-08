@@ -25,7 +25,14 @@ public class MemberCtrl {
 	
 	@LoginRequired
 	@GetMapping ("/mypage")
-	public String mypage() {
+	public String mypage(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		MemberInfo loginInfo = (MemberInfo)session.getAttribute("loginInfo");
+		request.setCharacterEncoding("utf-8");
+		List<MemberAddr> maidx = memberSvc.getMemberAddrList(loginInfo.getMi_id());
+		
+		request.setAttribute("maidx", maidx);
+		
 		return "member/mypage";
 	}
 	

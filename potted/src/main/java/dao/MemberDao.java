@@ -155,6 +155,7 @@ public class MemberDao {
 
 	public MemberAddr getMemberAddr(String miid, int maidx) {
 		String sql = "select ma_idx, ma_name, ma_rname, ma_phone, ma_zip, ma_addr1, ma_addr2, ma_basic from t_member_addr where mi_id = '" + miid + "' and ma_idx = " + maidx;
+//		System.out.println(sql);
 		MemberAddr ma = jdbc.queryForObject(sql,
 			new RowMapper<MemberAddr>() {
 				@Override

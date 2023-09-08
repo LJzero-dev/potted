@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/inc_head.jsp" %>
+<%@ page import="vo.*" %>
+<%
+ArrayList<MemberAddr> maidxlist = (ArrayList<MemberAddr>)request.getAttribute("maidx");
+int maidx = maidxlist.get(0).getMa_idx();
+%>
 <style>
 #title { font-size:40px; font-weight:bold; }
 #menus { margin-top:50px; }
@@ -46,7 +51,7 @@ function loadpage(num) {
 	} else if(num == 3) {
 		document.getElementById("showpage").src = "pointInfo";
 	} else if(num == 4) {
-		document.getElementById("showpage").src = "setInfo?maidx=1";
+		document.getElementById("showpage").src = "setInfo?maidx=<%=maidx%>";
 	} else if(num == 5) {
 		document.getElementById("showpage").src = "auctionInfo";
 	} else {
