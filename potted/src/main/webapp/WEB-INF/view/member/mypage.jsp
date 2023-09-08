@@ -7,7 +7,7 @@
 #menus td{ height:50px; }
 .menu { font-size:20px; font-weight:bold; background:white; border:0px; cursor:pointer; }
 .menu:hover { color:#0B9649; }
-#showpage { width:1000px; height:800px; border:0; }
+#showpage { width:1100px; height:900px; border:0; }
 #member { border:1.5px solid #CFD4CD; width:700px; height:100px; padding: 30px 30px; margin-left:70px; }
 #welcome { font-size:30px; font-weight:bold; }
 </style>

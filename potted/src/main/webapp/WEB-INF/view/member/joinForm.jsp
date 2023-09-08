@@ -30,14 +30,15 @@ input {	padding:7px 12px; border-radius:4px; color:#495057; border:1.5px solid #
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/addr_api.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <div id="joinBox">
 <h1>회원가입</h1>
-<span id="msg">*모든 항목은 입력필수입니다</span>
+<span id="msg">*모든 항목은 입력필수입니다 </span>
 <form name="frmJoin" action="memberJoin" method="post" onsubmit="return chkVal(this);">
 <input type="hidden" name="idChk" id="idChk" value="n" />
 <input type="hidden" name="pwChk" id="pwChk" value="n" />
 <table id="joinTable" cellpadding="10"><tr>
-	<td class="item">이용약관 동의${nickname}</td>
+	<td class="item">이용약관 동의</td>
 	<td><iframe id="tos" src="termsOfService"></iframe><br /><label><input type="checkbox" id="isagree" /><span id="agree">위 약관에 동의 합니다.</span></label><br /></td>
 </tr><tr>
 	<td class="item">아이디</td>
@@ -48,7 +49,8 @@ input {	padding:7px 12px; border-radius:4px; color:#495057; border:1.5px solid #
 	<br /><input type="password" maxlength="20" placeholder="비밀번호 확인" name="mi_pw2" id="mi_pw2"  onkeyup="chkPw(this.value, this.form.mi_pw.value);" />&nbsp;&nbsp;<span id="pwMsg">※비밀번호는 4~20자 이내로 입력하세요.</span></td>
 </tr><tr>
 	<td class="item">이메일</td>
-	<td><input type="text" name="e1" id="e1" size="10" maxlength="25" placeholder="이메일 아이디" /> @ <input type="text" name="e3" id="e3" size="10" maxlength="25" placeholder="이메일 도메인" />
+	<td><input type="text" name="e1" id="e1" size="10" maxlength="25" placeholder="이메일 아이디" value="${emailId}" /> @ 
+	<input type="text" name="e3" id="e3" size="10" maxlength="25" placeholder="이메일 도메인" value="${emailDomain}" />
 	<select name="e2" id="e2">
 		<option value="">도메인 선택</option>
 		<option>gmail.com</option>

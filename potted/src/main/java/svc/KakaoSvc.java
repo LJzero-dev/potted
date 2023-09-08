@@ -11,7 +11,16 @@ import java.util.HashMap;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import dao.*;
+import vo.MemberInfo;
+
 public class KakaoSvc {
+	private KakaoDao kakaoDao;
+	
+	public void setKakaoDao(KakaoDao kakaoDao) {
+		this.kakaoDao = kakaoDao;	
+	}
+
 	public String getAccessToken(String code) {
 		String access_token = "";
 		String refresh_token = "";
@@ -34,7 +43,7 @@ public class KakaoSvc {
 			
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
-			// °ªÀÌ 200ÀÌ¸é ¼º°ø
+			// ï¿½ï¿½ï¿½ï¿½ 200ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line = "", result = "";
@@ -42,17 +51,16 @@ public class KakaoSvc {
 				result += line;
 			}
 			System.out.println("result : " + result);
-			// result : {"access_token":"9SAzVzh04Gol9aqwqHTOZ9X2r9TjFrArJKmbIWKQCj10aAAAAYn8Mcww","token_type":"bearer","refresh_token":"6m-mqPlrwQh4EoAXQfNs0z60p5W3ZWoeEhzjKeHoCj10aAAAAYn8Mcwv","expires_in":7199,"scope":"profile_nickname","refresh_token_expires_in":5183999}
 			
 			JSONParser p = new JSONParser();
 			JSONObject jo = (JSONObject)p.parse(result);
 			access_token = (String)jo.get("access_token");
-			refresh_token = (String)jo.get("access_token");
+			refresh_token = (String)jo.get("refresh_token");
 			
 			br.close();		bw.close();
 			
 		} catch(Exception e) {
-			System.out.println("getAccessToken() ¸Þ¼Òµå ¿À·ù");
+			System.out.println("getAccessToken() ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		}
 		
@@ -71,7 +79,7 @@ public class KakaoSvc {
 			
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
-			// °ªÀÌ 200ÀÌ¸é ¼º°ø
+			// ï¿½ï¿½ï¿½ï¿½ 200ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line = "", result = "";
@@ -88,18 +96,28 @@ public class KakaoSvc {
 			String nickname = properties.get("nickname").toString();
 			String gender = kakao_account.get("gender").toString();
 			String birthday = kakao_account.get("birthday").toString();
-//			String email = kakao_account.get("email").toString();
-			
-			
+			String email = kakao_account.get("email").toString();
+
 			loginInfo.put("nickname", nickname);
 			loginInfo.put("gender", gender);
 			loginInfo.put("birthday", birthday);
+			loginInfo.put("email", email);
 			
 		} catch(Exception e) {
-			System.out.println("getUserInfo() ¸Þ¼Òµå ¿À·ù");
+			System.out.println("getUserInfo() ë©”ì†Œë“œ ì˜¤ë¥˜");
 			e.printStackTrace();
 		}
 		
 		return loginInfo;
+	}
+
+	public int isMem(String email) {
+		int result = kakaoDao.isMem(email);
+		return result;
+	}
+
+	public MemberInfo getLoginInfo(String email) {
+		MemberInfo mi = kakaoDao.getLoginInfo(email);
+		return mi;
 	}
 }
