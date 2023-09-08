@@ -23,6 +23,13 @@ if (pi.getPi_dc() > 0) {	// 할인율이 있으면
 
 int total = 0;
 DecimalFormat formatter = new DecimalFormat("###,###,###,###");
+
+String pimg = "";
+if (pi.getPi_img1().equals("null") || pi.getPi_img1() == null || pi.getPi_img1().equals("")) {
+	pimg = "no_img.jpg";
+} else {
+	pimg = pi.getPi_img1();
+}
 %>
 <style>
 .imgs { width:80px; height:80px; cursor:pointer; }
@@ -40,7 +47,7 @@ DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 #menu2 { display:none; }
 .share { width:84px; height:80px; border-radius: 50px; cursor: pointer; }
 .shareTxt { text-align:center; font-size:14px; }
-.rimg { width:120px; hegiht:120px; }
+.rimg { width:200px; hegiht:200px; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -142,11 +149,11 @@ function showMenu(num) {
 	<!-- 이미지 관련 영역 -->
 		<table width="100%" cellpadding="5" valign="top">
 		<tr><td colspan="3" align="center">
-			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="260" height="230" id="bigImg" />
+			<img src="/ad_potted/resources/images/product/<%=pimg %>" width="260" height="230" id="bigImg" />
 		</td></tr>
 		<tr align="center">
 		<td width="33.3%">
-			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" class="imgs"  onclick="showBig('<%=pi.getPi_img1() %>');" />
+			<img src="/ad_potted/resources/images/product/<%=pimg %>" class="imgs"  onclick="showBig('<%=pi.getPi_img1() %>');" />
 		</td>
 		<td width="33.3%">
 	<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
@@ -257,7 +264,7 @@ if (pi.getPi_stock() <= 0) {
 <br /><br />
 <!-- 상품 상세 정보 및 구매 후기 영역 -->
 <input type="button" class="btn1" value="상품 상세 정보" onclick="showMenu(1);" />
-<input type="button" class="btn2" value="구매후기" onclick="showMenu(2);"/>
+<input type="button" class="btn2" value="구매후기(<%=reviewList.size() %>개)" onclick="showMenu(2);"/>
 <hr style="margin-left:0px; width:740px;" />
 <br />
 <div class="productDetail" id="menu1">
@@ -344,8 +351,8 @@ function shareUrl() {
 var reviewList = {
 	props: ["object"], 
 	template:`<table id="table" width="770px;" >
-		<tr><td width="23%"><img :src="object.rlimg" class="rimg" /></td><td width="*">{{object.uid}}<br />{{object.rlname}}<br />{{object.rlgood}}
-		<p>{{object.rlcontent}}</p>{{object.rldate}}</td><td width="8%"></td></tr>
+		<tr><td width="31%"><img :src="object.rlimg" class="rimg" /></td><td width="*">{{object.uid}}<br />{{object.rlname}}<br />{{object.rlgood}}
+		<p>{{object.rlcontent}}</p>{{object.rldate}}</td></tr>
 		</table>
 	`
 }
