@@ -117,13 +117,9 @@ public class ProductListCtrl {
 	@GetMapping("/productView")
 	public String productView(HttpServletRequest request, HttpServletResponse response) throws Exception  {
 		request.setCharacterEncoding("utf-8");
-		// 1. ��ȸ�� ���� / 2. ������ ��ǰ ���� �޾ƿ��� / 3. �ش� ��ǰ�� �ı� ��� �޾ƿ��� / 4. ��ǰ�󼼺��� ȭ������ �̵�
-		
 		String piid = request.getParameter("piid");
 		
-		// 1. ��ȸ�� ���� -> ��ǰ ���� �޾ƿ��� �޼ҵ忡�� ȣ����
-		
-		// 2. ������ ��ǰ ���� �޾ƿ���
+		// 1. 상품 정보, 옵션 정보 가져옴
 		ProductInfo productInfo = productListSvc.getProductInfo(piid);
 		request.setAttribute("productInfo", productInfo);
 		
@@ -133,9 +129,21 @@ public class ProductListCtrl {
 		List<ProductOptionBig> productOptionBig = productListSvc.getProductOptionBig();
 		request.setAttribute("productOptionBig", productOptionBig);
 		
-		// 3. �ı� ��� �޾ƿ���
+		// 2. 후기 내역 가져오기
+		int cpage = 1, pcnt = 0, spage = 0, rcnt = 0, psize = 5, bsize = 5;
+		if (request.getParameter("cpage") != null)		cpage = Integer.parseInt(request.getParameter("cpage"));
+		rcnt = productListSvc.getReviewListCount(piid);
 		
-		// 4. ��ǰ �󼼺��� ȭ������ �̵�
+		pcnt = rcnt / psize;	if(rcnt % psize > 0)	pcnt++;
+		spage = (cpage - 1) / bsize * bsize + 1;
+		PageInfo pi = new PageInfo();
+		pi.setBsize(bsize);			pi.setCpage(cpage);
+		pi.setPcnt(pcnt);			pi.setPsize(psize);
+		pi.setRcnt(rcnt);			pi.setSpage(spage);
+		
+		List<ReviewList> reviewList = productListSvc.getReviewList(piid);
+		request.setAttribute("reviewList", reviewList);
+		
 		return "product/productView";
 	}
 	

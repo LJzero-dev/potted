@@ -15,7 +15,7 @@ ArrayList<ReviewList> reviewList = (ArrayList<ReviewList>)request.getAttribute("
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style>
 input {	padding:5px 12px; border-radius:4px; color:#495057; border:1.5px solid #ced4da; }
 a:link { text-decoration:none; color:black; }

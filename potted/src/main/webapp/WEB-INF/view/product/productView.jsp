@@ -12,7 +12,7 @@ ProductInfo pi = (ProductInfo)request.getAttribute("productInfo");
 
 List<ProductOptionStock> productOptionStock = (List<ProductOptionStock>)request.getAttribute("productOptionStock");
 List<ProductOptionBig> productOptionBig = (List<ProductOptionBig>)request.getAttribute("productOptionBig");
-
+List<ReviewList> reviewList = (List<ReviewList>)request.getAttribute("reviewList");
 
 long realPrice = pi.getPi_price();			// 수량 변경에 따른 가격 연산을 위한 변수
 String price = pi.getPi_price() + "원";		// 가격 출력을 위한 변수
@@ -40,11 +40,13 @@ DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 #menu2 { display:none; }
 .share { width:84px; height:80px; border-radius: 50px; cursor: pointer; }
 .shareTxt { text-align:center; font-size:14px; }
+.rimg { width:120px; hegiht:120px; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 // 상품 구매, 장바구니 이동시 들고갈 배열 
 var arr = [];
-
 function showBig(img){
 	var big = document.getElementById("bigImg");
 	//큰 이미지를 보여주는 img태그를 big이라는 이름의 객체로 받아옴.
@@ -56,10 +58,7 @@ function opDel(idx) {
  	const div = document.getElementById(idx);
 	var tp = document.getElementById("total").innerHTML;
 	var opprice = document.getElementById(idx+"p").innerHTML;
-//	alert(opprice);
-//	alert(tp);
 	document.getElementById("total").innerHTML = Number(tp) - opprice;
-
 	div.remove();
 }
 
@@ -68,7 +67,6 @@ function selectOption(tmp){
 	var idx = tmp.substring(0, tmp.indexOf(":"));
 	var op = tmp.substring(tmp.indexOf(":") + 1, tmp.indexOf(","));
 	var opprice = Number(tmp.substring(tmp.indexOf(",") + 1));
-	
 
 	var opinfo = "<div id='" + idx + "'><div class='op'><span style='font-weight: bold; font-size: 15px;'>&nbsp;" + op + 
 	"</span><input type='button' id='del' value='X' style='float:right;' onclick=opDel(" + idx + "); /><br /><hr style='border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;' />" + 
@@ -77,18 +75,9 @@ function selectOption(tmp){
 	document.getElementById("addOp").innerHTML = document.getElementById("addOp").innerHTML+ "" + opinfo + "";
 	arr.push(op);
 	document.getElementById("option").value = arr;
-	
-	
 	var tp = document.getElementById("total").innerHTML;
-//	alert(opprice);
-//	alert(tp);
-	document.getElementById("total").innerHTML = Number(tp) + opprice;
-	
+	document.getElementById("total").innerHTML = Number(tp) + opprice;	
 	document.getElementById("opprice").value = opprice;
-	
-	
-	
-	
 }
 
 function setCnt(num){
@@ -108,7 +97,6 @@ function setCnt(num){
 	}
 }
 
-
 function buy(kind) {
 	var frm = document.frm;
 // 옵션 정보 들어갈 부분
@@ -117,7 +105,6 @@ function buy(kind) {
 	var option = frm.option.value;
 	var cnt = frm.cnt.value;
 	var price = frm.totalPrice.value - Math.ceil((cnt*(frm.pi_price.value*(1-frm.pi_dc.value))));
-//	alert(frm.totalPrice.value + ":::" + Math.ceil((cnt*(frm.pi_price.value*(1-frm.pi_dc.value)))));
 	
 	if (kind == "c") {	// 장바구니 담기일 경우
 		$.ajax({
@@ -133,7 +120,6 @@ function buy(kind) {
 			}
 		});
 	} else {	// 바로 구매하기일 경우
-//		alert(totalPrice);
 		frm.action = "orderForm";
 		frm.submit();
 	}
@@ -152,30 +138,26 @@ function showMenu(num) {
 </script>
 <br /><br />
 <div style="width:850px; margin:0 auto; ">
-<table width="800" cellpadding="5">
-<tr valign="top">
-<td width="35%">
-<!-- 이미지 관련 영역 -->
-	<table width="100%" cellpadding="5" valign="top">
-	<tr><td colspan="3" align="center">
-		<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="260" height="230" id="bigImg" />
-	</td></tr>
-	<tr align="center">
-	<td width="33.3%">
-		<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" class="imgs"  onclick="showBig('<%=pi.getPi_img1() %>');" />
-	</td>
-	<td width="33.3%">
-<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
-		<img src="/ad_potted/resources/images/product/<%=pi.getPi_img2() %>" class="imgs" onclick="showBig('<%=pi.getPi_img2() %>');" />
-<% } %>
-	</td>
-	<td width="33.3%">
-<% if (pi.getPi_img3() != null && !pi.getPi_img3().equals("")) { %>
-		<img src="/ad_potted/resources/images/product/<%=pi.getPi_img3() %>" class="imgs" onclick="showBig('<%=pi.getPi_img3() %>');" />
-<% } %>
-	</td>
-	</tr>
-	</table>
+	<table width="800" cellpadding="5"><tr valign="top"><td width="35%">
+	<!-- 이미지 관련 영역 -->
+		<table width="100%" cellpadding="5" valign="top">
+		<tr><td colspan="3" align="center">
+			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="260" height="230" id="bigImg" />
+		</td></tr>
+		<tr align="center">
+		<td width="33.3%">
+			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" class="imgs"  onclick="showBig('<%=pi.getPi_img1() %>');" />
+		</td>
+		<td width="33.3%">
+	<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
+			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img2() %>" class="imgs" onclick="showBig('<%=pi.getPi_img2() %>');" />
+	<% } %>
+		</td>
+		<td width="33.3%">
+	<% if (pi.getPi_img3() != null && !pi.getPi_img3().equals("")) { %>
+			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img3() %>" class="imgs" onclick="showBig('<%=pi.getPi_img3() %>');" />
+	<% } %>
+		</td></tr></table>
 </td>
 <td width="*">
 <!-- 상품 정보 관련 영역 -->
@@ -271,9 +253,7 @@ if (pi.getPi_stock() <= 0) {
 	</table></td></tr>
 	</table>
 	</form>
-</td>
-</tr>
-</table>
+</td></tr></table>
 <br /><br />
 <!-- 상품 상세 정보 및 구매 후기 영역 -->
 <input type="button" class="btn1" value="상품 상세 정보" onclick="showMenu(1);" />
@@ -284,10 +264,38 @@ if (pi.getPi_stock() <= 0) {
 <img src="" style="width:740px; height:2000px; " />
 </div>
 <div class="productReview" id="menu2">
-<table>
-<tr><td><img src="" width="80" height="80"/></td></tr>
-</table>
-<hr />
+<div id="listbox">
+<div v-for="item in reviewArr" :key="item.rlidx">
+	<review-list :object="item"></review-list>
+	</div>
+	<div style="margin-left:300px;">
+	<c:if test="${pi.getRcnt() > 0}">
+		<c:if test="${pi.getCpage() == 1}">
+			<<&nbsp;&nbsp;&nbsp;<&nbsp;&nbsp;
+		</c:if>
+		<c:if test="${pi.getCpage() > 1}">
+			<a href="orderInfo?cpage=1${pi.getSchargs()}"><<</a>&nbsp;&nbsp;&nbsp;
+			<a href="orderInfo?cpage=${pi.getCpage() - 1}${pi.getSchargs()}"><</a>&nbsp;&nbsp;
+		</c:if>
+		
+		<c:forEach var="i" begin="${pi.getSpage()}" end="${pi.getSpage() + pi.getBsize() - 1 < pi.getPcnt() ? pi.getSpage() + pi.getBsize() - 1 : pi.getPcnt() }" >
+			<c:if test="${i == pi.getCpage()}">
+				&nbsp;<strong>${i}</strong>&nbsp;
+			</c:if>
+			<c:if test="${i != pi.getCpage()}">
+				&nbsp;<a href="orderInfo?cpage=${i}${pi.getSchargs()}">${i}</a>&nbsp;
+			</c:if>
+		</c:forEach>
+		
+		<c:if test="${pi.getCpage() == pi.getPcnt()}">
+			&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;>>
+		</c:if>
+		<c:if test="${pi.getCpage() < pi.getPcnt()}">
+			&nbsp;&nbsp;<a href="orderInfo?cpage=${pi.getCpage() + 1}${pi.getSchargs()}">></a>
+			&nbsp;&nbsp;&nbsp;<a href="orderInfo?cpage=${pi.getPcnt()}${pi.getSchargs()}">>></a>
+		</c:if>
+	</c:if>
+	</div>
 </div>
 </div>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -331,6 +339,47 @@ function shareUrl() {
 	document.body.removeChild(textarea);
 	alert("URL이 복사되었습니다.")
 }
+</script>
+<script>
+var reviewList = {
+	props: ["object"], 
+	template:`<table id="table" width="770px;" >
+		<tr><td width="23%"><img :src="object.rlimg" class="rimg" /></td><td width="*">{{object.uid}}<br />{{object.rlname}}<br />{{object.rlgood}}
+		<p>{{object.rlcontent}}</p>{{object.rldate}}</td><td width="8%"></td></tr>
+		</table>
+	`
+}
+
+new Vue({
+	el: "#listbox", 
+	data: {
+		reviewArr: [
+<%
+String obj = "", good = "", img = "";
+for (int l = 0 ; l < reviewList.size() ; l++) {
+	ReviewList rl = reviewList.get(l);
+	if(rl.getRl_good().equals("a")) {
+		good = "좋아요";
+	}  else { good = "별로에요"; }
+	
+	img = "http://localhost:8086/potted/resources/images/review/" + rl.getRl_img();
+	
+	if (rl.getRl_img().equals("null")) {
+		img = "http://localhost:8086/potted/resources/images/main/no_img.jpg";
+	}
+	
+	obj = (l == 0 ? "" : ", ") + "{rlidx:\"" + rl.getRl_idx() + "\", rlname:\"" + rl.getRl_name() + "\", rlimg:\"" + img + "\", rlcontent:\"" + rl.getRl_content() + 
+		"\", rlgood:\"" + good + "\", rldate:\"" + rl.getRl_date() + "\", uid:\"" + rl.getMi_id() + "\"}";
+		out.println(obj);
+}
+%>
+		]
+	},
+	components: {
+		"review-list": reviewList
+	}
+});
+
 </script>
 
 <%@ include file="../inc/inc_foot.jsp" %>
