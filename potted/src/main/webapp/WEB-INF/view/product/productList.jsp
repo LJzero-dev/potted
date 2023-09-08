@@ -39,6 +39,7 @@ arrSch[1] = p100000~200000 (가격대)
 	}
 }
 DecimalFormat formatter = new DecimalFormat("###,###,###,###");
+
 %>
 
 <style>
@@ -191,7 +192,7 @@ if (pageInfo.getRcnt() > 0) {
 	%>
 	<td width="10%" align="left">
 		<a href="<%=lnk %>">
-			<img id="timg" src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="180" height="180" border="0" 
+			<img id="timg" src="/ad_potted/resources/images/product/<%= (pi.getPi_img1() != null && !pi.getPi_img1().equals("")) ? pi.getPi_img1() : "no_img.jpg" %>" width="180" height="180" border="0" 
 			<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
 			onmouseover="this.src='/ad_potted/resources/images/product/<%=pi.getPi_img2() %>';" onmouseout="this.src='/ad_potted/resources/images/product/<%=pi.getPi_img1() %>';"<% } %> />
 			<br /><span style="font-size:15px; font-weight:bold;"><%=pi.getPi_name() %></span>

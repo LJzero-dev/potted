@@ -47,4 +47,16 @@ public class ProductListSvc {
 	public int setbid(int bidprice,String piid, String miid) {
 		return productListDao.setbid(bidprice,piid, miid);
 	}
+
+
+	public List<ReviewList> getReviewList(String piid) {
+		List<ReviewList> reviewList = productListDao.getReviewList(piid);
+		return reviewList;
+	}
+
+
+	public int getReviewListCount(String piid) {
+		int rcnt = productListDao.getReviewListCount(piid);
+		return rcnt;
+	}
 }
