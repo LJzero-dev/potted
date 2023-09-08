@@ -131,9 +131,4 @@ function rInsert(flidx) {
 </div>
 
 
-
-
-
-
-
 <%@ include file="../inc/inc_foot.jsp" %>

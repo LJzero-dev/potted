@@ -82,8 +82,7 @@ $.getJSON('https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrt
 	 $('.weatherInfo').text(wt + "℃");
 	console.log(pty);
 	console.log(wt);
-	
-});
+ });
 </script>
 <script>
 $(document).ready(function() {
