@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../inc/inc_head.jsp" %>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/addr_api.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/addr_api2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <%
 request.setCharacterEncoding("utf-8");
 
@@ -11,6 +15,7 @@ ArrayList<MemberAddr> addrList = (ArrayList<MemberAddr>)request.getAttribute("ad
 %>
 <style>
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+#addrFind {height:36px; vertical-align:top;}
 </style>
 <script>
 
@@ -158,11 +163,14 @@ function chAddr(val) {
 				<input type="text" name="oi_phone" value="<%=maphone %>" placeholder="연락처" class="w50 h30" />
 			</div>
 			<div class="inp_box">				
-				<input type="text" name="oi_zip" value="<%=mazip %>" placeholder="우편번호" class="w50 h30" />
+				<input type="text" name="oi_zip" value="<%=mazip %>" id="sample4_postcode" class="w50 h30" placeholder="우편번호"/>
+				<input id="addrFind" type="button" value="우편번호 찾기" onclick="sample4_execDaumPostcode()" /><span id="guide" style="color:#999;display:none; position:absolute; top:-500px; left:-500px;"></span>
 			</div>
 			<div class="inp_box">				
-				<input type="text" name="oi_addr1" value="<%=maaddr1 %>" placeholder="주소" class="w100 h30" />
-				<input type="text" name="oi_addr2" value="<%=maaddr2 %>" placeholder="상세주소" class="w100 h30" style="margin-top:6px;" />
+				<input type="text" name="oi_addr1" value="<%=maaddr1 %>" id="sample4_roadAddress" class="w100 h30" placeholder="주소"/>
+				<input type="text" name="oi_addr2" value="<%=maaddr2 %>" id="sample4_detailAddress" class="w100 h30" placeholder="상세주소" style="margin-top:6px;" />
+				<input type="text" id="sample4_jibunAddress" placeholder="지번주소" style="display:none;">
+				<input type="text" id="sample4_extraAddress" placeholder="참고항목" style="display:none;">
 			</div>
 			<select name="oi_memo" class="form_control2">
 				<option value="">배송메모를 선택해 주세요.</option>

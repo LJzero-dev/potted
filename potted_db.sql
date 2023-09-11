@@ -90,6 +90,8 @@ create table t_product_ctgr_big (
    pcb_id char(2) primary key,      -- 대분류 코드
    pcb_name varchar(20) not null    -- 대분류 이름
 );
+
+
 -- 상품 분류 테이블
 create table t_product_ctgr_small (
    pcs_id char(4) primary key,      -- 소분류 코드
@@ -97,8 +99,9 @@ create table t_product_ctgr_small (
    pcs_name varchar(20) not null,   -- 소분류 이름
    constraint fk_product_ctgr_small_pcb_id foreign key (pcb_id) references t_product_ctgr_big(pcb_id)
 );
--- 상품 테이블
 
+
+-- 상품 테이블
 create table t_product_info (
    pi_id char(7) primary key,			-- 상품ID
    pcb_id char(2) not null,				-- 대분류 코드
@@ -127,6 +130,7 @@ create table t_product_info (
    constraint fk_product_info_pcs_id foreign key (pcs_id) references t_product_ctgr_small(pcs_id),
    constraint fk_product_info_ai_idx foreign key (ai_idx) references t_admin_info(ai_idx)
 );
+
 insert into t_product_ctgr_big (pcb_id, pcb_name) values ('AA', '다육.선인장');
 insert into t_product_ctgr_big (pcb_id, pcb_name) values ('BB', '관엽식물');
 insert into t_product_ctgr_big (pcb_id, pcb_name) values ('CC', '허브.채소');

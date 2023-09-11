@@ -113,7 +113,8 @@ public class ProductInDao {
 	}
 	
 	public ProductInfo getProductInfo(String piid) {
-		String sql = "select * from t_product_info where pi_isview = 'y' and pi_id = '" + piid + "' ";
+		String sql = "select a.*, b.pcb_name, c.pcs_name from t_product_info a join t_product_ctgr_big b on a.pcb_id = b.pcb_id join t_product_ctgr_small c "
+				+ "on a.pcs_id = c.pcs_id where a.pi_isview = 'y' and a.pi_id = '" + piid + "' "; 
 		ProductInfo pi = jdbc.queryForObject(sql,
 			new RowMapper<ProductInfo>() {
 				@Override
@@ -122,6 +123,8 @@ public class ProductInDao {
 					pi.setPi_id(rs.getString("pi_id"));
 					pi.setPcb_id(rs.getString("pcb_id"));
 					pi.setPcs_id(rs.getString("pcs_id"));
+					pi.setPcb_name(rs.getString("pcb_name"));
+					pi.setPcs_name(rs.getString("pcs_name"));
 					pi.setPi_name(rs.getString("pi_name"));
 					pi.setPi_price(rs.getInt("pi_price"));
 					pi.setPi_cost(rs.getInt("pi_cost"));

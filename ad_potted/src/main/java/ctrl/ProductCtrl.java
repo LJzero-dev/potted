@@ -197,6 +197,8 @@ public class ProductCtrl {
 	        String pi_img3 = pi.getPi_img3();
 	        String pcb_id = pi.getPcb_id();
 	        String pcs_id = pi.getPcs_id();
+	        String pcb_name = pi.getPcb_name();
+	        String pcs_name = pi.getPcs_name();
 
 
 	        Set<String> PobIds = new HashSet<>();
@@ -216,6 +218,8 @@ public class ProductCtrl {
 	        
 	        model.addAttribute("pi", pi);
 	        model.addAttribute("pi_img1", pi_img1);
+	        model.addAttribute("pcb_name", pcb_name);
+	        model.addAttribute("pcs_name", pcs_name);
 	        model.addAttribute("pi_img2", pi_img2);
 	        model.addAttribute("pi_img3", pi_img3);
 	        model.addAttribute("pcb_id", pcb_id);
@@ -226,5 +230,34 @@ public class ProductCtrl {
 		return "product/productUp";
 	}
 
-	
+	@PostMapping("/productProcUp")
+	public String productProcUp(HttpServletRequest request, @RequestPart("pi_img1") Part piImg1,
+	        @RequestPart("pi_img2") Part piImg2, @RequestPart("pi_img3") Part piImg3, @RequestPart("pi_desc") Part piDesc) throws Exception {
+				
+		ProductInfo pi = new ProductInfo();
+		
+		System.out.println("pob_ids :: " + request.getParameter("pob_ids"));
+		
+		
+		String pobIdsStr = request.getParameter("pob_ids");
+		String[] pobIdsSlashSplit = pobIdsStr.split("/");
+		
+		String posIdsStr = request.getParameter("pos_ids");
+		String[] posIdsSlashSplit = posIdsStr.split("/");
+		
+		
+		if (piImg1 != null ) {
+			pi.setPi_img1(getUploadFileName(piImg1.getHeader("content-disposition")));			
+		}
+		
+		if (piImg2 != null) {
+	        pi.setPi_img2(getUploadFileName(piImg2.getHeader("content-disposition")));
+	    }
+		
+		if (piImg3 != null) {
+	        pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));
+	    }
+		
+		return "redirect:/productList";
+	}
 }
