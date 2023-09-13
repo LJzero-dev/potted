@@ -1,7 +1,7 @@
 package vo;
 
 public class MemberInfo {
-	private String mi_id, mi_pw, mi_name, mi_gender, mi_birth, mi_phone, mi_email, mi_isad, mi_status, mi_date, mi_lastlogin;
+	private String mi_id, mi_pw, mi_name, mi_gender, mi_birth, mi_phone, mi_email, mi_isad, mi_status, mi_date, mi_lastlogin, mi_protein;
 	private int mi_point,order_count;
 	
 	public int getOrder_count() {
@@ -81,6 +81,12 @@ public class MemberInfo {
 	}
 	public void setMi_point(int mi_point) {
 		this.mi_point = mi_point;
+	}
+	public String getMi_protein() {
+		return mi_protein;
+	}
+	public void setMi_protein(String mi_protein) {
+		this.mi_protein = mi_protein;
 	}
 	
 	

@@ -2,7 +2,7 @@ package vo;
 
 public class MemberInfo {
 	private String mi_id, mi_pw, mi_name, mi_gender, mi_birth, mi_phone, mi_email, mi_isad, mi_status, mi_date, mi_lastlogin, mi_day, mi_month;
-	private int mi_point, order_count, mi_count, mi_age;
+	private int mi_point, order_count, mi_count, mi_age, purchase_sum, mi_protein;
 	
 	public int getOrder_count() {
 		return order_count;
@@ -82,9 +82,22 @@ public class MemberInfo {
 	public void setMi_point(int mi_point) {
 		this.mi_point = mi_point;
 	}
+	public int getMi_protein() {
+		return mi_protein;
+	}
+	public void setMi_protein(int mi_protein) {
+		this.mi_protein = mi_protein;
+	}
 	
-	// È¸¿ø Åë°è °ü·Ã ºÎºĞ
-
+	// íšŒì› êµ¬ë§¤ ê¸ˆì•¡
+	public int getPurchase_sum() {
+		return purchase_sum;
+	}
+	public void setPurchase_sum(int purchase_sum) {
+		this.purchase_sum = purchase_sum;
+	}
+	
+	// íšŒì› í†µê³„ë¥¼ ìœ„í•œ ë¶€ë¶„
 	public String getMi_day() {
 		return mi_day;
 	}

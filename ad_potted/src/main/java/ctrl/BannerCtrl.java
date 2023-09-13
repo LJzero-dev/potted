@@ -47,13 +47,12 @@ public class BannerCtrl {
 				file.transferTo(saveFile);
 				files += "," + file.getOriginalFilename();
 				String name = file.getOriginalFilename();
+				Thread.sleep(1500);
 				int result = bannerSvc.UpdateBanner(num, name);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		
 		return "redirect:/setbanner";
 	}
