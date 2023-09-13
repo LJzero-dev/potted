@@ -15,20 +15,19 @@ public class FreeDao {
 	}
 
 	public int getFreeListCount(String where) {
-	// °Ë»öµÈ (°Ë»ö¾î°¡ ÀÖÀ»°æ¿ì)°Ô½Ã±ÛÀÇ ÃÑ °³¼ö¸¦ ¸®ÅÏÇÏ´Â ¸Þ¼Òµå
 		String sql = "select count(*) from t_free_list " + where;
 		int rcnt = jdbc.queryForObject(sql, Integer.class);
-					// queryForObject : °¡Á®¿Ã °ªÀÌ ÇÏ³ªÀÏ¶§
+					// queryForObject : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½Ï¶ï¿½
 		return rcnt;
 	}
 
 	public List<FreeList> getFreeList(String where, int cpage, int psize) {
-	// °Ô½Ã±ÛÀÇ ¸ñ·ÏÀ» FreeListÇü ÀÎ½ºÅÏ½º¸¦ ÀúÀåÇÑ List·Î ¸®ÅÏÇÏ´Â ¸Þ¼Òµå
-		String sql = "select fl_idx, fl_title, fl_reply, fl_writer, fl_read, " +
+		String sql = "select mi_id, fl_idx, fl_title, fl_reply, fl_writer, fl_read, " +
 				" if(curdate() = date(fl_date), mid(fl_date, 12, 5), mid(fl_date, 3, 8)) wdate from t_free_list " + where +
 			" order by fl_idx desc limit " + ((cpage -1) * psize) + ", " + psize;
 		List<FreeList> freeList = jdbc.query(sql, (ResultSet rs, int rowNum) -> {
 			FreeList fl = new FreeList();
+			fl.setMi_id(rs.getString("mi_id"));
 			fl.setFl_idx(rs.getInt("fl_idx"));		fl.setFl_writer(rs.getString("fl_writer"));
 			fl.setFl_read(rs.getInt("fl_read"));	fl.setFl_date(rs.getString("wdate").replace("-", "."));
 			
@@ -53,7 +52,6 @@ public class FreeDao {
 	}
 
 	public int readUpdate(int flidx) {
-	// ÁöÁ¤ÇÑ °Ô½Ã±ÛÀÇ Á¶È¸¼ö¸¦ 1 Áõ°¡½ÃÅ°´Â ¸Þ¼Òµå
 	
 		String sql = "update t_free_list set fl_read = fl_read + 1 where fl_idx = " + flidx;
 		int result = jdbc.update(sql);
@@ -61,7 +59,6 @@ public class FreeDao {
 	}
 
 	public FreeList getFreeInfo(int flidx) {
- // ÁöÁ¤ÇÑ °Ô½Ã±ÛÀÇ ³»¿ëÀ» FreeListÇü ÀÎ½ºÅÏ½º·Î ¸®ÅÏÇÏ´Â ¸Þ¼Òµå 
 		int result = readUpdate(flidx);
 		String sql = "select *, if(curdate() = date(fl_date), mid(fl_date, 12, 5), mid(fl_date, 3, 8)) wdate from t_free_list where fl_isview = 'y' and fl_idx =" + flidx;
 
@@ -70,6 +67,7 @@ public class FreeDao {
 				public FreeList mapRow(ResultSet rs, int rowNum) throws SQLException {
 					FreeList fl = new FreeList();
 					fl.setFl_idx(rs.getInt("fl_idx"));
+					fl.setMi_id(rs.getString("mi_id"));
 					fl.setFl_ismem(rs.getString("fl_ismem"));
 					fl.setFl_writer(rs.getString("fl_writer"));
 					fl.setFl_title(rs.getString("fl_title"));
@@ -89,8 +87,8 @@ public class FreeDao {
 		String sql = "select max(fl_idx) + 1 from t_free_list";
 		int idx = jdbc.queryForObject(sql, Integer.class);
 
-		sql = "insert into t_free_list (fl_idx, fl_writer, fl_title, fl_content, fl_img1) values (?, ?, ?, ?, ?)";
-		int result = jdbc.update(sql, idx, fl.getFl_writer(), fl.getFl_title(), fl.getFl_content(), fl.getFl_img1());
+		sql = "insert into t_free_list (fl_idx, mi_id, fl_writer, fl_title, fl_content, fl_img1) values (?, ?, ?, ?, ?, ?)";
+		int result = jdbc.update(sql, idx, fl.getMi_id(), fl.getFl_writer(), fl.getFl_title(), fl.getFl_content(), fl.getFl_img1());
 		return idx;
 	}
 
@@ -117,7 +115,7 @@ public class FreeDao {
 	}
 
 	public int replyUpdate(int flidx) {
-	// ÁöÁ¤ÇÑ °Ô½Ã±ÛÀÇ ´ñ±Û¼ö¸¦ 1 Áõ°¡½ÃÅ°´Â ¸Þ¼Òµå
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	
 		String sql = "update t_free_list set fl_reply = fl_reply + 1 where fl_idx = " + flidx;
 		int result = jdbc.update(sql);

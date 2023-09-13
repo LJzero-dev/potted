@@ -26,7 +26,6 @@ public class FreeCtrl {
 	public String freeList(Model model, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, pcnt = 0, spage = 0, rcnt = 0, psize = 10, bsize = 5, num = 0;
-		// ÇöÀçÆäÀÌÁö, Çö/¸¶Áö¸·ÆäÀÌÁö¼ö, ½ÃÀÛÆäÀÌÁö, °Ô½Ã±Û ¼ö, ÇÑÆäÀÌÁö Å©±â, ºí·ÏÀÇ Å©±â, ¹øÈ£µîÀ» ÀúÀåÇÒ º¯¼ö
 		
 		if (request.getParameter("cpage") != null)
 			cpage = Integer.parseInt(request.getParameter("cpage"));
@@ -39,7 +38,7 @@ public class FreeCtrl {
 			schtype = "";	keyword = "";
 		} else if (!schtype.equals("") && !keyword.trim().equals("")) {
 			URLEncoder.encode(keyword, "UTF-8");
-			if (schtype.equals("tc")) {	// °Ë»ö Á¶°ÇÀÌ Á¦¸ñ + ³»¿ëÀÏ °æ¿ì
+			if (schtype.equals("tc")) {	// ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				where += " and (fl_title like '%" + keyword + "%' or fl_content like '%" + keyword + "%') ";
 			} else {
 				where += " and fl_" + schtype + " like '%" + keyword + "%' ";
@@ -49,7 +48,6 @@ public class FreeCtrl {
 		args = "&cpage=" + cpage + schargs;
 		
 		rcnt = freeSvc.getFreeListCount(where);
-		// °Ë»öµÈ °Ô½Ã±ÛÀÇ ÃÑ °³¼ö·Î °Ô½Ã±Û ÀÏ·Ã¹øÈ£ Ãâ·Â°ú ÀüÃ¼ ÆäÀÌÁö ¼ö °è»êÀ» À§ÇÑ °ª
 		List<FreeList> freeList = freeSvc.getFreeList(where, cpage, psize);
 		
 		
@@ -105,13 +103,13 @@ public class FreeCtrl {
 
 	@PostMapping("/freeProcIn")
 	public String freeProcIn(MultipartFile[] uploadFile, HttpServletRequest request) throws Exception {
-	// ¹Ş¾Æ¿À´Â fileÄÁÆ®·ÑÀÇ ÀÌ¸§°ú ¸Å°³º¯¼öÀÇ ÀÌ¸§ÀÌ °°¾Æ¾ß ÇÔ
+	// ï¿½Ş¾Æ¿ï¿½ï¿½ï¿½ fileï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½
 		String uploadPath = "E:/esm/project/potted/src/main/webapp/resources/images/free";
-		String files = "";	// for¹®µ¹¸®±âÀ§ÇØ  ""À» ¾È³ÖÀ¸¸é nullÀÌµÇ¼­
+		String files = "";	// forï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ""ï¿½ï¿½ ï¿½È³ï¿½ï¿½ï¿½ï¿½ï¿½ nullï¿½ÌµÇ¼ï¿½
 		FreeList fl = new FreeList();
 		for (MultipartFile file : uploadFile) {
 			File saveFile = new File(uploadPath, file.getOriginalFilename());
-			// ÀúÀåÇÒ ÆÄÀÏ °´Ã¼»ı¼º
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
 			try {
 				file.transferTo(saveFile);
 				files += "," + file.getOriginalFilename();
@@ -128,11 +126,12 @@ public class FreeCtrl {
 		HttpSession session = request.getSession();
 		MemberInfo mi = (MemberInfo)session.getAttribute("loginInfo");
 		fl.setFl_writer(mi.getMi_name());
+		fl.setMi_id(mi.getMi_id());
 
 		int result = freeSvc.freeInsert(fl);
 
 		return "redirect:/freeView?cpage=1&flidx=" + result;
-										// ¾Õ¿¡ ,¸¦ Â¥¸£±â À§ÇÑ substring
+										// ï¿½Õ¿ï¿½ ,ï¿½ï¿½ Â¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ substring
 	}
 	
 	@PostMapping("/replyIn")
@@ -164,7 +163,7 @@ public class FreeCtrl {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('´ñ±Û »èÁ¦¿¡ ½ÇÆĞÇß½À´Ï´Ù.');");
+			out.println("alert('ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?');");
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
@@ -184,7 +183,7 @@ public class FreeCtrl {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('°Ô½Ã±Û »èÁ¦¿¡ ½ÇÆĞÇß½À´Ï´Ù.');");
+			out.println("alert('ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.');");
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
