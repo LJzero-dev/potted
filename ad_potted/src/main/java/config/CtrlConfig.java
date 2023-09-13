@@ -106,4 +106,9 @@ public class CtrlConfig {
 		auctionCtrl.setAuctionSvc(auctionSvc);
 		return auctionCtrl;
 	}	
+	
+	@Bean
+	public OrderCtrl orderctrl() {
+		return new OrderCtrl();
+	}
 }

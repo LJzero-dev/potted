@@ -27,7 +27,7 @@ function loadpage(num) {
 	} else if(num == 4) {
 		document.getElementById("showpage").src = "setbanner";
 	} else if(num == 5) {
-		document.getElementById("showpage").src = "";
+		document.getElementById("showpage").src = "orderList";
 	} else {
 		document.getElementById("showpage").src = "";
 	}
