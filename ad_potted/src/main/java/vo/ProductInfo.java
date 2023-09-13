@@ -1,14 +1,31 @@
 package vo;
 
-import java.util.*;
-
 public class ProductInfo {
 	private String pi_id, pcb_id, pcs_id, pi_name, pi_status, pi_img1, pi_img2, pi_img3, pi_desc, pi_special, pi_isview, pi_date, pi_last;
 	private int pi_price, pi_cost, pi_read, pi_review, pi_sale, ai_idx, pi_admin, pi_stock;
 	private double pi_dc;
 	private String pcb_name, pcs_name;
-	
-	
+	private ProductAuctionInfo productAuctionInfo;
+		
+	public ProductInfo() {
+	}
+	public ProductInfo(String pi_id, String pcb_id, String pcs_id, String pi_name, String pi_status, String pi_img1,
+			String pi_img2, String pi_img3, String pi_desc, String pi_special, String pi_isview, String pi_date,
+			String pi_last, int pi_price, int pi_cost, int pi_read, int pi_review, int pi_sale, int ai_idx,
+			int pi_admin, double pi_dc, String pcb_name, String pcs_name, int pi_stock) {
+		this.pi_id = pi_id;			this.pcb_id = pcb_id;			this.pcs_id = pcs_id;		this.pi_name = pi_name;
+		this.pi_status = pi_status;	this.pi_img1 = pi_img1;			this.pi_img2 = pi_img2;		this.pi_img3 = pi_img3;
+		this.pi_desc = pi_desc;		this.pi_special = pi_special;	this.pi_isview = pi_isview;	this.pi_date = pi_date;
+		this.pi_last = pi_last;		this.pi_price = pi_price;		this.pi_cost = pi_cost;		this.pi_read = pi_read;
+		this.pi_review = pi_review;	this.pi_sale = pi_sale;			this.ai_idx = ai_idx;		this.pi_admin = pi_admin;
+		this.pi_dc = pi_dc;			this.pcb_name = pcb_name;		this.pcs_name = pcs_name;	this.pi_stock = pi_stock;
+	}
+	public ProductAuctionInfo getProductAuctionInfo() {
+		return productAuctionInfo;
+	}
+	public void setProductAuctionInfo(ProductAuctionInfo productAuctionInfo) {
+		this.productAuctionInfo = productAuctionInfo;
+	}
 	public String getPi_id() {
 		return pi_id;
 	}

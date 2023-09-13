@@ -50,10 +50,10 @@ if (pageInfo.getRcnt() > 0) {
 	String lnk = "auction?cpage=1" + pageInfo.getSchargs();
 %>
 	<select name="ob" class="sct" onchange="location.href='<%=lnk%>&ob=' + this.value;" >
-		<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 순  🌱</option>
+		<option value="a" <%if (pageInfo.getOb().equals("a")) {%>selected="selected"<% } %>>최근 등록 순  🌱</option>
 		<option value="b" <%if (pageInfo.getOb().equals("b")) {%>selected="selected"<% } %>>판매 중  🌱</option>
 		<option value="c" <%if (pageInfo.getOb().equals("c")) {%>selected="selected"<% } %>>판매 중지  🌱</option>
-		<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>많이 판매된 순  🌱</option>
+		<option value="d" <%if (pageInfo.getOb().equals("d")) {%>selected="selected"<% } %>>입찰가 높은 순  🌱</option>
 		<option value="e" <%if (pageInfo.getOb().equals("e")) {%>selected="selected"<% } %>>조회수 순  🌱</option>
 	</select>
 </td>
@@ -62,10 +62,10 @@ if (pageInfo.getRcnt() > 0) {
 <tr align="center">
 	<td>번호</td>
 	<td>상품명</td>
-	<td>판매가</td>
-	<td>판매상태</td>
-	<td>재고</td>
-	<td>판매량</td>
+	<td>입찰가</td>
+	<td>경매상태</td>
+	<td>결제상태</td>
+	<td>입찰수</td>
 	<td>등록일</td>
 	<td>조회수</td>
 </tr>
@@ -86,7 +86,7 @@ if (pageInfo.getRcnt() > 0) {
 		<td><%=pi.getPi_price() %></td>
 		<td><%=pi.getPi_status() %></td>
 		<td><%=pi.getPi_stock() %></td>
-		<td><%=pi.getPi_sale() %></td>
+		<td><%=pi.getProductAuctionInfo().getPai_bidder() %></td>
 		<td><%=pi.getPi_date() %></td>
 		<td><%=pi.getPi_read() %></td>
 		</tr>

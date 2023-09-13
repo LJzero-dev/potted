@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vo.PageInfo;
+import vo.ProductAuctionInfo;
 import vo.ProductCtgrBig;
 import vo.ProductCtgrSmall;
 import vo.ProductInfo;
@@ -80,6 +81,7 @@ public class AuctionDao {
 
 
 	public List<ProductInfo> getProductList(PageInfo pageInfo) {
+		System.out.println("where" + pageInfo.getWhere());
 		String sql = "select * from t_product_info where pi_isview = 'y' and pi_auction = 'y' " + pageInfo.getWhere() + " group by pi_id " + pageInfo.getOrderby() + " limit " + ((pageInfo.getCpage() - 1) * pageInfo.getPsize()) + ", " + pageInfo.getPsize();
 		System.out.println(sql);
 		List<ProductInfo> productList = (List<ProductInfo>) jdbc.query(sql, (ResultSet rs, int rowNum) -> {
@@ -92,8 +94,8 @@ public class AuctionDao {
 			pi.setPi_cost(rs.getInt("pi_cost"));
 			pi.setPi_dc (rs.getInt("pi_dc"));
 			String pistatus = "";
-			if (rs.getString("pi_status").equals("a"))		pistatus = "�Ǹ� ��";
-			else											pistatus = "�Ǹ� ����";
+			if (rs.getString("pi_status").equals("a"))		pistatus = "경매중";
+			else											pistatus = "경매중지";
 			pi.setPi_status(pistatus);
 			pi.setPi_img1(rs.getString("pi_img1"));
 			pi.setPi_img2(rs.getString("pi_img2"));
@@ -104,10 +106,16 @@ public class AuctionDao {
 			pi.setPi_date(rs.getString("pi_date"));
 			pi.setPi_read(rs.getInt("pi_read"));
 			pi.setAi_idx(1);
-	        
+			if (rs.getString("pi_auction").equals("y")) {
+				List<ProductAuctionInfo> productAuctionInfo = jdbc.query("select pai_idx, pai_bidder, pai_price, pi_id, pai_runtime, pai_start,  date_add(date_add(date_add(pai_start, interval left(pai_runtime,2) day), interval mid(pai_runtime,4,2) hour), interval right(pai_runtime,2) minute) end, pai_id from t_product_auction_info where pi_id = '" + rs.getString("pi_id") + "'", 
+						(ResultSet rs2, int rowNum2) -> {
+							ProductAuctionInfo pai = new ProductAuctionInfo(rs2.getInt("pai_idx"), rs2.getInt("pai_bidder"), rs2.getInt("pai_price"), rs2.getString("pi_id"), rs2.getString("pai_runtime"), rs2.getString("pai_start"), rs2.getString("end"), rs2.getString("pai_id"));
+							return pai;
+						});
+				pi.setProductAuctionInfo(productAuctionInfo.size() != 0 ? productAuctionInfo.get(0) : null);
+			}	        
 	        return pi;
-	    });
-		
+	    });		
 		return productList;
 	}
 	

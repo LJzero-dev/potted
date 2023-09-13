@@ -29,13 +29,12 @@ public class AuctionCtrl {
 	public void setAuctionSvc(AuctionSvc auctionSvc) {
 		this.auctionSvc = auctionSvc;
 	}
-
 	
 	@GetMapping("/auction")
 	public String productList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int cpage = 1, spage = 0, psize = 5, bsize = 5, rcnt = 0, pcnt = 0;
-		//	������ ��ȣ  
+		
 		if (request.getParameter("cpage") != null)
 			cpage = Integer.parseInt(request.getParameter("cpage"));
 		
@@ -64,7 +63,7 @@ public class AuctionCtrl {
 		case "e" :	// ��ȸ�� ��
 			orderBy += " pi_read desc ";		break;
 		}
-
+		System.out.println("where===" + where);
 		rcnt = auctionSvc.getProductCount(where);
 		
 		pcnt = rcnt / psize;
@@ -78,7 +77,6 @@ public class AuctionCtrl {
 		pageInfo.setSchargs(schargs);	pageInfo.setObargs(obargs);
 		pageInfo.setWhere(where);		pageInfo.setOrderby(orderBy);
 		pageInfo.setKeyword(keyword);
-
 		List<ProductInfo> productList = auctionSvc.getProductList(pageInfo);
 
 		model.addAttribute("pageInfo", pageInfo);
@@ -190,8 +188,6 @@ public class AuctionCtrl {
 
 	        request.setAttribute("bigList", bigList);
 	        request.setAttribute("smallList", smallList);
-	        
-	        
 	        model.addAttribute("pi", pi);
 	        model.addAttribute("pi_img1", pi_img1);
 	        model.addAttribute("pi_img2", pi_img2);

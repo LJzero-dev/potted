@@ -24,8 +24,7 @@ public class ProductListDao {
 		this.jdbc = new JdbcTemplate(dataSource);
 	}
 	
-	public List<ProductInfo> getProductList(PageInfo pageInfo) {	// �˻����� �� ��
-		// ������ ��ǰ���� ����� List<ProductInfo>�� �����ϴ� �޼ҵ�
+	public List<ProductInfo> getProductList(PageInfo pageInfo) {
 		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c " + pageInfo.getWhere() + " and a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id group by a.pi_id " + pageInfo.getOrderby() + " limit " + ((pageInfo.getCpage() - 1) * pageInfo.getPsize()) + ", " + pageInfo.getPsize();
 		System.out.println(sql);
 		List<ProductInfo> productList = jdbc.query(sql, 

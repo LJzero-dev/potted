@@ -6,7 +6,6 @@ public class ProductInfo {
 	private double pi_dc;
 	private String pcb_name, pcs_name;
 	private ProductAuctionInfo productAuctionInfo;
-	// 상품 상세보기 화면에서 사용할 분류와 브랜드명을 저장할 변수들
 
 	public ProductInfo(String pi_id, String pcb_id, String pcs_id, String pi_name, String pi_status, String pi_img1,
 			String pi_img2, String pi_img3, String pi_desc, String pi_special, String pi_isview, String pi_date,
