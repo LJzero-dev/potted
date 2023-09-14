@@ -37,6 +37,9 @@ public class CtrlConfig {
 	@Autowired
 	private BannerSvc bannerSvc;
 	
+	@Autowired
+	private OrderSvc orderSvc;
+	
 	@Bean
 	public ProductCtrl productCtrl() {
 		ProductCtrl productCtrl = new ProductCtrl();
@@ -109,6 +112,8 @@ public class CtrlConfig {
 	
 	@Bean
 	public OrderCtrl orderctrl() {
-		return new OrderCtrl();
+		OrderCtrl orderCtrl = new OrderCtrl();
+		orderCtrl.setOrderSvc(orderSvc);
+		return orderCtrl;
 	}
 }

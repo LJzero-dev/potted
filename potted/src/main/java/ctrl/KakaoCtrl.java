@@ -28,13 +28,20 @@ public class KakaoCtrl {
 		String id = kakaoInfo.get("id");
 		String nickname = kakaoInfo.get("nickname");
 		String gender = kakaoInfo.get("gender");
-		String email = kakaoInfo.get("email");
-		String [] mailArr = email.split("@");
 		String emailId = "", emailDomain = "";
-		for(int i = 0 ; i < mailArr.length ; i++){
-			emailId = mailArr[0];
-			emailDomain = mailArr[1];
+		String email = "";
+		if (kakaoInfo.get("email") == null || kakaoInfo.get("email").equals("")) {
+			email = "";
+		} else {
+			email = kakaoInfo.get("email");
+			String [] mailArr = email.split("@");
+			for(int i = 0 ; i < mailArr.length ; i++){
+				emailId = mailArr[0];
+				emailDomain = mailArr[1];
+			}
 		}
+		
+		
 		String birthday = kakaoInfo.get("birthday");
 		
 		System.out.println("kakaoInfo : " + kakaoInfo);
