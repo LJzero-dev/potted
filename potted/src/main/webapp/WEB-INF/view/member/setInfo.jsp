@@ -37,7 +37,7 @@ table { font-size:18px; }
 #btn1:hover { font-weight:bold; }
 #btn2 { border: 0; width:100px; font-size: 18px; background:#ced4da; padding-bottom: 8px; cursor: pointer; border-radius:0px; }
 #btn2:hover { font-weight:bold; }
-.listbox { margin-left:60px; width:760px; border:1.5px solid #ced4da; background:#ced4da; }
+.listbox { margin-left:120px; width:760px; border:1.5px solid #ced4da; background:#ced4da; }
 #menu1 { background:#fff; padding-top:10px; padding-bottom:10px; }
 #menu2 { background:#fff; padding-top:10px; padding-bottom:10px; display:none; }
 </style>

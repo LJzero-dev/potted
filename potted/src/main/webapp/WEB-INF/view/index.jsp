@@ -39,7 +39,7 @@ BannerList bl = (BannerList)request.getAttribute("bl");
 .realprice { color:grey; }
 .name { font-size:20px; }
 .price { font-weight:bold; }
-.free { width:750px; }
+.free { width:1000px; }
 .free td { font-size:15px; border-bottom:1px solid black; }
 #txt { text-align: center; }
 .imgbox { background-color: #F4F5F3; width:220px; height:300px; border-radius:10%;  box-shadow: 0px 0px 10px #000; }
@@ -67,7 +67,7 @@ body { margin:0; }
 .slideshow-indicator a.active:before { margin-left:-130px; }
 
 .weather {background-image: url("/potted/resources/images/weather/clouds.png"); background-repeat : no-repeat;}
-.wsize {width:1400px; height:600px; margin-left:350px; }
+.wsize {width:1400px; height:600px; margin-left:240px; }
 .weatherInfo { text-align:right; padding-top:25px; margin-right:110px; font-size:50px; color:white; }
 .wday { text-align:right; padding-top:30px; margin-right:80px; font-size:30px; color:white; }
 .wtime { text-align:right; padding-top:30px; margin-right:120px; font-size:30px; color:white; }

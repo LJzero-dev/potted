@@ -34,7 +34,7 @@ a:hover { text-decoration:underline; }
 <body>
 <!-- 회원 주문 내역 리스트 시작 -->
 <div id="listbox"><br /><span id="title">포인트</span><br /><br />
-	<table id="table" width="750px;" >
+	<table id="table" width="850px;" >
 	<tr><th width="35%">사유</th><th width="*">포인트 내역</th><th width="20%">날짜</th></tr>
 	</table>
 	<div v-for="item in arrPoint" :key="item.mpidx">
@@ -74,7 +74,7 @@ a:hover { text-decoration:underline; }
 <script>
 var PointList = {
 	props:["object"], 
-	template:`<table id="list" width="750px;" ><tr><td width="35%">{{object.mpdesc}}</td>
+	template:`<table id="list" width="850px;" ><tr><td width="35%">{{object.mpdesc}}</td>
 		<td width="*"><span id="point">{{object.mppoint}}</span>&nbsp;point</td><td width="20%">{{object.mpdate}}</td></tr></table>
 		`
 		

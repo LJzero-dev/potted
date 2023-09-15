@@ -77,7 +77,7 @@ public class ProductListCtrl {
 		case "b" :	// �Ǹŷ�(�α�)��
 			orderBy += " a.pi_sale desc ";		break;
 		case "c" :	// �̸���
-			orderBy += " a.pi_name desc ";		break;
+			orderBy += " a.pi_name asc ";		break;
 		case "d" :	// ���� ���� ��
 			orderBy += " a.pi_price desc ";		break;
 		case "e" :	// ���� ���� ��

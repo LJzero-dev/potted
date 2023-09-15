@@ -69,7 +69,7 @@ a:hover { text-decoration:underline; }
 <script>
 var reviewList = {
 	props: ["object"], 
-	template:`<table id="table" width="770px;" >
+	template:`<table id="table" width="850px;" >
 		<tr><td width="23%"><img :src="object.rlimg" class="rimg" /></td><td width="*"><a :href="object.pilnk" />{{object.rlname}}</a><br />{{object.rlgood}}
 		<p>{{object.rlcontent}}</p>{{object.rldate}}</td><td width="8%"><input type="button" value="삭제" v-on:click="reviewDel(object.rlidx)" /></td></tr>
 		</table>

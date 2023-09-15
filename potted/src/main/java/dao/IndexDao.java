@@ -19,7 +19,7 @@ public class IndexDao {
 	}
 	
 	public List<ProductInfo> getProductLista() {
-		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c where a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id group by a.pi_id order by a.pi_date desc limit 0, 4";
+		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c where a.pi_auction = 'n' and a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id group by a.pi_id order by a.pi_date desc limit 0, 4";
 		System.out.println(sql);
 		List<ProductInfo> productList = jdbc.query(sql, 
 			(ResultSet rs, int rowNum) -> {
@@ -35,7 +35,7 @@ public class IndexDao {
 	}
 	
 	public List<ProductInfo> getProductListb() {
-		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c where a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id group by a.pi_id order by a.pi_sale desc limit 0, 4";
+		String sql = "select * from t_product_info a, t_product_ctgr_big b, t_product_ctgr_small c where a.pi_auction = 'n' and a.pcs_id = c.pcs_id and b.pcb_id = c.pcb_id group by a.pi_id order by a.pi_sale desc limit 0, 4";
 		System.out.println(sql);
 		List<ProductInfo> productList = jdbc.query(sql, 
 			(ResultSet rs, int rowNum) -> {

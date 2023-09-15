@@ -43,7 +43,7 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 .btn1 { border: 0; width:100px; font-size: 20px; background: #0B9649; color:white; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
 .btn2 { border: 0; width:100px; font-size: 20px; background: #fff; padding-bottom: 8px; cursor: pointer; }
 .btn2:hover { border: 0; width:100px; font-size: 20px; background: #0B9649; padding-bottom: 8px; cursor: pointer; border-radius: 20px; }
-#yearmonth { width:920px; text-align:center; }
+#yearmonth { width:960px; text-align:center; }
 #searchBox { margin-left:600px; }
 #select { cellpadding:0; cellspacing:0; }
 #select td { font-size:15px; border-bottom:1px solid #0B9649; font-size:15px; }
@@ -63,8 +63,8 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 <div id="yearmonth">
 <table>
 <tr>
-	<td style="font-size:15px; font-weight:bold;">월별 가입자 수</td>
-	<td width="48%"></td>
+	<td width="15%" style="font-size:19px; font-weight:bold;">월별 가입자 수</td>
+	<td width="46%"></td>
 	<td align="right" width="40%">
 	<form name="frm">
 		<table id="select"><tr><td align="left">년</td>
@@ -91,8 +91,9 @@ if (nextYear > maxYear && nextMonth == 1)	nextMonthLink = "alert('다음 연도�
 </table>
 </div>
 <div id="chartDiv1"></div>
-<hr width="1000" align="left" />
-<div id="chartDiv2"></div>
+<hr width="1000" align="left" /><br />
+<span style="font-size:19px; font-weight:bold;">나이대별 회원 수</span>
+<div id="chartDiv2" style="width:900px; height:300px;"></div>
 	
 
 </body>
@@ -170,7 +171,7 @@ google.charts.setOnLoadCallback(drawBasic);
 
 function drawBasic() {
 	var data = google.visualization.arrayToDataTable(agedata);
-	var options = {title: "나이대별 회원 수", "is3D" : true};
+	var options = {title: "", "is3D" : true, fontSize: 17, chartArea:{left:100,top:10,width:'90%',height:'80%'}};
 	var chart = new google.visualization.PieChart(document.getElementById("chartDiv2"));
 	chart.draw(data, options);
 }

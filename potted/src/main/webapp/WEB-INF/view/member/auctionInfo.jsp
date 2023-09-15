@@ -31,7 +31,7 @@ a:hover { text-decoration:underline; }
 <div id="listbox"><br />
 	<span id="title">옥션 조회</span>
 	<br /><br />
-	<table id="table" width="750px;" >
+	<table id="table" width="850px;" >
 	<tr><th width="*">주문번호</th><th width="21%">상품명</th><th width="8%">수량</th><th width="12%">상태</th><th width="15%">주문금액</th><th width="15%">주문일자</th></tr>
 	</table>
 	<div v-for="item in orderArr" :key="item.oiidx">
@@ -71,7 +71,7 @@ a:hover { text-decoration:underline; }
 <script>
 var orderList = {
 		props: ["object"], 
-		template:`<table id="table" width="750px;" >
+		template:`<table id="table" width="850px;" >
 			<tr><td width="*">{{object.oiid}}</td><td width="21%"><a :href="object.oilnk" target="_blank">{{object.piname}}</a></td><td width="8%">{{object.oicnt}}</td><td width="12%">{{object.oistatus}}</td>
 			<td width="15%">{{object.oipay}}</td><td width="15%">{{object.oidate}}</td></tr>
 			</table>

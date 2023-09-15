@@ -7,7 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <style>
 #title { font-size:25px; font-weight:bold; }
-#divbox { border: 1px solid #0B9649; width:500px; height:300px; margin-left:200px; text-align:center; }
+#divbox { border: 1px solid #0B9649; width:500px; height:300px; margin-left:250px; text-align:center; }
 #btn1 { border: 1px solid black; background-color: white; color: black; font-weight: bold; border-radius:20px; width:50px; hegiht:20px; cursor: pointer; }
 #btn2 { border: 1px solid black; background-color: black; color: white; font-weight: bold; border-radius:20px; width:50px; hegiht:20px; cursor: pointer; }
 </style>

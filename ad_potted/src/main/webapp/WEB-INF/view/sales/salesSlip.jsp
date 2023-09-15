@@ -47,7 +47,7 @@ select { border:1.5px solid #ced4da; padding:6px 12px; border-radius:5px; }
 		</select>&nbsp;년
 		</form>
 		</div><br /><br /><br /><br />
-		<div id="chartDiv" style="width:90%;"></div>
+		<div id="chartDiv" style="width:900px; height:400px;"></div>
 	</div>
 <!-- 월별 매출 끝 -->
 </div>
@@ -106,7 +106,7 @@ if (pageInfo.getOb().equals("a")) {
 	]);
 	var options = {
 	  title: '매출과 순이익',
-	  chartArea: {width: '70%'},
+	  chartArea: {width: '75%', height: '70%'},
 	  hAxis: {
 	    title: '매출과 순이익',
 	    minValue: 0

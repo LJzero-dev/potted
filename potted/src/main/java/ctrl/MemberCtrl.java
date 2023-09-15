@@ -233,7 +233,7 @@ public class MemberCtrl {
 		
 		int result = memberSvc.addrInsert(ma, idx);
 		
-		return "redirect:/setInfo?maidx=1";
+		return "redirect:/setInfo?maidx=" + idx;
 	}
 
 	@PostMapping("/addrUpdate")
@@ -260,7 +260,7 @@ public class MemberCtrl {
 		
 		int result = memberSvc.addrUpdate(ma);
 		
-		return "redirect:/setInfo?maidx=1";
+		return "redirect:/setInfo?maidx=" + ma.getMa_idx();
 	}
 	
 	@GetMapping("/memberOut")
@@ -298,5 +298,20 @@ public class MemberCtrl {
 		request.setAttribute("reviewList", reviewList);
 		
 		return "member/myReview";
+	}
+
+	@GetMapping("/findId")
+	public String findId() {
+		return "member/findId";
+	}
+
+	@PostMapping("/findIdProc")
+	public String findIdProc() {
+		return "member/showId";
+	}
+
+	@GetMapping("/findPw")
+	public String findPw() {
+		return "member/findPw";
 	}
 }
