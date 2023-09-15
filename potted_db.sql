@@ -131,6 +131,8 @@ create table t_product_info (
    constraint fk_product_info_ai_idx foreign key (ai_idx) references t_admin_info(ai_idx)
 );
 
+select * from t_product_info;
+
 insert into t_product_ctgr_big (pcb_id, pcb_name) values ('AA', '다육.선인장');
 insert into t_product_ctgr_big (pcb_id, pcb_name) values ('BB', '관엽식물');
 insert into t_product_ctgr_big (pcb_id, pcb_name) values ('CC', '허브.채소');
@@ -305,6 +307,7 @@ create table t_order_detail (
 -- 자유게시판 테이블
 create table t_free_list (
 	fl_idx int primary key auto_increment,	-- 글번호
+    mi_id varchar(20) not null,            	-- 회원아이디
 	fl_ismem char(1) default 'y',			-- 회원여부
 	fl_writer varchar(20) not null,			-- 작성자
 	fl_title varchar(100) not null,			-- 제목
@@ -502,3 +505,8 @@ create table t_garden_info (
 	gi_content varchar(500) not null, 		-- 농원 설명
 	gi_date datetime default now()			-- 등록 일자
 );
+
+select * from t_member_info;
+
+select * from t_member_addr;
+select * from t_member_point;

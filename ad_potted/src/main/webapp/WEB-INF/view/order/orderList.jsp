@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <style>
 input {	padding:2px 2px; border-radius:4px; color:#495057; border:1.5px solid #ced4da; }
@@ -21,6 +22,16 @@ a:hover { text-decoration:underline; }
 #table { border:1.5px solid #CFD4CD; border-collapse:collapse; text-align:center; }
 #table tr { width:620px; height:50px; }
 .isDone { font-size:13px; }
+.orderPop {display:none; position:absolute; width:425px; top:45%; left:45%; transform:translate(-50%,-50%); border:1px solid #00b564; background:#fff;}
+.orderPop .odBox {padding:20px; overflow:hidden; border-bottom:1px solid silver;}
+.orderPop .odBox > span {float:left; width:130px; font-size:15px; font-weight:bold; color:#7d7d7d;}
+.orderPop .odView {float:left; width:66%;}
+.orderPop .odView span {font-weight:bold; font-size:14px;}
+.orderPop .btnBox {display:flex;}
+.orderPop .btnBox input {font-size:16px; border:0;}
+.orderPop .btnBox input:hover {text-decoration:underline;}
+.orderPop .btnBox a, .orderPop .btnBox input {width:50%; text-align:center; padding:20px 0; border-radius:0; background:#00b564; color:#fff; cursor:pointer;}
+.orderPop .btnBox a {color:#00b564; background:#fff; border:1px solid #00b564;} 
 </style>
 </head>
 <body>
@@ -42,7 +53,7 @@ a:hover { text-decoration:underline; }
 		<tr>
 			<td>${ol.mi_id }</td>
 			<td>${ol.oi_id }</td>
-			<td><a href="javascript:void(0);">${ol.pi_name }</a></td>
+			<td><a href="javascript:showDetail('${ol.oi_id }');">${ol.pi_name }</a></td>
 			<td>${ol.oi_cnt }</td>
 			<td>배송대기</td>
 			<td>${ol.oi_pay }</td>
@@ -50,9 +61,7 @@ a:hover { text-decoration:underline; }
 		</tr>	
 		</c:forEach>
 	</table>
-	
-	<!-- 주문 정보 팝업 -->
-	
+
 	<!-- 페이징 시작 -->
 	<div style="margin-left:300px;">	
 		<c:if test="${pi.getRcnt() > 0}">
@@ -85,5 +94,10 @@ a:hover { text-decoration:underline; }
 	<!-- 페이징 끝 -->
 </div>
 <!-- 회원 주문 내역 리스트 종료 -->
+<script>
+function showDetail(id) {
+	awin = window.open("orderDetail?oiid=" + id, "orderDetail", "width=500,height=680,left=710,top=200");
+}
+</script>
 </body>
 </html>

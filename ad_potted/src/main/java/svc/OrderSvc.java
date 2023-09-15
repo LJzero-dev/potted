@@ -22,4 +22,9 @@ public class OrderSvc {
 		return result;
 	}
 
+	public OrderInfo getOrderInfo(String oiid) {
+		OrderInfo orderInfo = orderDao.getOrderInfo(oiid);
+		return orderInfo;
+	}
+
 }

@@ -1,13 +1,15 @@
 package dao;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
-import vo.OrderInfo;
+import vo.*;
 
 public class OrderDao {
 	private JdbcTemplate jdbc;
@@ -50,6 +52,34 @@ public class OrderDao {
 		String sql = "select count(*) from t_order_info where oi_type = 'a'";
 		int rcnt = jdbc.queryForObject(sql, Integer.class);
 		return rcnt;
+	}
+
+	public OrderInfo getOrderInfo(String oiid) {
+		String sql = "select a.mi_id, a.oi_id, a.oi_name, a.oi_phone, a.oi_zip, a.oi_addr1, a.oi_addr2, a.oi_memo, a.oi_pay, a.oi_status, b.od_name, b.od_option, "
+				+ "concat(mid(a.oi_date, 3, 2), '/', mid(a.oi_date, 6, 2), '/', mid(a.oi_date, 9, 2), ' ', mid(a.oi_date, 12, 5)) wdate "
+				+ "from t_order_info a join t_order_detail b on a.oi_id = b.oi_id where a.oi_id = '" + oiid + "' ";
+		OrderInfo orderInfo = jdbc.queryForObject(sql, new RowMapper<OrderInfo>() {
+			@Override
+			public OrderInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+				OrderInfo oi = new OrderInfo();
+				oi.setMi_id(rs.getString("mi_id"));
+				oi.setOi_id(oiid);
+				oi.setOi_name(rs.getString("oi_name"));
+				oi.setOi_phone(rs.getString("oi_phone"));						
+				oi.setOi_zip(rs.getString("oi_zip"));
+				oi.setOi_addr1(rs.getString("oi_addr1"));
+				oi.setOi_addr2(rs.getString("oi_addr2"));
+				oi.setOi_memo(rs.getString("oi_memo"));
+				oi.setOi_pay(rs.getInt("oi_pay"));
+				oi.setOi_status(rs.getString("oi_status"));
+				oi.setOd_name(rs.getString("od_name"));
+				oi.setOd_option(rs.getString("od_option"));
+				
+				return oi;
+			}
+		});
+		
+		return orderInfo;
 	}
 
 }

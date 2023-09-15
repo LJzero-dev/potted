@@ -42,4 +42,15 @@ public class OrderCtrl {
 		
 		return "order/orderList";
 	}
+	
+	@GetMapping("/orderDetail")
+	public String orderDetail(Model model, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		String oiid = request.getParameter("oiid");
+		
+		OrderInfo orderInfo = orderSvc.getOrderInfo(oiid);
+		
+		model.addAttribute("orderInfo", orderInfo);
+		return "/order/orderDetail";
+	}
 }

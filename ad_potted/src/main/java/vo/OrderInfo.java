@@ -5,7 +5,7 @@ import java.util.*;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 
 public class OrderInfo {
-	private String oi_id, mi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_status, oi_date, pi_id, oi_kind, isAuction, pi_name;
+	private String oi_id, mi_id, oi_name, oi_type, oi_phone, oi_zip, oi_addr1, oi_addr2, oi_memo, oi_payment, oi_status, oi_date, pi_id, oi_kind, isAuction, pi_name, od_name, od_option;
 	private int oi_pay, oi_upoint, oi_spoint, oi_apoint, oi_cnt;
 	private ArrayList<OrderDetail> detailList;
 	
@@ -105,6 +105,7 @@ public class OrderInfo {
 	public void setOi_spoint(int oi_spoint) {
 		this.oi_spoint = oi_spoint;
 	}
+	
 	public ArrayList<OrderDetail> getDetailList() {
 		return detailList;
 	}
@@ -140,7 +141,18 @@ public class OrderInfo {
 	}
 	public void setPi_name(String pi_name) {
 		this.pi_name = pi_name;
+	}	
+	
+	public String getOd_name() {
+		return od_name;
 	}
-	
-	
+	public void setOd_name(String od_name) {
+		this.od_name = od_name;
+	}
+	public String getOd_option() {
+		return od_option;
+	}
+	public void setOd_option(String od_option) {
+		this.od_option = od_option;
+	}
 }
