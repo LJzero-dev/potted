@@ -27,4 +27,9 @@ public class OrderSvc {
 		return orderInfo;
 	}
 
+	public int getOrderState(String oi_status, String oiid) {
+		int result = orderDao.getOrderStatus(oi_status, oiid);
+		return result;
+	}
+
 }

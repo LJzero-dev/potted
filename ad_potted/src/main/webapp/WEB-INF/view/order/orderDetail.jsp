@@ -35,6 +35,8 @@ a:hover { text-decoration:underline; }
 </head>
 <body>
 	<!-- 주문 정보 팝업 -->
+	<form name="odState" action="orderStateChg" method="post">
+	<input type="hidden" name="oi_id" value="${orderInfo.oi_id}"/>
 	<div class="orderPop">
 		<div class="odBox odNum">
 			<span>주문 번호</span>
@@ -77,18 +79,18 @@ a:hover { text-decoration:underline; }
 		</div>
 		<div class="odBox odMm">
 			<span>배송상태 변경</span>
-			<form>
+			
 			<div class="odView">
-				<input type="radio" name="situation" id="ptwait" <c:if test="${orderInfo.oi_status eq 'a'}">checked="checked"</c:if> /><label for="ptwait">배송대기</label>
-				<input type="radio" name="situation" id="pting" <c:if test="${orderInfo.oi_status eq 'b'}">checked="checked"</c:if> /><label for="pting">배송중</label>
-				<input type="radio" name="situation" id="ptcomt" <c:if test="${orderInfo.oi_status eq 'c'}">checked="checked"</c:if> /><label for="ptcomt">배송완료</label>				
+				<input type="radio" name="oi_stauts" value="a" id="ptwait" <c:if test="${orderInfo.oi_status eq 'a'}">checked="checked"</c:if> /><label for="ptwait">배송대기</label>
+				<input type="radio" name="oi_stauts" value="b" id="pting" <c:if test="${orderInfo.oi_status eq 'b'}">checked="checked"</c:if> /><label for="pting">배송중</label>
+				<input type="radio" name="oi_stauts" value="c" id="ptcomt" <c:if test="${orderInfo.oi_status eq 'c'}">checked="checked"</c:if> /><label for="ptcomt">배송완료</label>				
 			</div>
-			</form>
 		</div>
 		<div class="btnBox">
 			<input type="submit" value="저장" />
 			<a href="javasciprt:void(0);" onclick="window.close();">닫기</a>
 		</div>		
 	</div>
+	</form>
 </body>
 </html>

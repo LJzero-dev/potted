@@ -1,7 +1,9 @@
 package ctrl;
 
+import java.io.PrintWriter;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
@@ -52,5 +54,25 @@ public class OrderCtrl {
 		
 		model.addAttribute("orderInfo", orderInfo);
 		return "/order/orderDetail";
+	}
+	
+	@PostMapping("/orderStateChg")
+	public String orderStateChg(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println(request.getParameter("situation"));
+		
+		String oi_status = request.getParameter("oi_stauts");
+		String oiid = request.getParameter("oi_id");
+		
+		OrderInfo oi = new OrderInfo();
+		oi.setOi_status(request.getParameter("situation"));
+		
+		int result = orderSvc.getOrderState(oi_status, oiid);
+		
+		PrintWriter out = response.getWriter();
+	    out.println("<script>window.close();</script>");
+	    out.flush();
+	    out.close();
+
+	    return "redirect:/order/orderList";
 	}
 }

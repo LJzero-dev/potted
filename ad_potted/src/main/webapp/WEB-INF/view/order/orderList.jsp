@@ -55,7 +55,7 @@ a:hover { text-decoration:underline; }
 			<td>${ol.oi_id }</td>
 			<td><a href="javascript:showDetail('${ol.oi_id }');">${ol.pi_name }</a></td>
 			<td>${ol.oi_cnt }</td>
-			<td>배송대기</td>
+			<td>${ol.oi_status }</td>
 			<td>${ol.oi_pay }</td>
 			<td>${ol.oi_date }</td>
 		</tr>	

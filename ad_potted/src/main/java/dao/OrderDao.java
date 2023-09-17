@@ -81,5 +81,12 @@ public class OrderDao {
 		
 		return orderInfo;
 	}
+	
+	public int getOrderStatus(String oi_status, String oiid) {
+		 String sql = "update t_order_info set oi_status = ? where oi_id = ?";
+		    int result = jdbc.update(sql, oi_status, oiid);
+
+		    return result;
+	}
 
 }
