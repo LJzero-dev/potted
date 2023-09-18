@@ -1,10 +1,11 @@
 package config;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.*;
 
 import dao.*;
 import svc.*;
 
+@Configuration
 public class OrderConfig {
 	@Bean
 	public OrderDao orderDao() {
