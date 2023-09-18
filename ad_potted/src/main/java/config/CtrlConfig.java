@@ -111,7 +111,7 @@ public class CtrlConfig {
 	}	
 	
 	@Bean
-	public OrderCtrl orderCtrl() {
+	public OrderCtrl orderctrl() {
 		OrderCtrl orderCtrl = new OrderCtrl();
 		orderCtrl.setOrderSvc(orderSvc);
 		return orderCtrl;

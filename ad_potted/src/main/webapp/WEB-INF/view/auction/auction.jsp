@@ -64,7 +64,6 @@ if (pageInfo.getRcnt() > 0) {
 	<td>상품명</td>
 	<td>입찰가</td>
 	<td>경매상태</td>
-	<td>결제상태</td>
 	<td>입찰수</td>
 	<td>등록일</td>
 	<td>조회수</td>
@@ -73,19 +72,18 @@ if (pageInfo.getRcnt() > 0) {
 	int i = 0;
 	int num = pageInfo.getRcnt() - (pageInfo.getPsize() * (pageInfo.getCpage() - 1));
 	for (ProductInfo pi : productList) {
-		lnk = "productUp?piid=" + pi.getPi_id();
+		lnk = "/potted/auctionView?piid=" + pi.getPi_id();
 		// 할인가격 확인
 %>
 		<tr align="center" onmouseover="this.bgColor='#efefef';" onmouseout="this.bgColor='';">
 		<td><%=num %></td>
-		<td width="24%"><a href="<%=lnk %>">
+		<td width="24%"><a href="<%=lnk %>" target="_blank">
 			<img src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="100" height="100" border="0" align="left" />
 			<input type="hidden" name="piid" value="<%=pi.getPi_id()%>" />
 			<div style="float:right; font-size:16px;"><%=pi.getPi_name() %></div>
 		</a></td>
 		<td><%=pi.getPi_price() %></td>
 		<td><%=pi.getPi_status() %></td>
-		<td><%=pi.getPi_stock() %></td>
 		<td><%=pi.getProductAuctionInfo().getPai_bidder() %></td>
 		<td><%=pi.getPi_date() %></td>
 		<td><%=pi.getPi_read() %></td>
@@ -130,6 +128,6 @@ if (pageInfo.getRcnt() > 0) {
 
 
 </table>
-		<input type="button" value="상품 등록" class="goForm" onclick="location.href='productIn?';" />
+		<input type="button" value="상품 등록" class="goForm" onclick="location.href='auctionIn?';" />
 </div>
 <%@ include file="../inc/inc_foot.jsp" %>

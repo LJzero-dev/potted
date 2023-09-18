@@ -46,7 +46,11 @@ DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 	border:1.5px solid  #6E6E6E; float:left; margin-bottom:10px; background: white; border-radius: 20px;  }
 .ctgrb:hover { font-color: #0B9649; border-color: #0B9649; color: #0B9649; }
 .btn { background:white; font-size: 15px; border-radius: 20px; cursor: pointer; border:1px solid #000; margin-right:10px; }
-.sct { height:25px; margin-left:690px; }
+.sct { height:25px; margin-left:875px; font-size:18px; }
+#table1 td{ font-size:15px; border:1.5px solid #6B727A; }
+#table1 { border:1.5px solid #6B727A; border-collapse:collapse; text-align:center; width:210px; }
+#table1 tr { width:210px; height:32px; }
+.tim { font-size:17px; }
 
 #ctgr1 { display: <% if(pcb.equals("AA") || pcs.equals("AAaa") || pcs.equals("AAbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
 #ctgr2 { display: <% if(pcb.equals("BB") || pcs.equals("BBaa") || pcs.equals("BBbb")) { %>block; <%} else { %> none; <% } %> margin-top:10px; }
@@ -93,7 +97,7 @@ function showCtgrS(code) {
 	location.href = "auctionList?pcb=" + code.substring(0, 2) + "&pcs=" + code;
 }
 </script>
-<div style="width:850px; margin:0 auto; ">
+<div style="width:1100px; margin:0 auto; ">
 <h2 style="font-size:20pt;"><a href="auctionList"; style="text-decoration:none; color:black;">AUCTION</a></h2>
 <form name="frm0">
 <div style="overflow:hidden;">
@@ -101,7 +105,7 @@ function showCtgrS(code) {
 	<div class="ctgrb" id="BB" onclick="showCtgrB(2);" >관엽식물</div>
 	<div class="ctgrb" id="CC" onclick="showCtgrB(3);" >허브⦁채소</div>
 </div>
-<hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb;" />
+<hr style="border-width:1px 0 0 0; border-style:dotted; border-color:#bbb; width:930px;" />
 <div id="ctgr1" >
 	<div class="ctgrb" id="AAaa" onclick="showCtgrS('AAaa')" >다육</div>
 	<div class="ctgrb" id="AAbb" onclick="showCtgrS('AAbb')" >선인장</div>
@@ -138,9 +142,9 @@ function showCtgrS(code) {
 		<input type="button" value="검색 초기화" class="btn" onclick="location.href='productList';" />
 	</div>
 	<br /><br />
-	<div>
+	<div style="width:1025px;">
 		<img src="/potted/resources/images/product/search.png" width="25"/>&nbsp;
-		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="<%=name %>" style="width:700px; border:0; font-size:13pt;" />
+		<input type="text" name="pdt" id="pdt" placeholder="식물 이름을 검색해 주세요." value="<%=name %>" style="width:900px; border:0; font-size:13pt;" />
 		<input type="button" value="검색" class="btn" onclick="makeSch();" />
 	<hr />
 	</div>
@@ -197,16 +201,15 @@ if (pageInfo.getRcnt() > 0) {
 	%>
 	<td width="10%" align="left">
 		<a href="<%=lnk %>">
-			<img id="timg" src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="150" height="150" border="0" 
-			<% if (pi.getPi_img2() != null && !pi.getPi_img2().equals("")) { %>
-			onmouseover="this.src='/ad_potted/resources/images/product/<%=pi.getPi_img2() %>';" onmouseout="this.src='/ad_potted/resources/images/product/<%=pi.getPi_img1() %>';"<% } %> />
-			<h3>잔여 시간</h3><h3 id="timer<%=i %>"></h3>
-			<h3>현재가 : <%=formatter.format(pi.getProductAuctionInfo().getPai_price()) %> 원</h3>
-			<h3>마감시간 :<br /><%=pi.getProductAuctionInfo().getPai_end() %></h3>	
-			<span style="font-size:15px; font-weight:bold;"><%=pi.getPi_name() %></span>
-		</a>
-		<%=soldout %>
-		<br /><%=price %><br />
+		<img id="timg" src="/ad_potted/resources/images/product/<%=pi.getPi_img1() %>" width="210" height="210" border="0" />
+		<br /></a>
+		<table id="table1">
+		<tr><th colspan="2"><span style="font-size:20px; font-weight:bold;"><%=pi.getPi_name() %></span></th></tr>
+		<tr><td width="40%">현재가</td><td><%=formatter.format(pi.getProductAuctionInfo().getPai_price()) %> 원</td></tr>
+		<tr><td width="40%">남은 시간</td><td><span id="timer<%=i %>" class="tim"></span></td></tr>
+		<tr><td width="40%">마감시간</td><td><%=pi.getProductAuctionInfo().getPai_end() %></td></tr>
+		</table>
+		<%=price %><br />
 	</td>		
 	<%		
 		if (i % 4 == 3) out.println("</tr>");

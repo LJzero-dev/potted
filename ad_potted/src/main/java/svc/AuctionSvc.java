@@ -26,12 +26,7 @@ public class AuctionSvc {
 		ArrayList<ProductCtgrSmall> smallList = auctionDao.getSmallList();
 		return smallList;
 	}
-
-	public int productInsert(ProductInfo pi, ProductOptionStock po) {
-		int result = auctionDao.productInsert(pi, po);
-		return result;
-	}
-
+	
 	public int getProductCount(String where) {
 		int rcnt = 0;
 		rcnt = auctionDao.getProductCount(where);
@@ -51,5 +46,10 @@ public class AuctionSvc {
 	public List<ProductOptionStock> getProductOptionStock(String piid) {
 		List<ProductOptionStock> poList = auctionDao.getProductOptionInfo(piid);
 		return poList;
+	}
+
+	public int productInsert(ProductInfo pi, String pai_start, String pai_runtime) {
+		int result = auctionDao.productInsert(pi, pai_start, pai_runtime);
+		return result;
 	}
 }

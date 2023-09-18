@@ -84,9 +84,11 @@
 				<tr v-if="arrObjLength > 1" v-for="plant in arrObj">
 					<td width="10%" align="left"><a target="_blank"
 						rel="noopener noreferrer" :href="url + plant.plantPilbkNo">
-							<div style="display: inline-block; vertical-align: top;">
-								<img :src="plant.imgUrl"
-									style="width: 180px; height: 180px; border: 0px; margin-right: 20px;" />
+							<div style="display: inline-block; vertical-align: top;" v-if="plant.imgUrl != 'NONE'">
+								<img :src="plant.imgUrl" style="width: 180px; height: 180px; border: 0px; margin-right: 20px;" />
+							</div>
+							<div style="display: inline-block; vertical-align: top;" v-else="">
+								<img src="/potted/resources/images/product/no_img.jpg" style="width: 180px; height: 180px; border: 0px; margin-right: 20px;" />
 							</div>
 							<div style="display: inline-block;">
 								<strong style="font-size: 20px;">{{plant.plantGnrlNm}}</strong>&nbsp;&nbsp;도감번호

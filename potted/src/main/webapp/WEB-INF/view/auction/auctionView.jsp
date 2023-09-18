@@ -25,6 +25,7 @@ DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 .smt:hover { border-color: #0B9649; background:#0B9649; color: white; }
 #menu1 {}
 #menu2 { display:none; }
+.tim { font-size:24px; font-weight: bold; }
 </style>
 
 <script>
@@ -64,7 +65,7 @@ function updateTimer() {
 	if (diff < 0) {
 	document.getElementById("timer").innerHTML ='<div>종료된 경매 입니다.</div>';
 	} else {
-	document.getElementById("timer").innerHTML ='<div>' + d + '<span>일 </span>' + h + '<span>시 </span>' + m + '<span>분 </span>' + s + '<span>초</span></div>';
+	document.getElementById("timer").innerHTML = "<div class='tim'>" + d + '<span>일 </span>' + h + '<span>시 </span>' + m + '<span>분 </span>' + s + '<span>초</span></div>';
 	}
 }
 setInterval(updateTimer, 1000);	
@@ -139,14 +140,14 @@ function bid() {
 	<input type="hidden" id="totalPrice" name="totalPrice" value="<%=realPrice %>" />
 	<table width="100%" cellpadding="5" id="info" >
 	<tr><td colspan="2">
-		<a href="productList?pcb=<%=pi.getPcb_id() %>"><%=pi.getPcb_name() %></a>&nbsp; ‣ ‣ &nbsp;
-		<a href="productList?pcb=<%=pi.getPcs_id().substring(0, 2) %>&pcs=<%=pi.getPcs_id() %>"><%=pi.getPcs_name() %></a>
+		<a href="auctionList?pcb=<%=pi.getPcb_id() %>"><%=pi.getPcb_name() %></a>&nbsp; ‣ ‣ &nbsp;
+		<a href="auctionList?pcb=<%=pi.getPcs_id().substring(0, 2) %>&pcs=<%=pi.getPcs_id() %>"><%=pi.getPcs_name() %></a>
 	</td></tr>
 	<tr>
 	<td style="font-size:35px;"><strong><%=pi.getPi_name() %></strong></td>
 	</tr>
 	<tr valign="left" ><td >
-		<span style="font-size:24px; font-weight: bold;">남은 시간 : <span style="position:absolute;" id="timer"></span></span>
+		<span style="font-size:24px; font-weight: bold;">남은 시간 : <span style="position:absolute;" id="timer" ></span></span>
 	</td></tr>
 	<tr valign="left" ><td >
 		<span style="font-size:24px; font-weight: bold;">현재 가 : <%=formatter.format(realPrice) %>원</span>
@@ -189,7 +190,7 @@ function bid() {
 		<input type="text" value="결제 가능 시간이 아닙니다."/>
 	<%	} %>
 		<% } else { %>
-				입찰 금액 : <input type="text" id="price" name="price" />
+				입찰 금액 : <input type="number" id="price" name="price" />
 		<input type="button" value="입찰 하기" class="smt" onclick="bid();" />
 		<% } %>
 	</td></tr>

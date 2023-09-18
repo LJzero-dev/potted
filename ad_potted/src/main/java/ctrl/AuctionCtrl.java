@@ -1,26 +1,16 @@
 package ctrl;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 
-import svc.AuctionSvc;
-import vo.PageInfo;
-import vo.ProductCtgrBig;
-import vo.ProductCtgrSmall;
-import vo.ProductInfo;
-import vo.ProductOptionStock;
+import svc.*;
+import vo.*;
 
 @Controller
 public class AuctionCtrl {
@@ -90,6 +80,16 @@ public class AuctionCtrl {
 		ArrayList<ProductCtgrBig> bigList = auctionSvc.getBigList();
 		ArrayList<ProductCtgrSmall> smallList = auctionSvc.getSmallList();
 
+		CalendarInfo ci = new CalendarInfo();
+		LocalDate today = LocalDate.now();
+		ci.setCurYear(today.getYear());
+		ci.setCurMonth(today.getMonthValue());
+		ci.setCurDay(today.getDayOfMonth());
+		LocalDate schDate = LocalDate.of(ci.getCurYear(), ci.getCurMonth(), ci.getCurDay());
+		ci.setSchLast(schDate.lengthOfMonth());
+		
+
+		request.setAttribute("ci", ci);
 		request.setAttribute("bigList", bigList);
 		request.setAttribute("smallList", smallList);
 		
@@ -97,37 +97,29 @@ public class AuctionCtrl {
 	}
 	
 	@PostMapping("/auctionProcIn")
-	public String productProcIn(HttpServletRequest request, @RequestPart("pi_img1") Part piImg1,
-	        @RequestPart("pi_img2") Part piImg2, @RequestPart("pi_img3") Part piImg3, @RequestPart("pi_desc") Part piDesc) throws Exception {
+	public String productProcIn(HttpServletRequest request, @RequestPart("pi_img1") Part piImg1, @RequestPart("pi_desc") Part piDesc) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		String uploadFiles = "";	// ���ε��� ���ϵ��� �̸��� �����Ͽ� ������ ����
 		
 		ProductInfo pi = new ProductInfo();
-		ProductOptionStock po = new ProductOptionStock();
-		
-		String[] posIds = request.getParameter("pos_id").split(",");
 		
 		pi.setPi_id(request.getParameter("pi_id"));
 		pi.setPcb_id(request.getParameter("pcb_id"));
 		pi.setPcs_id(request.getParameter("pcs_id"));
 		pi.setPi_name(request.getParameter("pi_name"));
 		pi.setPi_price(Integer.parseInt(request.getParameter("pi_price")));
-		pi.setPi_cost(Integer.parseInt(request.getParameter("pi_cost")));
-		pi.setPi_dc (Integer.parseInt(request.getParameter("pi_dc")));
 		pi.setPi_status(request.getParameter("pi_status"));
 		pi.setPi_img1(getUploadFileName(piImg1.getHeader("content-disposition")));
-		pi.setPi_img2(getUploadFileName(piImg2.getHeader("content-disposition")));
-		pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));
-		pi.setPi_stock(Integer.parseInt(request.getParameter("pi_stock")));
+		pi.setPi_stock(1);
 		pi.setPi_desc(getUploadFileName(piDesc.getHeader("content-disposition")));
 		pi.setPi_date(request.getParameter("pi_date"));
 		pi.setAi_idx(1);
-	
-		po.setPos_id(posIds[1]);
-		po.setPos_price(Integer.parseInt(posIds[0]));
-		po.setPob_id(request.getParameter("pob_id"));
+
+		String pai_start = request.getParameter("pai_start");
+		String pai_runtime = request.getParameter("pai_runtime");
 		
-		int result = auctionSvc.productInsert(pi, po);
+		
+		int result = auctionSvc.productInsert(pi, pai_start, pai_runtime);
 		
 		for (Part part : request.getParts()) {
 			if (part.getName().startsWith("pi_img") || part.getName().equals("pi_desc")) {
@@ -143,7 +135,7 @@ public class AuctionCtrl {
 		}
 		if (!uploadFiles.equals(""))	uploadFiles = uploadFiles.substring(2);
 			
-		return "redirect:/productList";
+		return "redirect:/auction";
 	}
 
 	private String getUploadFileName(String cd) {
@@ -155,49 +147,6 @@ public class AuctionCtrl {
 		
 		uploadName = arrContent[2].substring(fIdx + 1, sIdx);
 		return uploadName;
-	}
-	
-	@GetMapping("/auctionUp")
-	public String productUp(Model model, HttpServletRequest request) throws Exception {
-		request.setCharacterEncoding("utf-8");
-
-		 String piid = request.getParameter("piid");
-	        ProductInfo pi = auctionSvc.getProductInfo(piid);
-	        List<ProductOptionStock> poList = auctionSvc.getProductOptionStock(piid);
-	        ArrayList<ProductCtgrBig> bigList = auctionSvc.getBigList();
-	        ArrayList<ProductCtgrSmall> smallList = auctionSvc.getSmallList();
-	        
-	        
-	        String pi_img1 = pi.getPi_img1();
-	        String pi_img2 = pi.getPi_img2();
-	        String pi_img3 = pi.getPi_img3();
-	        String pcb_id = pi.getPcb_id();
-	        String pcs_id = pi.getPcs_id();
-
-
-	        Set<String> PobIds = new HashSet<>();
-	        for (ProductOptionStock po : poList) {
-	            PobIds.add(po.getPob_id());
-	        }
-	        
-	        Set<String> PosIds = new HashSet<>();
-	        for (ProductOptionStock po : poList) {
-	            PosIds.add(po.getPos_id());
-	        }
-	        
-
-	        request.setAttribute("bigList", bigList);
-	        request.setAttribute("smallList", smallList);
-	        model.addAttribute("pi", pi);
-	        model.addAttribute("pi_img1", pi_img1);
-	        model.addAttribute("pi_img2", pi_img2);
-	        model.addAttribute("pi_img3", pi_img3);
-	        model.addAttribute("pcb_id", pcb_id);
-	        model.addAttribute("pcs_id", pcs_id);
-	        model.addAttribute("PobIds", PobIds);
-	        model.addAttribute("PosIds", PosIds);
-		
-		return "auction/auctionUp";
 	}
 
 	

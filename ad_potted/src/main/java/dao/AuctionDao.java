@@ -52,21 +52,22 @@ public class AuctionDao {
 	    return smallList;
 	}
 
-
-	public int productInsert(ProductInfo pi, ProductOptionStock po) {
+	public int productInsert(ProductInfo pi, String pai_start, String pai_runtime) {
 		Random random = new Random();
 	    int randomValue = random.nextInt(1000); // 0 �̻� 999 ������ ������ ���� ����
 
-	    System.out.println("1");
-	    String sql = "insert into t_product_info (pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_cost, pi_dc, pi_status, pi_img1, pi_img2, pi_img3, pi_desc, pi_stock, pi_isview, ai_idx) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'y', 1)";
-	    int result = jdbc.update(sql, pi.getPcs_id() + String.format("%03d", randomValue), pi.getPcb_id(), pi.getPcs_id(), pi.getPi_name(), pi.getPi_price(), pi.getPi_cost(), pi.getPi_dc(), pi.getPi_status(), pi.getPi_img1(), pi.getPi_img2(), pi.getPi_img3(), pi.getPi_desc(), pi.getPi_stock());
+	    String sql = "insert into t_product_info (pi_id, pcb_id, pcs_id, pi_name, pi_price, pi_status, pi_img1, pi_desc, pi_cost, pi_dc, pi_stock, pi_isview, ai_idx, pi_auction) " + 
+	    			" values (?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 1, 'y', 1, 'y')";
+	    int result = jdbc.update(sql, pi.getPcs_id() + String.format("%03d", randomValue), pi.getPcb_id(), pi.getPcs_id(), pi.getPi_name(), pi.getPi_price(), pi.getPi_status(), pi.getPi_img1(), pi.getPi_desc());
+	    System.out.println(sql);
 	    
 	    if (result == 1) {
 	    	String piIdQuery = "select pi_id from t_product_info where pi_id = ?";
 	        String piId = jdbc.queryForObject(piIdQuery, String.class, pi.getPcs_id() + String.format("%03d", randomValue));
-	        
-			sql = "insert into t_product_option_stock (pos_id, pob_id, pi_id, pos_price, pos_isview) values (?, ?, ?, ?, 'y')";
-			result += jdbc.update(sql, po.getPos_id(), po.getPob_id(), piId, po.getPos_price());
+			
+			sql = "insert into t_product_auction_info (pi_id, pai_price, pai_runtime, pai_start, pai_bidder, pai_id) values (?, ?, ?, ?, 1, 'admin')";
+			System.out.println(sql);
+			result += jdbc.update(sql, piId, pi.getPi_price(), pai_runtime, pai_start);
 	    }
 		
 		return result;
@@ -166,5 +167,6 @@ public class AuctionDao {
         );
         return poList;
     }
+
 
 }
