@@ -4,6 +4,7 @@
 <%@ page import="java.time.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,6 +34,7 @@ a:hover { text-decoration:underline; }
 .orderPop .btnBox a, .orderPop .btnBox input {width:50%; text-align:center; padding:20px 0; border-radius:0; background:#00b564; color:#fff; cursor:pointer;}
 .orderPop .btnBox a {color:#00b564; background:#fff; border:1px solid #00b564;} 
 </style>
+
 </head>
 <body>
 <!-- 회원 주문 내역 리스트 시작 -->
@@ -55,7 +57,13 @@ a:hover { text-decoration:underline; }
 			<td>${ol.oi_id }</td>
 			<td><a href="javascript:showDetail('${ol.oi_id }');">${ol.pi_name }</a></td>
 			<td>${ol.oi_cnt }</td>
-			<td>${ol.oi_status }</td>
+			<td>
+		        <c:choose>
+		            <c:when test="${ol.oi_status eq 'a'}">배송대기</c:when>
+		            <c:when test="${ol.oi_status eq 'b'}">배송중</c:when>		         
+		            <c:otherwise>배송완료</c:otherwise>
+		        </c:choose>
+		    </td>
 			<td>${ol.oi_pay }</td>
 			<td>${ol.oi_date }</td>
 		</tr>	

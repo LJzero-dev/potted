@@ -51,5 +51,10 @@ public class ProductInSvc {
 		return poList;
 	}
 
+	public int productUpdate(ProductInfo pi, ArrayList<ProductOptionStock> poList) {
+		int result = productInDao.productUpdate(pi, poList);
+		return result;
+	}
+
 
 }

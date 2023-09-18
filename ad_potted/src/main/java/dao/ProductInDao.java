@@ -128,7 +128,9 @@ public class ProductInDao {
 					pi.setPi_name(rs.getString("pi_name"));
 					pi.setPi_price(rs.getInt("pi_price"));
 					pi.setPi_cost(rs.getInt("pi_cost"));
-					pi.setPi_dc (rs.getInt("pi_dc"));
+					double pi_dc = rs.getDouble("pi_dc") * 100;
+	                int pi_dcInt = (int) Math.floor(pi_dc);
+	                pi.setPi_dc(pi_dcInt);
 					pi.setPi_status(rs.getString("pi_status"));
 					pi.setPi_img1(rs.getString("pi_img1"));
 					pi.setPi_img2(rs.getString("pi_img2"));
@@ -162,5 +164,26 @@ public class ProductInDao {
         );
         return poList;
     }
+
+
+	public int productUpdate(ProductInfo pi, ArrayList<ProductOptionStock> poList) {
+	    String sql = "update t_product_info set pi_name = ?, pi_price = ?, pi_cost = ?, pi_dc = ?, pi_status = ?, pi_img1 = ?, pi_img2 = ?, pi_img3 = ?, pi_desc = ?, pi_stock = ? where pi_id = ?";
+
+	    double dc = pi.getPi_dc() / 100.0;
+
+	    int result = jdbc.update(sql, pi.getPi_name(), pi.getPi_price(), pi.getPi_cost(), dc, pi.getPi_status(), pi.getPi_img1(), pi.getPi_img2(), pi.getPi_img3(), pi.getPi_desc(), pi.getPi_stock(), pi.getPi_id());
+
+	    if (result == 1) {
+	        sql = "update t_product_option_stock set pos_price = ? where pi_id = ? and pob_id = ?";
+
+	        for (ProductOptionStock po : poList) {
+	            int updateCount = jdbc.update(sql, po.getPos_price(), pi.getPi_id(), po.getPob_id());
+	            
+	            result += updateCount;
+	        }
+	    }
+
+	    return result;
+	}
 
 }

@@ -51,11 +51,13 @@ th {width:130px; text-align:left;}
 
 <div style="width:1100px; margin:0 auto; overflow:hidden;">
 	<h2>상품 수정</h2>
-	<form name="frm" action="productProcUp" method="post" enctype="multipart/form-data">
+	<form name="frm" action="productProcUp" method="post" enctype="multipart/form-data" onsubmit="posArr();">
 	<input type="hidden" name="pos_id" id="pos_id">
 	<input type="hidden" name="pos_ids" id="pos_ids" value="">
 	<input type="hidden" name="pob_id" id="pob_id">
 	<input type="hidden" name="pob_ids" id="pob_ids" value="">
+	<input type="hidden" name="pi_id" value="${piid}">
+
 	<table>
 		<tr>
 			<th class="title">상품 상태</th>
@@ -88,13 +90,17 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">상품 이미지</th>
 			<td>
-				<input type="file" class="pimg" name="pi_img1" /><br />
+				<input type="file" class="pimg" name="pi_img1" value="${pi.getPi_img1()}" /><br />
+				<input type="hidden" name="pi_img1" value="${pi.getPi_img1()}" />
+
 			</td>
 			<td>
-				<input type="file" class="pimg" name="pi_img2" /><br />
+				<input type="file" class="pimg" name="pi_img2" value="" /><br />
+				<input type="hidden" name="pi_img2" value="${pi.getPi_img2()}" />
 			</td>
 			<td>
-				<input type="file" class="pimg" name="pi_img3" /><br />
+				<input type="file" class="pimg" name="pi_img3" value="" /><br />
+				<input type="hidden" name="pi_img3" value="${pi.getPi_img3()}" />
 			</td>
 		</tr>
 		<tr>
@@ -166,7 +172,7 @@ th {width:130px; text-align:left;}
 		<tr>
 			<th class="title">상품할인</th>
 			<td>
-				<input type="text" name="pi_dc" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="할인가를 입력해주세요." value="${pi.getPi_dc() }" />%
+				<input type="text" name="pi_dc" id="pi_dc_input" style="width:253px; padding:10px; margin-right:10px; border:1px solid #000;" placeholder="할인가를 입력해주세요." value="${pi.getPi_dc()}" />%
 			</td>
 		</tr>
 		<tr>
@@ -188,4 +194,14 @@ th {width:130px; text-align:left;}
 	</div>
 	</form>
 </div>
+<script>
+var inputValue = document.getElementById("pi_dc_input").value;
+
+//소수점 아래 .0 제거
+var result = parseFloat(inputValue).toString();
+
+//결과를 입력 필드에 설정
+document.getElementById("pi_dc_input").value = result;
+
+</script>
 <%@ include file="../inc/inc_foot.jsp" %>

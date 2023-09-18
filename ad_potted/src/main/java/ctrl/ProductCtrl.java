@@ -185,11 +185,9 @@ public class ProductCtrl {
 	public String productUp(Model model, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 
-		 String piid = request.getParameter("piid");
+		 	String piid = request.getParameter("piid");
 	        ProductInfo pi = productInSvc.getProductInfo(piid);
 	        List<ProductOptionStock> poList = productInSvc.getProductOptionInfo(piid);
-	        ArrayList<ProductCtgrBig> bigList = productInSvc.getBigList();
-	        ArrayList<ProductCtgrSmall> smallList = productInSvc.getSmallList();
 	        
 	        
 	        String pi_img1 = pi.getPi_img1();
@@ -209,23 +207,20 @@ public class ProductCtrl {
 	        Set<String> PosIds = new HashSet<>();
 	        for (ProductOptionStock po : poList) {
 	            PosIds.add(po.getPos_id());
-	        }
-	        
-
-	        request.setAttribute("bigList", bigList);
-	        request.setAttribute("smallList", smallList);
+	        }	   
 	        
 	        
 	        model.addAttribute("pi", pi);
+	        model.addAttribute("piid", piid);
 	        model.addAttribute("pi_img1", pi_img1);
-	        model.addAttribute("pcb_name", pcb_name);
-	        model.addAttribute("pcs_name", pcs_name);
 	        model.addAttribute("pi_img2", pi_img2);
 	        model.addAttribute("pi_img3", pi_img3);
 	        model.addAttribute("pcb_id", pcb_id);
 	        model.addAttribute("pcs_id", pcs_id);
 	        model.addAttribute("PobIds", PobIds);
 	        model.addAttribute("PosIds", PosIds);
+	        model.addAttribute("pcb_name", pcb_name);
+	        model.addAttribute("pcs_name", pcs_name);
 		
 		return "product/productUp";
 	}
@@ -235,9 +230,7 @@ public class ProductCtrl {
 	        @RequestPart("pi_img2") Part piImg2, @RequestPart("pi_img3") Part piImg3, @RequestPart("pi_desc") Part piDesc) throws Exception {
 				
 		ProductInfo pi = new ProductInfo();
-		
-		System.out.println("pob_ids :: " + request.getParameter("pob_ids"));
-		
+		ArrayList<ProductOptionStock> poList = new ArrayList<ProductOptionStock>();
 		
 		String pobIdsStr = request.getParameter("pob_ids");
 		String[] pobIdsSlashSplit = pobIdsStr.split("/");
@@ -245,18 +238,67 @@ public class ProductCtrl {
 		String posIdsStr = request.getParameter("pos_ids");
 		String[] posIdsSlashSplit = posIdsStr.split("/");
 		
+		pi.setPi_id(request.getParameter("pi_id"));
+		pi.setPi_name(request.getParameter("pi_name"));
+		pi.setPi_price(Integer.parseInt(request.getParameter("pi_price")));
+		pi.setPi_cost(Integer.parseInt(request.getParameter("pi_cost")));
+		pi.setPi_dc (Integer.parseInt(request.getParameter("pi_dc")));
+		pi.setPi_status(request.getParameter("pi_status"));
+/*		pi.setPi_img1(getUploadFileName(piImg1.getHeader("content-disposition")));			
+        pi.setPi_img2(getUploadFileName(piImg2.getHeader("content-disposition")));
+        pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));*/
+		pi.setPi_stock(Integer.parseInt(request.getParameter("pi_stock")));
+		pi.setPi_desc(getUploadFileName(piDesc.getHeader("content-disposition")));
+		pi.setAi_idx(1);
 		
-		if (piImg1 != null ) {
-			pi.setPi_img1(getUploadFileName(piImg1.getHeader("content-disposition")));			
+		System.out.println(request.getParameter("pi_img1"));
+		if (piImg1.getSize() == 0) {        
+			
+		    pi.setPi_img1(request.getParameter("pi_img1")); // 이미지를 선택하지 않은 경우 기존 값으로 설정
+		} else {
+		    pi.setPi_img1(getUploadFileName(piImg1.getHeader("content-disposition")));
+		}
+
+		if (piImg2.getSize() == 0) {        
+		    pi.setPi_img2(request.getParameter("pi_img2")); // 이미지를 선택하지 않은 경우 기존 값으로 설정
+		} else {
+		    pi.setPi_img2(getUploadFileName(piImg2.getHeader("content-disposition")));
+		}
+
+		if (piImg3.getSize() == 0) {        
+		    pi.setPi_img3(request.getParameter("pi_img3")); // 이미지를 선택하지 않은 경우 기존 값으로 설정
+		} else {
+		    pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));
 		}
 		
-		if (piImg2 != null) {
-	        pi.setPi_img2(getUploadFileName(piImg2.getHeader("content-disposition")));
-	    }
+		for (String pobIdsSegment : pobIdsSlashSplit) {		// 추가상품 선택 루프
+		    for (String posIdsSegment : posIdsSlashSplit) {	// 추가상품의 서브상품 루프
+				String[] posIds = posIdsSegment.split(",");
+				
+				if (posIds[0].equals(pobIdsSegment)) {
+				    ProductOptionStock po = new ProductOptionStock();
+				    
+				    po.setPob_id(pobIdsSegment);
+				 
+				    if (posIds.length >= 2) {				
+				    	po.setPos_id(posIds[2]);
+				    	po.setPos_price(Integer.parseInt(posIds[1]));
+				    } else {
+				    	po.setPos_id(request.getParameter("pos_ids"));
+				    }
+
+				    poList.add(po);
+				}
+			}
+		}
 		
-		if (piImg3 != null) {
-	        pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));
-	    }
+		int n = 0;
+		for (ProductOptionStock po : poList) {
+			n++;
+		}
+
+		
+		int result = productInSvc.productUpdate(pi, poList);
 		
 		return "redirect:/productList";
 	}
