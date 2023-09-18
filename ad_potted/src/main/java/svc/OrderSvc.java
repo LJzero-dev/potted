@@ -22,4 +22,14 @@ public class OrderSvc {
 		return result;
 	}
 
+	public OrderInfo getOrderInfo(String oiid) {
+		OrderInfo orderInfo = orderDao.getOrderInfo(oiid);
+		return orderInfo;
+	}
+
+	public int getOrderState(String oi_status, String oiid) {
+		int result = orderDao.getOrderStatus(oi_status, oiid);
+		return result;
+	}
+
 }
