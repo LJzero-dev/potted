@@ -244,29 +244,25 @@ public class ProductCtrl {
 		pi.setPi_cost(Integer.parseInt(request.getParameter("pi_cost")));
 		pi.setPi_dc (Integer.parseInt(request.getParameter("pi_dc")));
 		pi.setPi_status(request.getParameter("pi_status"));
-/*		pi.setPi_img1(getUploadFileName(piImg1.getHeader("content-disposition")));			
-        pi.setPi_img2(getUploadFileName(piImg2.getHeader("content-disposition")));
-        pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));*/
 		pi.setPi_stock(Integer.parseInt(request.getParameter("pi_stock")));
 		pi.setPi_desc(getUploadFileName(piDesc.getHeader("content-disposition")));
 		pi.setAi_idx(1);
 		
-		System.out.println(request.getParameter("pi_img1"));
-		if (piImg1.getSize() == 0) {        
-			
+		
+		if (piImg1.getSize() == 0) {        			
 		    pi.setPi_img1(request.getParameter("pi_img1")); // 이미지를 선택하지 않은 경우 기존 값으로 설정
 		} else {
 		    pi.setPi_img1(getUploadFileName(piImg1.getHeader("content-disposition")));
 		}
 
 		if (piImg2.getSize() == 0) {        
-		    pi.setPi_img2(request.getParameter("pi_img2")); // 이미지를 선택하지 않은 경우 기존 값으로 설정
+		    pi.setPi_img2(request.getParameter("pi_img2"));
 		} else {
 		    pi.setPi_img2(getUploadFileName(piImg2.getHeader("content-disposition")));
 		}
 
 		if (piImg3.getSize() == 0) {        
-		    pi.setPi_img3(request.getParameter("pi_img3")); // 이미지를 선택하지 않은 경우 기존 값으로 설정
+		    pi.setPi_img3(request.getParameter("pi_img3"));
 		} else {
 		    pi.setPi_img3(getUploadFileName(piImg3.getHeader("content-disposition")));
 		}
@@ -295,6 +291,7 @@ public class ProductCtrl {
 		int n = 0;
 		for (ProductOptionStock po : poList) {
 			n++;
+			System.out.println("po" + n + " : " + po.getPob_id() + "::" + po.getPos_id() + "::" + po.getPos_price());
 		}
 
 		

@@ -7,6 +7,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/addr_api.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/addr_api2.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <%
 request.setCharacterEncoding("utf-8");
 
@@ -28,7 +29,21 @@ function chAddr(val) {
 	frm.oi_addr1.value = arr[3];
 	frm.oi_addr2.value = arr[4];
 }
+    
 
+const userCode = "imp32400633";
+IMP.init(userCode);
+
+function requestPay() {
+  IMP.request_pay({
+    pg: "html5_inicis",
+    pay_method: "card",
+    merchant_uid: "test_lmq36j0n",
+    name: "테스트 결제",
+    amount: 100,
+    buyer_tel: "010-0000-0000",
+  });
+}
 
 </script>
 <div class="shop_content payment">
@@ -270,7 +285,7 @@ function chAddr(val) {
 				</c:choose> 
 				
 			</div>
-			<input type="submit" value="결제하기" class="paymentBtn">
+			<input type="button" value="결제하기" onclick="requestPay();" class="paymentBtn">
 	    </div>
 	</div>
 	</form>

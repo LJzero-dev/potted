@@ -61,8 +61,6 @@ public class ProductInDao {
 			
 			for (ProductOptionStock po : poList) {
 				
-				System.out.println("pob_id: " + po.getPob_id());
-				
 				int insertCount = jdbc.update(sql, po.getPos_id(), po.getPob_id(), piId, po.getPos_price());
 
 		        result += insertCount;
@@ -167,23 +165,32 @@ public class ProductInDao {
 
 
 	public int productUpdate(ProductInfo pi, ArrayList<ProductOptionStock> poList) {
+	    double dc = pi.getPi_dc() / 100.0;
+	    
 	    String sql = "update t_product_info set pi_name = ?, pi_price = ?, pi_cost = ?, pi_dc = ?, pi_status = ?, pi_img1 = ?, pi_img2 = ?, pi_img3 = ?, pi_desc = ?, pi_stock = ? where pi_id = ?";
 
-	    double dc = pi.getPi_dc() / 100.0;
-
 	    int result = jdbc.update(sql, pi.getPi_name(), pi.getPi_price(), pi.getPi_cost(), dc, pi.getPi_status(), pi.getPi_img1(), pi.getPi_img2(), pi.getPi_img3(), pi.getPi_desc(), pi.getPi_stock(), pi.getPi_id());
-
+	    
 	    if (result == 1) {
-	        sql = "update t_product_option_stock set pos_price = ? where pi_id = ? and pob_id = ?";
-
+	        sql = "insert into t_product_option_stock (pob_id, pos_id, pos_price, pi_id, pos_isview) values (?, ?, ?, ?, 'y')";
+	        
 	        for (ProductOptionStock po : poList) {
-	            int updateCount = jdbc.update(sql, po.getPos_price(), pi.getPi_id(), po.getPob_id());
-	            
-	            result += updateCount;
+	            // 체크하여 이미 있는 옵션이면 insert 하지 않음
+	        	if (!isProductOptionStockExists(po.getPob_id(), po.getPos_id(), pi.getPi_id())) {
+	        	    int updateCount = jdbc.update(sql, po.getPob_id(), po.getPos_id(), po.getPos_price(), pi.getPi_id());
+	        	    result += updateCount;
+	        	}
 	        }
 	    }
 
 	    return result;
+	}
+
+	// ProductOptionStock 테이블에 해당 옵션이 이미 존재하는지 확인하는 메서드
+	private boolean isProductOptionStockExists(String pob_id, String pos_id, String pi_id) {
+	    String sql = "select count(*) from t_product_option_stock where pob_id = ? and pos_id = ? and pi_id = ?";
+	    int count = jdbc.queryForObject(sql, Integer.class, pob_id, pos_id, pi_id);
+	    return count > 0;
 	}
 
 }
