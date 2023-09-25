@@ -31,7 +31,7 @@ function chAddr(val) {
 }
     
 
-const userCode = "imp32400633";
+/* const userCode = "imp32400633";
 IMP.init(userCode);
 
 function requestPay() {
@@ -43,7 +43,7 @@ function requestPay() {
     amount: 100,
     buyer_tel: "010-0000-0000",
   });
-}
+} */
 
 </script>
 <div class="shop_content payment">
@@ -285,7 +285,9 @@ function requestPay() {
 				</c:choose> 
 				
 			</div>
-			<input type="button" value="결제하기" onclick="requestPay();" class="paymentBtn">
+			<input type="submit" value="결제하기" class="paymentBtn">
+			<!-- <input type="button" value="결제하기" onclick="requestPay();" class="paymentBtn"> -->
+			
 	    </div>
 	</div>
 	</form>
