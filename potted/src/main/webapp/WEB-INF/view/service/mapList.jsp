@@ -24,7 +24,7 @@ ArrayList<GardenInfo> gardenList = (ArrayList<GardenInfo>)request.getAttribute("
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <h2 style="display:inline; margin-left:20px;">SERVICE</h2>
 <hr color="#1cad0a" style="border-width:1px; height:1px; border:0;" />
-&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;"><a href="noticeList">공지사항</a></h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;"><a href="qnaList">문의</a></h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;"><a href="mapList">맵</a></h3>
+&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;"><a href="noticeList">공지사항</a></h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 style="display:inline;"><a href="mapList">맵</a></h3>
 <br />
 <div id="app">
 <hr color="#1cad0a" style="border-width:1px; height:1px; border:0;" />
